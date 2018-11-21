@@ -1,0 +1,12 @@
+main {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.current-trips {
+  grid-column: 1;
+}
+
+.trip-details {
+  grid-column: 2;
+}

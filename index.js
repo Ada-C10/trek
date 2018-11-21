@@ -47,15 +47,15 @@ const tripDetails = (tripID) => {
       // console.log(tripURL);
       // console.log(response.data.name);
 
-      tripInfo.append(`<li>${response.data.id}</li>`);
 
-      tripInfo.append(`<li>${response.data.name}</li>`);
-      tripInfo.append(`<li>${response.data.continent}</li>`);
-      tripInfo.append(`<li>${response.data.about}</li>`);
-      tripInfo.append(`<li>${response.data.category}</li>`);
-      tripInfo.append(`<li>${response.data.weeks}</li>`);
-      tripInfo.append(`<li>${response.data.cost}</li>`);
 
+      tripInfo.append(`<li>Name: ${response.data.name}</li>`);
+      tripInfo.append(`<li>About: ${response.data.about}</li>`);
+      tripInfo.append(`<li>Continent: ${response.data.continent}</li>`);
+      tripInfo.append(`<li>Category: ${response.data.category}</li>`);
+      tripInfo.append(`<li>Weeks: ${response.data.weeks}</li>`);
+      tripInfo.append(`<li>Price: ${response.data.cost}</li>`);
+      tripInfo.append(`<li>Trip ID: ${response.data.id}</li>`);
 
 
       reportStatus(`Successfully Loaded Trip #${tripID}`);
