@@ -43,11 +43,18 @@ const tripDetails = (tripID) => {
     .then((response) => {
       $('.trip-details').show();
 
-      console.log(tripID);
-      console.log(tripURL);
-      console.log(response.data.name);
+      // console.log(tripID);
+      // console.log(tripURL);
+      // console.log(response.data.name);
 
       tripInfo.append(`<li>${response.data.id}</li>`);
+
+      tripInfo.append(`<li>${response.data.name}</li>`);
+      tripInfo.append(`<li>${response.data.continent}</li>`);
+      tripInfo.append(`<li>${response.data.about}</li>`);
+      tripInfo.append(`<li>${response.data.category}</li>`);
+      tripInfo.append(`<li>${response.data.weeks}</li>`);
+      tripInfo.append(`<li>${response.data.cost}</li>`);
 
 
 
@@ -69,7 +76,7 @@ $(document).ready(() => {
 
   $('#trip-list').on('click', 'li', function(event) {
     const tripID = $(this).data("id");
-    console.log(tripID);
+    // console.log(tripID);
     tripDetails(tripID);
    });
 
