@@ -19,7 +19,7 @@ const loadTrips = () => {
       <li>${response["continent"]}</li>
       <li>${response["category"]}</li>
       <li>${response["weeks"]}</li>
-      <li>${response["id"]}</li></div>`);
+      <li><button class=${response["weeks"]} btn btn-secondary>Trek here!</button></li></div>`);
     });
   })
   .catch((error) => {
@@ -27,7 +27,11 @@ const loadTrips = () => {
   });
 };
 
+// const loadTrips = () => {
+// }
+
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
+  // trip = $('#display').click(displayTrip);
 });
