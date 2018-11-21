@@ -18,28 +18,35 @@
       <button id="load">Get trips!</button>
       <ul id="trip-list"></ul>
     </section>
+    <section class="individual-trip">
+      <h1>Trip Details</h1>
+      <!-- <button id="load">Get trips!</button> -->
+      <ul id="trip-details"></ul>
+      <section class="reserve-trip">
+        <h1>Reserve trip</h1>
+        <form id="trip-form">
+          <div>
+            <label for="name">Full Name: </label>
+            <input type="text" name="name" />
+          </div>
 
-    <section class="new-trip">
-      <h1>Add a new trip</h1>
-      <form id="trip-form">
-        <div>
-          <label for="name">Name</label>
-          <input type="text" name="name" />
-        </div>
+          <div>
+            <label for="email">Email: </label>
+            <input type="text" name="email" />
+          </div>
 
-        <div>
-          <label for="age">Age</label>
-          <input type="number" name="age" />
-        </div>
+          <div>
+            <p class="trip-name">Trip Name: </p>
 
-        <div>
-          <label for="owner">Owner</label>
-          <input type="text" name="owner" />
-        </div>
+          </div>
 
-        <input type="submit" name="add-trip" value="Add Trip" />
-      </form>
+          <input type="submit" name="reserve-trip" value="Reserve Trip" />
+        </form>
+      </section>
     </section>
+
+
+
   </main>
 </body>
 </html>
