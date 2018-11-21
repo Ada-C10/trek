@@ -1,0 +1,41 @@
+.container {
+  display: grid;
+  grid-gap: 20px;
+  /* grid-template-columns: 2fr 2fr; */
+  grid-template-areas:
+    "header  header"
+    "content details"
+    "content details"
+    "content book"
+    "content book";
+  grid-template-rows: 1fr 2fr 2fr;
+}
+
+header {
+  background-color: grey;
+  grid-area: header;
+}
+.book {
+  background-color: lavender;
+  grid-area: book;
+}
+
+.content {
+  background-color: lavender;
+  grid-area: content;
+}
+
+.details {
+  background-color: lavender;
+  grid-area: details;
+}
+
+ul {
+  list-style: none;
+}
+
+#escape-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

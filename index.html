@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Trek Project</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+   integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+   crossorigin="anonymous">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Wreck</h1>
+      <section id="status-messages"><p>error</p></section>
+    </header>
+
+    <section class="content">
+      <button id="load" class="btn btn-primary">View Escape Options</button>
+      <ul id="escape-list"></ul>
+    </section>
+
+    <article class="details">
+      <h1>Name: xxxx </h1>
+      <ul class="detail-list"></ul>
+    </article>
+
+    <section class="book">
+      <h1>Book getaway: </h1>
+      <form id="form">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" name="name" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="text" name="email" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label for="escape">Escape: </label>
+          <input type="text" name="escape" class="form-control" />
+        </div>
+
+        <input type="submit" name="book-escape" value="Book Escape" class="btn btn-primary"/>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
