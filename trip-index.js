@@ -1,4 +1,4 @@
-const URL =  "https://trektravel.herokuapp.com/trips";
+const URL =  "https://trektravel.herokuapp.com/trips/";
 
 const reportStatus = (message) => {
     $('#status-message').html(message);
@@ -17,8 +17,8 @@ const reportAPIError = (message, errors) => {
 };
 
 const loadDetails = (id) => {
-    console.log(URL + "/" + id);
-    axios.get(URL + "/" + id)
+    console.log(URL + id);
+    axios.get(URL + id)
         .then((response) => {
             // reportStatus(`Successfully loaded ${response.data.length} trips`);
             console.log(response);
@@ -61,23 +61,71 @@ const loadTrips = () => {
             reportStatus(`Encountered an error while loading trips: ${error.message}`);
             console.log(error);
         });
-
-
 };
 
+const readFormData = () => {
+    // const parsedFormData = {};
+    const parsedFormData = $('#reservation-form').serialize();
+    console.log(parsedFormData);
 
+    return parsedFormData;
+};
+
+const clearForm = () => {
+    const inputs = ["name", "age", "email"];
+    for(let inp of inputs){
+        $(`#reservation-form input[name="${inp}"]`).val('');
+    }
+};
+
+const createRsv = (event) => {
+    // Note that createPet is a handler for a `submit`
+    // event, which means we need to call `preventDefault`
+    // to avoid a page reload
+    let tripRsvId = event.target.className;
+    event.preventDefault();
+
+    const rsvData = readFormData();
+    console.log(rsvData);
+
+    reportStatus('Sending reservation data...');
+    console.log(URL + tripRsvId + "/reservations");
+    axios.post(URL + tripRsvId + "/reservations", rsvData)
+        .then((response) => {
+            reportStatus(`Successfully added a reservation with ID ${response.data.id}!`);
+            // clearForm();
+        })
+        .catch((error) => {
+            console.log(error.response);
+            if (error.response.data && error.response.data.errors) {
+                reportAPIError(
+                    `Encountered an error: ${error.message}`,
+                    error.response.data.errors
+                );
+            } else {
+                reportStatus(`Encountered an error: ${error.message}`);
+            }
+        });
+};
 
 $(document).ready(() => {
-    $('.rsvp-form').hide();
+    $('.rsv-form').hide();
     $('#load').click(loadTrips);
-
 
     $('#trip-list').on('click', 'a', function(event){
         console.log(this.id);
         // event.preventDefault();
         loadDetails(this.id);
-        $('.rsvp-form').show();
-
-        // $("button").click(function(){
+        $('.rsv-form').show();
+        $("#reservation-form").addClass(`${this.id}`);
     });
+
+    $('#reservation-form').submit(createRsv);
+
+    $('.add-a-trip').on('click', () =>{
+        $('.trip-form').show();
+        addTrip();
+
+    })
+
 });

@@ -19,6 +19,10 @@
                 <ul id="trip-list"></ul>
             </section>
 
+            <div class="add">
+                <button class="add-a-trip">Add Your Own Trip</button>
+            </div>
+
             <section>
                 <h1>Trek Details</h1>
                 <article class="trip-details">
@@ -26,14 +30,17 @@
                 </article>
             </section>
 
-            <section class="rsvp-form">
+            <section class="rsv-form">
                 <h1>Reserve this Trip</h1>
                 <form id="reservation-form">
                     <div>
                         <label for="name">Name</label>
                         <input type="text" name="name" />
                     </div>
-
+                    <div>
+                        <label for="age">Age</label>
+                        <input type="number" name="age" />
+                    </div>
                     <div>
                         <label for="email">Email</label>
                         <input type="text" name="email" />
@@ -42,6 +49,43 @@
                     <input type="submit" name="add-reservation" value="Add Reservation" />
                 </form>
             </section>
+
+            <section class="trip-form">
+                <h1>Reserve this Trip</h1>
+                <form id="addTrip-form">
+                    <div>
+                        <label for="name">Name</label>
+                        <input type="text" name="name" />
+                    </div>
+                    <div>
+                        <label for="age">Age</label>
+                        <input type="number" name="age" />
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="text" name="email" />
+                    </div>
+
+                    <input type="submit" name="add-reservation" value="Add Reservation" />
+                </form>
+            </section>
+
+            <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn">Filter</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#home">All</a>
+                    <a href="#about">Category</a>
+                    <a href="#contact">Continent</a>
+                </div>
+            </div>
+
+            <div class="dropdown-rsv">
+                <button onclick="myFunction()" class="dropbtn">Show Current Reservations</button>
+                <div id="rsv-Dropdown" class="dropdown-content">
+                    <ul class="list-rsv"></ul>
+                </div>
+            </div>
+
         </main>
 
     </body>
