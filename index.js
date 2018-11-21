@@ -6,6 +6,7 @@ const reportStatus = (message) => {
 
 const loadTrips = () => {
 
+  $('.current-trips').show();
   reportStatus('Loading Trips...');
 
   const tripList = $('#trip-list');
@@ -14,7 +15,12 @@ const loadTrips = () => {
   axios.get(baseURL)
     .then((response) => {
       response.data.forEach((trip) => {
-        tripList.append(`<li>${trip.name}</li>`);
+        const tripName = $(`<li><button>${trip.name}</button></li>`);
+        tripName.data("id", trip.id);
+
+        tripName.addClass("trip-link");
+        console.log(tripName.data("id"));
+        tripList.append(tripName);
       });
       reportStatus(`Successfully loaded ${response.data.length} trips`);
     })
@@ -24,9 +30,54 @@ const loadTrips = () => {
     });
 };
 
+const tripDetails = (tripID) => {
+
+  reportStatus('Getting Trip Details...');
+
+  const tripInfo = $('#trip-info');
+  tripInfo.empty();
+
+  const tripURL = `${baseURL}/${tripID}`;
+
+  axios.get(tripURL)
+    .then((response) => {
+
+      console.log(tripID);
+      console.log(tripURL);
+      console.log(response.data.name);
+
+        tripInfo.append(`<li>${response.data.id}</li>`);
+
+
+
+      reportStatus(`Successfully Loaded Trip #${tripID}`);
+    })
+    .catch((error) => {
+      console.log(error);
+      reportStatus(`Encountered an error while loading trips: ${error.message}`);
+    });
+
+};
 
 $(document).ready(() => {
+  $('.current-trips').hide();
+  $('.trip-details').hide();
+
   $('#load').click(loadTrips);
-  // $('#pet-form').submit(createPet);
-  // loadPets();
+  // $('#load').click($(this).text(), tripDetails);
+
+  $('#trip-list').on('click', 'li', function(event) {
+    const tripID = $(this).data("id");
+    console.log(tripID);
+    tripDetails(tripID);
+   });
+
+
+  //
+  // $('.trip-link').click(function() {
+  //   const tripID = $(this).data("id");
+  //   console.log(tripID);
+  //   tripDetails(tripID);
+  // });
+
 });
