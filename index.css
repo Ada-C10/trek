@@ -1,0 +1,3 @@
+$('.list-trips').on('click', 'p', {
+  // loadTrip($(this)[0].id);
+  }
