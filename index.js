@@ -24,14 +24,14 @@ const reportError = (message, errors) => {
 const loadPets = () => {
   reportStatus('Loading trips...');
 
-  const petList = $('#pet-list');
-  petList.empty();
+  const tripList = $('#trip-list');
+  tripList.empty();
 
   axios.get(URL)
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} pets`);
       response.data.forEach((pet) => {
-        petList.append(`<li>${pet.name}</li>`);
+        tripList.append(`<li>${pet.name}</li>`);
       });
     })
     .catch((error) => {
