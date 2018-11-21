@@ -5,6 +5,10 @@ header {
   background-position: center;
 }
 
-li {
-  list-style: none;
+.list-group-item {
+  font-size: 2rem;
+}
+
+.card {
+  padding-left: 2rem;
 }
