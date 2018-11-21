@@ -31,11 +31,17 @@ const loadTrips = () => {
       });
     })
     .catch((error) => {
+      console.log(error.response);
+      if (error.response.data && error.response.data.errors) {
+        reportError(`Encountered an error: ${error.message}`, error.response.data.errors
+        );
+      } else {
       reportStatus(`Encountered an error while loading trips: ${error.message}`);
+      }
     });
 };
 
 $(document).ready(() => {
   $('#see-trips').click(loadTrips);
-  // $('#see-trips').click(loadTrips);
+  // $('#pet-form').submit(createPet);
 })
