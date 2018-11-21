@@ -12,9 +12,9 @@ const generateForm = (section) => {
 
   const form = $('#trip-form');
 
-  form.append('<div><label for="name">Name</label><input type="text" name="name"/></div>');
-  form.append('<div><label for="age">Age</label><input type="number" name="age"/></div>');
-  form.append('<div><label for="email">Email</label><input type="text" name="email"/></div>');
+  form.append('<label for="name">Name</label><input type="text" name="name"/>');
+  form.append('<label for="age">Age</label><input type="number" name="age"/>');
+  form.append('<label for="email">Email</label><input type="text" name="email"/>');
   form.append('<input type="submit" name="add-trip" value="Reserve" />');
 
 };
@@ -66,8 +66,6 @@ const loadTrips = () => {
 
             const form = $('#reserve-trip');
             generateForm(form);
-
-
           })
           .catch((error) => {
             reportStatus(error);
@@ -100,7 +98,6 @@ const loadTrips = () => {
               }
             });
         }
-
       };
 
       const showTrip = buildShowTrip(trip);
@@ -115,10 +112,6 @@ const loadTrips = () => {
   });
 };
 
-
-
-
 $(document).ready(() => {
   $('#load').click(loadTrips);
-
 });
