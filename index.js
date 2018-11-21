@@ -2,6 +2,7 @@
 // Optional Sorting All Trips
 // Search Queries
 // Create Trip
+
 const INDEX_URL = "https://trektravel.herokuapp.com/trips";
 
 const reportStatus = (message) => {
@@ -84,7 +85,7 @@ const createForm = (event) => {
 };
 
 const loadTrips = () => {
-  $('#query').addClass("hidden");
+  // $('#query').addClass("hidden");
   const tripList = $('#trips');
   tripList.empty();
   tripList.append('<h4>All Trips</h4>');
@@ -133,7 +134,7 @@ const loadTripDetails = (event) => {
 }
 
 $(document).ready(() => {
-  $('#load').click(loadTrips);
+  $('#load').on('click', loadTrips);
   $('#trips').on('click', loadTripDetails);
   $('#form').on('submit', createReservation);
   $('#search').on('click', (event) => {
