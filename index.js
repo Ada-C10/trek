@@ -50,9 +50,12 @@ const loadTrips = () => {
       console.log(error);
     });
 };
-// const showTrip = (trip.id)=>{
-//   $(`${trip.id}`).click(${trip.name});
-// }
+const showTrip = id => {
+  axios.get(URL + `${trip.id}`).then(response => {
+    console.log(`${trip.id}`);
+    response.data;
+  });
+};
 
 //
 // Creating Pets
@@ -60,22 +63,22 @@ const loadTrips = () => {
 const readFormData = () => {
   const parsedFormData = {};
 
-  const nameFromForm = $(`#pet-form input[name="name"]`).val();
+  const nameFromForm = $(`#trip-form input[name="name"]`).val();
   parsedFormData["name"] = nameFromForm ? nameFromForm : undefined;
 
-  const ageFromForm = $(`#pet-form input[name="age"]`).val();
-  parsedFormData["age"] = ageFromForm ? ageFromForm : undefined;
+  const emailFromForm = $(`#trip-form input[name="email"]`).val();
+  parsedFormData["email"] = emailFromForm ? emailFromForm : undefined;
 
-  const ownerFromForm = $(`#pet-form input[name="owner"]`).val();
-  parsedFormData["owner"] = ownerFromForm ? ownerFromForm : undefined;
+  const tripNameFromForm = $(`#trip-form input[name="trip-name"]`).val();
+  parsedFormData["trip-name"] = tripNameFromForm ? tripNameFromForm : undefined;
 
   return parsedFormData;
 };
 
 const clearForm = () => {
-  $(`#pet-form input[name="name"]`).val("");
-  $(`#pet-form input[name="email"]`).val("");
-  $(`#pet-form input[name="trip-name"]`).val("");
+  $(`#trip-form input[name="name"]`).val("");
+  $(`#trip-form input[name="email"]`).val("");
+  $(`#trip-form input[name="trip-name"]`).val("");
 };
 
 const reserveTrip = event => {
@@ -115,5 +118,7 @@ const reserveTrip = event => {
 $(document).ready(() => {
   $("#load").click(loadTrips);
   $("#trip-form").submit(reserveTrip);
-  // $("#trip-list").on("click","a", function()
+  $("#show-trip").on("click", "a", function() {
+    showTrip(this.id);
+  });
 });
