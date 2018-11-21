@@ -1,0 +1,42 @@
+html, body, .grid-container {
+  height: 100%; margin: 0;
+}
+/*to be commented out later*/
+.grid-container * {
+ border: 1px solid red;
+ position: relative;
+}
+/*to be commented out later*/
+/* .grid-container *:after {
+ content:attr(class);
+ position: absolute;
+ top: 0;
+ left: 0;
+} */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 0.1fr 2.3fr;
+  grid-template-rows: 0.6fr 1.2fr 1.2fr;
+  grid-template-areas: "title title title title" "trip-list trip-list trip-info trip-info" "trip-list trip-list trip-form trip-form";
+}
+
+.trip-list {
+  grid-area: trip-list;
+}
+
+.title {
+  grid-area: title;
+}
+
+.trip-info {
+  display: grid;
+  grid-template-columns: 0.1fr 3fr 0.1fr;
+  grid-template-rows: 0.1fr 2.4fr;
+  grid-template-areas: ". . ." ". . .";
+  grid-area: trip-info;
+}
+
+.trip-form {
+  grid-area: trip-form;
+}
