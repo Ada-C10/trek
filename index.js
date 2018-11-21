@@ -16,6 +16,11 @@ const reportError = (message, errors) => {
   reportStatus(content);
 };
 
+const clearForm = () => {
+  $(`#trip-form input[name="name"]`).val('');
+  $(`#trip-form input[name="email"]`).val('');
+}
+
 
 //  READY GO!
 $(document).ready(() => {
@@ -105,7 +110,7 @@ $(document).ready(() => {
     axios.post(`${allTripURL}/${id}/reservations`, tripData)
       .then((response) => {
         reportStatus(`Successfully added a request!`);
-        // clearForm();
+        clearForm();
       })
       .catch((error) => {
         console.log(error.response);
