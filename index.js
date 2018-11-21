@@ -59,9 +59,10 @@ const loadTrips = () => {
         else if (tripDiv.hasClass('detail'))  {
           // are you sure you want to do that
           //if yes then empty div
+          reportStatus("Can't do that with the trip on the page.");
         }
         else {
-          reportStatus('Use toggle to load trips!');
+          reportStatus('Use toggle button to load your next adventure!');
         }
       }
     })
