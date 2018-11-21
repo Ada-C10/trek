@@ -53,9 +53,25 @@ function getTripData(trip) {
     .get(URL)
     .then(response => {
       reportStatus(`Successfully loaded trip data`);
-      console.log("RESPONSE");
-      console.log(response);
+      // console.log("RESPONSE");
+      // console.log(response);
       // Create the object to append
+      const parsedTripData = {};
+      parsedTripData.id = response.data.id;
+      parsedTripData.name = response.data.name;
+      parsedTripData.continent = response.data.continent;
+      parsedTripData.details = response.data.about;
+      parsedTripData.category = response.data.category;
+      parsedTripData.weeks = response.data.weeks;
+      parsedTripData.cost = response.data.cost;
+
+      // Append to trip-details section
+      $("#trip-details").append("<h1>Details</h1>");
+      // For each in parsedTripData
+      for (let detail in parsedTripData) {
+        $("#trip-details").append(`<h2>${detail}</h2>`);
+        $("#trip-details").append(`<p>${parsedTripData[detail]}`);
+      }
       // response.data.forEach(pet => {
       //   petList.append(`<li>${pet.name}</li>`);
       // });
