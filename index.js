@@ -29,7 +29,11 @@ const loadTrips = () => {
       // .then runs if call succeeds
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach(trip => {
-        tripList.append(`<li class="trip">${trip.name}</li>`);
+        tripList.append(`<li class="trip", id=${trip.id}>${trip.name}</li>`);
+        // trip.click(function() {
+        //   // TODO Perform get request to get trip data
+        //   // TODO Append trip details to new section
+        // });
       });
     })
     // .catch is called on return value of .then()
@@ -38,17 +42,36 @@ const loadTrips = () => {
       reportStatus(`Encountered an error while loading pets: ${error.message}`);
     });
 };
-// Showing a trip details on homepage
-let showTrip = trip => {
-  // Show a trip via this?
-};
+
+// How do we get details of trip they click on?
+// We have a url for the get request but how do we use that/get the id?
+function getTripData(trip) {
+  // console.log(trip);
+  // console.log(trip.id);
+  let URL = `https://trektravel.herokuapp.com/trips/${trip.id}`;
+  axios
+    .get(URL)
+    .then(response => {
+      reportStatus(`Successfully loaded trip data`);
+      console.log("RESPONSE");
+      console.log(response);
+      // Create the object to append
+      // response.data.forEach(pet => {
+      //   petList.append(`<li>${pet.name}</li>`);
+      // });
+    })
+    .catch(error => {
+      reportStatus(`Encountered an error while loading trip: ${error.message}`);
+      console.log(error);
+    });
+}
 $(document).ready(() => {
-  $("#load").click(loadTrips());
-  // If a trip name is clicked, append a new section with trip details
-  $(".trip").click(function(event) {
-    // Append trip info
-    console.log(event);
-    // Make helper method to create a nice looking trip ordered list?
-    $("#trip-details").append("TEST");
+  $("#load").click(loadTrips);
+  $("#trip-list").on("click", "li", function(event) {
+    // Perform get request
+    getTripData(this);
+    // console.log(event);
+    // Get trip data with id via get request (store in another function and call here?)
+    // Show trip details in a new section
   });
 });
