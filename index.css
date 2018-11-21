@@ -11,3 +11,16 @@ h1 {
 .btn {
   border: 1px solid #286090;
 }
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#trip {
+  text-align: left;
+}
+
+#trip h4 {
+  text-align: center;
+}
