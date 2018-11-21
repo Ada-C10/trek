@@ -33,6 +33,12 @@ ul {
     background-repeat: no-repeat;
     color: white;
     text-shadow: black 0.5em 0.5em 0.5em;
+    padding: 6em;
+}
+
+.jumbotron h1 {
+  font-size: 8rem;
+  font-family: 'Permanent Marker', cursive;
 }
 
 .right {

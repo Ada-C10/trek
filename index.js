@@ -2,7 +2,6 @@
 // Optional Sorting All Trips
 // Search Queries
 // Create Trip
-
 const INDEX_URL = "https://trektravel.herokuapp.com/trips";
 
 const reportStatus = (message) => {
