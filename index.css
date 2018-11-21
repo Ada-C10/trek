@@ -2,18 +2,7 @@ html, body {
   height: 100%; margin: 0;
 }
 
-*,*:before,*:after{
-box-sizing:border-box;
-margin:0;
-padding:0;
-/*transition*/
--webkit-transition:.25s ease-in-out;
-   -moz-transition:.25s ease-in-out;
-     -o-transition:.25s ease-in-out;
-        transition:.25s ease-in-out;
-outline:none;
-font-family:Helvetica Neue,helvetica,arial,verdana,sans-serif;
-}
+
 
 body{
 background:#f1f1f1;
@@ -38,7 +27,7 @@ ul {
   flex-direction: column;
 } */
 
-.main #trip-list {
+.main #trip.list {
   display: flex;
   /* justify-content: space-between;
   justify-content: space-around; */
@@ -46,7 +35,7 @@ ul {
 
 }
 
-.main #trip-list div {
+.main #trip.list div {
   /* justify-content: space-between;
     justify-content: space-around; */
     padding: 2rem;
@@ -74,18 +63,7 @@ max-width: 15rem;
 
 .footer { grid-area: footer; }
 /* Check Box */
-*,*:before,*:after{
-box-sizing:border-box;
-margin:0;
-padding:0;
-/*transition*/
--webkit-transition:.25s ease-in-out;
-   -moz-transition:.25s ease-in-out;
-     -o-transition:.25s ease-in-out;
-        transition:.25s ease-in-out;
-outline:none;
-font-family:Helvetica Neue,helvetica,arial,verdana,sans-serif;
-}
+
 
 
 /* Checkbox*/

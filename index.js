@@ -1,14 +1,19 @@
 const base_URL = "https://trektravel.herokuapp.com/trips";
 
 const reportStatus = (message) => {
-  $('#status-message').html(message);
+  const statusDiv = $('#status-message')
+  statusDiv.empty();
+  statusDiv.html(message);
 };
 
 
 const loadTrips = () => {
 
-  const tripList = $('#trip-list');
+  const tripList = $('#trip');
   tripList.empty();
+  tripList.removeClass();
+  tripList.addClass('list')
+
 
   axios.get(base_URL)
   .then( (response) => {
@@ -45,8 +50,19 @@ const loadTrips = () => {
         loadTrips();
       }
       else {
-        $('#trip-list').empty();
-        $('#status-message').empty();
+        const tripDiv =  $('#trip')
+        if (tripDiv.hasClass('list')) {
+          tripDiv.empty();
+          reportStatus('Load trips!');
+
+        }
+        else if (tripDiv.hasClass('detail'))  {
+          // are you sure you want to do that
+          //if yes then empty div
+        }
+        else {
+          reportStatus('Use toggle to load trips!');
+        }
       }
     })
 
