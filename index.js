@@ -21,6 +21,7 @@ const loadTrips = () => {
 
       response.data.forEach((trip) => {
         tripList.append(`<li>${trip.name}</li>`);
+        tripList.append(createButton())
       });
     })
     .catch((error) => {
@@ -28,6 +29,17 @@ const loadTrips = () => {
       console.log(error);
     });
 };
+
+function createButton() {
+  const $button = $('<button/>', {
+    text: 'See Trip Details',
+    id: 'details-btn',
+  }).click(ClickDetails);
+  return $button
+}
+function ClickDetails() {
+  alert('something happened');
+}
 
 // const createTrip = () => {
 //
