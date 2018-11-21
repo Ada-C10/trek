@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Trek with axios</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <section id="status-message"></section>
+
+  <main>
+    <section class="current-treks">
+      <h1>Treks</h1>
+      <button id="load">Get treks!</button>
+      <ul id="trek-list"></ul>
+    </section>
+
+    <section class="new-trek">
+      <h1>Add a new trek</h1>
+      <form id="trek-form">
+        <div>
+          <label for="name">Trek  name</label>
+          <input type="text" name="name" />
+        </div>
+
+        <div>
+          <label for="continent">Continent</label>
+          <input type="text" name="continent" />
+        </div>
+
+        <div>
+          <label for="details">Details</label>
+          <input type="text" name="details" />
+        </div>
+
+        <div>
+          <label for="category">Category</label>
+          <input type="text" name="category" />
+        </div>
+
+        <div>
+          <label for="duration">Duration</label>
+          <input type="number" name="duration" />
+        </div>
+
+        <div>
+          <label for="cost">Cost</label>
+          <input type="number" name="category" />
+        </div>
+
+        <input type="submit" name="add-trek" value="Add Trek" />
+      </form>
+    </section>
+  </main>
+</body>
+</html>
