@@ -30,6 +30,8 @@ const viewTrip = function viewTrip(tripID){
   let tripInfo = $('#tripInfo')
   tripInfo.empty();
 
+  $('#reserveTrip').show();
+
   axios.get(tripDetailURL)
     .then((response) => {
       let name = response.data.name;
@@ -56,5 +58,7 @@ $(document).ready(() => {
     // event.target.id retrieves the id from the element that is clicked
     viewTrip(event.target.id);
   })
+
+  $('#reserveTrip').hide();
 
 });
