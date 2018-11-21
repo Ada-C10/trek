@@ -35,7 +35,10 @@ const tripDetails = (tripID) => {
   reportStatus('Getting Trip Details...');
 
   const tripInfo = $('#trip-info');
+  const tripRes = $('#trip-for-reservation');
+
   tripInfo.empty();
+  tripRes.empty();
 
   const tripURL = `${baseURL}/${tripID}`;
 
@@ -50,6 +53,7 @@ const tripDetails = (tripID) => {
       tripInfo.append(`<li>Weeks: ${response.data.weeks}</li>`);
       tripInfo.append(`<li>Price: ${response.data.cost}</li>`);
       tripInfo.append(`<li>Trip ID: ${response.data.id}</li>`);
+
 
       reportStatus(`Successfully Loaded Trip #${tripID}`);
     })
@@ -111,7 +115,7 @@ const readFormData = () => {
 //     reportStatus(`Encountered an error: ${error.message}`);
 //   }
 // });
-// };
+};
 
 
 
