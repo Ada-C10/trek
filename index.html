@@ -17,7 +17,7 @@
   <main class="container">
     <header>
       <h1>Wreck</h1>
-      <section id="status-messages"><p>error</p></section>
+      <section id="status-message"></section>
     </header>
 
     <section class="content">
@@ -37,7 +37,7 @@
 
     <section class="book">
       <h1>Book getaway: </h1>
-      <form id="form">
+      <form id="escape-form">
         <div class="form-group">
           <label for="name">Name:</label>
           <input type="text" name="name" class="form-control"/>
@@ -52,6 +52,8 @@
           <label for="escape">Escape: </label>
           <input type="text" name="escape" class="form-control" />
         </div>
+
+        <input type="hidden" name="id" value="">
 
         <input type="submit" name="book-escape" value="Book Escape" class="btn btn-primary"/>
       </form>
