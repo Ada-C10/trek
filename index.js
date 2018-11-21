@@ -19,7 +19,6 @@ const loadTrips = () => {
         tripName.data("id", trip.id);
 
         tripName.addClass("trip-link");
-        console.log(tripName.data("id"));
         tripList.append(tripName);
       });
       reportStatus(`Successfully loaded ${response.data.length} trips`);
@@ -65,61 +64,41 @@ const tripDetails = (tripID) => {
 };
 
 const readFormData = () => {
+  const parsedFormData = {};
 
+  const nameFromForm = $(`#reservation-form input[name="name"]`).val();
+  console.log(nameFromForm);
+  parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
 
-//   const inputs = ["name", "age", "owner"]
-//
-//   const formData = {};
-//
-//   inputs.forEach(input) => {
-//     const data = $(`#pet-form input[name="${input}"]`).val();
-//     formData[input] = data ? data : undefined;
-//   }
-//
-//   const name = $('#pet-form input[name="name"]').val();
-//   const age = $('#pet-form input[name="age"]').val();
-//   const owner = $('#pet-form input[name="owner"]').val();
-//
-//
-//
-//   return {
-//     name: name,
-//     age: age,
-//     owner: owner
-//   }
-//
-// };
-//
-// const createPet = (event) => {
-//   event.preventDefault();
-//   reportStatus("submitting new pet");
-//
-//   const petData = readFormData();
-//
-//   axios.post(URL, petData)
-//     .then((response) => {
-//       reportStatus('Successfully added a pet!');
-//     })
-//     .catch((error) => {
-//   console.log(error.response);
-//   // Make sure the server actually sent us errors. If
-//   // there's a different problem, like a typo in the URL
-//   // or a network error, the response won't be filled in.
-//   if (error.response.data && error.response.data.errors) {
-//     // User our new helper method
-//     reportError(
-//       `Encountered an error: ${error.message}`,
-//       error.response.data.errors
-//     );
-//   } else {
-//     // This is what we had before
-//     reportStatus(`Encountered an error: ${error.message}`);
-//   }
-// });
+  const ageFromForm = $(`#reservation-form input[name="age"]`).val();
+  parsedFormData['age'] = ageFromForm ? ageFromForm : undefined;
+
+  const ownerFromForm = $(`#reservation-form input[name="email"]`).val();
+  parsedFormData['email'] = ownerFromForm ? ownerFromForm : undefined;
+
+  return parsedFormData;
 };
 
+const createReservation = (event) => {
+  event.preventDefault();
 
+  reportStatus("Requesting Reservation");
 
+  const tripData = readFormData();
+  const tripID = $(`#reservation-form input[name="id"]`).val();
+
+  console.log(tripData);
+
+  axios.post(baseURL + `/${tripID}/reservations`, tripData)
+    .then((response) => {
+      reportStatus('Successfully Reserved Trip!');
+
+    })
+    .catch((error) => {
+      console.log(error.response.data.errors);
+      reportStatus(`Encountered an error: \n email: ${error.response.data.errors.email} \n name: ${error.response.data.errors.name}`);
+    })
+};
 
 
 $(document).ready(() => {
@@ -134,4 +113,6 @@ $(document).ready(() => {
     // console.log(tripID);
     tripDetails(tripID);
    });
+
+  $('#reservation-form').submit(createReservation);
 });
