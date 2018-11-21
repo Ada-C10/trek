@@ -1,7 +1,6 @@
 const allTripURL = "https://trektravel.herokuapp.com/trips"
 
 // Status Management
-//
 const reportStatus = (message) => {
   $('#status-message').html(message);
 };
@@ -20,7 +19,7 @@ const reportError = (message, errors) => {
 
 //  READY GO!
 $(document).ready(() => {
-
+// ALL TRIPS
   const loadTrips = () => {
     reportStatus('Loading trips...');
 
@@ -45,6 +44,7 @@ $(document).ready(() => {
       reportStatus('Loading trip...');
 
       const tripDetails = $('.trip-details');
+      const reservationForm = $('.trip-reservation');
       tripDetails.empty();
      // trip id attached as class to look up individual trips?
       axios.get(`${allTripURL}/${id}`)
@@ -56,17 +56,70 @@ $(document).ready(() => {
                           <p>About: ${response.data.about}</p>
                           <p>Category: ${response.data.category}</p>
                           <p>Weeks: ${response.data.weeks}</p>
-                          <p>Cost: ${response.data.cost}</p>`)
+                          <p>Cost: $${response.data.cost}</p>`)
+          let reservation = $(`<h3>Request this Trip</h3>
+                              <form id="trip-form">
+                                <div>
+                                  <label for="name">Name</label>
+                                  <input type="text" name="name" />
+                                </div>
 
+                                <div>
+                                  <label for="email">Email</label>
+                                  <input type="text" name="email" />
+                                </div>
+
+                                <input type="submit" name="add-reservation" value="Add Reservation" />
+                              </form>`)
         tripDetails.append(details);
-            // tripList.append(`<href class="${trip.id}">${trip.name}</p>`);
-
+        reservationForm.append(reservation);
         })
         .catch((error) => {
           reportStatus(`Encountered an error while loading trips: ${error.message}`);
           console.log(error);
         });
     };
+
+    // TRIP REQUEST
+    const readFormData = () => {
+      const parsedFormData = {};
+
+      const nameFromForm = $(`#trip-form input[name="name"]`).val();
+      parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+
+      const emailFromForm = $(`#trip-form input[name="email"]`).val();
+      parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
+
+      return parsedFormData;
+    };
+
+
+    const createTrip = (event) => {
+
+      event.preventDefault();
+
+      const tripData = readFormData();
+      console.log(tripData);
+
+      reportStatus('Sending trip data...');
+
+      axios.post(URL, petData)
+        .then((response) => {
+          reportStatus(`Successfully added a request!`);
+          clearForm();
+        })
+        .catch((error) => {
+          console.log(error.response);
+          if (error.response.data && error.response.data.errors) {
+            reportError(
+              `Encountered an error: ${error.message}`,
+              error.response.data.errors
+            );
+          } else {
+            reportStatus(`Encountered an error: ${error.message}`);
+          }
+        });
+  };
 
 
   // all trips button
@@ -77,5 +130,5 @@ $(document).ready(() => {
     loadTrip(id);
   });
 
-  // $('#pet-form').submit(createPet);
+  $('#trip-form').submit(createTrip);
 });
