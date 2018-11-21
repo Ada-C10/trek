@@ -24,16 +24,37 @@ const loadTrips = () => {
   })
 }
 
+const viewTrip = function viewTrip(tripID){
+  reportStatus("loading trip details...");
+  let tripDetailURL = `${URL}/${tripID}`;
+  let tripInfo = $('#tripInfo')
+  tripInfo.empty();
+
+  axios.get(tripDetailURL)
+    .then((response) => {
+      let name = response.data.name;
+      let continent = response.data.continent;
+      let category = response.data.category;
+      let weeks = response.data.weeks;
+      let cost = response.data.cost;
+      let about = response.data.about;
+
+      tripInfo.append(`<h3>Name: ${name}</h3>`);
+      tripInfo.append(`<h3>Continent: ${continent}</h3>`);
+      tripInfo.append(`<h3>Category: ${category}</h3>`);
+      tripInfo.append(`<h3>Weeks: ${weeks}</h3>`);
+      tripInfo.append(`<h3>Cost: $${cost}</h3>`);
+      tripInfo.append(`<p>About: ${about}</p>`);
+      })
+}
 
 $(document).ready(() => {
 
   $('#trips').click(loadTrips);
 
   $('#tripList').on('click', 'li', function(event){
-    alert("Each trip tagged with .tripItem");
-    console.log(event.target.id);
-    
-
+    // event.target.id retrieves the id from the element that is clicked
+    viewTrip(event.target.id);
   })
 
 });

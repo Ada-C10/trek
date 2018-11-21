@@ -5,7 +5,9 @@ main{
 
 #leftContainer{
   background-color: lightblue;
+  width: 50%;
 }
 #rightContainer{
   background-color: lightgreen;
+  width: 50%;
 }
