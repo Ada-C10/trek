@@ -13,6 +13,10 @@
       <h1 class="col-xs-auto" id="trek">trek</h1>
     </header>
 
+    <section class="row">
+      <button id="load" class="btn btn-primary mb-3">See all trips</button>
+    </section>
+
     <aside class="row">
       <section id="status-message" role="alert"></section>
     </aside>
@@ -21,7 +25,6 @@
       <section class="trips-list col-6 card">
         <div class="card-body">
           <h2 class="card-title">All Trips</h2>
-          <button id="load" class="btn btn-primary mb-3">See all trips</button>
           <ul id="trip-list" class="card-text"></ul>
         </div>
       </section>
@@ -29,7 +32,7 @@
       <section class="col-6">
         <section class="trip-details card mb-3">
           <div class="card-body">
-            <h2 class="card-title">Trip Details</h2>
+            <h2 id="trip-header" class="card-title">Trip Details</h2>
             <ul id="trip-detail" class="card-text"></ul>
           </div>
         </section>

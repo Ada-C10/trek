@@ -2,6 +2,7 @@ const URL = 'https://trektravel.herokuapp.com/trips/';
 
 const inputs = ['name', 'email', 'trip', 'id'];
 
+const tripsList = $('section.trips-list');
 const tripDetails = $('section.trip-details');
 const reserveTrip = $('section.reserve-trip');
 const alert = $('#status-message');
@@ -15,11 +16,12 @@ const loadTrips = () => {
   const tripList = $('#trip-list');
   tripList.empty();
 
-  reportStatus('Loading trips...');
+  reportStatus('Loading trips...', 'warning');
 
   axios.get(URL)
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} trips`, 'success');
+      tripsList.show();
       response.data.forEach((trip) => {
         tripList.append(`<li><a href="#" data-trip-id="${trip.id}">${trip.name}</a></li>`);
       });
@@ -48,8 +50,12 @@ const loadDetail = (event) => {
       for (let info of tripInfo) {
         let currentData = response.data[info]
         currentData = (info === 'cost') ? `$${currentData.toFixed(2)}` : currentData;
-
-        tripDetail.append(`<li><span class="info-label">${info}</span>: ${currentData}</li>`);
+        if (info === 'name') {
+          $('#trip-header').html(currentData);
+        } else {
+          const listElement = $(`<li><span class="info-label">${info}</span>: ${currentData}</li>`);
+          tripDetail.append(listElement);
+        }
       }
       tripDetails.show();
 
@@ -113,6 +119,7 @@ const createReservation = (event) => {
 // ON LOAD...
 
 $(document).ready(() => {
+  tripsList.hide();
   tripDetails.hide();
   reserveTrip.hide();
 
