@@ -4,7 +4,7 @@ const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
-const generateForm = (section, trip) => {
+const generateForm = (section) => {
   section.empty();
   section.append('<h1> Reserve a Trip </h1>');
 
@@ -12,10 +12,9 @@ const generateForm = (section, trip) => {
 
   const form = $('#trip-form');
 
-  form.append('<label for="name">Name</label><input type="text" name="name"/>');
-  form.append('<label for="age">Age</label><input type="number" name="age"/>');
-  form.append('<label for="email">Email</label><input type="text" name="email"/>');
-  form.append(`<input type="hidden" id="trip_id" name="trip_id" value="${trip.id}">`);
+  form.append('<div><label for="name">Name</label><input type="text" name="name"/></div>');
+  form.append('<div><label for="age">Age</label><input type="number" name="age"/></div>');
+  form.append('<div><label for="email">Email</label><input type="text" name="email"/></div>');
   form.append('<input type="submit" name="add-trip" value="Reserve" />');
 
 };
@@ -66,7 +65,7 @@ const loadTrips = () => {
 
 
             const form = $('#reserve-trip');
-            generateForm(form, trip);
+            generateForm(form);
 
 
           })
@@ -76,11 +75,38 @@ const loadTrips = () => {
         }
       };
 
+      const buildCreateReservation = (trip) => {
+        return () => {
 
+
+          const data = {
+            'name': $('input[name="name"]').val(),
+            'age': $('input[name="age"]').val(),
+            'email': $('input[name="email"]').val(),
+          }
+
+          axios.post(URL + `/${trip.id}/reservations`, data)
+            .then((response) => {
+              reportStatus(`Successfully added trip reservation with name: ${response.data.name}`);
+            })
+            .catch((error) => {
+              if (error.response.data && error.response.data.errors) {
+                reportError(
+                  `Encountered an error: ${error.message}`,
+                  error.response.data.errors
+                );
+              } else {
+                reportStatus(`Encountered an error: ${error.message}`);
+              }
+            });
+        }
+
+      };
 
       const showTrip = buildShowTrip(trip);
-
+      const createReservation = buildCreateReservation(trip);
       $('li:last').click(showTrip);
+      $('#trip-form').submit(createReservation);
     });
 
   })
@@ -89,36 +115,10 @@ const loadTrips = () => {
   });
 };
 
-const createReservation = () => {
 
-  const data = {
-    'name': $('input[name="name"]').val(),
-    'age': $('input[name="age"]').val(),
-    'email': $('input[name="email"]').val(),
-  };
-
-  const id = $('input[name="trip_id"]').val();
-
-  axios.post(URL + `/${id}/reservations`, data)
-  .then((response) => {
-    reportStatus(`Successfully added trip reservation with name: ${response.data.name}`);
-  })
-  .catch((error) => {
-    if (error.response.data && error.response.data.errors) {
-      reportError(
-        `Encountered an error: ${error.message}`,
-        error.response.data.errors
-      );
-    } else {
-      reportStatus(`Encountered an error: ${error.message}`);
-    }
-  });
-
-
-};
 
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
-  $('#trip-form').submit(createReservation);
+
 });
