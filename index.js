@@ -31,9 +31,10 @@ const loadTrips = () => {
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} pets`);
       response.data.forEach((trip) => {
-        tripList.append(`<div><button class="trip">${trip.name}</button></div>`);
-        $('.trip').click(loadTrip)
+        tripList.append(`<div><button class="trip-${trip.id}">${trip.name}</button></div>`);
       });
+      $('.trip-1').click(loadTrip) // must go here so the forEach doesn't execute everytime it is added
+
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading pets: ${error.message}`);
@@ -41,28 +42,26 @@ const loadTrips = () => {
     });
 };
 
-//
-// Creating Pets
-//
 
 const loadTrip = () => {
-  const trip = $('#trip');
+  const trip = $('.trip-1');
   trip.empty();
-
+  trip.append(`<h2> Trip details </h2>`)
   axios.get(URL + "/1")
     .then((response) => {
-      let id = response.data.id
-      let tripName = response.data.name
-      let continent = response.data.continent
-      let details = response.data.about
-      let category = response.data.category
-      let duration = response.data.weeks
-      let cost = response.data.cost
+        let data = {}
+          data["id"] = response.data.id
+          data["name"] = response.data.name
+          data["continent"] = response.data.continent
+          data["details"] = response.data.about
+          data["category"] = response.data.category
+          data["duration"] = response.data.weeks
+          data["cost"] = response.data.cost
 
-      // response.data.forEach((id) => {
-      //   console.log(id)
-      //   //trip.append(`<ls>${point.name}</ls>`);
-      // });
+        Object.keys(data).forEach(function(key) {
+          //console.log(`<ls>${key} : ${data[key]}</ls`)
+            trip.append(`<ls>${key} : ${data[key]}</ls`);
+        });
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trip: ${error.message}`);
