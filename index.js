@@ -76,8 +76,8 @@ const loadTrips = () => {
       };
 
       const buildCreateReservation = (trip) => {
-        return () => {
-
+        return (e) => {
+          e.preventDefault();
 
           const data = {
             'name': $('input[name="name"]').val(),
@@ -106,7 +106,7 @@ const loadTrips = () => {
       const showTrip = buildShowTrip(trip);
       const createReservation = buildCreateReservation(trip);
       $('li:last').click(showTrip);
-      $('#trip-form').submit(createReservation);
+      $('#reserve-trip').on('submit', '#trip-form', createReservation);
     });
 
   })
