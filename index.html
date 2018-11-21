@@ -14,15 +14,45 @@
       <div class="jumbotron">
         <h1 class="text-center display-4">Trek</h1>
       </div>
-      <div>
+      <nav>
         <button id="load" class="btn btn-primary">Get trips!</button>
         <button id="build" class="btn btn-primary">Create trip!</button>
-      </div>
+        <button id="search" class="btn btn-primary">Search</button>
+      </nav>
     </header>
 
     <main>
       <div class="container">
         <div class="row">
+          <section class="col-md-12 hidden" id="query">
+            <form>
+              <div class="form-group row justify-content-center">
+                <label for="continent" class="col-sm-2 col-form-label">Continent</label>
+                <div class="col-sm-7">
+                  <input type="continent" class="form-control" id="continent">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-2 .offset-md-3">
+                  <label for="max-weeks" class="col-form-label">Max Number of Weeks</label>
+                </div>
+                <div class="col-sm-7">
+                  <input type="max-weeks" class="form-control" id="max-weeks">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="budget" class="col-sm-2 col-form-label">Budget</label>
+                <div class="col-sm-7">
+                  <input type="budget" class="form-control" id="budget">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+              </div>
+            </form>
+          </section>
           <section class="col-md-6" id="trips">
           </section>
           <section class="col-md-6">

@@ -3,8 +3,13 @@
   text-align: center;
 }
 
+.hidden {
+  display: none;
+}
+
 .btn {
   border: 1px solid #286090;
+  margin-bottom: 3rem;
 }
 
 ul {

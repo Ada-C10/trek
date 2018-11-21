@@ -84,6 +84,7 @@ const createForm = (event) => {
 };
 
 const loadTrips = () => {
+  $('#query').addClass("hidden");
   const tripList = $('#trips');
   tripList.empty();
   tripList.append('<h4>All Trips</h4>');
@@ -135,4 +136,8 @@ $(document).ready(() => {
   $('#load').click(loadTrips);
   $('#trips').on('click', loadTripDetails);
   $('#form').on('submit', createReservation);
+  $('#search').on('click', (event) => {
+    event.preventDefault();
+    $('#query').removeClass("hidden");
+  })
 });
