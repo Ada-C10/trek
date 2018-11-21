@@ -13,11 +13,8 @@ const loadTrips = () => {
 
   axios.get(URL)
   .then((response) => {
-    // console.log("In the axios.get => .then method");
     response.data.forEach((trip) => {
-      // console.log(trip.name);
-      // tripList.append(`<li>${trip.name}</li>`);
-      tripList.append(`<li><a href="#">${trip.name}</a></li>`);
+      tripList.append(`<li id="${trip.id}">${trip.name}</li>`);
 
     })
   })
@@ -28,15 +25,15 @@ const loadTrips = () => {
 }
 
 
-
-
-
 $(document).ready(() => {
-  alert("jQuery Works");
-
-  $('#trips').click(function(){
-    alert("See All Trips Button Works")
-  });
 
   $('#trips').click(loadTrips);
+
+  $('#tripList').on('click', 'li', function(event){
+    alert("Each trip tagged with .tripItem");
+    console.log(event.target.id);
+    
+
+  })
+
 });
