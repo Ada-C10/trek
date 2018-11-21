@@ -9,13 +9,16 @@ const loadTrips = () => {
 
   const tripList = $('#tripList');
   tripList.empty();
+  tripList.append('<h2>All Trips</h2>');
 
   axios.get(URL)
   .then((response) => {
     // console.log("In the axios.get => .then method");
     response.data.forEach((trip) => {
       // console.log(trip.name);
-      tripList.append(`<li>${trip.name}</li>`);
+      // tripList.append(`<li>${trip.name}</li>`);
+      tripList.append(`<li><a href="#">${trip.name}</a></li>`);
+
     })
   })
 

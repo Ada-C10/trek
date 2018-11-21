@@ -1,0 +1,11 @@
+main{
+  display: flex;
+  flex-direction: row;
+}
+
+#leftContainer{
+  background-color: lightblue;
+}
+#rightContainer{
+  background-color: lightgreen;
+}
