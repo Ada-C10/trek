@@ -74,7 +74,7 @@ $(document).ready(() => {
                                 <input type="text" name="email" />
                               </div>
 
-                              <input type="submit" name="add-reservation" value="Add Reservation" />
+                              <input type="submit" class="btn btn-primary" name="add-reservation" value="Add Reservation" />
                             </form>`)
       tripDetails.append(details);
       reservationForm.append(reservation);
