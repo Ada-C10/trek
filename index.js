@@ -41,12 +41,13 @@ const tripDetails = (tripID) => {
 
   axios.get(tripURL)
     .then((response) => {
+      $('.trip-details').show();
 
       console.log(tripID);
       console.log(tripURL);
       console.log(response.data.name);
 
-        tripInfo.append(`<li>${response.data.id}</li>`);
+      tripInfo.append(`<li>${response.data.id}</li>`);
 
 
 
