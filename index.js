@@ -15,23 +15,38 @@ const loadTrips = () => {
     reportStatus(`Successfully loaded ${response.data.length} trips.`);
     console.log(response)
     response.data.forEach( (response) => {
-      tripList.append(`<div><li>${response["name"]}</li>
-      <li>${response["continent"]}</li>
-      <li>${response["category"]}</li>
-      <li>${response["weeks"]}</li>
-      <li><button class=${response["weeks"]} btn btn-secondary>Trek here!</button></li></div>`);
+
+      let continental = ""
+
+      if (response["continent"] === "Europe") {
+        continental = response["continent"] + "an";
+      }
+      else {
+        continental = response["continent"] + "n";
+      }
+
+      tripList.append(`<div><strong><li>${continental} Adventure</li></strong>
+        <li>${response["name"]}</li>
+        <li>${response["weeks"]} Weeks</li>
+        <li><button class=${response["id"]} btn btn-secondary>Trek here!</button></li></div>`);
+      });
+    })
+    .catch((error) => {
+      reportStatus(`Encountered an error while loading pets: ${error.message}`);
     });
-  })
-  .catch((error) => {
-    reportStatus(`Encountered an error while loading pets: ${error.message}`);
+  };
+
+
+  $(document).ready(() => {
+
+    $('.toggle').on('change', (event) => {
+
+      if (event.target.checked){
+        loadTrips();
+      }
+      else {
+        $('#trip-list').empty();
+      }
+    })
+
   });
-};
-
-// const loadTrips = () => {
-// }
-
-
-$(document).ready(() => {
-  $('#load').click(loadTrips);
-  // trip = $('#display').click(displayTrip);
-});
