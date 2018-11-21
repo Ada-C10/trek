@@ -21,7 +21,7 @@ const reportError = (message, errors) => {
 //
 // Loading Pets
 //
-const loadPets = () => {
+const loadTrips = () => {
   reportStatus('Loading trips...');
 
   const tripList = $('#trip-list');
@@ -30,8 +30,9 @@ const loadPets = () => {
   axios.get(URL)
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} pets`);
-      response.data.forEach((pet) => {
-        tripList.append(`<li>${pet.name}</li>`);
+      response.data.forEach((trip) => {
+        tripList.append(`<div><button class="trip">${trip.name}</button></div>`);
+        $('.trip').click(loadTrip)
       });
     })
     .catch((error) => {
@@ -43,28 +44,47 @@ const loadPets = () => {
 //
 // Creating Pets
 //
+
+const loadTrip = () => {
+  const trip = $('#trip');
+  trip.empty();
+
+  axios.get(URL + "/1")
+    .then((response) => {
+      let id = response.data.id
+      let tripName = response.data.name
+      let continent = response.data.continent
+      let details = response.data.about
+      let category = response.data.category
+      let duration = response.data.weeks
+      let cost = response.data.cost
+
+      // response.data.forEach((id) => {
+      //   console.log(id)
+      //   //trip.append(`<ls>${point.name}</ls>`);
+      // });
+    })
+    .catch((error) => {
+      reportStatus(`Encountered an error while loading trip: ${error.message}`);
+    });
+};
+
+
 const readFormData = () => {
   const parsedFormData = {};
 
-  const inputs = ["name","age","owner"]
+  const inputs = ["name","email"]
 
   inputs.forEach((curInput) => {
-    const curData = $(`#pet-form input[name="${curInput}"]`).val();
+    const curData = $(`#pet-form input[name="${curInput}"]`).val(); // you get it from the html
     parsedFormData[curInput] = curData ? curData : undefined;
   });
-  //
-  // const ageFromForm = $(`#pet-form input[name="age"]`).val();
-  // parsedFormData['age'] = ageFromForm ? ageFromForm : undefined;
-  //
-  // const ownerFromForm = $(`#pet-form input[name="owner"]`).val();
-  // parsedFormData['owner'] = ownerFromForm ? ownerFromForm : undefined;
 
   return parsedFormData;
 };
 const clearForm = () => {
   $(`#pet-form input[name="name"]`).val('');
-  $(`#pet-form input[name="age"]`).val('');
-  $(`#pet-form input[name="owner"]`).val('');
+  $(`#pet-form input[name="email"]`).val('');
 }
 
 const createPet = (event) => {
@@ -98,8 +118,8 @@ const createPet = (event) => {
 
 //
 // OK GO!!!!!
-//
+// this is the homepage! the trip will not be avaiable
 $(document).ready(() => {
-  $('#load').click(loadPets);
+  $('#load').click(loadTrips);
   $('#pet-form').submit(createPet);
 });
