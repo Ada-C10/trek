@@ -4,47 +4,63 @@
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Trek</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <main>
-    <h1>Trek</h1>
-    <section id="status-message" role="alert"></section>
+  <main class="container m-8">
+    <header class="row">
+      <h1 class="col-xs-auto" id="trek">trek</h1>
+    </header>
 
-    <section class="trips-list">
-      <h2>All Trips</h2>
-      <button id="load" class="btn btn-primary">See all trips</button>
-      <ul id="trip-list"></ul>
-    </section>
+    <aside class="row">
+      <section id="status-message" role="alert"></section>
+    </aside>
 
-    <section class="trip-details">
-      <h2>Trip Details</h2>
-      <ul id="trip-detail"></ul>
-    </section>
-
-    <section class="reserve-trip">
-      <h2>Reserve Trip</h2>
-      <form id="reservation-form">
-        <div>
-          <label for="name">Name</label>
-          <input type="text" name="name" />
+    <div class="row">
+      <section class="trips-list col-6 card">
+        <div class="card-body">
+          <h2 class="card-title">All Trips</h2>
+          <button id="load" class="btn btn-primary mb-3">See all trips</button>
+          <ul id="trip-list" class="card-text"></ul>
         </div>
+      </section>
 
-        <div>
-          <label for="email">Email</label>
-          <input type="text" name="email" />
-        </div>
+      <section class="col-6">
+        <section class="trip-details card mb-3">
+          <div class="card-body">
+            <h2 class="card-title">Trip Details</h2>
+            <ul id="trip-detail" class="card-text"></ul>
+          </div>
+        </section>
 
-        <div>
-          <label for="trip">Trip Name</label>
-          <input type="text" name="trip" value="TRIP HERE" />
-        </div>
+        <section class="reserve-trip card">
+          <div class="card-body">
+            <h2 class="card-title">Reserve Trip</h2>
+            <form id="reservation-form">
+              <div>
+                <label for="name">Name</label>
+                <input type="text" name="name" />
+              </div>
 
-        <input type="hidden" name="id" />
+              <div>
+                <label for="email">Email</label>
+                <input type="text" name="email" />
+              </div>
 
-        <input type="submit" name="reserve" value="Reserve" class="btn btn-primary" />
-      </form>
-    </section>
+              <div>
+                <label for="trip">Trip Name</label>
+                <input type="text" name="trip" value="TRIP HERE" />
+              </div>
+
+              <input type="hidden" name="id" />
+
+              <input type="submit" name="reserve" value="Reserve" class="btn btn-primary mt-3" />
+            </form>
+          </div>
+        </section>
+      </section>
+    </div>
   </main>
 
   <script

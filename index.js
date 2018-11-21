@@ -46,10 +46,14 @@ const loadDetail = (event) => {
     .then((response) => {
       const tripInfo = ['name', 'continent', 'category', 'weeks', 'cost', 'about']
       for (let info of tripInfo) {
-        tripDetail.append(`<li><span class="capitalize">${info}</span>: ${response.data[info]}</li>`);
+        let currentData = response.data[info]
+        currentData = (info === 'cost') ? `$${currentData.toFixed(2)}` : currentData;
+
+        tripDetail.append(`<li><span class="info-label">${info}</span>: ${currentData}</li>`);
       }
       tripDetails.show();
 
+      clearForm();
       $(`#reservation-form input[name="trip"]`).val(response.data.name);
       $(`#reservation-form input[name="id"]`).val(response.data.id);
       reserveTrip.show();
