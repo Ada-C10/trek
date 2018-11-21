@@ -93,13 +93,32 @@ const createReservation = (event) => {
     .then((response) => {
       reportStatus('Successfully Reserved Trip!');
 
+      clearForm();
+
     })
     .catch((error) => {
       console.log(error.response.data.errors);
-      reportStatus(`Encountered an error: \n email: ${error.response.data.errors.email} \n name: ${error.response.data.errors.name}`);
+      const nameError = error.response.data.errors.name;
+      const emailError = error.response.data.errors.email;
+
+      let message = "";
+      if (nameError) {
+        message += `Encountered an error: Name ${nameError} \n`;
+      }
+
+      if (emailError) {
+        message += `Encountered an error: Email ${nameError} \n`;
+      }
+
+      reportStatus(message);
     })
 };
 
+const clearForm = () => {
+  $(`#reservation-form input[name="name"]`).val("");
+  $(`#reservation-form input[name="age"]`).val("");
+  $(`#reservation-form input[name="email"]`).val("");
+};
 
 $(document).ready(() => {
   $('.current-trips').hide();
