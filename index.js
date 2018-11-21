@@ -46,6 +46,7 @@ const loadTrips = () => {
       }
       else {
         $('#trip-list').empty();
+        $('#status-message').empty();
       }
     })
 
