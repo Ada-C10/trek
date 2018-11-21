@@ -32,7 +32,15 @@ const loadTrips = () => {
     .then(response => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach(trip => {
-        tripList.append(`<li> <a href = 'https://trektravel.herokuapp.com/trips/${trip.id}>${trip.name}'>`<a></li>).addClass("showTrip");
+        tripList
+          // .append(
+          //   `<li> <a href='https://trektravel.herokuapp.com/trips/${trip.id}'>${
+          //     trip.name
+          //   }</li>`
+          // )
+          // .addClass("show-trip");
+          .append(`<li> <a href = "#" id=${trip.id}>${trip.name}</li>`)
+          .addClass("show-trip)");
       });
     })
     .catch(error => {
@@ -42,6 +50,9 @@ const loadTrips = () => {
       console.log(error);
     });
 };
+// const showTrip = (trip.id)=>{
+//   $(`${trip.id}`).click(${trip.name});
+// }
 
 //
 // Creating Pets
@@ -67,13 +78,14 @@ const clearForm = () => {
   $(`#pet-form input[name="trip-name"]`).val("");
 };
 
-const createTrip = event => {
+const reserveTrip = event => {
   // Note that createPet is a handler for a `submit`
   // event, which means we need to call `preventDefault`
   // to avoid a page reload
   event.preventDefault();
 
   const tripData = readFormData();
+
   console.log(tripData);
 
   reportStatus("Sending trip data...");
@@ -102,5 +114,6 @@ const createTrip = event => {
 //
 $(document).ready(() => {
   $("#load").click(loadTrips);
-  $("#pet-form").submit(createTrip);
+  $("#trip-form").submit(reserveTrip);
+  // $("#trip-list").on("click","a", function()
 });
