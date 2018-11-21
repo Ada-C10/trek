@@ -8,11 +8,11 @@ const loadTrips = () => {
   reportStatus('Loading trips...');
 
 
-  // Prep work
+
   const tripList = $('#trip-list');
   tripList.empty();
 
-  // Actually load the pets
+  
   axios.get(URL)
     .then((response) => {
       response.data.forEach((trip) => {
@@ -54,6 +54,7 @@ const singleURL = `https://trektravel.herokuapp.com/trips/${id}`;
 
 const bookForm = () =>{
   $('#form').show();
+
 }
 
 $(document).ready(() => {
