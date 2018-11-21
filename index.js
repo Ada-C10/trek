@@ -24,6 +24,10 @@ const loadTrips = () => {
   })
 }
 
+const reserveTrip = function reserveTrip(tripID){
+  console.log(`In the reserveTrip for trip# ${tripID}`);
+}
+
 const viewTrip = function viewTrip(tripID){
   reportStatus("loading trip details...");
   let tripDetailURL = `${URL}/${tripID}`;
@@ -52,7 +56,11 @@ const viewTrip = function viewTrip(tripID){
 
       // Populating Reservation Form
       $('input[name="trip"]').val(`${name}`);
+
+      // Reserve Trip
+      reserveTrip(`${tripid}`);
       })
+
 
 
 }
