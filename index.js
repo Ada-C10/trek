@@ -35,10 +35,8 @@ const tripDetails = (tripID) => {
   reportStatus('Getting Trip Details...');
 
   const tripInfo = $('#trip-info');
-  const tripRes = $('#trip-for-reservation');
 
   tripInfo.empty();
-  tripRes.empty();
 
   const tripURL = `${baseURL}/${tripID}`;
 
@@ -54,6 +52,8 @@ const tripDetails = (tripID) => {
       tripInfo.append(`<li>Price: ${response.data.cost}</li>`);
       tripInfo.append(`<li>Trip ID: ${response.data.id}</li>`);
 
+      $('#reservation-form input[name="id"]').val(response.data.id)
+      $('#reservation-form input[name="trip"]').val(response.data.name)
 
       reportStatus(`Successfully Loaded Trip #${tripID}`);
     })
@@ -65,7 +65,8 @@ const tripDetails = (tripID) => {
 };
 
 const readFormData = () => {
-//
+
+
 //   const inputs = ["name", "age", "owner"]
 //
 //   const formData = {};
