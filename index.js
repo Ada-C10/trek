@@ -6,7 +6,18 @@ const reportStatus = (message) => {
 };
 
 const loadTrips = () => {
-  const tripList = $('#travel-list')
+  const tripList = $('#travel-list');
+  tripList.empty();
+
+  axios.get(BaseURL)
+  .then((response) =>{
+    response.data.forEach((trip) => {
+      tripList.append(`<li>${trip.name}</li>`)
+    });
+  })
+  .catch((error) => {
+    reportStatus(`Encountered an error while loading pets: ${error.message}`);
+  });
 
 
 
@@ -15,5 +26,5 @@ const loadTrips = () => {
 
 
 $(document).ready(()=> {
-
+  $('#load').click(loadTrips)
 });
