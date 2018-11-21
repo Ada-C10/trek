@@ -1,5 +1,13 @@
 const INDEX_URL = "https://trektravel.herokuapp.com/trips";
 
+const reportStatus = (message) => {
+  $('#status-message').html(message);
+};
+
+const clearForm = () => {
+  $("#form")[0].reset();
+};
+
 const parsedTripDetails = (response) => {
   const div = $('<div></div>');
   div.append(`Trip ID: ${response.data.id}<br />`);
@@ -12,9 +20,43 @@ const parsedTripDetails = (response) => {
   return div;
 }
 
-const clearForm = () => {
-  $("#form")[0].reset();
-}
+const readFormData = () => {
+  const parsedFormData = {};
+
+  let formData = $("#trip-form").serializeArray();
+
+  for(let field of formData){
+    parsedFormData[field.name] = field.value
+  }
+
+  return parsedFormData;
+};
+
+const createReservation = (event) => {
+  event.preventDefault();
+  const id = $(event.target)[0]["elements"][2]["dataset"]["id"];
+  const tripData = readFormData();
+  const url = `https://trektravel.herokuapp.com/trips/${id}/reservations`;
+
+  axios.post(url, tripData)
+    .then((response) => {
+      reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
+      clearForm();
+    })
+    .catch((error) => {
+      console.log(error.response);
+      // if (error.response.data && error.response.data.errors) {
+      //   // User our new helper method
+      //   reportError(
+      //     `Encountered an error: ${error.message}`,
+      //     error.response.data.errors
+      //   );
+      // } else {
+      //   // This is what we had before
+      //   reportStatus(`Encountered an error: ${error.message}`);
+      // }
+    })
+};
 
 const createForm = (event) => {
   const form = $('<form></form>');
@@ -25,7 +67,7 @@ const createForm = (event) => {
     const div = $('<div></div>');
     div.append(`<label for="${option}">${option}</label>`);
     if(option === "trip-name"){
-      div.append(`<input type="text" name="${option}" class="${option}" value="${$(event.target).text()}"/>`);
+      div.append(`<input type="text" name="${option}" class="${option}" value="${$(event.target).text()}" data-id="${$(event.target).data("id")}"/>`);
     } else {
       div.append(`<input type="text" name="${option}" class="${option}"/>`);
     }
@@ -35,11 +77,7 @@ const createForm = (event) => {
   form.append(`<input type="submit" name="add-trip" value="Add Trip" />`);
 
   return form;
-}
-
-// const reportStatus = (message) => {
-//   $('#status-message').html(message);
-// };
+};
 
 const loadTrips = () => {
   const tripList = $('#trips');
@@ -73,24 +111,24 @@ const loadTripDetails = (event) => {
 
   const tripDetails = $('#trip');
   tripDetails.empty();
-  tripDetails.append('<h4>Details</h4>');
 
   axios.get(url)
     .then((response) => {
+      tripDetails.append('<h4>Details</h4>');
       tripDetails.append(parsedTripDetails(response));
+      const form = $('#form');
+      form.empty();
+      form.append('<h4>Reserve Today!</h4>');
+      form.append(createForm(event));
       // reportStatus(`Successfully loaded ${sevenWonders.length} wonders`);
     })
     .catch((error) => {
       console.log(error);
     });
-
-  const form = $('#form');
-  form.empty();
-  form.append('<h4>Reserve Today!</h4>');
-  form.append(createForm(event));
 }
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
   $('#trips').on('click', loadTripDetails);
+  $('#form').on('submit', createReservation);
 });
