@@ -41,8 +41,7 @@ const loadTrips = () => {
     });
   };
 
-
-  $(document).ready(() => {
+  const toggleList = () => {
 
     $('.toggle').on('change', (event) => {
 
@@ -53,7 +52,7 @@ const loadTrips = () => {
         const tripDiv =  $('#trip')
         if (tripDiv.hasClass('list')) {
           tripDiv.empty();
-          reportStatus('Load trips!');
+          reportStatus('Trips emptied.');
 
         }
         else if (tripDiv.hasClass('detail'))  {
@@ -67,4 +66,11 @@ const loadTrips = () => {
       }
     })
 
+  };
+
+
+  $(document).ready(() => {
+
+    reportStatus("Choose your own adventure. Toggle me!");
+    toggleList();
   });
