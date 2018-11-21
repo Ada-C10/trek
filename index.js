@@ -32,8 +32,11 @@ const loadTrips = () => {
       reportStatus(`Successfully loaded ${response.data.length} pets`);
       response.data.forEach((trip) => {
         tripList.append(`<div><button class="trip-${trip.id}">${trip.name}</button></div>`);
+        $(`.trip-${trip.id}`).click(() => {
+          loadTrip(`.trip-${trip.id}`);
+        })
       });
-      $('.trip-1').click(loadTrip) // must go here so the forEach doesn't execute everytime it is added
+       // must go here so the forEach doesn't execute everytime it is added
 
     })
     .catch((error) => {
@@ -43,11 +46,14 @@ const loadTrips = () => {
 };
 
 
-const loadTrip = () => {
-  const trip = $('.trip-1');
+const loadTrip = (tripinfo) => {
+  let num = tripinfo.match(/\d/);
+  num = num.join("");
+  console.log(num)
+  const trip = $(`${tripinfo}`);
   trip.empty();
   trip.append(`<h2> Trip details </h2>`)
-  axios.get(URL + "/1")
+  axios.get(URL + "/" + num)
     .then((response) => {
         let data = {}
           data["id"] = response.data.id
