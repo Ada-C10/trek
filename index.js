@@ -32,7 +32,7 @@ const reportError = (message, errors) => {
 };
 
 const loadTrips = () => {
-  reportStatus('loading trips...');
+  reportStatus('Loading trips...');
 
   const tripList = $('#trip-list');
   tripList.empty();
@@ -45,9 +45,12 @@ const loadTrips = () => {
       tripList.append(`<li>${trip.name}</li>`);
 
       const buildShowTrip = (trip) => {
+
         return () => {
+          reportStatus(`Loading trip ${trip.name}...`);
           axios.get(URL + `/${trip.id}`)
           .then((response) => {
+            reportStatus(`Successfully loaded ${trip.name}`);
 
             const details = $('#trip-details');
             details.empty();
@@ -72,13 +75,14 @@ const loadTrips = () => {
         }
       };
 
-      //createReservation function
       const buildCreateReservation = (trip) => {
         return () => {
+
+
           const data = {
-            name: $('input[name="name"]').val(),
-            age: $('input[name="age"]').val(),
-            email: $('input[name="email"]').val(),
+            'name': $('input[name="name"]').val(),
+            'age': $('input[name="age"]').val(),
+            'email': $('input[name="email"]').val(),
           }
 
           axios.post(URL + `/${trip.id}/reservations`, data)
@@ -99,14 +103,10 @@ const loadTrips = () => {
 
       };
 
-      const createReservation = buildCreateReservation(trip);
-      $('#trip-form').submit(createReservation);
-
-
       const showTrip = buildShowTrip(trip);
+      const createReservation = buildCreateReservation(trip);
       $('li:last').click(showTrip);
-
-
+      $('#trip-form').submit(createReservation);
     });
 
   })
@@ -117,37 +117,6 @@ const loadTrips = () => {
 
 
 
-
-const createTrip = (e) => {
-  // Note that createPet is a handler for a `submit`
-  // event, which means we need to call `preventDefault`
-  // to avoid a page reload
-  e.preventDefault();
-
-  reportStatus('Sending trip data...');
-
-  const data = {
-    name: $('input[name="name"]').val(),
-    age: $('input[name="age"]').val(),
-    email: $('input[name="email"]').val(),
-  };
-
-  axios.post(URL, data)
-  .then((response) => {
-    reportStatus(`Successfully added a trip with ID ${response.data.id}`);
-  })
-  .catch((error) => {
-    if (error.response.data && error.response.data.errors) {
-      reportError(
-        `Encountered an error: ${error.message}`,
-        error.response.data.errors
-      );
-    } else {
-      reportStatus(`Encountered an error: ${error.message}`);
-    }
-  });
-
-};
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
