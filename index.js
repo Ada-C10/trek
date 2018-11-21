@@ -24,13 +24,19 @@ const loadTrips = () => {
       // console.log($tripItem);
       tripList.append($tripItem);
 
+
       $tripItem.click((event) => {
+        // $tripItem.empty();
         // console.log(event.target.id);
         // const tripId = event.target.id.split('-')[1];
         // console.log(tripId);
+        // trip.empty();
         axios.get(URL + '/' + trip.id)
           .then((response) => {
             const trip = response.data;
+            // console.log(trip);
+            const tripInfo = $('.trip-info');
+            tripInfo.empty();
 
             $('body').append(`
                 <div class="trip-info">
