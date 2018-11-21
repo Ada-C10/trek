@@ -25,16 +25,18 @@ const loadDetails = (id) => {
             $('.trip-details').html(`<h2>${response.data.name}</h2>
                                     <p class="description">${response.data.about}</p>
                                     <ul>
-                                    <li>${response.data.continent}</li>
-                                    <li>${response.data.category}</li>
-                                    <li>${response.data.culture}</li>
-                                    <li>${response.data.weeks}</li>
-                                    <li>${response.data.cost}</li></ul>`);
+                                    <li>Category: ${response.data.category}</li>
+                                    <li>Continent: ${response.data.continent}</li>  
+                                    <li>Culture: ${response.data.culture}</li>
+                                    <li>Duration: ${response.data.weeks} week(s)</li>
+                                    <li id="money">Cost: $${response.data.cost}</li></ul>`);
             })
         .catch((error) => {
             reportStatus(`Encountered an error while loading trips: ${error.message}`);
             console.log(error);
         });
+
+
 };
 
 
@@ -66,12 +68,16 @@ const loadTrips = () => {
 
 
 $(document).ready(() => {
+    $('.rsvp-form').hide();
     $('#load').click(loadTrips);
+
 
     $('#trip-list').on('click', 'a', function(event){
         console.log(this.id);
         // event.preventDefault();
         loadDetails(this.id);
+        $('.rsvp-form').show();
+
         // $("button").click(function(){
     });
 });
