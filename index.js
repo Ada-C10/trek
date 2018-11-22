@@ -118,6 +118,7 @@ const createTrip = (event) => {
     .then((response) => {
       reportStatus(`successfully registered new voyage #${response.data.id}!`);
       clearForm($('#new-trip-form'));
+      setTimeout(loadTrips, 1500);
     })
     .catch(handleError);
 };
