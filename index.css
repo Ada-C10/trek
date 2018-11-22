@@ -1,0 +1,24 @@
+body {
+  font-family: sans-serif;
+  padding: 15px;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 'list trip'
+                       'list reservation';
+}
+
+.all-trips {
+  grid-area: list;
+}
+
+.trip-info {
+  grid-area: trip;
+}
+
+.reservation {
+  grid-area: reservation;
+}
