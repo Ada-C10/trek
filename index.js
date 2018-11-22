@@ -28,16 +28,16 @@ const loadTrips = () => {
   tripList.empty();
 
   axios.get(URL)
-    .then((response) => {
-      reportStatus(`Successfully loaded ${response.data.length} trips`);
-      response.data.forEach((trip) => {
-        tripList.append(`<li id= ${trip.id}> ${trip.name}</li>`);
-      });
-    })
-    .catch((error) => {
-      reportStatus(`Encountered an error while loading trips: ${error.message}`);
-      console.log(error);
+  .then((response) => {
+    reportStatus(`Successfully loaded ${response.data.length} trips`);
+    response.data.forEach((trip) => {
+      tripList.append(`<li id= ${trip.id}> ${trip.name}</li>`);
     });
+  })
+  .catch((error) => {
+    reportStatus(`Encountered an error while loading trips: ${error.message}`);
+    console.log(error);
+  });
 };
 //  click event -- acton show details
 //
@@ -49,40 +49,49 @@ const loadTripDetails = (id) => {
   const tripDetails = $('#trip-details');
   tripDetails.empty();
 
-let tripUrl =  `https://trektravel.herokuapp.com/trips/${id}`
+  let tripUrl =  `https://trektravel.herokuapp.com/trips/${id}`
   axios.get(tripUrl)
-    .then((response) => {
-        reportStatus(`Successfully loaded ${response.data.name} trip`)
-      const details  = Object.entries(response.data)
-      for (const [key, value] of details){
-        tripDetails.append(`<li>${key}: ${value}</li>`);
-      // });
+  .then((response) => {
+    reportStatus(`Successfully loaded ${response.data.name} trip`)
+    const details  = Object.entries(response.data)
+    for (const [key, value] of details){
+      tripDetails.append(`<li>${key}: ${value}</li>`);
+
     }
-      $("p.trip-name strong").text(` ${response.data.name}`);
-    })
-    .catch((error) => {
-      reportStatus(`Encountered an error while loading trips: ${error.message}`);
-      console.log(error);
-    });
-};
+    $("p.trip-name strong").text(` ${response.data.name}`);
+    fillHiddenfields(details)
+
+  })
+  .catch((error) => {
+    reportStatus(`Encountered an error while loading trips: ${error.message}`);
+    console.log(error);
+  });
+
+  const fillHiddenfields = (details) => {
+    // const hiddenValues = $('.hidden-values');
+    // hiddenValues.empty();
+
+    for (const [key, value] of details) {
+      $(`.hidden-values input[name = "${key}"]`).val(`${value}`);
 
 
+    }
 
-/// // Creating Trips
-// //
+  };
+}
+
 const readFormData = () => {
   const parsedFormData = {};
+  const fields = ['name', 'email', 'id', 'continent', 'category', 'cost']
 
-  const nameFromForm = $(`#trip-form input[name="name"]`).val();
-  parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
 
-  // const ageFromForm = $(`#trip-form input[name="age"]`).val();
-  // parsedFormData['age'] = ageFromForm ? ageFromForm : undefined;
-  //
-  // const ownerFromForm = $(`#trip-form input[name="owner"]`).val();
-  // parsedFormData['owner'] = ownerFromForm ? ownerFromForm : undefined;
-
+fields.forEach(function(field) {
+    const dataFromForm = $(`#trip-form input[name="${field}"]`).val();
+  parsedFormData[`${field}`] = dataFromForm ? dataFromForm : undefined;
+})
+console.log(parsedFormData)
   return parsedFormData;
+
 };
 //
 // const clearForm = () => {
@@ -91,37 +100,40 @@ const readFormData = () => {
 //   $(`#trip-form input[name="owner"]`).val('');
 // }
 
-const reserveTrip = (id) => {
+const reserveTrip = (event) => {
   // Note that reserveTrip is a handler for a `submit`
   // event, which means we need to call `preventDefault`
   // to avoid a page reload
   event.preventDefault();
-console.log(event)
+  console.log(event)
   const tripData = readFormData();
   console.log(tripData);
 
   reportStatus('Sending trip data...');
-let postURL =  `https://trektravel.herokuapp.com/trips/${event.id}/reservations`
-console.log(postURL)
-  axios.post(URL, tripData)
-    .then((response) => {
-      reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
-      clearForm();
-    })
-    .catch((error) => {
-      console.log(error.response);
-      if (error.response.data && error.response.data.errors) {
-        reportError(
-          `Encountered an error: ${error.message}`,
-          error.response.data.errors
-        );
-      } else {
-        reportStatus(`Encountered an error: ${error.message}`);
-      }
-    });
+  let postURL =  `https://trektravel.herokuapp.com/trips/${tripData.id}/reservations`
+  console.log(postURL)
+  axios.post(postURL, tripData)
+  .then((response) => {
+    console.log(response)
+    reportStatus(`Successfully added a trip with ID ${response}!`);
+    // clearForm();
+  })
+  .catch((error) => {
+    console.log(error.response);
+    if (error.response && error.response.errors) {
+      reportError(
+        `Encountered an error: ${error.message}`,
+        error.response.errors
+      );
+    } else {
+      reportStatus(`Encountered an error: ${error.message}`);
+    }
+  });
 };
 
-//
+//check catch
+// clear form?? figure that out
+
 // OK GO!!!!!
 //
 $(document).ready(() => {
