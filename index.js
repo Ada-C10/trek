@@ -21,6 +21,26 @@ const getAllTrips = () => {
     });
 };
 
+const getTripDetail = () => {
+  reportStatus("Loading trip...")
+  const tripDetailList = $('#trip-detail-list');
+  tripDetailList.empty();
+  // const tripId = $(`#get-trip-${(this).html()}`).get;
+  // const detail = URL + '/' + tripId
+  axios.get(URL)
+    .then((response) => {
+      return axios.get(URL + '/' + `${response.data[0].id}`);
+    })
+    .then((response) => {
+      reportStatus("Successfully loaded trip!")
+      tripDetailList.append(`<li>${response.data.name}</li><li>${response.data.continent}</li>`);
+    })
+    .catch((error) => {
+      reportStatus(`Encountered an error ${error.message}`);
+    });
+};
+
 $(document).ready(() => {
-  $('#load').click(getAllTrips);
+  $('#load-all-trips').click(getAllTrips);
+  $('ul').on('click', 'button', getTripDetail);
 });
