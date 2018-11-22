@@ -69,14 +69,9 @@ const tripDetails = (tripID) => {
 
       for (const detail in response.data) {
         if (detail != "id") {
-        tripInfo.append(`
-            <tr>
-              <td><strong>${detail}<strong></td>
-              <td>${response.data[detail]}</td>
-            </tr>
-            `)
-          }
+        tripInfo.append(`<tr><td><strong>${detail}<strong></td><td>${response.data[detail]}</td></tr>`)
         }
+      }
 
       $('#reservation-form input[name="id"]').val(response.data.id)
       $('#reservation-form input[name="trip"]').val(response.data.name)
@@ -106,11 +101,9 @@ const createReservation = (event) => {
       reportStatus('successfully reserved voyage!');
 
       clearForm($('#reservation-form'));
-
     })
 
     .catch(handleError);
-
 };
 
 const createTrip = (event) => {
@@ -119,29 +112,18 @@ const createTrip = (event) => {
 
   reportStatus("registering new voyage...");
 
-  const tripData = readFormData();
-
-  console.log(tripData);
+  const tripData = readFormData($('#new-trip-form'));
 
   axios.post(baseURL, tripData)
     .then((response) => {
       reportStatus(`successfully registered new voyage #${response.data.id}!`);
-
-      clearForm();
-
+      clearForm($('#new-trip-form'));
     })
-
     .catch(handleError);
-
 };
 
 const clearForm = (form) => {
-
-
-form[0].reset();
-  // $(`#reservation-form input[name="name"]`).val("");
-  // $(`#reservation-form input[name="age"]`).val("");
-  // $(`#reservation-form input[name="email"]`).val("");
+  form[0].reset();
 };
 
 $(document).ready(() => {
