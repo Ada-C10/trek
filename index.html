@@ -4,13 +4,12 @@
     <title>Trek</title>
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Acme|Bree+Serif|Permanent+Marker" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
   </head>
 
   <body>
-    <section id="status-message"></section>
     <header class="text-center">
       <div class="jumbotron">
         <h1 class="text-center display-4">Trek</h1>
@@ -24,8 +23,13 @@
 
     <main>
       <div class="container">
-        <div class="row">
-          <section class="col-md-12 hidden" id="query">
+        <section id="alert-container">
+          <div id="alert">
+            <div id="status-message"></div>
+          </div>
+        </section>
+        <section class="row">
+          <div class="col-md-12" id="search-container">
             <form>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-center" for="continent">Continent</label>
@@ -51,22 +55,20 @@
                 </div>
               </div>
             </form>
-          </section>
-          <section class="col-md-6" id="trips">
-          </section>
-          <section class="col-md-6">
+          </div>
+          <div class="col-md-6" id="trips"></div>
+          <div class="col-md-6" id="trip-details-container">
             <div id="trip"></div>
             <div id="form"></div>
-          </section>
-        </div>
+          </div>
+        </section>
       </div>
     </main>
 
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="index.js"></script>
   </body>
 </html>

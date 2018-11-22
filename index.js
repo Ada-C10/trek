@@ -1,40 +1,48 @@
-// Error Handling
-// Optional Sorting All Trips
-// Search Queries
-// Create Trip
+// For more practice working with data, filter trips by search queries (like by continent, budget, etc.). You'll need to explore the API to see what functionality exists.
+// To practice a more advanced POST, allow the user to create a new trip.
+// For more jQuery practice, use jQuery to sort list of trips by specific attributes, like budget or time remaining
+
 const INDEX_URL = "https://trektravel.herokuapp.com/trips";
 
-const reportStatus = (message) => {
+const hideDetails = () => {
+  $('#alert-container').hide();
+  $('#search-container').hide();
+  $('#trips').hide();
+  $('#trip-details-container').hide();
+};
+
+const reportStatus = (message, status) => {
+  $('#alert').removeClass();
+  $('#alert').addClass(`alert alert-${status}`);
   $('#status-message').html(message);
+  $('#alert-container').show();
 };
 
 const clearForm = () => {
   $("#form")[0].reset();
 };
 
+const readFormData = () => {
+  return $("#trip-form").serialize();
+}
+
 const parsedTripDetails = (response) => {
-  const div = $('<div></div>');
-  div.append(`Trip ID: ${response.data.id}<br />`);
-  div.append(`Trip Name: ${response.data.name}<br />`);
-  div.append(`Continent: ${response.data.continent}<br />`);
-  div.append(`Category: ${response.data.category}<br />`);
-  div.append(`Weeks: ${response.data.weeks}<br />`);
-  div.append(`Cost: ${response.data.cost}<br />`);
-  div.append(`Description: ${response.data.about}`);
+  const div = $(`<div class="card">
+                  <div class="card-body">
+                    <div class="card-text">
+                      <p><strong>Trip ID</strong>: ${response.data.id}</p>
+                      <p><strong>Trip Name</strong>: ${response.data.name}</p>
+                      <p><strong>Continent</strong>: ${response.data.continent}</p>
+                      <p><strong>Category</strong>: ${response.data.category}</p>
+                      <p><strong>Weeks</strong>: ${response.data.weeks}</p>
+                      <p><strong>Cost</strong>: ${response.data.cost}</p>
+                      <p><strong>Description</strong>: ${response.data.about}</p>
+                    </div>
+                  <div>
+                </div>`);
   return div;
 }
 
-const readFormData = () => {
-  const parsedFormData = {};
-
-  let formData = $("#trip-form").serializeArray();
-
-  for(let field of formData){
-    parsedFormData[field.name] = field.value
-  }
-
-  return parsedFormData;
-};
 
 const createReservation = (event) => {
   event.preventDefault();
@@ -44,7 +52,7 @@ const createReservation = (event) => {
 
   axios.post(url, tripData)
     .then((response) => {
-      reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
+      reportStatus(`Successfully added a trip with ID ${response.data.id}!`, 'success');
       clearForm();
     })
     .catch((error) => {
@@ -84,7 +92,8 @@ const createForm = (event) => {
 };
 
 const loadTrips = () => {
-  // $('#query').addClass("hidden");
+  hideDetails();
+  $('#trips').show();
   const tripList = $('#trips');
   tripList.empty();
   tripList.append('<h4>All Trips</h4>');
@@ -102,42 +111,43 @@ const loadTrips = () => {
         ul.append(li);
       });
       tripList.append(ul);
-      // reportStatus(`Successfully loaded ${sevenWonders.length} wonders`);
+      reportStatus(`Successfully loaded ${response.data.length} trips.`, 'success');
     })
     .catch((error) => {
-      console.log(error);
+      reportStatus(`Could not load. ${error}.`, 'warning');
     });
 };
 
 const loadTripDetails = (event) => {
   event.preventDefault();
   const url = $(event.target)[0].href;
-  // const id = $(event.target).data("id");
+  $('#trip-details-container').show();
 
   const tripDetails = $('#trip');
   tripDetails.empty();
 
   axios.get(url)
     .then((response) => {
-      tripDetails.append('<h4>Details</h4>');
+      tripDetails.append('<h4 class="card-title">Details</h4>');
       tripDetails.append(parsedTripDetails(response));
       const form = $('#form');
       form.empty();
       form.append('<h4>Reserve Today!</h4>');
       form.append(createForm(event));
-      // reportStatus(`Successfully loaded ${sevenWonders.length} wonders`);
+      reportStatus(`Successfully loaded ${response.data.name}.`, 'success');
     })
     .catch((error) => {
-      console.log(error);
+      reportStatus(`Could not load. Error: ${error}.`, 'warning');
     });
 }
 
 $(document).ready(() => {
+  hideDetails();
   $('#load').on('click', loadTrips);
-  $('#trips').on('click', loadTripDetails);
+  $('#trips').on('click', 'a[href]', loadTripDetails);
   $('#form').on('submit', createReservation);
   $('#search').on('click', (event) => {
     event.preventDefault();
-    $('#query').removeClass("hidden");
+    $('#search-container').show();
   })
 });

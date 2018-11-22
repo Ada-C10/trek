@@ -3,15 +3,6 @@
   text-align: center;
 }
 
-.hidden {
-  display: none;
-}
-
-.btn {
-  border: 1px solid #286090;
-  margin-bottom: 3rem;
-}
-
 ul {
   list-style-type: none;
   padding: 0;
@@ -26,14 +17,14 @@ ul {
 }
 
 .jumbotron {
-    margin-bottom: 2rem;
-    background-image: url(jumbotronbackground.jpg);
-    background-position: 0% 26%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: white;
-    text-shadow: black 0.5em 0.5em 0.5em;
-    padding: 6em;
+  margin-bottom: 1rem;
+  background-image: url(jumbotronbackground.jpg);
+  background-position: 0% 26%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  text-shadow: black 0.5em 0.5em 0.5em;
+  padding: 4em;
 }
 
 .jumbotron h1 {
@@ -55,4 +46,8 @@ form {
 
 .move-button {
   margin-left: 4rem;
+}
+
+nav {
+  margin-bottom: 1rem;
 }
