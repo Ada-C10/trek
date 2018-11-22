@@ -30,7 +30,6 @@ const handleError = (error) => {
 };
 
 const loadTrips = () => {
-
   $('.current-trips').show();
   reportStatus('loading voyages...');
 
@@ -43,8 +42,8 @@ const loadTrips = () => {
       response.data.forEach((trip) => {
         const tripName = $(`<li class="list-group-item list-group-item-action">${trip.name}</li>`);
         tripName.data("id", trip.id);
-
         tripName.addClass("trip-link");
+        
         tripList.append(tripName);
       });
       reportStatus(`successfully loaded ${response.data.length} voyages`);
@@ -99,7 +98,6 @@ const createReservation = (event) => {
 const createTrip = (event) => {
   event.preventDefault();
   $('html, body').animate({ scrollTop: 0 }, 'fast');
-
   reportStatus("registering new voyage...");
 
   const tripData = readFormData($('#new-trip-form'));
@@ -123,8 +121,7 @@ $(document).ready(() => {
   $('#load').click(loadTrips);
 
   $('#trip-list').on('click', 'li', function(event) {
-    const tripID = $(this).data("id");
-    tripDetails(tripID);
+    tripDetails($(this).data("id"));
    });
 
   $('#reservation-form').submit(createReservation);
