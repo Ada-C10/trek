@@ -2,8 +2,6 @@ html, body {
   height: 100%; margin: 0;
 }
 
-
-
 body{
   background:#f1f1f1;
 }
@@ -13,8 +11,21 @@ ul {
   padding: 0;
 }
 
+.header h1 {
+  text-align: center;
+  font-family: 'lato',sans-serif;
+  font-weight: 300;
+  font-size: 50px;
+  letter-spacing: 10px;
+}
+
+.nav, #status-message, .footer {
+  font-family: 'Ubuntu', sans-serif;
+}
+
 /*Grid */
 .grid-container {
+  font-family: 'Montserrat', sans-serif;
   padding: 1rem 3rem 1rem 3rem;
   display: grid;
   grid-template-columns: ;
@@ -22,12 +33,9 @@ ul {
   grid-template-areas: "header" "nav" "main" "footer";
 }
 
-.main { grid-area: main; }
-
-/* .main {
-display: flex;
-flex-direction: column;
-} */
+.main {
+  grid-area: main;
+}
 
 .main #trip.list {
   display: flex;
@@ -42,9 +50,16 @@ flex-direction: column;
   padding-top: 2rem;
   padding-left: 0;
   max-width: 15rem;
+  height: 30rem;
   justify-content: space-between;
   justify-content: space-around;
+  text-align: center;
 
+}
+
+.main #trip.list img {
+  max-width: 13rem;
+  height: 13rem;
 }
 
 /* .main #trip.list div:nth-of-type(1) {
@@ -56,20 +71,28 @@ padding-left: 0;
 
 .nav {
   display: grid;
-  grid-template-columns: auto 20%;
+  grid-template-columns: auto 25%;
   /* 1fr 1fr 1fr 1fr 1fr; */
   grid-template-rows: 1fr;
   grid-template-areas: "sub-heading toggle";
   grid-area: nav;
+  justify-content: center;
+  justify-content: space-between;
+  /* justify-content: space-around; */
 }
 
-.toggle { grid-area: toggle; }
+.toggle {
+  grid-area: toggle;
+  align-self: center;
+}
 
-.sub-heading { grid-area: sub-heading; }
+.sub-heading {
+  grid-area: sub-heading;
+}
 
-.footer { grid-area: footer; }
-/* Check Box */
-
+.footer {
+  grid-area: footer;
+}
 
 
 /* Checkbox*/
@@ -88,6 +111,7 @@ padding-left: 0;
   outline:none;
 }
 .checkbox-label{
+
   display:block;
   position:relative;
   padding:10px;
@@ -136,8 +160,9 @@ padding-left: 0;
   height:100%;
   width:300px;
   text-align:right;
-  color:#bfbfbf;
+  color: #1fc1c8;
   white-space:nowrap;
+
 }
 .ios-toggle:checked + .checkbox-label{
   /*box-shadow*/
