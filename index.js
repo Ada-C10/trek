@@ -4,7 +4,7 @@ const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
-const loadTrips = () => {
+const getAllTrips = () => {
   reportStatus("Loading trips...")
   const tripList = $('#trip-list');
   tripList.empty();
@@ -22,5 +22,5 @@ const loadTrips = () => {
 };
 
 $(document).ready(() => {
-  $('#load').click(loadTrips);
+  $('#load').click(getAllTrips);
 });
