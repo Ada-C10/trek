@@ -61,7 +61,7 @@ const tripDetails = (tripID) => {
         if (detail != "id") {
         tripInfo.append(`
             <tr>
-              <td>${detail}</td>
+              <td><strong>${detail}<strong></td>
               <td>${response.data[detail]}</td>
             </tr>
             `)
