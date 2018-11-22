@@ -19,13 +19,14 @@ const reportStatus = (message) => {
 const loadTrips = () => {
 
   $('.current-trips').show();
-  reportStatus('Loading Trips...');
+  reportStatus('loading voyages...');
 
   const tripList = $('#trip-list');
   tripList.empty();
 
   axios.get(baseURL)
     .then((response) => {
+      tripList.append("<li class='list-group-item list-group-item-dark trek-font text-center'>STRANGE NEW WORLDS</li>")
       response.data.forEach((trip) => {
         const tripName = $(`<li class="list-group-item list-group-item-action">${trip.name}</li>`);
         tripName.data("id", trip.id);
@@ -33,17 +34,17 @@ const loadTrips = () => {
         tripName.addClass("trip-link");
         tripList.append(tripName);
       });
-      reportStatus(`Successfully loaded ${response.data.length} trips`);
+      reportStatus(`successfully loaded ${response.data.length} voyages`);
     })
     .catch((error) => {
       console.log(error);
-      reportStatus(`Encountered an error while loading trips: ${error.message}`);
+      reportStatus(`highly illogical: ${error.message}`);
     });
 };
 
 const tripDetails = (tripID) => {
 
-  reportStatus('Getting Trip Details...');
+  reportStatus('getting voyage details...');
 
   const tripInfo = $('#trip-info');
 
@@ -70,11 +71,11 @@ const tripDetails = (tripID) => {
       $('#reservation-form input[name="id"]').val(response.data.id)
       $('#reservation-form input[name="trip"]').val(response.data.name)
 
-      reportStatus(`Successfully Loaded Trip #${tripID}`);
+      reportStatus(`successfully loaded voyage #${tripID}`);
     })
     .catch((error) => {
       console.log(error);
-      reportStatus(`Encountered an error while loading trip: ${error.message}`);
+      reportStatus(`highly illogical: ${error.message}`);
     });
 
 };
@@ -88,8 +89,9 @@ const readFormData = () => {
 
 const createReservation = (event) => {
   event.preventDefault();
+  $('html, body').animate({ scrollTop: 0 }, 'fast');
 
-  reportStatus("Requesting Reservation");
+  reportStatus("requesting reservation...");
 
   const tripData = readFormData();
   const tripID = $(`#reservation-form input[name="id"]`).val();
@@ -98,7 +100,7 @@ const createReservation = (event) => {
 
   axios.post(baseURL + `/${tripID}/reservations`, tripData)
     .then((response) => {
-      reportStatus('Successfully Reserved Trip!');
+      reportStatus('successfully reserved voyage!');
 
       clearForm();
 
@@ -109,11 +111,11 @@ const createReservation = (event) => {
 
       if (error.response.data && error.response.data.errors) {
         reportError(
-          `Encountered an error: ${error.message}`,
+          `highly illogical: ${error.message}`,
           error.response.data.errors
         );
       } else {
-        reportStatus(`Encountered an error: ${error.message}`);
+        reportStatus(`highly illogical: ${error.message}`);
       }
     });
 };
@@ -127,7 +129,6 @@ const clearForm = () => {
 $(document).ready(() => {
   $('.current-trips').hide();
   $('.trip-details').hide();
-
   $('#load').click(loadTrips);
 
   $('#trip-list').on('click', 'li', function(event) {
