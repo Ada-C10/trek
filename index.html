@@ -11,21 +11,34 @@
 </head>
 <body>
 
+  <div class="stars"></div>
+  <div class="twinkling"></div>
+  <div class="clouds"></div>
+
   <main class="container">
+
+    <header><h1>trek</h1></header>
+
     <nav class="navbar">
       <button class="btn btn-primary" id="load">List all Trips</button>
-      <div id="status-message" class="alert alert-dark alert-dismissible"></div>
+      <div id="status-message" class="alert alert-dark"></div>
     </nav>
+
+
+
     <div class="row">
+
       <section class="current-trips col-5">
+
         <h1>Trip List</h1>
         <ul id="trip-list" class="list-group"></ul>
       </section>
 
       <section class="trip-details col-7">
+
         <div class="jumbotron">
           <h1>Trip Details</h1>
-          <ul id="trip-info"></ul>
+          <table class="table" id="trip-info"></table>
         </div>
 
         <h1>Reserve Trip</h1>

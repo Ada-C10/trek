@@ -53,15 +53,19 @@ const tripDetails = (tripID) => {
 
   axios.get(tripURL)
     .then((response) => {
+
       $('.trip-details').show();
 
-      tripInfo.append(`<li>Name: ${response.data.name}</li>`);
-      tripInfo.append(`<li>About: ${response.data.about}</li>`);
-      tripInfo.append(`<li>Continent: ${response.data.continent}</li>`);
-      tripInfo.append(`<li>Category: ${response.data.category}</li>`);
-      tripInfo.append(`<li>Weeks: ${response.data.weeks}</li>`);
-      tripInfo.append(`<li>Price: ${response.data.cost}</li>`);
-      tripInfo.append(`<li>Trip ID: ${response.data.id}</li>`);
+      for (const detail in response.data) {
+        if (detail != "id") {
+        tripInfo.append(`
+            <tr>
+              <td>${detail}</td>
+              <td>${response.data[detail]}</td>
+            </tr>
+            `)
+          }
+        }
 
       $('#reservation-form input[name="id"]').val(response.data.id)
       $('#reservation-form input[name="trip"]').val(response.data.name)
