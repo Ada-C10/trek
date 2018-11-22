@@ -10,10 +10,12 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <section id="status-message"></section>
 
   <main class="container">
-    <nav><button id="load">List all Trips</button></nav>
+    <nav class="navbar">
+      <button class="btn btn-primary" id="load">List all Trips</button>
+      <div id="status-message" class="alert alert-dark alert-dismissible"></div>
+    </nav>
     <div class="row">
       <section class="current-trips col-5">
         <h1>Trip List</h1>
@@ -21,12 +23,13 @@
       </section>
 
       <section class="trip-details col-7">
-        <h1>Trip Details</h1>
-        <ul id="trip-info"></ul>
+        <div class="jumbotron">
+          <h1>Trip Details</h1>
+          <ul id="trip-info"></ul>
+        </div>
 
         <h1>Reserve Trip</h1>
-
-         <form id="reservation-form" class="form-group">
+        <form id="reservation-form" class="form-group">
           <div>
             <label for="name">Name</label>
             <input type="text" name="name" class="form-control" />
