@@ -87,11 +87,9 @@ const tripDetails = (tripID) => {
 
 };
 
-const readFormData = () => {
+const readFormData = (formObject) => {
 
-  console.log($('#reservation-form').serialize());
-
-  return $('#reservation-form').serialize();
+  return formObject.serialize();
 };
 
 const createReservation = (event) => {
@@ -100,8 +98,13 @@ const createReservation = (event) => {
 
   reportStatus("requesting reservation...");
 
-  const tripData = readFormData();
+  const tripData = readFormData($('#reservation-form'));
+
+  console.log("right after");
+  console.log(tripData);
+
   const tripID = $(`#reservation-form input[name="id"]`).val();
+  console.log("second one");
 
   console.log(tripData);
 
@@ -109,7 +112,7 @@ const createReservation = (event) => {
     .then((response) => {
       reportStatus('successfully reserved voyage!');
 
-      clearForm();
+      // clearForm();
 
     })
 
