@@ -29,6 +29,7 @@ const loadTrips = () => {
       // .then runs if call succeeds
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach(trip => {
+        // QUESTION is there a better way to keep the trip id for later?
         tripList.append(`<li class="trip", id=${trip.id}>${trip.name}</li>`);
       });
     })
@@ -51,12 +52,12 @@ const showReservationForm = event => {
     `<form id=trip-form>` +
     `<label for="name">` +
     `</label>` +
-    `<input type="text" name="name">` +
+    `<input type="text" name="name" placeholder="Your Name">` +
     "Your Name" +
     `</input>` +
     `<label for="email">` +
     `</label>` +
-    `<input type="text" name="email">` +
+    `<input type="text" name="email" placeholder="Email">` +
     "Email" +
     `</input>` +
     `</input>` +
@@ -74,27 +75,6 @@ const showReservationForm = event => {
     `<input type="submit" name="add-reservation" value="Complete Reservation">` +
     `</input>` +
     `</form>`;
-  // Add trip name to tripForm?
-  // Appends the form the id as hidden/the name as read only
-  // $("#trip-form").append(
-  //   `<input type="hidden" name="tripID" value="${trip.id}" readonly>`
-  // );
-  // Add trip name to field as read only
-  // $("#trip-form").append(
-  //   $("<input>").attr({
-  //     type: "text",
-  //     name: "Trip Name",
-  //     value: `${event.textContent}`,
-  //     disabled: true
-  //   }),
-  //   $("<input>").attr({
-  //     type: "text",
-  //     name: "TripID",
-  //     value: `${event.id}`,
-  //     hidden: true
-  //   })
-  // `<input type="text" name="tripName value="${trip.name} readonly"></input>`
-  // );
   $("#reservation").append(tripForm);
 };
 const readFormData = () => {
@@ -108,7 +88,6 @@ const readFormData = () => {
   const idFromForm = $(`#trip-form input[name="tripID"]`).val();
   parsedFormData["tripID"] = idFromForm ? idFromForm : undefined;
 
-  // console.log(parsedFormData);
   return parsedFormData;
 };
 
@@ -121,7 +100,6 @@ const clearForm = () => {
 const createReservation = event => {
   event.preventDefault();
   // TODO TODO QUESTION trip.preventDefault()? QUESTION
-  // QUESTION How do I get id over here? QUESTION
   console.log(event);
   event.preventDefault();
   const tripData = readFormData();
@@ -174,8 +152,13 @@ const getTripData = event => {
 
       // For each in parsedTripData
       for (let detail in parsedTripData) {
-        $("#trip-details").append(`<h2>${detail}</h2>`);
-        $("#trip-details").append(`<p>${parsedTripData[detail]}`);
+        $("#trip-details").append(
+          `<div class="detailContainer">` +
+            `<h2>${detail}</h2>` +
+            `<p>${parsedTripData[detail]}</p>` +
+            `</div>`
+        );
+        // $("#trip-details").append(`<p>${parsedTripData[detail]}`);
       }
     })
     .catch(error => {
