@@ -26,6 +26,10 @@
         <h1>Reserve trip</h1>
         <form id="trip-form">
           <div>
+            <p class="trip-name">Trip Name:<strong></strong> </p>
+          </div>
+
+          <div>
             <label for="name">Full Name: </label>
             <input type="text" name="name" />
           </div>
@@ -35,9 +39,12 @@
             <input type="text" name="email" />
           </div>
 
-          <div>
-            <p class="trip-name">Trip Name: </p>
 
+          <div class="hidden-values">
+          <input type="hidden" id="continent" name="continent">
+          <input type="hidden" id="category" name="category">
+          <input type="hidden" id="weeks" name="weeks">
+          <input type="hidden" id="cost" name="cost">
           </div>
 
           <input type="submit" name="reserve-trip" value="Reserve Trip" />
