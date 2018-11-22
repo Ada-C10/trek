@@ -1,5 +1,17 @@
 const baseURL = 'https://trektravel.herokuapp.com/trips';
 
+const reportError = (message, errors) => {
+  let content = `<p>${message}</p>`
+  content += "<ul>";
+  for (const field in errors) {
+    for (const problem of errors[field]) {
+      content += `<li>${field}: ${problem}</li>`;
+    }
+  }
+  content += "</ul>";
+  reportStatus(content);
+};
+
 const reportStatus = (message) => {
   $('#status-message').html(message);
 };
@@ -58,25 +70,16 @@ const tripDetails = (tripID) => {
     })
     .catch((error) => {
       console.log(error);
-      reportStatus(`Encountered an error while loading trips: ${error.message}`);
+      reportStatus(`Encountered an error while loading trip: ${error.message}`);
     });
 
 };
 
 const readFormData = () => {
-  const parsedFormData = {};
 
-  const nameFromForm = $(`#reservation-form input[name="name"]`).val();
-  console.log(nameFromForm);
-  parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+  console.log($('#reservation-form').serialize());
 
-  const ageFromForm = $(`#reservation-form input[name="age"]`).val();
-  parsedFormData['age'] = ageFromForm ? ageFromForm : undefined;
-
-  const ownerFromForm = $(`#reservation-form input[name="email"]`).val();
-  parsedFormData['email'] = ownerFromForm ? ownerFromForm : undefined;
-
-  return parsedFormData;
+  return $('#reservation-form').serialize();
 };
 
 const createReservation = (event) => {
@@ -96,22 +99,23 @@ const createReservation = (event) => {
       clearForm();
 
     })
+
     .catch((error) => {
-      console.log(error.response.data.errors);
-      const nameError = error.response.data.errors.name;
-      const emailError = error.response.data.errors.email;
-
-      let message = "";
-      if (nameError) {
-        message += `Encountered an error: Name ${nameError} \n`;
+      console.log(error.response);
+      // Make sure the server actually sent us errors. If
+      // there's a different problem, like a typo in the URL
+      // or a network error, the response won't be filled in.
+      if (error.response.data && error.response.data.errors) {
+        // User our new helper method
+        reportError(
+          `Encountered an error: ${error.message}`,
+          error.response.data.errors
+        );
+      } else {
+        // This is what we had before
+        reportStatus(`Encountered an error: ${error.message}`);
       }
-
-      if (emailError) {
-        message += `Encountered an error: Email ${nameError} \n`;
-      }
-
-      reportStatus(message);
-    })
+    });
 };
 
 const clearForm = () => {
