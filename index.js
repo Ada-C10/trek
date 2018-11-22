@@ -99,20 +99,13 @@ const createReservation = (event) => {
   reportStatus("requesting reservation...");
 
   const tripData = readFormData($('#reservation-form'));
-
-  console.log("right after");
-  console.log(tripData);
-
   const tripID = $(`#reservation-form input[name="id"]`).val();
-  console.log("second one");
-
-  console.log(tripData);
 
   axios.post(baseURL + `/${tripID}/reservations`, tripData)
     .then((response) => {
       reportStatus('successfully reserved voyage!');
 
-      // clearForm();
+      clearForm($('#reservation-form'));
 
     })
 
@@ -134,7 +127,7 @@ const createTrip = (event) => {
     .then((response) => {
       reportStatus(`successfully registered new voyage #${response.data.id}!`);
 
-      // clearForm();
+      clearForm();
 
     })
 
@@ -142,10 +135,13 @@ const createTrip = (event) => {
 
 };
 
-const clearForm = () => {
-  $(`#reservation-form input[name="name"]`).val("");
-  $(`#reservation-form input[name="age"]`).val("");
-  $(`#reservation-form input[name="email"]`).val("");
+const clearForm = (form) => {
+
+
+form[0].reset();
+  // $(`#reservation-form input[name="name"]`).val("");
+  // $(`#reservation-form input[name="age"]`).val("");
+  // $(`#reservation-form input[name="email"]`).val("");
 };
 
 $(document).ready(() => {
