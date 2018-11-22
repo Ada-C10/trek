@@ -13,7 +13,7 @@ const getAllTrips = () => {
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} trips.`);
       response.data.forEach((trip) => {
-        tripList.append(`<li>${trip.name}</li>`);
+        tripList.append(`<li><button id="get-trip-${trip.id}">${trip.name}</button></li>`);
       });
     })
     .catch((error) => {
