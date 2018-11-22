@@ -19,11 +19,18 @@ const reportStatus = (message, status) => {
 };
 
 const clearForm = () => {
-  $("#form")[0].reset();
+  $("#trip-form")[0].reset();
 };
 
 const readFormData = () => {
-  return $("#trip-form").serialize();
+  const parsedFormData = {};
+  let formData = $("#trip-form").serializeArray();
+
+  for(let field of formData){
+    parsedFormData[field.name] = field.value
+  }
+
+  return parsedFormData;
 }
 
 const parsedTripDetails = (response) => {
@@ -46,13 +53,18 @@ const parsedTripDetails = (response) => {
 
 const createReservation = (event) => {
   event.preventDefault();
-  const id = $(event.target)[0]["elements"][2]["dataset"]["id"];
-  const tripData = readFormData();
+  let tripData = readFormData();
+  const id = tripData["id"];
+  const location = tripData["trip-name"];
+  tripData = {
+    "name": tripData["name"],
+    "email": tripData["email"]
+  }
   const url = `https://trektravel.herokuapp.com/trips/${id}/reservations`;
 
   axios.post(url, tripData)
-    .then((response) => {
-      reportStatus(`Successfully added a trip with ID ${response.data.id}!`, 'success');
+    .then(() => {
+      reportStatus(`${tripData["name"]}, you successfully reserved the trip: ${location}!`, 'success');
       clearForm();
     })
     .catch((error) => {
@@ -71,6 +83,10 @@ const createReservation = (event) => {
 };
 
 const createForm = (event) => {
+  const formElement = $('#form');
+  formElement.empty();
+  formElement.append('<h4>Reserve Today!</h4>');
+
   const form = $('<form></form>');
   form.attr("id", "trip-form");
 
@@ -79,21 +95,22 @@ const createForm = (event) => {
     const div = $('<div></div>');
     div.append(`<label for="${option}">${option}</label>`);
     if(option === "trip-name"){
-      div.append(`<input type="text" name="${option}" class="${option}" value="${$(event.target).text()}" data-id="${$(event.target).data("id")}"/>`);
+      div.append(`<input type="text" name="${option}" class="${option}" value="${$(event.target).text()}"/>`);
     } else {
       div.append(`<input type="text" name="${option}" class="${option}"/>`);
     }
     form.append(div);
   }
 
-  form.append(`<input type="submit" name="add-trip" value="Add Trip" />`);
-
-  return form;
+  form.append(`<input type="hidden" name="id" value="${$(event.target).data("id")}"/>`)
+  form.append(`<input type="submit" name="add-trip" value="Add Trip" class="btn"/>`);
+  formElement.append(form);
 };
 
 const loadTrips = () => {
   hideDetails();
   $('#trips').show();
+
   const tripList = $('#trips');
   tripList.empty();
   tripList.append('<h4>All Trips</h4>');
@@ -130,10 +147,7 @@ const loadTripDetails = (event) => {
     .then((response) => {
       tripDetails.append('<h4 class="card-title">Details</h4>');
       tripDetails.append(parsedTripDetails(response));
-      const form = $('#form');
-      form.empty();
-      form.append('<h4>Reserve Today!</h4>');
-      form.append(createForm(event));
+      createForm(event);
       reportStatus(`Successfully loaded ${response.data.name}.`, 'success');
     })
     .catch((error) => {
