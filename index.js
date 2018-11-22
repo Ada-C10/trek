@@ -53,18 +53,14 @@ const loadTrips = () => {
 };
 
 const tripDetails = (tripID) => {
-
   reportStatus('getting voyage details...');
 
   const tripInfo = $('#trip-info');
-
-  tripInfo.empty();
-
   const tripURL = `${baseURL}/${tripID}`;
+  tripInfo.empty();
 
   axios.get(tripURL)
     .then((response) => {
-
       $('.trip-details').show();
 
       for (const detail in response.data) {
@@ -72,25 +68,21 @@ const tripDetails = (tripID) => {
         tripInfo.append(`<tr><td><strong>${detail}<strong></td><td>${response.data[detail]}</td></tr>`)
         }
       }
-
       $('#reservation-form input[name="id"]').val(response.data.id)
-      $('#reservation-form input[name="trip"]').val(response.data.name)
+      $('#reservation-form input[id="form-trip-name"]').val(response.data.name)
 
       reportStatus(`successfully loaded voyage #${tripID}`);
     })
     .catch(handleError);
-
 };
 
 const readFormData = (formObject) => {
-
   return formObject.serialize();
 };
 
 const createReservation = (event) => {
   event.preventDefault();
   $('html, body').animate({ scrollTop: 0 }, 'fast');
-
   reportStatus("requesting reservation...");
 
   const tripData = readFormData($('#reservation-form'));
@@ -99,11 +91,9 @@ const createReservation = (event) => {
   axios.post(baseURL + `/${tripID}/reservations`, tripData)
     .then((response) => {
       reportStatus('successfully reserved voyage!');
-
       clearForm($('#reservation-form'));
     })
-
-    .catch(handleError);
+  .catch(handleError);
 };
 
 const createTrip = (event) => {
@@ -139,6 +129,4 @@ $(document).ready(() => {
 
   $('#reservation-form').submit(createReservation);
   $('#new-trip-form').submit(createTrip);
-
-
 });
