@@ -12,50 +12,59 @@
      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
      crossorigin="anonymous">
      <link rel="stylesheet" href="index.css">
+     <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto" rel="stylesheet">
 </head>
 <body>
-  <section id="status-message"></section>
-<header>
-  <h1> TREK </h1>
-  <button type="button" id="load" class="btn btn-primary">All Trips</button>
-</header>
+
+
+  <main>
+    <header>
+      <h1> TREK </h1>
+      <button  type="button" id="load" class="btn btn-primary"> Show All Trips</button>
+      <section id="status-message" role="alert"></section>
+      </header>
+
+
 <section>
+
   <ul id="trip-list"></ul>
+
 </section>
 
-<section id="singletrip">
-  <p class="id"></p>
-  <p class="name"></p>
-  <p class="continent"></p>
-  <p class="about"></p>
-  <p class="weeks"></p>
-  <p class="cost"></p>
-  <p class="category"></p>
-</section>
+
+
+<article class="Trip">
+  <section id="singletrip">
+        <p class="id"></p>
+        <p class="name"></p>
+        <p class="continent"></p>
+        <p class="about"></p>
+        <p class="weeks"></p>
+        <p class="cost"></p>
+        <p class="category"></p>
+      </section>
 
 <form id="form">
-    <h1>Make a Reservation</h1>
-      <div>
+    <h3>Make a Reservation</h3>
+      <div class="form-group">
         <label for="name">Name</label>
         <input type="text" name="name" />
       </div>
 
-      <div>
+      <div class="form-group">
         <label for="email">Email</label>
         <input type="text" name="email" />
       </div>
 
-      <div>
+      <div class="form-group">
         <input type="hidden" name="tripID" id="tripID" />
       </div>
 
-
-
       <input type="submit" name="reser" value="submit" />
     </form>
+    </div>
+</article>
 
-
-
-
+</main>
 </body>
 </html>
