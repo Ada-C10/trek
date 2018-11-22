@@ -27,7 +27,7 @@ const loadTrips = () => {
   axios.get(baseURL)
     .then((response) => {
       response.data.forEach((trip) => {
-        const tripName = $(`<li class="list-group-item">${trip.name}</li>`);
+        const tripName = $(`<li class="list-group-item list-group-item-action">${trip.name}</li>`);
         tripName.data("id", trip.id);
 
         tripName.addClass("trip-link");
@@ -128,6 +128,7 @@ $(document).ready(() => {
 
   $('#trip-list').on('click', 'li', function(event) {
     const tripID = $(this).data("id");
+
     tripDetails(tripID);
    });
 

@@ -26,30 +26,30 @@
 
         <h1>Reserve Trip</h1>
 
-         <form id="reservation-form">
+         <form id="reservation-form" class="form-group">
           <div>
             <label for="name">Name</label>
-            <input type="text" name="name" />
+            <input type="text" name="name" class="form-control" />
           </div>
 
           <div>
             <label for="age">Age (optional)</label>
-            <input type="text" name="age" />
+            <input type="text" name="age" class="form-control" />
           </div>
 
           <div>
             <label for="email">Email</label>
-            <input type="text" name="email" />
+            <input type="text" name="email" class="form-control" />
           </div>
 
           <div>
             <label for="trip">Trip Name</label>
-            <input type="text" name="trip" readonly />
+            <input type="text" name="trip" readonly class="form-control" />
           </div>
 
           <input type="hidden" name="id" />
 
-          <input type="submit" name="reserve-trip" value="Reserve Trip" />
+          <input type="submit" name="reserve-trip" value="Reserve Trip" class="btn btn-primary" />
         </form>
       </section>
     </div>
