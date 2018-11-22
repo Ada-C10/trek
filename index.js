@@ -16,6 +16,19 @@ const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
+const handleError = (error) => {
+  console.log(error.response);
+
+  if (error.response.data && error.response.data.errors) {
+    reportError(
+      `highly illogical: ${error.message}`,
+      error.response.data.errors
+    );
+  } else {
+    reportStatus(`highly illogical: ${error.message}`);
+  }
+};
+
 const loadTrips = () => {
 
   $('.current-trips').show();
@@ -36,10 +49,7 @@ const loadTrips = () => {
       });
       reportStatus(`successfully loaded ${response.data.length} voyages`);
     })
-    .catch((error) => {
-      console.log(error);
-      reportStatus(`highly illogical: ${error.message}`);
-    });
+    .catch(handleError);
 };
 
 const tripDetails = (tripID) => {
@@ -73,10 +83,7 @@ const tripDetails = (tripID) => {
 
       reportStatus(`successfully loaded voyage #${tripID}`);
     })
-    .catch((error) => {
-      console.log(error);
-      reportStatus(`highly illogical: ${error.message}`);
-    });
+    .catch(handleError);
 
 };
 
@@ -106,18 +113,30 @@ const createReservation = (event) => {
 
     })
 
-    .catch((error) => {
-      console.log(error.response);
+    .catch(handleError);
 
-      if (error.response.data && error.response.data.errors) {
-        reportError(
-          `highly illogical: ${error.message}`,
-          error.response.data.errors
-        );
-      } else {
-        reportStatus(`highly illogical: ${error.message}`);
-      }
-    });
+};
+
+const createTrip = (event) => {
+  event.preventDefault();
+  $('html, body').animate({ scrollTop: 0 }, 'fast');
+
+  reportStatus("registering new voyage...");
+
+  const tripData = readFormData();
+
+  console.log(tripData);
+
+  axios.post(baseURL, tripData)
+    .then((response) => {
+      reportStatus(`successfully registered new voyage #${response.data.id}!`);
+
+      // clearForm();
+
+    })
+
+    .catch(handleError);
+
 };
 
 const clearForm = () => {
@@ -133,9 +152,11 @@ $(document).ready(() => {
 
   $('#trip-list').on('click', 'li', function(event) {
     const tripID = $(this).data("id");
-
     tripDetails(tripID);
    });
 
   $('#reservation-form').submit(createReservation);
+  $('#new-trip-form').submit(createTrip);
+
+
 });
