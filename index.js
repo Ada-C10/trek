@@ -44,6 +44,7 @@ const loadTrips = () => {
 
       const imageLink = imageObj[response["continent"]];
       let continental = "";
+      let weeks = "0";
 
       if (response["continent"] === "Europe") {
         continental = response["continent"] + "an";
@@ -51,10 +52,16 @@ const loadTrips = () => {
       else {
         continental = response["continent"] + "n";
       }
+      if (response["weeks"] == "1") {
+        weeks = "1 week";
+      }
+      else {
+        weeks = response["weeks"] + " Weeks";
+      }
 
       tripList.append(`<div><li><img src=${imageLink} alt="Iconic ${continental} image"></li><strong><li>${continental} Adventure</li></strong>
       <li>${response["name"]}</li>
-      <li>${response["weeks"]} Weeks</li>
+      <li>${weeks}</li>
       <li><button class="select-trip" id=${response["id"]}>Trek here!</button></li></div>`);
     });
   })
