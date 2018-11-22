@@ -1,10 +1,12 @@
 const URL = 'https://trektravel.herokuapp.com/trips/';
 
-const inputs = ['name', 'email', 'trip', 'id'];
+const reservationInputs = ['name', 'email', 'trip', 'id'];
+const tripInputs = ['name', 'continent', 'category', 'weeks', 'cost', 'about'];
 
 const tripsList = $('section.trips-list');
 const tripDetails = $('section.trip-details');
 const reserveTrip = $('section.reserve-trip');
+const addTrip = $('section.add-trip');
 const alert = $('#status-message');
 
 const reportStatus = (message, type) => {
@@ -25,6 +27,7 @@ const loadTrips = () => {
       response.data.forEach((trip) => {
         tripList.append(`<li><a href="#" data-trip-id="${trip.id}">${trip.name}</a></li>`);
       });
+      addTrip.show();
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trips: ${error.message}`, 'danger');
@@ -59,7 +62,7 @@ const loadDetail = (event) => {
       }
       tripDetails.show();
 
-      clearForm();
+      clearForm('reservation', reservationInputs);
       $(`#reservation-form input[name="trip"]`).val(response.data.name);
       $(`#reservation-form input[name="id"]`).val(response.data.id);
       reserveTrip.show();
@@ -72,27 +75,27 @@ const loadDetail = (event) => {
     });
 };
 
-const readFormData = () => {
+const readFormData = (form, inputs) => {
   const parsedFormData = {};
 
   for (let currentInput of inputs) {
-    const currentData = $(`#reservation-form input[name="${currentInput}"]`).val();
+    const currentData = $(`#${form}-form input[name="${currentInput}"]`).val();
     parsedFormData[currentInput] = currentData ? currentData : undefined;
   }
 
   return parsedFormData;
 };
 
-const clearForm = () => {
+const clearForm = (form, inputs) => {
   for (let currentInput of inputs) {
-    $(`#reservation-form input[name="${currentInput}"]`).val('');
+    $(`#${form}-form input[name="${currentInput}"]`).val('');
   }
 };
 
 const createReservation = (event) => {
   event.preventDefault();
 
-  const reservationData = readFormData();
+  const reservationData = readFormData('reservation', reservationInputs);
   const tripID = reservationData.id;
 
   reportStatus('Sending reservation data...', 'warning');
@@ -100,7 +103,34 @@ const createReservation = (event) => {
   axios.post(URL + tripID + '/reservations', reservationData)
     .then((response) => {
       reportStatus(`Successfully added a reservation for trip ${reservationData.trip}!`, 'success');
-      clearForm();
+      clearForm('reservation', reservationInputs);
+    })
+    .catch((error) => {
+      console.log(error.response);
+      if (error.response.data && error.response.data.errors) {
+        reportError(
+          `Encountered an error: ${error.message}, 'danger'`,
+          error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error: ${error.message}, 'danger'`);
+      }
+    });
+};
+
+const addATrip = (event) => {
+  event.preventDefault();
+
+  const tripData = readFormData('trip', tripInputs);
+  tripData['weeks'] = parseInt(tripData.weeks);
+  tripData['cost'] = parseFloat(tripData.cost);
+
+  reportStatus('Sending trip data...', 'warning');
+
+  axios.post(URL, tripData)
+    .then((response) => {
+      clearForm('trip', tripInputs);
+      reportStatus(`Successfully added trip: ${tripData.name}!`, 'success');
     })
     .catch((error) => {
       console.log(error.response);
@@ -122,8 +152,11 @@ $(document).ready(() => {
   tripsList.hide();
   tripDetails.hide();
   reserveTrip.hide();
+  addTrip.hide();
 
   $('#load').click(loadTrips);
+
+  $('#trip-form').submit(addATrip);
 
   $('#trip-list').on('click', 'a', loadDetail);
 

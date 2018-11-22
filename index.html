@@ -25,7 +25,7 @@
       <section class="trips-list col-6 card">
         <div class="card-body">
           <h2 class="card-title">All Trips</h2>
-          <ul id="trip-list" class="card-text"></ul>
+          <ul id="trip-list" class="card-text mt-3"></ul>
         </div>
       </section>
 
@@ -37,7 +37,7 @@
           </div>
         </section>
 
-        <section class="reserve-trip card">
+        <section class="reserve-trip card mb-3">
           <div class="card-body">
             <h2 class="card-title">Reserve Trip</h2>
             <form id="reservation-form">
@@ -48,17 +48,56 @@
 
               <div>
                 <label for="email">Email</label>
-                <input type="text" name="email" />
+                <input type="email" name="email" />
               </div>
 
               <div>
                 <label for="trip">Trip Name</label>
-                <input type="text" name="trip" value="TRIP HERE" />
+                <input type="text" name="trip" value="TRIP HERE" readonly/>
               </div>
 
               <input type="hidden" name="id" />
 
               <input type="submit" name="reserve" value="Reserve" class="btn btn-primary mt-3" />
+            </form>
+          </div>
+        </section>
+
+        <section class="add-trip card">
+          <div class="card-body">
+            <h2 class="card-title">Add a Trip</h2>
+            <form id="trip-form">
+              <div>
+                <label for="name">Name</label>
+                <input type="text" name="name" />
+              </div>
+
+              <div>
+                <label for="continent">Continent</label>
+                <input type="text" name="continent" />
+              </div>
+
+              <div>
+                <label for="category">Category</label>
+                <input type="text" name="category" />
+              </div>
+
+              <div>
+                <label for="weeks">Weeks</label>
+                <input type="number" name="weeks" />
+              </div>
+
+              <div>
+                <label for="cost">Cost</label>
+                <input type="text" name="cost" />
+              </div>
+
+              <div>
+                <label for="about">About</label>
+                <input type="text-area" name="about" />
+              </div>
+
+              <input type="submit" name="add" value="Add" class="btn btn-primary mt-3" />
             </form>
           </div>
         </section>

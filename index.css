@@ -34,3 +34,7 @@ ul {
 li.trip-name {
   font-size: 150%;
 }
+
+a, a::hover {
+  text-decoration: none;
+}
