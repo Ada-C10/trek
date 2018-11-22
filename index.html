@@ -12,45 +12,47 @@
 <body>
   <section id="status-message"></section>
 
-  <main>
+  <main class="container">
     <nav><button id="load">List all Trips</button></nav>
-    <section class="current-trips container">
-      <h1>Trip List</h1>
-      <ul id="trip-list"></ul>
-    </section>
+    <div class="row">
+      <section class="current-trips col-5">
+        <h1>Trip List</h1>
+        <ul id="trip-list" class="list-group"></ul>
+      </section>
 
-    <section class="trip-details">
-      <h1>Trip Details</h1>
-      <ul id="trip-info"></ul>
+      <section class="trip-details col-7">
+        <h1>Trip Details</h1>
+        <ul id="trip-info"></ul>
 
-      <h1>Reserve Trip</h1>
+        <h1>Reserve Trip</h1>
 
-       <form id="reservation-form">
-        <div>
-          <label for="name">Name</label>
-          <input type="text" name="name" />
-        </div>
+         <form id="reservation-form">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" name="name" />
+          </div>
 
-        <div>
-          <label for="age">Age (optional)</label>
-          <input type="text" name="age" />
-        </div>
+          <div>
+            <label for="age">Age (optional)</label>
+            <input type="text" name="age" />
+          </div>
 
-        <div>
-          <label for="email">Email</label>
-          <input type="text" name="email" />
-        </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="text" name="email" />
+          </div>
 
-        <div>
-          <label for="trip">Trip Name</label>
-          <input type="text" name="trip" readonly />
-        </div>
+          <div>
+            <label for="trip">Trip Name</label>
+            <input type="text" name="trip" readonly />
+          </div>
 
-        <input type="hidden" name="id" />
+          <input type="hidden" name="id" />
 
-        <input type="submit" name="reserve-trip" value="Reserve Trip" />
-      </form>
-    </section>
+          <input type="submit" name="reserve-trip" value="Reserve Trip" />
+        </form>
+      </section>
+    </div>
   </main>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>

@@ -1,4 +1,4 @@
-main {
+/* main {
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: auto;
@@ -12,4 +12,4 @@ main {
 .trip-details {
   grid-column: 2;
   grid-row: 1;
-}
+} */

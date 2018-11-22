@@ -27,7 +27,7 @@ const loadTrips = () => {
   axios.get(baseURL)
     .then((response) => {
       response.data.forEach((trip) => {
-        const tripName = $(`<li><button>${trip.name}</button></li>`);
+        const tripName = $(`<li class="list-group-item">${trip.name}</li>`);
         tripName.data("id", trip.id);
 
         tripName.addClass("trip-link");
@@ -102,17 +102,13 @@ const createReservation = (event) => {
 
     .catch((error) => {
       console.log(error.response);
-      // Make sure the server actually sent us errors. If
-      // there's a different problem, like a typo in the URL
-      // or a network error, the response won't be filled in.
+
       if (error.response.data && error.response.data.errors) {
-        // User our new helper method
         reportError(
           `Encountered an error: ${error.message}`,
           error.response.data.errors
         );
       } else {
-        // This is what we had before
         reportStatus(`Encountered an error: ${error.message}`);
       }
     });
@@ -129,11 +125,9 @@ $(document).ready(() => {
   $('.trip-details').hide();
 
   $('#load').click(loadTrips);
-  // $('#load').click($(this).text(), tripDetails);
 
   $('#trip-list').on('click', 'li', function(event) {
     const tripID = $(this).data("id");
-    // console.log(tripID);
     tripDetails(tripID);
    });
 
