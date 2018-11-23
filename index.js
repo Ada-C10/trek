@@ -24,6 +24,21 @@ const loadTrips = () => {
   })
 }
 
+const createReservation = (event) => {
+  event.preventDefault();
+
+  console.log("In the createReservation");
+  let nameFromForm = $('input[name="name"]').val();
+  let emailFromForm = $('input[name="email"]').val();
+  let tripFromForm = $('input[name="trip"]').val();
+  let tripid = $('input[name="reserveSpot"]').attr('id');
+  console.log(nameFromForm);
+  console.log(emailFromForm);
+  console.log(tripFromForm);
+  console.log(tripid);
+}
+
+
 const viewTrip = function viewTrip(tripID){
   reportStatus("loading trip details...");
   let tripDetailURL = `${URL}/${tripID}`;
@@ -53,6 +68,9 @@ const viewTrip = function viewTrip(tripID){
       // Populating Reservation Form
       $('input[name="trip"]').val(`${name}`);
 
+      // Binding trip id to submit button id
+      $('input[name="reserveSpot"]').attr('id', `${tripid}`)
+
 
 
       })
@@ -70,5 +88,5 @@ $(document).ready(() => {
 
   $('#reserveTrip').hide();
 
-
+  $('#tripForm').submit(createReservation);
 });
