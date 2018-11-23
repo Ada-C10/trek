@@ -27,7 +27,7 @@ const loadTrips = () => {
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
-        tripList.append(`<a href="${URL}/${trip.id}"><li class ="trip-details">${trip.name}</li></a>`);
+        tripList.append(`<a href="${URL}/${trip.id}" id="trip-button"><li class ="trip-details">${trip.name}</li></a>`);
       });
     })
     .catch((error) => {
