@@ -77,7 +77,7 @@ const showReservationForm = event => {
     `</label>` +
     `<input type="text" name="tripID" value="${event.id}" hidden>` +
     `</input>` +
-    `<input type="submit" name="add-reservation" value="Complete Reservation">` +
+    `<input type="submit" id="reservation-button" name="add-reservation" value="Complete Reservation">` +
     `</input>` +
     `</form>`;
   $("#reservation").append(tripForm);
@@ -140,7 +140,7 @@ const getTripData = event => {
       // Create the object to append
       const parsedTripData = {};
       parsedTripData.id = response.data.id;
-      parsedTripData.name = response.data.name;
+      parsedTripData.destination = response.data.name;
       parsedTripData.continent = response.data.continent;
       parsedTripData.details = response.data.about;
       parsedTripData.category = response.data.category;

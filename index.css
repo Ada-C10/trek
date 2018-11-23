@@ -4,12 +4,34 @@ main {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto 1fr 1fr;
   grid-column-gap: 2rem;
+  color: #1e62d0;
 }
 
-#load {
+#load,
+#reservation-button {
   margin-bottom: 1rem;
-  margin-left: auto;
-  margin-right: auto;
+  background: #3d94f6;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+  color: #fff;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-family: Verdana;
+  font-weight: 200;
+  box-shadow: 1px 1px 15px 0px #000;
+  text-shadow: 1px 1px 15px #000;
+  border: solid 1px #337fed;
+  cursor: pointer;
+  background-image: -webkit-linear-gradient(top, #3d94f6, #1e62d0);
+    background-image: -moz-linear-gradient(top, #3d94f6, #1e62d0);
+    background-image: -ms-linear-gradient(top, #3d94f6, #1e62d0);
+    background-image: -o-linear-gradient(top, #3d94f6, #1e62d0);
+    background-image: linear-gradient(to bottom, #3d94f6, #1e62d0);
+}
+
+#reservation-button {
+  font-size: 1rem;
 }
 
 ul {
@@ -21,13 +43,21 @@ ul {
 .current-trips li {
   padding: 1rem;
   margin-bottom: 1px;
-  border: 1px solid black;
+  border: 1px solid #1e62d0;
   text-align: center;
+  color: #fff;
+  background-color: #1e62d0;
+  font-size: 1rem;
+  border-style: outset;
+  font-weight: 200;
 }
 
 .current-trips li:hover {
-  background-color: black;
+  background-color: #3d94f6;
   color: white;
+  border-style: inset;
+  font-size: 1.25rem;
+  cursor: pointer;
 }
 
 #status-message {
@@ -38,12 +68,12 @@ ul {
 }
 
 .error {
-  color: red;
+  color: #be3a30;
   font-weight: bold;
 }
 
 .success {
-  color: green;
+  color: #26aa8a;
   font-style: italic;
 }
 
@@ -85,7 +115,7 @@ p {
 }
 
 .detailContainer:nth-child(even) {
-  background: black;
+  background: #3d94f6;
   color: white;
 }
 
@@ -116,13 +146,29 @@ button {
 form {
   display: flex;
   flex-direction: column;
+  font-size: 1rem;
 }
 
 input {
-  border: 1px solid black;
+  border: 1px solid ##3d94f6;
+  color: #1e62d0;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
   text-align: center;
+  max-width: 100%;
+  font-size: 1rem;
+  border-style: outset;
+}
+
+input:hover {
+  border-style: inset;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+::placeholder {
+  color: #1e62d0;
+  font-size: 1rem;
 }
 
 label {
