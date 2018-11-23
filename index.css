@@ -18,14 +18,14 @@ ul {
   padding: 0;
 }
 
-li {
+.current-trips li {
   padding: 1rem;
   margin-bottom: 1px;
   border: 1px solid black;
   text-align: center;
 }
 
-li:hover {
+.current-trips li:hover {
   background-color: black;
   color: white;
 }
@@ -34,6 +34,7 @@ li:hover {
   text-align: center;
   grid-column: 1 / 3;
   grid-row: 1 / 1;
+  font-size: 1.5rem;
 }
 
 .error {
@@ -49,6 +50,8 @@ li:hover {
 .current-trips {
   grid-column: 1 / 1;
   grid-row: 2 / 3;
+  display: flex;
+  flex-direction: column;
 }
 
 .current-trips h1 {
