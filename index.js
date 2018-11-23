@@ -3,6 +3,8 @@ const reportStatus = (message) => {
 };
 
 const loadTrips = () => {
+  $( "#reveal-heading-list-trips" ).show();
+  $( ".current-trips" ).addClass("section-borders")
   const URL = `https://trektravel.herokuapp.com/trips`;
   const tripList = $('#trip-list');
   tripList.empty();
@@ -16,34 +18,32 @@ const loadTrips = () => {
 };
 
 const showTrip = (id) => {
-  const URL = `https://trektravel.herokuapp.com/trips/`;
-  const tripShowList = $('#trip-details');
-  const reserveTripForm = $('#new-trip');
-
+  $( "#trip-details" ).addClass("section-borders")
+  $( "#reveal-heading-details" ).show();
+  const tripShowList = $('#trip-details-list');
   tripShowList.empty();
+  const reserveTripForm = $('#new-trip');
+  reserveTripForm.addClass("section-borders")
   reserveTripForm.empty();
+
+  const URL = `https://trektravel.herokuapp.com/trips/`;
+
   axios.get(URL + id)
   .then((response) => {
     for (let tripData in response.data) {
-      tripShowList.append(`<li><strong>${tripData}</strong>: ${response.data[tripData]}</li>`);
+      tripShowList.append(`<li><strong class="capitalize">${tripData}</strong>: ${response.data[tripData]}</li>`);
     }
-    reserveTripForm.append(
-      `<h1>Reserve a Trip</h1>
+    reserveTripForm.append( // turn this form into helper function??
+      `<h2>Reserve a Trip</h2>
       <form id="trip-form">
-      <div>
+      <div><input type="hidden" value="${id}">
       <label for="name">Name:</label>
-      <input type="text" name="name" />
-      </div>
-      <div>
-      <label for="email">Email:</label>
-      <input type="text" name="email" />
-      </div>
-      <div>
-      <p>Trip Name: ${response.data.name}</p>
-      </div>
-      <input type="submit" name="reserve-trip" id="${id}" value="Reserve this Trip" />
+      <input type="text" class="add-border" name="name" /></div>
+      <div><label for="email">Email:</label>
+      <input type="text" name="email" /></div>
+      <div><p>Trip Name: ${response.data.name}</p></div>
+      <input type="submit" class="ugly-button" name="reserve-trip" value="Reserve this Trip" />
       </form>`)
-
       reportStatus(`Successfully loaded all trips`);
     });
   };
@@ -60,7 +60,6 @@ const showTrip = (id) => {
   }
 
   const reserveTrip = (id) => {
-    console.log(readFormData());
     const URL = `https://trektravel.herokuapp.com/trips/${id}/reservations`
     axios.post(URL, readFormData())
     .then((response) => {
@@ -70,6 +69,22 @@ const showTrip = (id) => {
     })
   };
 
+
+
+  // const addTrip = () => {
+  //   const URL = `https://trektravel.herokuapp.com/trips`
+  //   const newTrip = {
+  //     name: `string`,
+  //     continent: `string`,
+  //     about: `string`,
+  //     category: "string",
+  //     weeks: 1,
+  //     cost: 32.00 // float
+  //   }
+  //   axios.post(URL, newTrip)
+  // };
+
+  // set up error stuff
   $(document).ready(() => {
     $('#load').click(loadTrips);
     $('#trip-list').on('click', 'a', function() {
@@ -77,7 +92,7 @@ const showTrip = (id) => {
     });
     $(document).on('submit', '#trip-form', function(event){
       event.preventDefault();
-      const thisId = $( this ).find( 'input' )
-      reserveTrip(thisId[2].id);
+      // $(`input:hidden`).val()
+      reserveTrip($(`input:hidden`).val());
     });
   });

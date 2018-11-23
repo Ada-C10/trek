@@ -8,30 +8,24 @@
 <body>
   <section id="status-message"></section>
   <main>
-    <section class="current-trips">
-      <h1>List of Trips</h1>
-      <button id="load">List All Trips</button>
-      <ul id="trip-list"></ul>
-    </section>
+    <h1>Trek</h1>
+    <button class="ugly-button" id="load">See All Trips</button>
+    <article class="trek-container">
+      <section class="current-trips">
+        <h2 id="reveal-heading-list-trips">All Trips</h2>
+        <ul id="trip-list"></ul>
+      </section>
 
-    <section id="trip-details">
-    </section>
+      <section class="details-new-trip">
+        <section id="trip-details">
+          <h2 id="reveal-heading-details">Trip Details</h2>
+          <ul id="trip-details-list"></ul>
+        </section>
+        <section id="new-trip">
+        </section>
+      </section>
 
-    <section id="new-trip">
-      <!-- <h1>Reserve a Trip</h1>
-      <form id="trip-form">
-        <div>
-          <label for="name">Name</label>
-          <input type="text" name="name" />
-        </div>
-        <div>
-          <label for="email">Email</label>
-          <input type="text" name="email" />
-        </div>
-        <input type="submit" name="reserve-trip" value="Reserve this Trip" />
-      </form> -->
-    </section>
-
+    </article>
   </main>
   <script
   src="https://code.jquery.com/jquery-3.3.1.js"></script>

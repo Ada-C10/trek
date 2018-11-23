@@ -1,0 +1,73 @@
+.trek-container {
+  display: grid;
+  grid-template: 1fr / 1fr 1fr;
+}
+
+.current-trips {
+  grid-column: 1 / 2;
+}
+
+.details-new-trip {
+  display: flex;
+  flex-direction: column;
+}
+
+/* #trip-details {
+grid-column: 2 / 3;
+}
+
+#new-trip {
+grid-column: 2 / 3;
+} */
+
+#reveal-heading-details, #reveal-heading-list-trips {
+  display: none;
+}
+
+h2, h1 {
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+
+main, .add-border {
+  border: 1px solid black;
+}
+
+.section-borders {
+  border: 1px solid black;
+  margin: 1em;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.ugly-button {
+  background: #FFFFFF;
+  background: -webkit-linear-gradient(top, #FFFFFF, #2B3F57);
+  background: -moz-linear-gradient(top, #FFFFFF, #2B3F57);
+  background: linear-gradient(to bottom, #FFFFFF, #2B3F57);
+  color: white;
+  height: 30px;
+  border-radius: 3px;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+ul#trip-list li {
+  border-bottom: 1px solid black;
+  padding: 1em;
+  margin: 0;
+}
+
+ul#trip-list li:last-child {
+   border-bottom: 0;
+   padding-bottom: 0;
+}
+
+ul#trip-list li:first-child {
+   padding-top: 0;
+}
