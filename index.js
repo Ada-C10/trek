@@ -13,6 +13,9 @@ const reportError = (message, errors) => {
     }
   }
   content += "</ul>";
+  $("#status-message")
+    .removeClass("success")
+    .addClass("error");
   reportStatus(content);
 };
 
@@ -27,6 +30,7 @@ const loadTrips = () => {
     .get(URL)
     .then(response => {
       // .then runs if call succeeds
+      $("#status-message").addClass("success");
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach(trip => {
         // QUESTION is there a better way to keep the trip id for later?
@@ -99,8 +103,6 @@ const clearForm = () => {
 };
 const createReservation = event => {
   event.preventDefault();
-  // TODO TODO QUESTION trip.preventDefault()? QUESTION
-  console.log(event);
   event.preventDefault();
   const tripData = readFormData();
   let URL = `https://trektravel.herokuapp.com/trips/${
@@ -110,9 +112,8 @@ const createReservation = event => {
   axios
     .post(URL, tripData)
     .then(response => {
-      reportStatus(
-        `Successfully added trip reservation with id ${tripData.tripID}`
-      );
+      $("#status-message").addClass("success");
+      reportStatus(`Successfully added reservation`);
       clearForm();
     })
     .catch(error => {
@@ -134,9 +135,8 @@ const getTripData = event => {
   axios
     .get(URL)
     .then(response => {
+      $("#status-message").addClass("success");
       reportStatus(`Successfully loaded trip data`);
-      // console.log("RESPONSE");
-      // console.log(response);
       // Create the object to append
       const parsedTripData = {};
       parsedTripData.id = response.data.id;
@@ -154,14 +154,14 @@ const getTripData = event => {
       for (let detail in parsedTripData) {
         $("#trip-details").append(
           `<div class="detailContainer">` +
-            `<h2>${detail}</h2>` +
-            `<p>${parsedTripData[detail]}</p>` +
+            `<h2>${detail}</h2>: <p>${parsedTripData[detail]}</p>` +
             `</div>`
         );
         // $("#trip-details").append(`<p>${parsedTripData[detail]}`);
       }
     })
     .catch(error => {
+      $("#status-message").addClass("error");
       reportStatus(`Encountered an error while loading trip: ${error.message}`);
       console.log(error);
     });

@@ -26,9 +26,23 @@ li {
   grid-row: 1 / 1;
 }
 
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.success {
+  color: green;
+  font-style: italic;
+}
+
 .current-trips {
   grid-column: 1 / 1;
   grid-row: 2 / 3;
+}
+
+.current-trips h1 {
+  text-align: center;
 }
 
 #trip-list {
@@ -43,13 +57,22 @@ li {
   grid-row: 2 / 3; */
 }
 
+#trip-details h1 {
+  text-align: center;
+}
+
+.detailContainer h2,
+p {
+  display: inline;
+}
+
 /* #reservation {
   grid-row: 2 / 2;
   grid-column: 2 / 2;
 } */
 
 .detailContainer {
-  padding: 1rem;
+  padding-bottom: 1rem;
 }
 
 #detail {
