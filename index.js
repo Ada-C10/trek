@@ -115,15 +115,16 @@ const reserveTrip = (event) => {
   axios.post(postURL, tripData)
   .then((response) => {
     console.log(response)
-    reportStatus(`Successfully added a trip with ID ${response}!`);
+    reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
     // clearForm();
   })
   .catch((error) => {
-    console.log(error.response);
-    if (error.response && error.response.errors) {
+    console.log(error.response.request.responseText);
+    // console.log(error.response)
+    if (error.response) {
+      console.log(error.response.request.responseText)
       reportError(
-        `Encountered an error: ${error.message}`,
-        error.response.errors
+        `Encountered an error: ${error.response.request.responseText}`
       );
     } else {
       reportStatus(`Encountered an error: ${error.message}`);
@@ -131,11 +132,9 @@ const reserveTrip = (event) => {
   });
 };
 
-//check catch
+//check catch - fix hash 
 // clear form?? figure that out
 
-// OK GO!!!!!
-//
 $(document).ready(() => {
   $(".individual-trip").hide()
   $('#load').click(loadTrips);
