@@ -32,7 +32,15 @@ const getTripDetail = (id) => {
     })
     .then((response) => {
       reportStatus("Successfully loaded trip!")
-      tripDetailList.append(`<li>${response.data.name}</li><li>${response.data.continent}</li>`);
+      let trip = response.data
+      tripDetailList.append(
+        `<li>Name: ${trip.name}</li>
+        <li>Continent: ${trip.continent}</li>
+        <li>Category: ${trip.category}</li>
+        <li>Weeks: ${trip.weeks}</li>
+        <li>Cost: ${trip.cost}</li>
+        <li>About: ${trip.about}</li>`
+      );
     })
     .catch((error) => {
       reportStatus(`Encountered an error ${error.message}`);
