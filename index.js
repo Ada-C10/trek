@@ -27,7 +27,15 @@ const loadTrips = () => {
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
-        tripList.append(`<a href="${URL}/${trip.id}" id="trip-button"><li class ="trip-details">${trip.name}</li></a>`);
+        // tripList.append(`<a href="${URL}/${trip.id}" id="trip-button"><li class ="trip-details">${trip.name}</li></a>`);
+        tripList.append(`<li class ="trip-details"><a id="trip-button">${trip.name}</a></li>`);
+
+        const detURL = URL + `/${trip.id}`;
+        axios.get(detURL)
+          .then((response) => {
+          $('.trip-details').append(`<p>${response.data.about}`);
+        });
+
       });
     })
     .catch((error) => {
@@ -55,7 +63,7 @@ const loadDetails = (event) => {
     .then((response) => {
       reportStatus('Successfully loaded trip detail');
       response.data.forEach((trip) => {
-        tripList.append(`<a><li class ="trip-details">${trip.name}</li></a>`);
+        // tripList.append(`<a><li class ="trip-details">${trip.name}</li></a>`);
         // tripList.append(`<a><li class ="trip-details">${trip.name}</li></a>
         // <p class="trip-toggle">${trip.category}</p>`);
         // $('.trip-toggle').toggle();
@@ -81,6 +89,7 @@ $(document).ready(() => {
 
   $('#trip-list').on('click', 'li', function(event) {
     alert(`Clicked on <li> "${$(this).html()}"`);
+    $()
     // $('li').toggle(this.html);
   });
 
