@@ -1,5 +1,5 @@
 // index.js
-const URL = 'https://trektravel.herokuapp.com/trips';
+let URL = 'https://trektravel.herokuapp.com/trips';
 
 const reportStatus = (message) => {
   $('#status-message').html(message);
@@ -14,32 +14,68 @@ const loadTrips = () => {
 
   // Actually load the trips
   axios.get(URL)
-    .then((response) => {
-      reportStatus(`Successfully loaded ${response.data.length} trips`);
+  .then((response) => {
+    reportStatus(`Successfully loaded ${response.data.length} trips`);
 
-      // sort the trips
+    // sort the trips
 
-      response.data.forEach((trip) => {
-        tripList.append(`<li>${trip.name}</li>`);
-        tripList.append(createButton())
-      });
+    response.data.forEach((trip) => {
+      // let singleTrip = $(`<li>${trip.name}</li>`)
+      tripList.append(`<li>${trip.name}</li>`);
+      let button = createButton()
+      tripList.append(button)
+      button.on('click', () => {
+        clickDetails(`${trip.id}`)
+      })
     })
     .catch((error) => {
       reportStatus(error);
       console.log(error);
     });
+  });
 };
 
 function createButton() {
+
   const $button = $('<button/>', {
     text: 'See Trip Details',
-    id: 'details-btn',
-  }).click(ClickDetails);
+    id: 'details-btn'
+  });
   return $button
 }
-function ClickDetails() {
-  alert('something happened');
+
+
+const clickDetails = (id) => {
+  // const tripDetails = $('#trip-details');
+  // tripDetails.empty();
+  let trip_URL = (URL + id)
+  console.log(trip_URL)
+  // axios.get(URL)
+  // .then((response) => {
+  //   response.forEach((trip) => {
+  //     alert('something')
+  //     tripDetails.append(`<li>${trip.id}</li>`);
+  //   });
+  // })
 }
+
+
+
+// function clickDetails(tripId) {
+//   alert('something happened');
+  // URL = $(URL).append(trip.id)
+  // axios.get(URL)
+  // .then((response) => {
+  //   response.for((trip) => {
+  //     tripList.append(`<li>${trip.name}</li>`);
+  //     tripList.append(createButton())
+  //   });
+  // })
+  // .catch((error) => {
+  //   reportStatus(error);
+  //   console.log(error);
+  // });
+// }
 
 // const createTrip = () => {
 //
