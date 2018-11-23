@@ -5,7 +5,7 @@ const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
-const reportError = (message, error) => {
+const reportError = (message, errors) => {
   let content = `<p>${message}</p><ul>`;
   for (const field in errors) {
     for (const problem of errors[field]) {
@@ -27,7 +27,9 @@ const loadTrips = () => {
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
-        tripList.append(`<li>${trip.name}</li>`);
+        tripList.append(`<a><li class ="trip-details">${trip.name}</li></a>`);
+        // $('li').append(`<p class="trip-about">${trip.category}</p>`)
+        // $('p').toggle();
       });
     })
     .catch((error) => {
@@ -41,7 +43,28 @@ const loadTrips = () => {
     });
 };
 
+// Toggle details of individual trip
+const loadDetails = (event) => {
+  reportStatus('Sending trip data..');
+
+  axios.get(URL)
+  // const tripDetail = () => {
+  //   response.data.find(x => x.id =='3');
+  // }
+
+  // $('#trip-list')
+};
+
+
+///
 $(document).ready(() => {
   $('#see-trips').click(loadTrips);
+  // $('.trip-details').click(loadDetails);
   // $('#pet-form').submit(createPet);
+
+  $('#trip-list').on('click', 'li', function(event) {
+    alert(`Clicked on <li> "${$(this).html()}"`);
+    $('li').toggle(this.html);
+  });
+
 })
