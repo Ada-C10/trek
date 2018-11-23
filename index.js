@@ -55,21 +55,22 @@ const showReservationForm = event => {
     `<h1>Reserve Trip</h1>` +
     `<form id=trip-form>` +
     `<label for="name">` +
+    "Name" +
     `</label>` +
     `<input type="text" name="name" placeholder="Your Name">` +
-    "Your Name" +
     `</input>` +
     `<label for="email">` +
+    "Email" +
     `</label>` +
     `<input type="text" name="email" placeholder="Email">` +
-    "Email" +
     `</input>` +
     `</input>` +
     `<label for="Trip Name">` +
+    "Trip" +
     `</label>` +
-    `<input type="text" name="tripName" value="(${
+    `<input type="text" name="tripName" value="${
       event.textContent
-    })" readonly>` +
+    }" readonly>` +
     `</input>` +
     `</input>` +
     `<label for="tripID">` +
@@ -147,7 +148,7 @@ const getTripData = event => {
       parsedTripData.cost = response.data.cost;
 
       // Append to trip-details section
-      $("#trip-details").append("<h1>Details</h1>");
+      $("#trip-details").append("<h1>Trip Information</h1>");
 
       // For each in parsedTripData
       for (let detail in parsedTripData) {
