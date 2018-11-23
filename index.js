@@ -41,5 +41,8 @@ const getTripDetail = (id) => {
 
 $(document).ready(() => {
   $('#load-all-trips').click(getAllTrips);
-  $('ul').on('click', 'button', getTripDetail);
+  $('ul').on('click', 'button', function(event) {
+    let id = $(this).attr('id');
+    getTripDetail(id);
+  });
 });
