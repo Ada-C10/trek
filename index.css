@@ -3,6 +3,7 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto 1fr 1fr;
+  grid-column-gap: 2rem;
 }
 
 button {
@@ -17,7 +18,15 @@ ul {
 }
 
 li {
-  margin-bottom: 1rem;
+  padding: 1rem;
+  margin-bottom: 1px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+li:hover {
+  background-color: black;
+  color: white;
 }
 
 #status-message {
@@ -53,8 +62,8 @@ li {
 #trip-details {
   /* display: flex;
   flex-direction: column; */
-  /* grid-column: 2 / 2;
-  grid-row: 2 / 3; */
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
 }
 
 #trip-details h1 {
@@ -72,7 +81,13 @@ p {
 } */
 
 .detailContainer {
-  padding-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid gray;
+}
+
+.detailContainer:nth-child(even) {
+  background: black;
+  color: white;
 }
 
 #detail {
@@ -88,6 +103,17 @@ button {
   font-weight: bold;
 }
 
+#trip-info-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#reservation {
+  text-align: center;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -97,4 +123,5 @@ input {
   border: 1px solid black;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
+  text-align: center;
 }

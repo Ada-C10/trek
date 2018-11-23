@@ -103,7 +103,6 @@ const clearForm = () => {
 };
 const createReservation = event => {
   event.preventDefault();
-  event.preventDefault();
   const tripData = readFormData();
   let URL = `https://trektravel.herokuapp.com/trips/${
     tripData.tripID
