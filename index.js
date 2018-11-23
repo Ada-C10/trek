@@ -68,15 +68,9 @@ const loadTripDetails = (id) => {
   });
 
   const fillHiddenfields = (details) => {
-    // const hiddenValues = $('.hidden-values');
-    // hiddenValues.empty();
-
     for (const [key, value] of details) {
       $(`.hidden-values input[name = "${key}"]`).val(`${value}`);
-
-
     }
-
   };
 }
 
@@ -93,21 +87,15 @@ console.log(parsedFormData)
   return parsedFormData;
 
 };
-//
-// const clearForm = () => {
-//   $(`#trip-form input[name="name"]`).val('');
-//   $(`#trip-form input[name="age"]`).val('');
-//   $(`#trip-form input[name="owner"]`).val('');
-// }
+
+const clearForm = () => {
+  $(`#trip-form input[name="name"]`).val('');
+  $(`#trip-form input[name="email"]`).val('');
+}
 
 const reserveTrip = (event) => {
-  // Note that reserveTrip is a handler for a `submit`
-  // event, which means we need to call `preventDefault`
-  // to avoid a page reload
   event.preventDefault();
-  console.log(event)
   const tripData = readFormData();
-  console.log(tripData);
 
   reportStatus('Sending trip data...');
   let postURL =  `https://trektravel.herokuapp.com/trips/${tripData.id}/reservations`
@@ -116,11 +104,10 @@ const reserveTrip = (event) => {
   .then((response) => {
     console.log(response)
     reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
-    // clearForm();
+    clearForm();
   })
   .catch((error) => {
     console.log(error.response.request.responseText);
-    // console.log(error.response)
     if (error.response) {
       console.log(error.response.request.responseText)
       reportError(
@@ -132,7 +119,7 @@ const reserveTrip = (event) => {
   });
 };
 
-//check catch - fix hash 
+//check catch - fix hash
 // clear form?? figure that out
 
 $(document).ready(() => {
