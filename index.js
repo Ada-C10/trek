@@ -22,6 +22,7 @@ const reportError = (message, errors) => {
 // Loading Trips
 //
 const loadTrips = () => {
+  $("#status-message").show()
   reportStatus('Loading trips...');
 
   const tripList = $('#trip-list');
@@ -29,7 +30,7 @@ const loadTrips = () => {
 
   axios.get(URL)
   .then((response) => {
-    reportStatus(`Successfully loaded ${response.data.length} trips`);
+    reportStatus(`Successfully loaded ${response.data.length} trips!`);
     response.data.forEach((trip) => {
       tripList.append(`<li id= ${trip.id}> ${trip.name}</li>`);
     });
@@ -123,6 +124,7 @@ const reserveTrip = (event) => {
 // clear form?? figure that out
 
 $(document).ready(() => {
+  $("#status-message").hide()
   $(".individual-trip").hide()
   $('#load').click(loadTrips);
   $('#trip-list').on('click', 'li', function(event){
