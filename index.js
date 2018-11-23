@@ -17,13 +17,15 @@ const reportError = (message, errors) => {
 };
 
 const showTrip = (response) => {
+  console.log(response);
   const target = $('#trip-details');
-  let details = `<h4>Name: ${response.name}</h4>`;
-  details += `<p>Continent: ${response.continent}</p>`;
-  details += `<p>Category: ${response.category}</p>`;
-  details += `<p>Weeks: ${response.weeks}</p>`;
-  details += `<p>Cost: $${response.cost}</p>`;
-  details += `<p>About:</p><br><p>${response.about}`;
+  target.empty();
+  let details = `<h4>Name: ${response.data.name}</h4>`;
+  details += `<p>Continent: ${response.data.continent}</p>`;
+  details += `<p>Category: ${response.data.category}</p>`;
+  details += `<p>Weeks: ${response.data.weeks}</p>`;
+  details += `<p>Cost: $${response.data.cost}</p>`;
+  details += `<p>About:</p><br><p>${response.data.about}`;
   target.append(details);
 };
 
