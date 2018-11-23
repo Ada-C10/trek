@@ -46,17 +46,20 @@ function createButton() {
 
 
 const clickDetails = (id) => {
-  // const tripDetails = $('#trip-details');
-  // tripDetails.empty();
-  let trip_URL = (URL + id)
-  console.log(trip_URL)
-  // axios.get(URL)
-  // .then((response) => {
-  //   response.forEach((trip) => {
-  //     alert('something')
-  //     tripDetails.append(`<li>${trip.id}</li>`);
-  //   });
-  // })
+  const tripDetails = $('#trip-details');
+  tripDetails.empty();
+  let tripURL = (URL + `/` + id)
+  // console.log(tripURL)
+  axios.get(tripURL)
+  .then((response) => {
+    // console.log(response.data.name)
+    // response.data((trip) => {
+      tripDetails.append(`<li>${response.data.name}</li>`);
+      tripDetails.append(`<li>${response.data.continent}</li>`);
+      tripDetails.append(`<li>${response.data.about}</li>`);
+      tripDetails.append(`<li>${response.data.category}</li>`);
+    // });
+  })
 }
 
 
