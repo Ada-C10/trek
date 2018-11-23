@@ -37,12 +37,12 @@ const showTrip = (id) => {
       `<h2>Reserve a Trip</h2>
       <form id="trip-form">
       <div><input type="hidden" value="${id}">
-      <label for="name">Name:</label>
+      <label for="name"><strong>Your Name:</strong></label>
       <input type="text" class="add-border" name="name" /></div>
-      <div><label for="email">Email:</label>
+      <div><label for="email"><strong>Email:</strong></label>
       <input type="text" name="email" /></div>
-      <div><p>Trip Name: ${response.data.name}</p></div>
-      <input type="submit" class="ugly-button" name="reserve-trip" value="Reserve this Trip" />
+      <div><p><strong>Trip Name: </strong><span id="trip-name"> ${response.data.name}</span></p></div>
+      <input type="submit" class="ugly-button" name="reserve-trip" value="Reserve" />
       </form>`)
       reportStatus(`Successfully loaded all trips`);
     });
