@@ -21,15 +21,14 @@ const getAllTrips = () => {
     });
 };
 
-const getTripDetail = () => {
+const getTripDetail = (id) => {
   reportStatus("Loading trip...")
   const tripDetailList = $('#trip-detail-list');
   tripDetailList.empty();
-  // const tripId = $(`#get-trip-${(this).html()}`).get;
-  // const detail = URL + '/' + tripId
+
   axios.get(URL)
     .then((response) => {
-      return axios.get(URL + '/' + `${response.data[0].id}`);
+      return axios.get(URL + '/' + id);
     })
     .then((response) => {
       reportStatus("Successfully loaded trip!")
