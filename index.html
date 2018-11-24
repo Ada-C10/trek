@@ -7,43 +7,72 @@
   src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/javascript" src="index.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cabin+Sketch|Covered+By+Your+Grace|Lobster+Two" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
+
+  <nav>
+      <img src="https://image.flaticon.com/icons/svg/1304/1304639.svg" width="50" height="50" class="d-inline-block align-top" alt="">
+      TREK
+  </nav>
+
+
   <section id="status-message"></section>
+  <div class="next-adventure">
+  <button id="load" class="btn striped-shadow dark">Next Adventure</button>
+  <button id="btnTrip"class="btn striped-shadow dark">Add A New Trip</button>
+  <div>
 
   <main>
+
     <section class="current-trips">
-      <h1>Travel Catalog</h1>
-      <button id="load">Next Adventure</button>
       <ul id="trip-list"></ul>
     </section>
 
-    <section class="trip-info">
 
+
+    <section class="trip-info">
     </section>
 
-    <section class="new-trip">
-      <!-- <h1>Reserve Your Trip Today</h1>
-      <form id="trip-form">
+    <section class="new-trip"></section>
+
+    <section class="add-trip">
+      <h1>Reserve Your Trip Today</h1>
+      <form id="newtrip-form">
         <div>
-          <label for="name">Name</label>
+          <label for="name">Name:</label>
           <input type="text" name="name" />
         </div>
 
         <div>
-          <label for="email">Email</label>
-          <input type="text" name="email" />
+          <label for="continent">Continent:</label>
+          <input type="text" name="continent" />
         </div>
 
         <div>
-          <label for="trip">Destination</label>
-          <input type="text" name="trip" />
+          <label for="about">About:</label>
+          <input type="text" name="about" />
         </div>
 
-        <input type="submit" name="add-pet" value="Add Pet" />
-      </form> -->
+        <div>
+          <label for="category">Category:</label>
+          <input type="text" name="category" />
+        </div>
+
+        <div>
+          <label for="weeks">Weeks</label>
+          <input type="number" name="weeks" />
+        </div>
+
+        <div>
+          <label for="cost">Cost</label>
+          <input type="number" name="cost" />
+        </div>
+
+        <input type="submit" name="add-newtrip" value="Add Trip" />
+      </form>
     </section>
 
   </main>

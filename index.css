@@ -1,3 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Cabin+Sketch|Covered+By+Your+Grace|Lobster+Two|Bungee+Shade|El+Messiri');
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 'list trip'
+                       'list reservation';
+}
+
+#trip-list {
+  grid-area: list;
+}
+
+.new-trip {
+  grid-area: trip;
+}
+
+.reservation {
+  grid-area: reservation;
+}
 input[name="name"] {
   sytle css
+}
+
+nav {
+  background: black;
+  padding-left: .5em;
+  font-size: 4.5em;
+  font-family: 'Cabin Sketch','Amatic SC', cursive;
+  color: white;
+}
+
+/* Button Style */
+#load {
+  font-family: "Bungee Shade";
+  font-size: 1.5em;
+}
+
+#load:hover {
+  font-family: "Bungee Shade";
+  font-size: 1.5em;
+  color: orange;
+}
+
+#btnTrip{
+  font-family: "Bungee Shade";
+  font-size: 1.5em;
+}
+
+#btnTrip:hover {
+  font-family: "Bungee Shade";
+  font-size: 1.5em;
+  color: blue;
+}
+
+
+#trip-list {
+  list-style: none;
+  font-family: "Cabin Sketch";
+  font-size: 1.25em;
+}
+
+#trip-list > li > a:hover {
+  text-decoration: none;
+  font-family: "Cabin Sketch";
+  color: #39ff14;
+  font-size: 1.5em;
 }
