@@ -24,6 +24,7 @@ const loadTrips = () => {
   })
 }
 
+// https://trektravel.herokuapp.com/trips/1/reservations
 const createReservation = (event) => {
   event.preventDefault();
 
@@ -32,10 +33,22 @@ const createReservation = (event) => {
   let emailFromForm = $('input[name="email"]').val();
   let tripFromForm = $('input[name="trip"]').val();
   let tripid = $('input[name="reserveSpot"]').attr('id');
-  console.log(nameFromForm);
-  console.log(emailFromForm);
-  console.log(tripFromForm);
-  console.log(tripid);
+  let URL = `https://trektravel.herokuapp.com/trips/${tripid}/reservations`
+  // console.log(nameFromForm);
+  // console.log(emailFromForm);
+  // console.log(tripFromForm);
+  // console.log(tripid);
+  const dataToSend = {
+    name: nameFromForm,
+    email: emailFromForm,
+    trip_id: tripid
+  };
+
+  axios.post(URL, dataToSend)
+    .then((response) => {
+      console.log(response);
+      reportStatus(`Reservation Successfully Added with ID: ${response.data.id}`);
+    })
 }
 
 
