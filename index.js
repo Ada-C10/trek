@@ -10,7 +10,8 @@ const getRequestHandler = (id) => {
     axios.get(URL + id)
       .then((response) => {
         reportStatus('Successfully loaded!')
-        handleGetResponse(response);
+        let element = id === '/' ? $('#trip-list') : $('#trip-detail-list')
+        handleGetResponse(element, response);
       })
       .catch((error) => {
         reportStatus(`Encountered an error ${error.message}`);
@@ -19,18 +20,18 @@ const getRequestHandler = (id) => {
   return sendGetRequest;
 };
 
-const handleGetResponse = (response) => {
-  if (response.data.length > 1) {
-    let tripList = $('#trip-list');
-    tripList.empty();
-    response.data.forEach((trip) => {
-      tripList.append(`<li><button id="${trip.id}">${trip.name}</button></li>`);
+const handleGetResponse = (element, response) => {
+  element.empty();
+  let trip = response.data
+
+  if (trip.length) {
+    trip.forEach((trip) => {
+      element.append(
+        `<li><button id="${trip.id}">
+        ${trip.name}</button></li>`);
     });
   } else {
-    let tripList = $('#trip-detail-list');
-    tripList.empty();
-    let trip = response.data;
-    tripList.append(
+    element.append(
       `<li>Name: ${trip.name}</li>
       <li>Continent: ${trip.continent}</li>
       <li>Category: ${trip.category}</li>
