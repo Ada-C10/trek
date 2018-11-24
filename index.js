@@ -13,6 +13,10 @@ const loadTrips = () => {
 
   axios.get(BaseURL)
   .then((response) => {
+
+    title = $(`<h1>List of trips</h1>`);
+    tripList.append(title);
+
     response.data.forEach((trip) => {
       let single_trip = $(`<li>${trip.name}</li>`)
       tripList.append(single_trip);
@@ -37,7 +41,8 @@ const loadOneTrip = (trip) => {
     axios.get(BaseURL + '/'+ trip.id)
     .then((response) => {
 
-      oneTrip.append(`<h3>Trip Name: ${response.data.name}</h3>
+      oneTrip.append(`<h1>Trip Details</h1>
+        <h3>Name: ${response.data.name}</h3>
         <p>ID: ${response.data.id}</p>
         <p>Continent: ${response.data.continent}</p>
         <p>About: ${response.data.about}</p>
