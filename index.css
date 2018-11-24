@@ -1,13 +1,3 @@
-.col-md-6 {
-  height: 20vh;
-  text-align: center;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
 #trip {
   text-align: left;
 }
@@ -16,8 +6,17 @@ ul {
   text-align: center;
 }
 
-input {
-  max-width: 100%;
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+form {
+  margin-top: 2rem;
+}
+
+nav {
+  margin-bottom: 1rem;
 }
 
 .jumbotron {
@@ -36,6 +35,11 @@ input {
   font-family: 'Permanent Marker', cursive;
 }
 
+.col-md-6 {
+  height: 20vh;
+  text-align: center;
+}
+
 .right {
   float: right;
 }
@@ -44,14 +48,6 @@ input {
   margin: 3rem 0;
 }
 
-form {
-  margin-top: 2rem;
-}
-
 .move-button {
   margin-left: 4rem;
-}
-
-nav {
-  margin-bottom: 1rem;
 }

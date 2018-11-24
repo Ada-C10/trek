@@ -1,7 +1,8 @@
-// To practice a more advanced POST, allow the user to create a new trip. Create form in html
-// Work on Search!
+// To practice a more advanced POST, allow the user to create a new trip.
+// Work on Search! (3 buttons - can only search for one at a time)
+// Error Handling
 // Think about asynchronous stuff
-// DRY up the code, limit CSS
+// DRY up the code
 
 const INDEX_URL = "https://trektravel.herokuapp.com/trips";
 
@@ -10,6 +11,7 @@ const hideDetails = () => {
   $('#search-container').hide();
   $('#trip-details-container').hide();
   $('#trips-container').hide();
+  $('#new-trip-container').hide();
 };
 
 const reportStatus = (message, status) => {
@@ -19,20 +21,20 @@ const reportStatus = (message, status) => {
   $('#alert-container').show();
 };
 
-const clearForm = () => {
-  $("#trip-form")[0].reset();
+const clearForm = (formName) => {
+  $(`#${formName}`)[0].reset();
 };
 
-const readFormData = () => {
+const readFormData = (formName) => {
   const parsedFormData = {};
-  let formData = $("#trip-form").serializeArray();
+  let formData = $(`#${formName}`).serializeArray();
 
   for(let field of formData){
-    parsedFormData[field.name] = field.value
+    parsedFormData[`${field.name}`] = field.value
   }
 
   return parsedFormData;
-}
+};
 
 const parsedTripDetails = (response) => {
   const div = $(`<p><strong>Trip ID</strong>: ${response.data.id}</p>
@@ -43,43 +45,11 @@ const parsedTripDetails = (response) => {
                 <p><strong>Cost</strong>: ${response.data.cost}</p>
                 <p><strong>Description</strong>: ${response.data.about}</p>`);
   return div;
-}
+};
 
 const fillForm = (event) => {
   $(`#trip-form input[name="trip-name"]`).attr("value", `${$(event.target).text()}`);
   $(`#trip-form input[name="id"]`).attr("value", `${$(event.target).data("id")}`)
-};
-
-
-const createReservation = (event) => {
-  event.preventDefault();
-  let tripData = readFormData();
-  const id = tripData["id"];
-  const location = tripData["trip-name"];
-  tripData = {
-    "name": tripData["name"],
-    "email": tripData["email"]
-  }
-  const url = `https://trektravel.herokuapp.com/trips/${id}/reservations`;
-
-  axios.post(url, tripData)
-    .then(() => {
-      reportStatus(`${tripData["name"]}, you successfully reserved the trip: ${location}!`, 'success');
-      clearForm();
-    })
-    .catch((error) => {
-      console.log(error.response);
-      // if (error.response.data && error.response.data.errors) {
-      //   // User our new helper method
-      //   reportError(
-      //     `Encountered an error: ${error.message}`,
-      //     error.response.data.errors
-      //   );
-      // } else {
-      //   // This is what we had before
-      //   reportStatus(`Encountered an error: ${error.message}`);
-      // }
-    })
 };
 
 const loadTrips = () => {
@@ -90,6 +60,8 @@ const loadTrips = () => {
   tripList.empty();
 
   const ul = $('<ul></ul>');
+
+  reportStatus('Loading all trips...', 'info');
 
   axios.get(INDEX_URL)
     .then((response) => {
@@ -126,6 +98,53 @@ const loadTripDetails = (event) => {
     .catch((error) => {
       reportStatus(`Could not load. Error: ${error}.`, 'warning');
     });
+};
+
+const createReservation = (event) => {
+  event.preventDefault();
+  let tripData = readFormData("trip-form");
+  const id = tripData["id"];
+  const location = tripData["trip-name"];
+  tripData = {
+    "name": tripData["name"],
+    "email": tripData["email"]
+  }
+  const url = `https://trektravel.herokuapp.com/trips/${id}/reservations`;
+
+  axios.post(url, tripData)
+    .then(() => {
+      reportStatus(`${tripData["name"]}, you successfully reserved the trip: ${location}!`, 'success');
+      clearForm("trip-form");
+    })
+    .catch((error) => {
+      console.log(error.response);
+      // if (error.response.data && error.response.data.errors) {
+      //   // User our new helper method
+      //   reportError(
+      //     `Encountered an error: ${error.message}`,
+      //     error.response.data.errors
+      //   );
+      // } else {
+      //   // This is what we had before
+      //   reportStatus(`Encountered an error: ${error.message}`);
+      // }
+    })
+};
+
+const createTrip = (event) => {
+  event.preventDefault();
+  $('#new-trip-container').show();
+  let newTripData = readFormData("create-form");
+
+  axios.post(INDEX_URL, newTripData)
+    .then(() => {
+      reportStatus(`You successfully created the trip: ${newTripData["name"]}!`, 'success');
+      clearForm("create-form");
+    })
+    .catch((error) => {
+      console.log(error.message);
+      // reportStatus(`Encountered an error: ${error.message}`);
+    });
 }
 
 $(document).ready(() => {
@@ -133,6 +152,13 @@ $(document).ready(() => {
   $('#load').on('click', loadTrips);
   $('#trips').on('click', 'a[href]', loadTripDetails);
   $('#trip-form').on('submit', createReservation);
+  $('#build').on('click', (event) => {
+    event.preventDefault();
+    hideDetails();
+    $('#new-trip-container').show();
+    createTrip;
+  })
+  $('#create-form').on('submit', createTrip);
   $('#search').on('click', (event) => {
     event.preventDefault();
     hideDetails();

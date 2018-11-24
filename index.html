@@ -29,24 +29,76 @@
           </div>
         </section>
         <section class="row">
+          <div class="col-md-12" id="new-trip-container">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title text-center">Fill in the details below.</h4>
+                <div class="card-text">
+                  <form id="create-form">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="name">Name</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="name" class="name form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="continent">Continent</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="continent" class="continent form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="category">Category</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="category" class="category form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="weeks">Weeks</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="weeks" class="weeks form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="cost">Cost</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="cost" class="cost form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="about">About</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="about" class="about form-control">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary right">Create Trip!</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="col-md-12" id="search-container">
             <form>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-center" for="continent">Continent</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control" id="continent">
+                  <input type="text" name="continent" class="continent form-control">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-center" for="max-weeks">Max Number of Weeks</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control" id="max-weeks">
+                  <input type="text" name="max-weeks" class="max-weeks form-control">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-center" for="budget">Budget</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control" id="budget">
+                  <input type="text" name="budget" class="budget form-control">
                 </div>
               </div>
               <div class="row">
