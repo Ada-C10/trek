@@ -33,29 +33,35 @@ const showTrip = (response) => {
 const createReservation = (event) => {
   event.preventDefault();
   console.log(event);
-  console.log($('trip-name'));
-  // console.log(response);
+  let tripID = $('.trip-name input').attr("class");
+  // console.log(colClass);
+//
+  const data = {
+    name: $('input[name="name"]').val(),
+    email: $('input[name="email"]').val()
+  };
 
-  // const data = {
-  //   name: $('input[name="name"]').val(),
-  //   email: $('input[name="email"]').val()
-  // };
+  axios.post(URL+`/${tripID}/reservations`, data)
+    .then((response) => {
+      console.log(response);
+      reportStatus(`Successfully added reservation with ID ${response.data.id} for ${response.data.name}`);
+    })
+    .catch((error) => {
+      console.log(error.response);
+      if (error.response.data && error.response.data.errors) {
+        reportError(`Encountered an error: ${error.message}`, error.response.data.errors
+        )
+      } else {
+        reportStatus(`Encountered an error: ${error.message}`);
+      }
+    });
 };
 
 const showReservationForm = (response) => {
   const target = $('#reserve-trip');
-  console.log(target);
   target.css("visibility", "visible");
   const tripName = $('.trip-name');
-  // tripName.append(`<label for="trip" value="${response.name}">Trip Name:</label>`);
-  tripName.append(`<input type="text" name="trip" value="${response.name}" />`);
-  // <label for="trip">Trip Name:</label>
-  // <input type="text" name="name" / />
-  // tripName.addClass(`${response.id}`);
-  // tripName.append(response.name);
-  // $('#reservation-form').submit(createReservation);
-  // const reservationSubmitHandler = createReservation(response);
-  $('#reservation-form').submit(createReservation);//(response));
+  tripName.append(`<input type="text" name="trip" value="${response.name}" class="${response.id}" />`);
 };
 
 const buildTripCallback = (id) => {
@@ -105,5 +111,5 @@ const loadTripDetails = () => {
 $(document).ready(() => {
   $('#see-trips-button').click(loadTrips);
   $('#all-trips').on('click', 'li', loadTripDetails);
-  // $('#reservation-form').submit(createReservation);
+  $('#reservation-form').submit(createReservation);
 });
