@@ -71,7 +71,7 @@ $(document).ready(() => {
                         <p><strong>About:</strong> ${response.data.about}</p>
                         <p><strong>Category:</strong> ${response.data.category}</p>
                         <p><strong>Weeks:</strong> ${response.data.weeks}</p>
-                        <p><strong>Cost:</strong> $${response.data.cost}</p>`)
+                        <p><strong>Cost:</strong> $${(response.data.cost).toFixed(2)}</p>`)
         let reservation = $(`<h2 class="sub-title text-center border-bottom"><strong>Request this Trip</strong></h2>
                             <form id="trip-form" data-id="${response.data.id}">
                               <div>
