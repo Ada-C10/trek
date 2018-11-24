@@ -140,4 +140,28 @@ $(document).ready(() => {
     const id = $(this).attr('data-id');
     tripRequest(id);
   });
+
+
+
+  // background image slide:
+  let jumbotronBG = ['https://www.intheflesh.it/wp-content/uploads/2014/05/Dandelion-Field-Sunset-Desktop-Wallpaper.jpg', 'https://cdn.hipwallpaper.com/i/64/86/w23fqh.jpg', 'http://s1.picswalls.com/wallpapers/2014/07/28/free-egypt-wallpaper_1207553_115.jpg'];
+  let changeImage = $(".jumbotron");
+  let i = 0;
+
+  function cycleImage() {
+    changeImage.css({
+      'background-image': 'url(' + jumbotronBG[i] + ")"
+    });
+    i = i + 1;
+    if (i == jumbotronBG.length) {
+      i = 0;
+    }
+  }
+
+  setInterval(cycleImage, 4000);
+  cycleImage();
 });
+
+
+// .hide(); and .show();
+// tripDetails(); in document reade - then show once you call itdsflkj
