@@ -1,5 +1,6 @@
 .jumbotron {
   font-family: 'Maven Pro', sans-serif;
+  height: 75rem;
 }
 
 #status-message {
@@ -14,9 +15,12 @@
   padding: 2rem;
   background-color: white;
   opacity: 0.75;
-  height: 46rem;
+  height: 48rem;
   overflow-y: scroll;
+}
 
+.trip:hover {
+  font-weight: bold;
 }
 
 .trip-details {
@@ -30,15 +34,34 @@
 
 .trip-reservation {
   padding: 2rem;
-  height: 15rem;
+  height: 17rem;
   background-color: white;
-  opacity: 0.75;
+  opacity: 0.85;
+}
+
+input[type="submit"] {
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+input[type="text"] {
+  font-weight: bold;
+  margin: 1rem;
 
 }
+
+input[type="text"]:hover {
+  font-weight: bold;
+}
+
 
 .trek-title {
   padding: 1rem;
   /* color: white; */
   font-family: 'Fascinate', cursive;
   font-size: 5rem;
+}
+
+.info {
+  color: blue;
 }

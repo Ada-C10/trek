@@ -1,13 +1,16 @@
 const allTripURL = "https://trektravel.herokuapp.com/trips"
 
+// hide all info divs to begin with
+$(function() {
+  $('.list-trips').hide();
+  $('.trip-details').hide();
+  $('.trip-reservation').hide();
+});
+
 // Status Management
 const reportStatus = (message) => {
   $('#status-message').html(message);
 };
-
-
-
-
 
 const reportError = (message, errors) => {
   let content = `<p>${message}</p><ul>`;
@@ -32,13 +35,13 @@ $(document).ready(() => {
     reportStatus('Loading trips...');
 
     const tripList = $('.list-trips');
-    // tripList.empty();
-   // trip id attached as class to look up individual trips?
+    $('.list-trips').show();
+
     axios.get(allTripURL)
       .then((response) => {
         reportStatus(`Successfully loaded ${response.data.length} trips`);
         response.data.forEach((trip) => {
-          tripList.append(`<p data-id="${trip.id}" class="page">${trip.name}</p>`);
+          tripList.append(`<p data-id="${trip.id}" class="trip">${trip.name}</p>`);
         });
         $('.list-trips').scroll();
       })
@@ -56,30 +59,32 @@ $(document).ready(() => {
     const reservationForm = $('.trip-reservation');
     tripDetails.empty();
     reservationForm.empty();
+    $('.trip-details').show();
+    $('.trip-reservation').show();
    // trip id attached as class to look up individual trips?
     axios.get(`${allTripURL}/${id}`)
       .then((response) => {
         reportStatus(`Successfully loaded ${response.data.name}`);
-        let details = $(`<h2 class="sub-title text-center border-bottom">${response.data.name}</h2>
-                        <p>ID: ${response.data.id}</p>
-                        <p>Continent: ${response.data.continent}</p>
-                        <p>About: ${response.data.about}</p>
-                        <p>Category: ${response.data.category}</p>
-                        <p>Weeks: ${response.data.weeks}</p>
-                        <p>Cost: $${response.data.cost}</p>`)
-        let reservation = $(`<h2 class="sub-title text-center border-bottom">Request this Trip</h2>
+        let details = $(`<h2 class="sub-title text-center border-bottom"><strong>${response.data.name}</strong></h2>
+                        <p><strong>ID:</strong> ${response.data.id}</p>
+                        <p><strong>Continent:</strong> ${response.data.continent}</p>
+                        <p><strong>About:</strong> ${response.data.about}</p>
+                        <p><strong>Category:</strong> ${response.data.category}</p>
+                        <p><strong>Weeks:</strong> ${response.data.weeks}</p>
+                        <p><strong>Cost:</strong> $${response.data.cost}</p>`)
+        let reservation = $(`<h2 class="sub-title text-center border-bottom"><strong>Request this Trip</strong></h2>
                             <form id="trip-form" data-id="${response.data.id}">
                               <div>
-                                <label for="name">Name</label>
+                                <label for="name"><strong>Name</strong></label>
                                 <input type="text" name="name" />
                               </div>
 
                               <div>
-                                <label for="email">Email</label>
+                                <label for="email"><strong>Email </strong></label>
                                 <input type="text" name="email" />
                               </div>
 
-                              <input type="submit" class="btn btn-dark" name="add-reservation" value="Add Reservation" />
+                              <input type="submit" class="text-center btn btn-dark" name="add-reservation" value="Add Reservation" />
                             </form>`)
       tripDetails.append(details);
       reservationForm.append(reservation);
@@ -133,6 +138,7 @@ $(document).ready(() => {
   // all trips button
   $('.load-trips').on('click', function() {
     loadTrips();
+    $('list-trips').hide();
   });
   // $('.load-trips').click(loadTrips);
   // one trip details
@@ -168,7 +174,7 @@ $(document).ready(() => {
     }
   }
 
-  setInterval(cycleImage, 4000);
+  setInterval(cycleImage, 8000);
   cycleImage();
 });
 
