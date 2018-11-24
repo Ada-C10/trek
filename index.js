@@ -26,10 +26,7 @@ const getTripDetail = (id) => {
   const tripDetailList = $('#trip-detail-list');
   tripDetailList.empty();
 
-  axios.get(URL)
-    .then((response) => {
-      return axios.get(URL + '/' + id);
-    })
+  axios.get(URL + '/' + id)
     .then((response) => {
       reportStatus("Successfully loaded trip!")
       let trip = response.data
