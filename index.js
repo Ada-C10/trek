@@ -18,48 +18,54 @@ const reportError = (message, errors) => {
   reportStatus(content);
 };
 
-//
-// Loading Pets
-//
 const loadTrips = () => {
   reportStatus("Loading trips...");
 
   const tripList = $("#trip-list");
-  tripList.empty();
 
-  axios
-    .get(URL)
-    .then(response => {
-      reportStatus(`Successfully loaded ${response.data.length} trips`);
-      response.data.forEach(trip => {
-        tripList
-          // .append(
-          //   `<li> <a href='https://trektravel.herokuapp.com/trips/${trip.id}'>${
-          //     trip.name
-          //   }</li>`
-          // )
-          // .addClass("show-trip");
-          .append(`<li> <a href = "#" id=${trip.id}>${trip.name}</li>`)
-          .addClass("show-trip)");
+  axios.get(URL).then(response => {
+    reportStatus(`Successfully loaded ${response.data.length} trips`);
+    response.data
+      .forEach(trip => {
+        const vacation = $(
+          `<li><a href="#" id="${trip.id}">${trip.name}</a></li>`
+        );
+        tripList.append(vacation).addClass("show-trip)");
+        console.log(`${trip.name},${trip.id},${trip.about}}`);
+
+        const individualTrip = showTrip(trip.id);
+        vacation.click(individualTrip);
+      })
+      .catch(error => {
+        reportStatus(
+          `Encountered an error while loading trips: ${error.message}`
+        );
+
+        console.log(error);
       });
-    })
-    .catch(error => {
-      reportStatus(
-        `Encountered an error while loading trips: ${error.message}`
-      );
-      console.log(error);
-    });
-};
-const showTrip = id => {
-  axios.get(URL + `${trip.id}`).then(response => {
-    console.log(`${trip.id}`);
-    response.data;
   });
 };
+const showTrip = id => {
+  return () => {
+    axios
+      .get(`${URL}/${id}`)
+      .then(response => {
+        $(".showList").append(`<div>Trip Name: ${response.data.name}</div>
+          <div>Trip continent: ${response.data.continent}</div>
+          <div>Description: ${response.data.about}</div>
+          <div>Weeks: ${response.data.weeks}</div>
+          <div>Cost: ${response.data.cost}</div>`);
+      })
+      .catch(error => {
+        reportStatus(
+          `Encountered an error while loading trips: ${error.message}`
+        );
+        console.log(error);
+      });
+  };
+};
+// *******************************************************
 
-//
-// Creating Pets
-//
 const readFormData = () => {
   const parsedFormData = {};
 
@@ -82,9 +88,6 @@ const clearForm = () => {
 };
 
 const reserveTrip = event => {
-  // Note that createPet is a handler for a `submit`
-  // event, which means we need to call `preventDefault`
-  // to avoid a page reload
   event.preventDefault();
 
   const tripData = readFormData();
@@ -119,6 +122,7 @@ $(document).ready(() => {
   $("#load").click(loadTrips);
   $("#trip-form").submit(reserveTrip);
   $("#show-trip").on("click", "a", function() {
+    console.log("loading trip");
     showTrip(this.id);
   });
 });
