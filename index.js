@@ -28,38 +28,45 @@ const loadTrips = () => {
   const tripList = $('#trip-list');
   tripList.empty();
 
-  const tripDetails = $('.trip_details');
-  tripDetails.empty();
+
 
   axios.get(URL)
   .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
     response.data.forEach((trip) => {
-      tripList.append(`<li class="trip-details">${trip.name}</li>`);
-
-      const detailsURL = `https://trektravel.herokuapp.com/trips/${trip.id}`;
 
       const loadTripDetails = () => {
-        reportStatus('Loading trip details...');
+        const tripDetails = $('.trip-details');
+        tripDetails.empty();
+        const detailsURL = `https://trektravel.herokuapp.com/trips/${trip.id}`;
 
-        console.log(detailsURL);
+        reportStatus('Loading trip details...');
 
         axios.get(detailsURL)
         .then((response) => {
           reportStatus(`Successfully loaded trip details`);
-          response.data[0]; //this should be single trip details
-          console.log(response.data);
-          tripDetails.append(``)
+          const name = response.data.name;
+          const continent = response.data.continent;
+          const category = response.data.category;
+          const weeks = response.data.weeks;
+          const cost = response.data.cost;
+          const about = response.data.about;
+
+          tripDetails.append(`<h1>Trip Details</h1>
+            <li> ${name}</li>
+            <li> ${continent}</li>
+            <li> ${category}</li>
+            <li> ${weeks}</li>
+            <li> ${cost}</li>
+            <li> ${about}</li>`)
         });
 
-        // console.log(trip.name);
-        // const name = trip.name;
-        // const continent = trip.continent;
-        // const cost = trip.cost;
-        // const category = trip.category;
-        // const weeks = trip.weeks;
+
       };
-      return loadTripDetails;
+
+      tripList.append(`<li class="trip-details-${trip.id}">${trip.name}</li>`);
+      $(`.trip-details-${trip.id}`).click(loadTripDetails);
+      //return loadTripDetails;
     });
   })
   .catch((error) => {
@@ -146,7 +153,7 @@ const createPet = (event) => {
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
-  const loadTripDetails = loadTrips
-  $('.trip-details').click(loadTripDetails);
+  // const loadTripDetails = loadTrips
+  //$('.trip-details').click(loadTripDetails);
   $('#pet-form').submit(createPet);
 });
