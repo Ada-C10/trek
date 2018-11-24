@@ -45,11 +45,11 @@ ul {
 
 .main #trip.list div {
 
-  padding-right: 2rem;
+  padding-right: 4rem;
   padding-bottom: 2rem;
   padding-top: 2rem;
   padding-left: 0;
-  max-width: 15rem;
+  max-width: 16rem;
   height: 30rem;
   justify-content: space-between;
   justify-content: space-around;
@@ -62,17 +62,14 @@ ul {
   height: 13rem;
 }
 
-/* .main #trip.list div:nth-of-type(1) {
-padding-left: 0;
-} */
 
-
-.header { grid-area: header; }
+.header {
+  grid-area: header;
+}
 
 .nav {
   display: grid;
   grid-template-columns: auto 25%;
-  /* 1fr 1fr 1fr 1fr 1fr; */
   grid-template-rows: 1fr;
   grid-template-areas: "sub-heading toggle";
   grid-area: nav;
@@ -92,6 +89,8 @@ padding-left: 0;
 
 .footer {
   grid-area: footer;
+  text-align: center;
+  padding: 1em;
 }
 
 

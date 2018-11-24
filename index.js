@@ -1,5 +1,5 @@
 
-const baseURL = "https://trektravel.herokuapp.com/trips";
+const baseURL = "https://trektravel.herokuapp.com/trips/";
 
 const imageObj = {
   Europe: "https://www.jigsawstore.com.au/assets/full/RB14756-4.jpg",
@@ -17,17 +17,39 @@ const reportStatus = (message) => {
   statusDiv.html(message);
 };
 
-const loadTrip = () => {
+const loadTrip = function(tripID) {
+
+
+  $('#trip').empty();
+  $('#trip').removeClass();
+  $('#trip').addClass('detail');
+
   const tripList = $('#trip');
-  console.log(tripList.className);
 
-  reportStatus('Reload the page.. or something else');
+  axios.get(baseURL + tripID)
+  .then( (response) => {
 
+    reportStatus('Reserve a trip below');
+    console.log(response)
+    console.log(response.data)
+    console.log(response.data.name)
 
-  tripList.empty();
-  tripList.removeClass();
-  tripList.addClass('detail');
-}
+    let weeks = ""
+
+    if (response.data.weeks == "1") {
+      weeks = "1 week";
+    }
+    else {
+      weeks = response.data.weeks + " Weeks";
+    }
+
+    console.log(tripList);
+    console.log(tripList);
+
+    tripList.append(`<div><li>${response.data.name}</li><li>${weeks}</li></div>`);
+  });
+};
+
 
 const loadTrips = () => {
 
@@ -49,19 +71,15 @@ const loadTrips = () => {
       if (response["continent"] === "Europe") {
         continental = response["continent"] + "an";
       }
+      else if (response["continent"] === "Antarctica") {
+        continental = "Antarctic";
+      }
       else {
         continental = response["continent"] + "n";
-      }
-      if (response["weeks"] == "1") {
-        weeks = "1 week";
-      }
-      else {
-        weeks = response["weeks"] + " Weeks";
       }
 
       tripList.append(`<div><li><img src=${imageLink} alt="Iconic ${continental} image"></li><strong><li>${continental} Adventure</li></strong>
       <li>${response["name"]}</li>
-      <li>${weeks}</li>
       <li><button class="select-trip" id=${response["id"]}>Trek here!</button></li></div>`);
     });
   })
@@ -78,10 +96,11 @@ const toggleList = () => {
 
     if (event.target.checked && tripDiv.hasClass('detail')){
 
-      // are you sure you want to do that
-      //if yes then empty div
+      alert("Are you sure you want to go back to the trips list?")
+      //if response is yes, then loadtrips()
+      loadTrips();
 
-      reportStatus("Can't do that with the trip on the page.");
+      // reportStatus("Can't do that with the trip on the page.");
     }
     else if (event.target.checked) {
       loadTrips();
@@ -93,22 +112,33 @@ const toggleList = () => {
         reportStatus('Trips emptied.');
       }
       else {
-        reportStatus('Use toggle button to load your next adventure!');
+        reportStatus('Toggle to load your next adventure!');
       }
     }
-  })
-
-  $('.select-trip').click( function(){
-    console.log(this);
-    loadTrip();
-    console.log("here")
   })
 };
 
 
+
+
 $(document).ready(() => {
 
-  toggleList();
-  reportStatus("Choose your own adventure. Toggle me!");
+  // //do this once on start
+  // $(window).on('load',function() {
+  //
+  //    //   .ios-toggle:checked + .checkbox-label:after {
+  //    //   content:attr(data-on);
+  //    // }
+  //    // $('.toggle').get()[0].getsetAttribute("content", "data-off")
+  //     $('.toggle').setAttribute("content", "data-off")
+  //  });
 
+  // $('.toggle').prop('checked', true);
+  $('body').on('click', '.select-trip', function(event){
+    loadTrip(event.target.id);
+  })
+
+  toggleList();
+
+  reportStatus("Choose your own adventure. Toggle me!");
 });
