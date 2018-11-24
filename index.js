@@ -1,6 +1,10 @@
 const treksUrl =  "https://trektravel.herokuapp.com/trips";
 const oneTrekUrl = "https://trektravel.herokuapp.com/trips/";
 
+const reportStatus = (message) => {
+  $('#status-message').html(message);
+};
+
 const loadAllTreks = () => {
   // Prep work
   const trekList = $('#trek-list');
@@ -15,7 +19,21 @@ const loadAllTreks = () => {
         trekList.append(listItem);
         listItem.on('click', () => {
           loadOneTrek(`${trek.id}`);
-          reserveTrek(`${trek.id}`);
+          $('#trek-form').empty();
+          $('#trek-form').append(`<div>
+            <label for="name">Trek name</label>
+            <input type="text" name="name" id="name"/>
+          </div>`);
+          $('#trek-form').append(`<div>
+            <label for="age">Age</label>
+            <input type="text" name="age" id="age"/>
+          </div>`);
+          $('#trek-form').append(`<div>
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email"/>
+          </div>`);
+          $('#trek-form').append(`<input type="submit" name="add-trek" value="Add Trek" />`);
+          $('#trek-form').submit(reserveTrek(`${trek.id}`));
         });
       });
     })
@@ -48,7 +66,9 @@ const reserveTrek = (id) => {
 
   id.preventDefault();
 
-  const reserveTrekUrl = 'https://trektravel.herokuapp.com/trips/' + 1 + '/reservations';
+
+
+  const reserveTrekUrl = 'https://trektravel.herokuapp.com/trips/' + id + '/reservations';
 
   const trekData = () => {
     return {
@@ -58,12 +78,19 @@ const reserveTrek = (id) => {
     }
   }
 
-  const hello = trekData();
+  const clearForm = () => {
+    $(`#pet-form input[name="name"]`).val('');
+    $(`#pet-form input[name="age"]`).val('');
+    $(`#pet-form input[name="email"]`).val('');
+  }
 
+  const hello = trekData();
+  reportStatus('Sending trek data...');
   axios.post(reserveTrekUrl, hello)
     .then((response) => {
       console.log(response);
-      $('#testing').append(`${response.data}`);
+      $('#testing').append(response);
+      clearForm();
     })
     .catch((error) => {
       $('#status-message').append(`${error}`);
@@ -74,5 +101,4 @@ const reserveTrek = (id) => {
 
 $(document).ready(() => {
   $('#load').click(loadAllTreks);
-  $('#trek-form').submit(reserveTrek);
 });
