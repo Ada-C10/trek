@@ -1,3 +1,7 @@
+.jumbotron {
+  font-family: 'Maven Pro', sans-serif;
+}
+
 #status-message {
   padding: 2rem;
 }
@@ -7,7 +11,11 @@
 }
 
 .list-trips {
+  padding: 2rem;
   background-color: white;
+  opacity: 0.75;
+  height: 46rem;
+  overflow-y: scroll;
 
 }
 
@@ -16,14 +24,21 @@
   margin-bottom: 1rem;
   height: 30rem;
   background-color: white;
+  opacity: 0.75;
+  overflow-y: scroll;
 }
 
 .trip-reservation {
   padding: 2rem;
   height: 15rem;
   background-color: white;
+  opacity: 0.75;
+
 }
 
-h1 {
+.trek-title {
   padding: 1rem;
+  /* color: white; */
+  font-family: 'Fascinate', cursive;
+  font-size: 5rem;
 }

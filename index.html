@@ -5,11 +5,19 @@
   <title>Trek</title>
   <script
   src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <!-- <script src="//code.jquery.com/jquery-latest.min.js"></script> -->
+<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/javascript" src="index.js"></script>
-  <link rel="stylesheet" href="index.css">
-  <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfQk8Q93ypywqxuijN56YiCrP87hdihoWOoEz4c7StnwOpT9y6">
+  <!-- <script type="text/javascript" src="path_to/jquery.simplePagination.js"></script>
+  <script type="text/javascript" src="paging.js"></script> -->
 
+
+  <!-- <link type="text/css" rel="stylesheet" href="path_to/simplePagination.css"/> -->
+  <link rel="stylesheet" href="index.css">
+
+  <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfQk8Q93ypywqxuijN56YiCrP87hdihoWOoEz4c7StnwOpT9y6">
+  <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Fascinate|Frijole|Knewave|Maven+Pro|Permanent+Marker|Rye" rel="stylesheet">
 
    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -19,9 +27,9 @@
 
 
     <header>
-      <h1 class="text-center">Trek</h1>
+      <h1 class="text-center trek-title">Trek</h1>
       <div class="text-center">
-        <button class="btn btn-primary col-md-5 load-trips">List Trips</button>
+        <button class="btn btn-dark col-md-5 load-trips">List Trips</button>
       </div>
     </header>
 
@@ -29,8 +37,10 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-sm-5">
-          <section class="col-sm rounded list-trips"></section>
+        <div class="col-sm-5" id="pagination">
+          <section class="col-sm rounded list-trips content">
+            <h2 class="sub-title text-center border-bottom">All Trips</h2>
+          </section>
         </div>
         <div class="col-sm-7">
           <section class="col-sm rounded trip-details"></section>

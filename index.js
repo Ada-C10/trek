@@ -5,6 +5,10 @@ const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
+
+
+
+
 const reportError = (message, errors) => {
   let content = `<p>${message}</p><ul>`;
   for (const field in errors) {
@@ -21,7 +25,6 @@ const clearForm = () => {
   $(`#trip-form input[name="email"]`).val('');
 }
 
-
 //  READY GO!
 $(document).ready(() => {
 // ALL TRIPS
@@ -29,14 +32,15 @@ $(document).ready(() => {
     reportStatus('Loading trips...');
 
     const tripList = $('.list-trips');
-    tripList.empty();
+    // tripList.empty();
    // trip id attached as class to look up individual trips?
     axios.get(allTripURL)
       .then((response) => {
         reportStatus(`Successfully loaded ${response.data.length} trips`);
         response.data.forEach((trip) => {
-          tripList.append(`<p data-id="${trip.id}">${trip.name}</p>`);
+          tripList.append(`<p data-id="${trip.id}" class="page">${trip.name}</p>`);
         });
+        $('.list-trips').scroll();
       })
       .catch((error) => {
         reportStatus(`Encountered an error while loading trips: ${error.message}`);
@@ -55,14 +59,14 @@ $(document).ready(() => {
     axios.get(`${allTripURL}/${id}`)
       .then((response) => {
         reportStatus(`Successfully loaded ${response.data.name}`);
-        let details = $(`<h2>${response.data.name}</h2>
+        let details = $(`<h2 class="sub-title text-center border-bottom">${response.data.name}</h2>
                         <p>ID: ${response.data.id}</p>
                         <p>Continent: ${response.data.continent}</p>
                         <p>About: ${response.data.about}</p>
                         <p>Category: ${response.data.category}</p>
                         <p>Weeks: ${response.data.weeks}</p>
                         <p>Cost: $${response.data.cost}</p>`)
-        let reservation = $(`<h3>Request this Trip</h3>
+        let reservation = $(`<h2 class="sub-title text-center border-bottom">Request this Trip</h2>
                             <form id="trip-form" data-id="${response.data.id}">
                               <div>
                                 <label for="name">Name</label>
@@ -74,11 +78,10 @@ $(document).ready(() => {
                                 <input type="text" name="email" />
                               </div>
 
-                              <input type="submit" class="btn btn-primary" name="add-reservation" value="Add Reservation" />
+                              <input type="submit" class="btn btn-dark" name="add-reservation" value="Add Reservation" />
                             </form>`)
       tripDetails.append(details);
       reservationForm.append(reservation);
-
 
       })
       .catch((error) => {
@@ -127,7 +130,10 @@ $(document).ready(() => {
 
 
   // all trips button
-  $('.load-trips').click(loadTrips);
+  $('.load-trips').on('click', function() {
+    loadTrips();
+  });
+  // $('.load-trips').click(loadTrips);
   // one trip details
   $('.list-trips').on('click', 'p', function() {
     const id = $(this).attr('data-id');
@@ -139,6 +145,9 @@ $(document).ready(() => {
 
     const id = $(this).attr('data-id');
     tripRequest(id);
+  });
+
+  $('.list-trips').scroll(function() {
   });
 
 
