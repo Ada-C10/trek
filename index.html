@@ -20,44 +20,29 @@
     </section>
 
     <section class="new-trek">
-      <h1>Add a new trek</h1>
+      <h1 id="testing">Reserve trek</h1>
       <form id="trek-form">
         <div>
-          <label for="name">Trek  name</label>
-          <input type="text" name="name" />
+          <label for="name">Trek name</label>
+          <input type="text" name="name" id="name"/>
         </div>
 
         <div>
-          <label for="continent">Continent</label>
-          <input type="text" name="continent" />
+          <label for="age">Age</label>
+          <input type="text" name="age" id="age"/>
         </div>
 
         <div>
-          <label for="details">Details</label>
-          <input type="text" name="details" />
-        </div>
-
-        <div>
-          <label for="category">Category</label>
-          <input type="text" name="category" />
-        </div>
-
-        <div>
-          <label for="duration">Duration</label>
-          <input type="number" name="duration" />
-        </div>
-
-        <div>
-          <label for="cost">Cost</label>
-          <input type="number" name="category" />
+          <label for="email">Email</label>
+          <input type="text" name="email" id="email"/>
         </div>
 
         <input type="submit" name="add-trek" value="Add Trek" />
       </form>
 
       <div class="">
-        <button id="loaddd">Details</button>
-        <ul id="tttrek"></ul>
+        <button id="load-detail">Details</button>
+        <ul id="trek-detail"></ul>
       </div>
     </section>
   </main>

@@ -1,8 +1,6 @@
 const treksUrl =  "https://trektravel.herokuapp.com/trips";
 const oneTrekUrl = "https://trektravel.herokuapp.com/trips/";
 
-
-
 const loadAllTreks = () => {
   // Prep work
   const trekList = $('#trek-list');
@@ -15,14 +13,14 @@ const loadAllTreks = () => {
         const listItem = $(`<li class="${trek.id}"> ${trek.name}</li>`);
 
         trekList.append(listItem);
-        // here is after we have loaded trips
-        // and added one entry to the list
-        // set up the click handler for that entry
-        listItem.on('click', () => {loadOneTrek(`${trek.id}`)});
+        listItem.on('click', () => {
+          loadOneTrek(`${trek.id}`);
+          reserveTrek(`${trek.id}`);
+        });
       });
     })
     .catch((error) => {
-      console.log(error);
+      $('#status-message').append(`${error}`);
     });
 };
 
@@ -31,18 +29,44 @@ const loadOneTrek = (id) => {
 
   axios.get(trekNumber)
     .then((response) => {
-      $('#tttrek').empty();
+      $('#trek-detail').empty();
       const trekData = response.data
-        $('#tttrek').append(`<li> ${trekData.id}</li>`);
-        $('#tttrek').append(`<li> ${trekData.name}</li>`);
-        $('#tttrek').append(`<li> ${trekData.continent}</li>`);
-        $('#tttrek').append(`<li> ${trekData.about}</li>`);
-        $('#tttrek').append(`<li> ${trekData.category}</li>`);
-        $('#tttrek').append(`<li> ${trekData.weeks}</li>`);
-        $('#tttrek').append(`<li> ${trekData.cost}</li>`);
+        $('#trek-detail').append(`<li> ${trekData.id}</li>`);
+        $('#trek-detail').append(`<li> ${trekData.name}</li>`);
+        $('#trek-detail').append(`<li> ${trekData.continent}</li>`);
+        $('#trek-detail').append(`<li> ${trekData.about}</li>`);
+        $('#trek-detail').append(`<li> ${trekData.category}</li>`);
+        $('#trek-detail').append(`<li> ${trekData.weeks}</li>`);
+        $('#trek-detail').append(`<li> ${trekData.cost}</li>`);
     })
     .catch((error) => {
-      console.log(error);
+      $('#status-message').append(`${error}`);
+    });
+};
+
+const reserveTrek = (id) => {
+
+  id.preventDefault();
+
+  const reserveTrekUrl = 'https://trektravel.herokuapp.com/trips/' + 1 + '/reservations';
+
+  const trekData = () => {
+    return {
+      name: $('#trek-form input[name="name"]').val(),
+      age: $('#trek-form input[name="age"]').val(),
+      email: $('#trek-form input[name="email"]').val()
+    }
+  }
+
+  const hello = trekData();
+
+  axios.post(reserveTrekUrl, hello)
+    .then((response) => {
+      console.log(response);
+      $('#testing').append(`${response.data}`);
+    })
+    .catch((error) => {
+      $('#status-message').append(`${error}`);
     });
 };
 
@@ -50,4 +74,5 @@ const loadOneTrek = (id) => {
 
 $(document).ready(() => {
   $('#load').click(loadAllTreks);
+  $('#trek-form').submit(reserveTrek);
 });
