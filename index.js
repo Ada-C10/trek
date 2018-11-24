@@ -3,15 +3,13 @@
 // Think about asynchronous stuff
 // DRY up the code, limit CSS
 
-// Move Trip details into card (show/hide)
-
 const INDEX_URL = "https://trektravel.herokuapp.com/trips";
 
 const hideDetails = () => {
   $('#alert-container').hide();
   $('#search-container').hide();
-  $('#trips').hide();
   $('#trip-details-container').hide();
+  $('#trips-container').hide();
 };
 
 const reportStatus = (message, status) => {
@@ -37,19 +35,13 @@ const readFormData = () => {
 }
 
 const parsedTripDetails = (response) => {
-  const div = $(`<div class="card">
-                  <div class="card-body">
-                    <div class="card-text">
-                      <p><strong>Trip ID</strong>: ${response.data.id}</p>
-                      <p><strong>Trip Name</strong>: ${response.data.name}</p>
-                      <p><strong>Continent</strong>: ${response.data.continent}</p>
-                      <p><strong>Category</strong>: ${response.data.category}</p>
-                      <p><strong>Weeks</strong>: ${response.data.weeks}</p>
-                      <p><strong>Cost</strong>: ${response.data.cost}</p>
-                      <p><strong>Description</strong>: ${response.data.about}</p>
-                    </div>
-                  <div>
-                </div>`);
+  const div = $(`<p><strong>Trip ID</strong>: ${response.data.id}</p>
+                <p><strong>Trip Name</strong>: ${response.data.name}</p>
+                <p><strong>Continent</strong>: ${response.data.continent}</p>
+                <p><strong>Category</strong>: ${response.data.category}</p>
+                <p><strong>Weeks</strong>: ${response.data.weeks}</p>
+                <p><strong>Cost</strong>: ${response.data.cost}</p>
+                <p><strong>Description</strong>: ${response.data.about}</p>`);
   return div;
 }
 
@@ -92,11 +84,10 @@ const createReservation = (event) => {
 
 const loadTrips = () => {
   hideDetails();
-  $('#trips').show();
+  $('#trips-container').show();
 
   const tripList = $('#trips');
   tripList.empty();
-  tripList.append('<h4>All Trips</h4>');
 
   const ul = $('<ul></ul>');
 
@@ -128,7 +119,6 @@ const loadTripDetails = (event) => {
 
   axios.get(url)
     .then((response) => {
-      tripDetails.append('<h4 class="card-title">Details</h4>');
       tripDetails.append(parsedTripDetails(response));
       fillForm(event);
       reportStatus(`Successfully loaded ${response.data.name}.`, 'success');
