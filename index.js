@@ -160,7 +160,11 @@ $(document).ready(() => {
 
 
   // background image slide:
-  let jumbotronBG = ['https://www.intheflesh.it/wp-content/uploads/2014/05/Dandelion-Field-Sunset-Desktop-Wallpaper.jpg', 'https://cdn.hipwallpaper.com/i/64/86/w23fqh.jpg', 'http://s1.picswalls.com/wallpapers/2014/07/28/free-egypt-wallpaper_1207553_115.jpg'];
+  let jumbotronBG = ['https://www.mook.com.tw/images/upload/article/10392/A10392_1409558241_1.jpg',
+  'https://i.pinimg.com/originals/61/eb/8f/61eb8fc80e18a9fea2bbb9b1a7fdde0e.jpg',
+  'https://cdn.hipwallpaper.com/i/63/55/f9Sdxl.jpg',
+  'https://i.pinimg.com/originals/61/4a/36/614a3616b113418fa924f1945bf910cd.jpg',
+  'http://alliswall.com/file/7806/1920x1200/16:9/colosseum_roma_desktop_wallpaper.jpg'];
   let changeImage = $(".jumbotron");
   let i = 0;
 
@@ -177,7 +181,3 @@ $(document).ready(() => {
   setInterval(cycleImage, 8000);
   cycleImage();
 });
-
-
-// .hide(); and .show();
-// tripDetails(); in document reade - then show once you call itdsflkj

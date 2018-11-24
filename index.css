@@ -1,14 +1,22 @@
 .jumbotron {
-  font-family: 'Maven Pro', sans-serif;
+  font-family: 'Arvo', serif;
   height: 75rem;
+  background: no-repeat center center fixed;
+  background-size: cover;
 }
 
 #status-message {
   padding: 2rem;
+  color: white;
+  font-weight: bold;
 }
 
 .container {
   padding-top: 2rem;
+}
+
+.trip-btn {
+  padding: 2rem;
 }
 
 .list-trips {
@@ -57,11 +65,16 @@ input[type="text"]:hover {
 
 .trek-title {
   padding: 1rem;
-  /* color: white; */
-  font-family: 'Fascinate', cursive;
+  color: white;
+  font-family: 'Caveat Brush', cursive;
   font-size: 5rem;
+  font-weight: bold;
 }
 
 .info {
   color: blue;
+}
+
+footer {
+  font-family: 'Arvo', serif;
 }
