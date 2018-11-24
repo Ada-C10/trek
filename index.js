@@ -1,3 +1,4 @@
+//wave 1
 const URL = 'https://trektravel.herokuapp.com/trips';
 
 const reportStatus = (message) => {
@@ -5,7 +6,7 @@ const reportStatus = (message) => {
 };
 
 const loadTrips = () => {
-  reportStatus("loading trips...")
+  reportStatus("loading trip detail...")
 
   const tripList = $('#trip-list');
   tripList.empty();
@@ -17,18 +18,16 @@ const loadTrips = () => {
       const trips = $(`<li>${trip.name}</li>`)
       tripList.append(trips);
 
-
       trips.on('click', () => {
         loadTripDetails(`${trip.id}`)
       })
 
-      // function Tripdetail() {
-      //   const tripId = (trip.id)
-      //   function getTripDetails() {
-      //     ('#trip-list').click(loadTripDetails(tripId))
-      //   }
-      //   return getTripDetails;
-      // }
+      trips.on("click", function() {
+        $("#addForm").toggle()
+        loadReservationForm(`${trip.id}`)
+
+      });
+
 
     });
   })
@@ -38,7 +37,39 @@ const loadTrips = () => {
 
 };
 
+// wave 3
 
+// const loadReservationForm = (tripId) => {
+//   const URLPOST = `https://trektravel.herokuapp.com/trips/${tripId}/reservations`
+// }
+//
+// const CreateReservation = () => {
+//
+//   event.preventDefault();
+//
+//   console.log("in CreateReservation");
+//   reportStatus('Sending trip data....');
+//
+//
+//   const dataToSendWithPost = {
+//     name: $('input[name="name"]').val(),
+//     age:  $('input[name="email"]').val()
+//
+//     axios.post(URLPOST, dataToSendWithPost)
+//     .then((response) => {
+//       reportStatus(`Successfully added a pet with ID ${response.data.id}! and the name ${response.data.name}, age: ${response.data.age}`);
+//     })
+//     .catch((error) => {
+//       reportStatus(error);
+//       console.log(error);
+//     });
+//   }
+//
+// }
+
+
+
+//wave 2
 
 const URL1 = 'https://trektravel.herokuapp.com/trips/';
 
@@ -52,6 +83,8 @@ const loadTripDetails = (tripId) => {
   axios.get(URL1+`${tripId}`)
   .then((response) => {
     reportStatus(`successfully loaded ${response.data.length}`)
+    tripDetail.append(`<p> Trip Detail </p>`);
+
     tripDetail.append(`<li>Id: ${response.data.id}</li>`);
     tripDetail.append(`<li>Name: ${response.data.name}</li>`);
     tripDetail.append(`<li>continent: ${response.data.continent}</li>`);
@@ -68,21 +101,7 @@ const loadTripDetails = (tripId) => {
 
 
 
-
 $(document).ready(() => {
-  $('#load').click(loadTrips)
-  // Tripdetail();
+  $('#load').click(loadTrips);
+  $('#addForm').submit(CreateReservation);
 });
-
-
-///wave 2 need to get the trips's id: two different options:
-// need ref to trip id in its click handler. use html and event delegation
-
-//or the other option is to use closure-both are valid-one is more javascripty
-/*
-* Nest a function inside a function
-* Reference a variable from the outer function in the inner function
-* Make the inner function available outside the outer function
-* Usually this means you return the inner function from the outer function
-* We'll see other ways to do this later
-*/
