@@ -17,7 +17,6 @@ const reportError = (message, errors) => {
 };
 
 const showTrip = (response) => {
-  // console.log(response);
   const target = $('#trip-details');
   target.empty();
   let details = `<h4>Name: ${response.name}</h4>`;
@@ -59,9 +58,11 @@ const createReservation = (event) => {
 
 const showReservationForm = (response) => {
   const target = $('#reserve-trip');
+  // target.empty();
   target.css("visibility", "visible");
   const tripName = $('.trip-name');
-  tripName.append(`<input type="text" name="trip" value="${response.name}" class="${response.id}" />`);
+  tripName.empty();
+  tripName.append(`<label for="trip">Trip Name:</label><input type="text" name="trip" value="${response.name}" class="${response.id}" />`);
 };
 
 const buildTripCallback = (id) => {
@@ -84,7 +85,9 @@ const buildTripCallback = (id) => {
 
 const loadTrips = () => {
 
+  // clearTrip();
   const tripList = $('#all-trips');
+  tripList.empty();
   tripList.append('<h3>All Trips</h3>');
 
   axios.get(URL)
@@ -103,13 +106,16 @@ const loadTrips = () => {
     });
 };
 
-const loadTripDetails = () => {
-
-
-};
+// const clearTrip = () => {
+//
+//   $('#all-trips').empty();
+//   // $('#trip-details').empty();
+//   // $('#reserve-trip').empty();
+//
+// };
 
 $(document).ready(() => {
   $('#see-trips-button').click(loadTrips);
-  $('#all-trips').on('click', 'li', loadTripDetails);
+  // $('#all-trips').on('click', 'li', loadTripDetails);
   $('#reservation-form').submit(createReservation);
 });
