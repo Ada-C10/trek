@@ -55,6 +55,7 @@ $(document).ready(() => {
     const tripDetails = $('.trip-details');
     const reservationForm = $('.trip-reservation');
     tripDetails.empty();
+    reservationForm.empty();
    // trip id attached as class to look up individual trips?
     axios.get(`${allTripURL}/${id}`)
       .then((response) => {
