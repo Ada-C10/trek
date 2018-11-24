@@ -1,3 +1,17 @@
+* {
+  font-family: "Oswald", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+  font-family: "EB Garamond", serif;
+}
+
 main {
   margin: 1rem;
   display: grid;
@@ -17,7 +31,6 @@ main {
   color: #fff;
   padding: 1rem;
   font-size: 1.5rem;
-  font-family: Verdana;
   font-weight: 200;
   box-shadow: 1px 1px 15px 0px #000;
   text-shadow: 1px 1px 15px #000;
