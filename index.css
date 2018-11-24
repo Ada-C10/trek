@@ -40,10 +40,7 @@ ul {
 .main #trip.list {
   display: flex;
   flex-wrap: wrap;
-
 }
-
-
 
 .main #trip.list div {
 
@@ -56,12 +53,12 @@ ul {
   justify-content: space-between;
   justify-content: space-around;
   text-align: center;
-
 }
 
-.main #trip.detail {
+.main ul#trip.detail {
   display: grid;
   grid-template-columns: 50% 50%;
+  grid-template-areas: "trip-show" "trip-form";
 }
 
 .main #trip.list img {

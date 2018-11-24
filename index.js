@@ -17,13 +17,21 @@ const reportStatus = (message) => {
   statusDiv.html(message);
 };
 
+const createForm = (tripDiv) => {
+  tripDiv.append('<div><h1>Take me there!</h1></div>');
+  tripDiv.append('<div><label for="name">Name</label><input type="text" name="name"/></div>');
+  tripDiv.append('<div><label for="age">Age</label><input type="number" name="age"/></div>');
+  tripDiv.append('<div><label for="email">Email</label><input type="text" name="email"/></div>');
+  tripDiv.append('<div><input type="submit" name="add-trip" value="Reserve" /></div>');
+};
+
 const loadTrip = function(tripID) {
 
   $('#trip').empty();
   $('#trip').removeClass();
   $('#trip').addClass('detail');
 
-  const tripList = $('#trip');
+  const tripDetail = $('#trip');
 
   axios.get(baseURL + tripID)
   .then( (response) => {
@@ -39,11 +47,29 @@ const loadTrip = function(tripID) {
       weeks = response.data.weeks + " Weeks";
     }
     //show
-    tripList.append(`<div><li>${response.data.name}</li><li>${weeks}</li></div>`);
+    tripDetail.append('<div class=trip-show></div>');
+    tripDetail.append('<div class=trip-form></div>');
+    const tripShow = $('.trip-show');
+    const tripForm = $('.trip-form');
+
+    tripShow.append(`<li>${response.data.continent}</li>`)
+    tripShow.append(`<li>${response.data.name}</li><li>${weeks}</li>`);
+    tripShow.append(`<li>${response.data.category}</li>`);
+    tripShow.append(`<li>${weeks}</li>`);
+    tripShow.append(`<li>$${response.data.cost}</li>`);
+    tripShow.append(`<li>$${response.data.about}</li>`);
+
     //form
-    tripList.append(`<div><li>Form Here</li><li>Fill me</li></div>`);
+    createForm(tripForm);
   });
-};
+}
+
+
+// POST https://trektravel.herokuapp.com/trips/1/reservations
+// accepted params:
+// name (string) required
+// age (integer)
+// email (string) required
 
 
 const loadTrips = () => {
