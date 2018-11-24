@@ -30,30 +30,32 @@ const showTrip = (response) => {
   target.append(details);
 };
 
+const createReservation = (event) => {
+  event.preventDefault();
+  console.log(event);
+  console.log($('trip-name'));
+  // console.log(response);
+
+  // const data = {
+  //   name: $('input[name="name"]').val(),
+  //   email: $('input[name="email"]').val()
+  // };
+};
+
 const showReservationForm = (response) => {
   const target = $('#reserve-trip');
   console.log(target);
   target.css("visibility", "visible");
-  $('.trip-name').append(response.name);
-  // $('label[for="trip"]').prepend('label[for="trip"] value="Hello there"');
-  // let formDetails = $('<form>');
-  // formDetails.append(
-  //   '<div><label for="name">Your name:</label>'
-  // )
-  //
-  //
-  //
-  //
-  // console.log(response);
-  // target.empty();
-  // let details = `<h4>Name: ${response.name}</h4>`;
-  // details += `<p>Continent: ${response.continent}</p>`;
-  // details += `<p>Category: ${response.category}</p>`;
-  // details += `<p>Weeks: ${response.weeks}</p>`;
-  // details += `<p>Cost: $${response.cost}</p>`;
-  // details += `<p>About:</p><br><p>${response.about}`;
-  // target.append('<h3>Reserve Trip</h3>');
-  // target.append(formDetails);
+  const tripName = $('.trip-name');
+  // tripName.append(`<label for="trip" value="${response.name}">Trip Name:</label>`);
+  tripName.append(`<input type="text" name="trip" value="${response.name}" />`);
+  // <label for="trip">Trip Name:</label>
+  // <input type="text" name="name" / />
+  // tripName.addClass(`${response.id}`);
+  // tripName.append(response.name);
+  // $('#reservation-form').submit(createReservation);
+  // const reservationSubmitHandler = createReservation(response);
+  $('#reservation-form').submit(createReservation);//(response));
 };
 
 const buildTripCallback = (id) => {
@@ -103,4 +105,5 @@ const loadTripDetails = () => {
 $(document).ready(() => {
   $('#see-trips-button').click(loadTrips);
   $('#all-trips').on('click', 'li', loadTripDetails);
+  // $('#reservation-form').submit(createReservation);
 });

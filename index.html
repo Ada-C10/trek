@@ -34,9 +34,13 @@
 
       <section id='reserve-trip'>
         <h3>Reserve Trip</h3>
-        <form>
-          <div>
+        <form id="reservation-form">
+          <!-- <div>
             <h6 class="trip-name">Trip Name: </h6>
+          </div> -->
+          <div class="trip-name">
+            <label for="trip">Trip Name:</label>
+            <!-- <input type="text" name="trip" value="Fake Trip" /> -->
           </div>
 
           <div>
@@ -48,6 +52,8 @@
             <label for="email">Email:</label>
             <input type="text" name="email" / />
           </div>
+
+          <input type="submit" name="add-reservation" value="Add Reservation" id='create-reservation-button'/>
 
         </form>
       </section>
