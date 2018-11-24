@@ -50,11 +50,14 @@ const showTrip = id => {
     axios
       .get(`${URL}/${id}`)
       .then(response => {
-        $(".showList").append(`<div>Trip Name: ${response.data.name}</div>
-          <div>Trip continent: ${response.data.continent}</div>
-          <div>Description: ${response.data.about}</div>
-          <div>Weeks: ${response.data.weeks}</div>
-          <div>Cost: ${response.data.cost}</div>`);
+        $(".showList").append(`<div><strong>Trip Name:</strong> ${
+          response.data.name
+        }</div>
+          <div><strong>Trip continent:</strong> ${response.data.continent}</div>
+          <div><strong>Description:</strong> ${response.data.about}</div>
+          <div><strong>Weeks:<strong> ${response.data.weeks}</div>
+          <div><strong>Cost:</strong> ${response.data.cost}</div>
+          <div><br></br></div>`);
       })
       .catch(error => {
         reportStatus(
