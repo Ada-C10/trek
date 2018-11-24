@@ -2,45 +2,49 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>Trips with axios</title>
+  <title>TREK</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600|Raleway|Raleway+Dots|Rubik+Mono+One|Open+Sans" rel="stylesheet">
   <script
   src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/javascript" src="index.js"></script>
   <link rel="stylesheet" href="index.css">
 </head>
-<body>
-  <section id="status-message"></section>
 
+<body>
   <main>
-    <section class="current-trips">
-      <h1>List-o-Trips</h1>
-      <button id="load">Get trips!</button>
+    <section id="intro">
+      <h1>TREK</h1>
+      <button id="load">Choose your next adventure</button>
+    </section>
+    <section class="flex-container">
       <ul id="trip-list"></ul>
-      <ul id="trip-details"></ul>
+      <div class="sticky">
+        <ul id="trip-details"</ul>
+      </div>
     </section>
 
     <!-- <section class="new-trip">
-      <h1>Add a new trip</h1>
-      <form id="trip-form">
-        <div>
-          <label for="name">Name</label>
-          <input type="text" name="name" />
-        </div>
+    <h1>Add a new trip</h1>
+    <form id="trip-form">
+    <div>
+    <label for="name">Name</label>
+    <input type="text" name="name" />
+  </div>
 
-        <div>
-          <label for="age">Age</label>
-          <input type="number" name="age" />
-        </div>
+  <div>
+  <label for="age">Age</label>
+  <input type="number" name="age" />
+</div>
 
-        <div>
-          <label for="owner">Owner</label>
-          <input type="text" name="owner" />
-        </div>
+<div>
+<label for="owner">Owner</label>
+<input type="text" name="owner" />
+</div>
 
-        <input type="submit" name="add-trip" value="Add Trip" />
-      </form>
-    </section> -->
-  </main>
+<input type="submit" name="add-trip" value="Add Trip" />
+</form>
+</section> -->
+</main>
 </body>
 </html>

@@ -8,24 +8,20 @@ const reportStatus = (message) => {
 const loadTrips = () => {
   reportStatus("loading trips...");
 
-  // Prep work
   const tripList = $('#trip-list');
   tripList.empty();
 
-  // Actually load the trips
   axios.get(URL)
   .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
-
-    // sort the trips
-
     response.data.forEach((trip) => {
       // let singleTrip = $(`<li>${trip.name}</li>`)
-      tripList.append(`<li>${trip.name}</li>`);
       let button = createButton()
+
+      tripList.append(`<li>${trip.name}</li>`);
       tripList.append(button)
       button.on('click', () => {
-        clickDetails(`${trip.id}`)
+        clickDetails(`${trip.id}`);
       })
     })
     .catch((error) => {
@@ -35,8 +31,16 @@ const loadTrips = () => {
   });
 };
 
-function createButton() {
+// $("#details-btn").click(function(){
+//     $("ul#trip-details").slideDown();
+// });
 
+// button.on('click', () => {
+//   clickDetails(`${trip.id}`).slideDown();
+// })
+//
+
+function createButton() {
   const $button = $('<button/>', {
     text: 'See Trip Details',
     id: 'details-btn'
@@ -54,10 +58,9 @@ const clickDetails = (id) => {
   .then((response) => {
     // console.log(response.data.name)
     // response.data((trip) => {
-      tripDetails.append(`<li>${response.data.name}</li>`);
-      tripDetails.append(`<li>${response.data.continent}</li>`);
-      tripDetails.append(`<li>${response.data.about}</li>`);
-      tripDetails.append(`<li>${response.data.category}</li>`);
+      tripDetails.append(`<li class="name">${response.data.name}, ${response.data.continent}</li>`);
+      tripDetails.append(`<li class="description">${response.data.about}</li>`);
+      tripDetails.append(`<li class="category">Category: ${response.data.category}</li>`);
     // });
   })
 }
@@ -102,6 +105,9 @@ const clickDetails = (id) => {
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
+  // $("#details-btn").click(function(){
+  //     $("ul#trip-details").slideDown();
+  // });
   // $('#trip-form').submit(createTrip);
   // we select something by the id of create trip button. when an event on this element called submit happens, we wil use the callback createTrip
 });
@@ -110,3 +116,13 @@ $(document).ready(() => {
 // parse the form on the HTML for user input
 // make the POST request
 // give UI feedback
+
+
+// $(document).ready(function(){
+//     $(".btn1").click(function(){
+//         $("p").slideUp();
+//     });
+//     $(".btn2").click(function(){
+//         $("p").slideDown();
+//     });
+// });
