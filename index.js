@@ -58,6 +58,8 @@ const tripShowHandler = (trip) => {
         tripsShow.append(newTrip);
         const reserveButton = $(`<button class="reserve">Sign me up!</button>`)
         tripsShow.append(reserveButton);
+        const reserveForm = reserveFormHandler(trip);
+        reserveButton.click(reserveForm);
       })
 
     .catch((error) => {
@@ -67,19 +69,45 @@ const tripShowHandler = (trip) => {
   };
 };
 
-// const tripReserveHandler = (trip) => {
-//
-//   // Prep work
-//   const tripsShow = $('#trips-list');
-//   // const tripID = trip.id;
-//   return () => {
-//     reportStatus('Loading resevation...');
-//     tripsShow.empty();
-//   tripsShow.append('Reservation here');
-//     }
-//
-// };
+const reserveFormHandler = (trip) => {
 
+  const tripID = trip.id;
+  const submitReservation = '<input type="submit" name="add-reservation" value="Reserve it!" />'
+
+  const form = `<h3>Add a reservation ${tripID}</h3>` + '<form id="reservation-form">' + '<div>'+ '<label for="name">Name</label>' + '<input type="text" name="name" />'+ '</div>'+ '<div>' + '<label for="age">Age</label>' + '<input type="number" name="age" />' + '</div>'+'<div>'+'<label for="owner">Email</label>'+'<input type="text" name="email" />'+'</div>'+ submitReservation +'</form>'
+
+  // Prep work
+  const tripsShow = $('#trips-list');
+  // const tripID = trip.id;
+  return () => {
+    reportStatus('Loading resevation...');
+    tripsShow.empty();
+    tripsShow.append(form);
+    $('#reservation-form').submit(createReservation);
+    }
+};
+
+const createReservation = (event) => {
+  // Note that createPet is a handler for a `submit`
+  // event, which means we need to call `preventDefault`
+  // to avoid a page reload
+  event.preventDefault();
+
+  // Later we'll read these values from a form
+  url = "https://trektravel.herokuapp.com/trips/4/reservations?name=addy&age=33&email=xxx@xxx.com";
+
+  reportStatus(`Sending pet data...`);
+
+  axios.post(url)
+    .then((response) => {
+      console.log(response);
+      reportStatus(`Sent${tripid}`);
+    })
+    .catch((error) => {
+      console.log(error.response);
+      reportStatus(`Encountered an error: ${error.message}`);
+    });
+};
 //
 // OK GO!!!!!
 //
