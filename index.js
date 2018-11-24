@@ -29,14 +29,14 @@ const loadTrips = () => {
 
   axios.get(URL)
     .then((response) => {
-      reportStatus(`Successfully loaded ${response.data.length} pets`);
+      reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
-        tripList.append(`<div><button class="trip-${trip.id}">${trip.name}</button></div>`);
-        $(`.trip-${trip.id}`).click(() => {
+        const div = $(`<div class="trip-${trip.id}"><button type="button">${trip.name}</button></div>`) // make the div have the class not the button, so that eveything is added to this div, make sure that you specify the type of button
+        tripList.append(div);
+        $('button', div).click(() => { // to only activate on button inside the div
           loadTrip(`.trip-${trip.id}`);
         })
       });
-       // must go here so the forEach doesn't execute everytime it is added
 
     })
     .catch((error) => {
@@ -49,31 +49,66 @@ const loadTrips = () => {
 const loadTrip = (tripinfo) => {
   let num = tripinfo.match(/\d/);
   num = num.join("");
-  console.log(num)
   const trip = $(`${tripinfo}`);
   trip.empty();
   trip.append(`<h2> Trip details </h2>`)
   axios.get(URL + "/" + num)
     .then((response) => {
         let data = {}
-          data["id"] = response.data.id
-          data["name"] = response.data.name
-          data["continent"] = response.data.continent
-          data["details"] = response.data.about
-          data["category"] = response.data.category
-          data["duration"] = response.data.weeks
-          data["cost"] = response.data.cost
-
-        Object.keys(data).forEach(function(key) {
-          //console.log(`<ls>${key} : ${data[key]}</ls`)
-            trip.append(`<ls>${key} : ${data[key]}</ls`);
-        });
+          data["Id"] = response.data.id
+          data["Name"] = response.data.name
+          data["Continent"] = response.data.continent
+          data["Details"] = response.data.about
+          data["Category"] = response.data.category
+          data["Duration"] = response.data.weeks
+          data["Cost"] = response.data.cost
+          const list = $('<ul style="list-style-type:none"></ul>')
+          Object.keys(data).forEach(function(key) {
+              list.append(`<li><strong>${key}</strong> : ${data[key]}</li`);
+          });
+        trip.append(list)
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trip: ${error.message}`);
     });
+    createForm(tripinfo);
+    $(tripinfo).on('submit', '#trip-form', createReservation);
+
 };
 
+const createForm = (tripinfo) => {
+
+  event.preventDefault(); // to prevent it from reloading, but still doesn't work
+
+  // get id number if needed later on
+  console.log(tripinfo)
+  let num = tripinfo.match(/\d/);
+  num = num.join("");
+  let trip = $(`${tripinfo}`);
+
+  //generate form
+  // Create a section element (not in the DOM)
+  const section = $('<section></section>');
+  section.append('<h1>Reserve Trip</h1>');
+
+  const form = $('<form id = "trip-form"></form>')
+  const divName = $('<div></div>')
+  divName.append('<label for="name">Name</label>');
+  divName.append('<input type="text" name="name" />');
+
+
+  const divEmail = $('<div></div>')
+  divEmail.append('<label for="email">Email</label>');
+  divEmail.append('<input type="text" name="email" />') // for and name should have the same name
+
+  form.append(divName)
+  form.append(divEmail)
+  form.append(`<input type="hidden" id="tripId" name="triptId" value=${num}>`)
+  form.append('<input type="submit" name="add-pet" value="Reserve" />')
+
+  section.append(form)
+  trip.append(section);
+}
 
 const readFormData = () => {
   const parsedFormData = {};
@@ -81,31 +116,36 @@ const readFormData = () => {
   const inputs = ["name","email"]
 
   inputs.forEach((curInput) => {
-    const curData = $(`#pet-form input[name="${curInput}"]`).val(); // you get it from the html
+    const curData = $(`#trip-form input[name="${curInput}"]`).val();
     parsedFormData[curInput] = curData ? curData : undefined;
   });
-
+  let id = document.getElementById("tripId").value
+  parsedFormData["id"] = id
   return parsedFormData;
 };
+
 const clearForm = () => {
-  $(`#pet-form input[name="name"]`).val('');
-  $(`#pet-form input[name="email"]`).val('');
+  $(`#trip-form input[name="name"]`).val('');
+  $(`#trip-form input[name="owner"]`).val('');
 }
 
-const createPet = (event) => {
+const createReservation = (event) => {
   // Note that createPet is a handler for a `submit`
   // event, which means we need to call `preventDefault`
   // to avoid a page reload
+  console.log(event)
   event.preventDefault();
 
-  const petData = readFormData();
-  console.log(petData);
+  const tripData = readFormData();
+  console.log(tripData);
 
-  reportStatus('Sending pet data...');
-
-  axios.post(URL, petData)
+  reportStatus('Sending trip data...');
+  let num = tripData["id"]
+  //POST https://trektravel.herokuapp.com/trips/1/reservations
+  let URL_R = URL + "/" + num + "/reservations"
+  axios.post(URL_R, tripData)
     .then((response) => {
-      reportStatus(`Successfully added a pet with ID ${response.data.id}!`);
+      //reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
       clearForm();
     })
     .catch((error) => {
@@ -121,10 +161,12 @@ const createPet = (event) => {
     });
 };
 
+  //clear form after it a trip has been reserved
+
 //
 // OK GO!!!!!
 // this is the homepage! the trip will not be avaiable
 $(document).ready(() => {
   $('#load').click(loadTrips);
-  $('#pet-form').submit(createPet);
+  //$('#pet-form').submit(createPet);
 });
