@@ -28,13 +28,7 @@ const loadTrips = () => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
         // tripList.append(`<a href="${URL}/${trip.id}" id="trip-button"><li class ="trip-details">${trip.name}</li></a>`);
-        tripList.append(`<li class ="trip-details"><a id="trip-button">${trip.name}</a></li>`);
-
-        const detURL = URL + `/${trip.id}`;
-        axios.get(detURL)
-          .then((response) => {
-          $('.trip-details').append(`<p>${response.data.about}`);
-        });
+        tripList.append(`<li class ="trip-details"><a class="trip-button" id=${trip.id}>${trip.name}</a></li>`);
 
       });
     })
@@ -49,53 +43,33 @@ const loadTrips = () => {
     });
 };
 
-// Toggle details of individual trip
-const loadDetails = (event) => {
+//Toggle trip detail
+const loadDetails = () => {
   reportStatus('Sending trip data..');
 
-  // axios.get(URL)
-  // const tripDetail = () => {
-  //   response.data.find(x => x.id =='3');
-  // }
+  const DETURL = (`${URL}\\${this.id}`);
+  const tripBlurb = $('#trip-blurb');
+  axios.get(DETURL)
+  .then((response) => {
+    reportStatus(`Successfully loaded trip data`);
+    // $('#trip-blurb').append(`<p>${response.data.find(x => x.id ==$(this.id)).about}</p>`);
+      tripBlurb.append(`<p>${response.data.about}</p>`);
 
-  // $('#trip-list')
-  axios.get(URL)
-    .then((response) => {
-      reportStatus('Successfully loaded trip detail');
-      response.data.forEach((trip) => {
-        // tripList.append(`<a><li class ="trip-details">${trip.name}</li></a>`);
-        // tripList.append(`<a><li class ="trip-details">${trip.name}</li></a>
-        // <p class="trip-toggle">${trip.category}</p>`);
-        // $('.trip-toggle').toggle();
-      });
-    })
-    .catch((error) => {
-      console.log(error.response);
-      if (error.response.data && error.response.data.errors) {
-        reportError(`Encountered an error: ${error.message}`, error.response.data.errors
-        );
-      } else {
-      reportStatus(`Encountered an error while loading trip: ${error.message}`);
-      }
-    });
+  });
 };
 
 
 ///
 $(document).ready(() => {
   $('#see-trips').click(loadTrips);
-  // $('.trip-details').click(loadDetails);
+  $('#trip-list').click(loadDetails);
   // $('#pet-form').submit(createPet);
 
-  $('#trip-list').on('click', 'li', function(event) {
-    alert(`Clicked on <li> "${$(this).html()}"`);
-    $()
-    // $('li').toggle(this.html);
+  $('#trip-list').on('click', 'li', function() {
+    // $(this).toggle();
+    alert(`Clicked on "${$(this).html()}"`);
+
+
   });
 
 })
-
-
-
-// $('li').append(`<p class="trip-about">${trip.category}</p>`)
-// $('p').toggle();
