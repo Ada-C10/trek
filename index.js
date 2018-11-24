@@ -32,20 +32,12 @@ const handleGetResponse = (element, response) => {
         ${trip.name}</button></li>`);
     });
   } else {
+    const headers = ['name', 'continent', 'category', 'weeks', 'cost', 'about']
     headers.forEach((header) => {
-      header.toString();
       element.append(
-        `<li>${header}: ${response.data.name}</li>`
+        `<li>${header}: ${tripData[header]}</li>`
       )
     });
-    // element.append(
-    //   `<li>Name: ${trip.name}</li>
-    //   <li>Continent: ${trip.continent}</li>
-    //   <li>Category: ${trip.category}</li>
-    //   <li>Weeks: ${trip.weeks}</li>
-    //   <li>Cost: ${trip.cost}</li>
-    //   <li>About: ${trip.about}</li>`
-    // );
   }
 };
 
