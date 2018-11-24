@@ -150,7 +150,8 @@ const searchTrips = (option) => {
   $('#search-results-container').show();
   $('#trip-details-container').hide();
   reportStatus('Searching for trips...', 'info');
-  let searchData = $(`#${option}-form`).serialize();
+  const searchData = $(`#${option}-form`).serialize();
+  const query = $(`#${option}-form`).serializeArray();
   const searchList = $('#queries');
   searchList.empty();
   const ul = $('<ul></ul>');
@@ -169,6 +170,8 @@ const searchTrips = (option) => {
       });
       searchList.append(ul);
       reportStatus(`Successfully loaded ${response.data.length} trips.`, 'success');
+      $('#search-results-container h4').html(`Search Results [${option}: ${query[0].value}]`);
+      clearForm(`#${option}-form`);
     })
     .catch((error) => {
       reportStatus(`Could not load. ${error}.`, 'warning');
