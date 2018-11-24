@@ -54,7 +54,13 @@ const loadOneTrip = (trip) => {
   };
 
 
-  const reserveTrip = () => {
+const readFormData = () => {
+  const parsedFormData = {};
+
+  const nameFromForm = $()
+};
+
+  const createReservation = () => {
 
   };
 
