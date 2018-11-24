@@ -19,7 +19,6 @@ const reportStatus = (message) => {
 
 const loadTrip = function(tripID) {
 
-
   $('#trip').empty();
   $('#trip').removeClass();
   $('#trip').addClass('detail');
@@ -30,11 +29,8 @@ const loadTrip = function(tripID) {
   .then( (response) => {
 
     reportStatus('Reserve a trip below');
-    console.log(response)
-    console.log(response.data)
-    console.log(response.data.name)
 
-    let weeks = ""
+    let weeks = "0";
 
     if (response.data.weeks == "1") {
       weeks = "1 week";
@@ -42,11 +38,10 @@ const loadTrip = function(tripID) {
     else {
       weeks = response.data.weeks + " Weeks";
     }
-
-    console.log(tripList);
-    console.log(tripList);
-
+    //show
     tripList.append(`<div><li>${response.data.name}</li><li>${weeks}</li></div>`);
+    //form
+    tripList.append(`<div><li>Form Here</li><li>Fill me</li></div>`);
   });
 };
 
@@ -66,7 +61,6 @@ const loadTrips = () => {
 
       const imageLink = imageObj[response["continent"]];
       let continental = "";
-      let weeks = "0";
 
       if (response["continent"] === "Europe") {
         continental = response["continent"] + "an";

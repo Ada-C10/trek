@@ -43,6 +43,8 @@ ul {
 
 }
 
+
+
 .main #trip.list div {
 
   padding-right: 4rem;
@@ -57,11 +59,15 @@ ul {
 
 }
 
+.main #trip.detail {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
 .main #trip.list img {
   max-width: 13rem;
   height: 13rem;
 }
-
 
 .header {
   grid-area: header;
@@ -92,7 +98,6 @@ ul {
   text-align: center;
   padding: 1em;
 }
-
 
 /* Checkbox*/
 
