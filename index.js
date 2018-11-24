@@ -6,7 +6,7 @@ const reportStatus = (message) => {
 
 const getRequestHandler = (id) => {
   const sendGetRequest = () => {
-    reportStatus('Loading...')
+    reportStatus('Loading...');
     axios.get(URL + id)
       .then((response) => {
         reportStatus('Successfully loaded!')
@@ -21,24 +21,31 @@ const getRequestHandler = (id) => {
 };
 
 const handleGetResponse = (element, response) => {
+  const headers = ['name', 'continent', 'category', 'weeks', 'cost', 'about']
   element.empty();
-  let trip = response.data
+  const tripData = response.data;
 
-  if (trip.length) {
-    trip.forEach((trip) => {
+  if (tripData.length) {
+    tripData.forEach((trip) => {
       element.append(
         `<li><button id="${trip.id}">
         ${trip.name}</button></li>`);
     });
   } else {
-    element.append(
-      `<li>Name: ${trip.name}</li>
-      <li>Continent: ${trip.continent}</li>
-      <li>Category: ${trip.category}</li>
-      <li>Weeks: ${trip.weeks}</li>
-      <li>Cost: ${trip.cost}</li>
-      <li>About: ${trip.about}</li>`
-    );
+    headers.forEach((header) => {
+      header.toString();
+      element.append(
+        `<li>${header}: ${response.data.name}</li>`
+      )
+    });
+    // element.append(
+    //   `<li>Name: ${trip.name}</li>
+    //   <li>Continent: ${trip.continent}</li>
+    //   <li>Category: ${trip.category}</li>
+    //   <li>Weeks: ${trip.weeks}</li>
+    //   <li>Cost: ${trip.cost}</li>
+    //   <li>About: ${trip.about}</li>`
+    // );
   }
 };
 
