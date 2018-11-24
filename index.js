@@ -7,8 +7,7 @@ const reportStatus = (message) => {
 const getRequestHandler = (id) => {
   const sendGetRequest = () => {
     reportStatus('Loading...')
-    let url = URL + id;
-    axios.get(url)
+    axios.get(URL + id)
       .then((response) => {
         reportStatus('Successfully loaded!')
         handleGetResponse(response);
