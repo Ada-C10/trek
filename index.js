@@ -85,7 +85,6 @@ const buildTripCallback = (id) => {
 
 const loadTrips = () => {
 
-  // clearTrip();
   const tripList = $('#all-trips');
   tripList.empty();
   tripList.append('<h3>All Trips</h3>');
