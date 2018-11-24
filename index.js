@@ -1,5 +1,5 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
-// & + .serialize() tac on to the end 
+// & + .serialize() tac on to the end
 
 //
 // Status Management
@@ -28,23 +28,56 @@ const loadTrips = () => {
   const tripList = $('#trip-list');
   tripList.empty();
 
+  const tripDetails = $('.trip_details');
+  tripDetails.empty();
+
   axios.get(URL)
-    .then((response) => {
-      reportStatus(`Successfully loaded ${response.data.length} trips`);
-      response.data.forEach((trip) => {
-        tripList.append(`<li><a href="https://trektravel.herokuapp.com/trips/${trip.id}" id='trip_link'>${trip.name}</a></li>`);
+  .then((response) => {
+    reportStatus(`Successfully loaded ${response.data.length} trips`);
+    response.data.forEach((trip) => {
+      tripList.append(`<li class="trip-details">${trip.name}</li>`);
 
-        // $('#trip_link').click(() => {
-        //   $('.trip_detail').load("https://trektravel.herokuapp.com/trips");
-        // });
+      const detailsURL = `https://trektravel.herokuapp.com/trips/${trip.id}`;
 
-      });
-    })
-    .catch((error) => {
-      reportStatus(`Encountered an error while loading pets: ${error.message}`);
-      console.log(error);
+      const loadTripDetails = () => {
+        reportStatus('Loading trip details...');
+
+        console.log(detailsURL);
+
+        axios.get(detailsURL)
+        .then((response) => {
+          reportStatus(`Successfully loaded trip details`);
+          response.data[0]; //this should be single trip details
+          console.log(response.data);
+          tripDetails.append(``)
+        });
+
+        // console.log(trip.name);
+        // const name = trip.name;
+        // const continent = trip.continent;
+        // const cost = trip.cost;
+        // const category = trip.category;
+        // const weeks = trip.weeks;
+      };
+      return loadTripDetails;
     });
+  })
+  .catch((error) => {
+    reportStatus(`Encountered an error while loading trips: ${error.message}`);
+    console.log(error);
+  });
+
+  //when i click on a single trip name
+  // do a axios.get on the botched URL
+
+
 };
+
+// <h1>Trip Details</h1>
+// <button id="load-trip-details">Get trip details!</button>
+// <ul id="trip-list"></ul>
+
+
 
 //
 // Creating Pets
@@ -89,27 +122,31 @@ const createPet = (event) => {
   reportStatus('Sending pet data...');
 
   axios.post(URL, petData)
-    .then((response) => {
-      reportStatus(`Successfully added a pet with ID ${response.data.id}!`);
-      clearForm();
-    })
-    .catch((error) => {
-      console.log(error.response);
-      if (error.response.data && error.response.data.errors) {
-        reportError(
-          `Encountered an error: ${error.message}`,
-          error.response.data.errors
-        );
-      } else {
-        reportStatus(`Encountered an error: ${error.message}`);
-      }
-    });
+  .then((response) => {
+    reportStatus(`Successfully added a pet with ID ${response.data.id}!`);
+    clearForm();
+  })
+  .catch((error) => {
+    console.log(error.response);
+    if (error.response.data && error.response.data.errors) {
+      reportError(
+        `Encountered an error: ${error.message}`,
+        error.response.data.errors
+      );
+    } else {
+      reportStatus(`Encountered an error: ${error.message}`);
+    }
+  });
 };
 
 //
 // OK GO!!!!!
 //
+
+
 $(document).ready(() => {
   $('#load').click(loadTrips);
+  const loadTripDetails = loadTrips
+  $('.trip-details').click(loadTripDetails);
   $('#pet-form').submit(createPet);
 });
