@@ -80,11 +80,11 @@ const createForm = (tripinfo) => {
 
   event.preventDefault(); // to prevent it from reloading, but still doesn't work
 
-  // get id number if needed later on
-  console.log(tripinfo)
+  // get id number
   let num = tripinfo.match(/\d/);
   num = num.join("");
   let trip = $(`${tripinfo}`);
+  console.log(tripinfo)
 
   //generate form
   // Create a section element (not in the DOM)
@@ -124,29 +124,23 @@ const readFormData = () => {
   return parsedFormData;
 };
 
-const clearForm = () => {
-  $(`#trip-form input[name="name"]`).val('');
-  $(`#trip-form input[name="owner"]`).val('');
-}
-
 const createReservation = (event) => {
   // Note that createPet is a handler for a `submit`
   // event, which means we need to call `preventDefault`
   // to avoid a page reload
-  console.log(event)
   event.preventDefault();
 
   const tripData = readFormData();
-  console.log(tripData);
+  console.log(tripData)
 
   reportStatus('Sending trip data...');
   let num = tripData["id"]
+  console.log(num)
   //POST https://trektravel.herokuapp.com/trips/1/reservations
   let URL_R = URL + "/" + num + "/reservations"
   axios.post(URL_R, tripData)
     .then((response) => {
-      //reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
-      clearForm();
+      reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
     })
     .catch((error) => {
       console.log(error.response);
@@ -160,8 +154,6 @@ const createReservation = (event) => {
       }
     });
 };
-
-  //clear form after it a trip has been reserved
 
 //
 // OK GO!!!!!
