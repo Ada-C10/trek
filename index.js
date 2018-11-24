@@ -1,6 +1,9 @@
-// For more practice working with data, filter trips by search queries (like by continent, budget, etc.). You'll need to explore the API to see what functionality exists.
-// To practice a more advanced POST, allow the user to create a new trip.
-// For more jQuery practice, use jQuery to sort list of trips by specific attributes, like budget or time remaining
+// To practice a more advanced POST, allow the user to create a new trip. Create form in html
+// Work on Search!
+// Think about asynchronous stuff
+// DRY up the code, limit CSS
+
+// Move Trip details into card (show/hide)
 
 const INDEX_URL = "https://trektravel.herokuapp.com/trips";
 
@@ -50,6 +53,11 @@ const parsedTripDetails = (response) => {
   return div;
 }
 
+const fillForm = (event) => {
+  $(`#trip-form input[name="trip-name"]`).attr("value", `${$(event.target).text()}`);
+  $(`#trip-form input[name="id"]`).attr("value", `${$(event.target).data("id")}`)
+};
+
 
 const createReservation = (event) => {
   event.preventDefault();
@@ -80,31 +88,6 @@ const createReservation = (event) => {
       //   reportStatus(`Encountered an error: ${error.message}`);
       // }
     })
-};
-
-const createForm = (event) => {
-  const formElement = $('#form');
-  formElement.empty();
-  formElement.append('<h4>Reserve Today!</h4>');
-
-  const form = $('<form></form>');
-  form.attr("id", "trip-form");
-
-  const options = ["name", "email", "trip-name"];
-  for (let option of options){
-    const div = $('<div></div>');
-    div.append(`<label for="${option}">${option}</label>`);
-    if(option === "trip-name"){
-      div.append(`<input type="text" name="${option}" class="${option}" value="${$(event.target).text()}"/>`);
-    } else {
-      div.append(`<input type="text" name="${option}" class="${option}"/>`);
-    }
-    form.append(div);
-  }
-
-  form.append(`<input type="hidden" name="id" value="${$(event.target).data("id")}"/>`)
-  form.append(`<input type="submit" name="add-trip" value="Add Trip" class="btn"/>`);
-  formElement.append(form);
 };
 
 const loadTrips = () => {
@@ -147,7 +130,7 @@ const loadTripDetails = (event) => {
     .then((response) => {
       tripDetails.append('<h4 class="card-title">Details</h4>');
       tripDetails.append(parsedTripDetails(response));
-      createForm(event);
+      fillForm(event);
       reportStatus(`Successfully loaded ${response.data.name}.`, 'success');
     })
     .catch((error) => {
@@ -159,9 +142,10 @@ $(document).ready(() => {
   hideDetails();
   $('#load').on('click', loadTrips);
   $('#trips').on('click', 'a[href]', loadTripDetails);
-  $('#form').on('submit', createReservation);
+  $('#trip-form').on('submit', createReservation);
   $('#search').on('click', (event) => {
     event.preventDefault();
+    hideDetails();
     $('#search-container').show();
   })
 });

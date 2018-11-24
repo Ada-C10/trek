@@ -50,7 +50,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-9 move-button">
+                <div class="col-sm-9">
                   <button type="submit" class="btn btn-primary right">Search</button>
                 </div>
               </div>
@@ -59,7 +59,39 @@
           <div class="col-md-6" id="trips"></div>
           <div class="col-md-6" id="trip-details-container">
             <div id="trip"></div>
-            <div id="form"></div>
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Reserve your spot!</h4>
+                <div class="card-text">
+                  <form id="trip-form">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label" for="name">Name</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="name" class="name form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label" for="email">Email</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="email" class="email form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label" for="trip-name">Trip</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="trip-name" class="trip-name form-control">
+                      </div>
+                    </div>
+                    <input type="hidden" name="id">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <button type="submit" name="add-trip" class="btn btn-primary right">Add Trip</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </div>

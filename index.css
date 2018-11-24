@@ -16,6 +16,10 @@ ul {
   text-align: center;
 }
 
+input {
+  max-width: 100%;
+}
+
 .jumbotron {
   margin-bottom: 1rem;
   background-image: url(jumbotronbackground.jpg);
@@ -36,8 +40,8 @@ ul {
   float: right;
 }
 
-label {
-  margin-left: 4rem;
+.card {
+  margin: 3rem 0;
 }
 
 form {
