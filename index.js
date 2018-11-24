@@ -1,4 +1,3 @@
-// To practice a more advanced POST, allow the user to create a new trip.
 // Work on Search! (3 buttons - can only search for one at a time)
 // Error Handling
 // Think about asynchronous stuff
@@ -9,6 +8,7 @@ const INDEX_URL = "https://trektravel.herokuapp.com/trips";
 const hideDetails = () => {
   $('#alert-container').hide();
   $('#search-container').hide();
+  $('#search-results-container').hide();
   $('#trip-details-container').hide();
   $('#trips-container').hide();
   $('#new-trip-container').hide();
@@ -22,12 +22,12 @@ const reportStatus = (message, status) => {
 };
 
 const clearForm = (formName) => {
-  $(`#${formName}`)[0].reset();
+  $(`${formName}`)[0].reset();
 };
 
 const readFormData = (formName) => {
   const parsedFormData = {};
-  let formData = $(`#${formName}`).serializeArray();
+  let formData = $(`${formName}`).serializeArray();
 
   for(let field of formData){
     parsedFormData[`${field.name}`] = field.value
@@ -102,7 +102,7 @@ const loadTripDetails = (event) => {
 
 const createReservation = (event) => {
   event.preventDefault();
-  let tripData = readFormData("trip-form");
+  let tripData = readFormData("#trip-form");
   const id = tripData["id"];
   const location = tripData["trip-name"];
   tripData = {
@@ -114,7 +114,7 @@ const createReservation = (event) => {
   axios.post(url, tripData)
     .then(() => {
       reportStatus(`${tripData["name"]}, you successfully reserved the trip: ${location}!`, 'success');
-      clearForm("trip-form");
+      clearForm("#trip-form");
     })
     .catch((error) => {
       console.log(error.response);
@@ -133,35 +133,69 @@ const createReservation = (event) => {
 
 const createTrip = (event) => {
   event.preventDefault();
-  $('#new-trip-container').show();
-  let newTripData = readFormData("create-form");
+  let newTripData = readFormData("#create-form");
 
   axios.post(INDEX_URL, newTripData)
     .then(() => {
       reportStatus(`You successfully created the trip: ${newTripData["name"]}!`, 'success');
-      clearForm("create-form");
+      clearForm("#create-form");
     })
     .catch((error) => {
       console.log(error.message);
       // reportStatus(`Encountered an error: ${error.message}`);
     });
+};
+
+const searchTrips = (option) => {
+  $('#search-results-container').show();
+  $('#trip-details-container').hide();
+  reportStatus('Searching for trips...', 'info');
+  let searchData = $(`#${option}-form`).serialize();
+  const searchList = $('#queries');
+  searchList.empty();
+  const ul = $('<ul></ul>');
+
+  const url = `https://trektravel.herokuapp.com/trips/${option}?${searchData}`;
+
+  axios.get(url)
+    .then((response) => {
+      response.data.forEach((trip) => {
+        const li = $('<li></li>');
+        const a = $(`<a>${trip.name}</a>`);
+        a.attr('href', `https://trektravel.herokuapp.com/trips/${trip.id}`);
+        a.data('id', trip.id);
+        li.append(a);
+        ul.append(li);
+      });
+      searchList.append(ul);
+      reportStatus(`Successfully loaded ${response.data.length} trips.`, 'success');
+    })
+    .catch((error) => {
+      reportStatus(`Could not load. ${error}.`, 'warning');
+    });
 }
+
+const searchOptions = ["continent", "weeks", "budget"];
 
 $(document).ready(() => {
   hideDetails();
   $('#load').on('click', loadTrips);
   $('#trips').on('click', 'a[href]', loadTripDetails);
+  $('#queries').on('click', 'a[href]', loadTripDetails);
   $('#trip-form').on('submit', createReservation);
-  $('#build').on('click', (event) => {
-    event.preventDefault();
+  $('#build').on('click', () => {
     hideDetails();
     $('#new-trip-container').show();
-    createTrip;
   })
   $('#create-form').on('submit', createTrip);
-  $('#search').on('click', (event) => {
-    event.preventDefault();
+  $('#search').on('click', () => {
     hideDetails();
     $('#search-container').show();
   })
+  for (let option of searchOptions) {
+    $(`#${option}-form`).on('submit', (event) => {
+      event.preventDefault();
+      searchTrips(option);
+    });
+  }
 });

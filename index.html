@@ -29,7 +29,7 @@
           </div>
         </section>
         <section class="row">
-          <div class="col-md-12" id="new-trip-container">
+          <div id="new-trip-container" class="col-md-12">
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title text-center">Fill in the details below.</h4>
@@ -81,32 +81,50 @@
               </div>
             </div>
           </div>
-          <div class="col-md-12" id="search-container">
-            <form>
+          <div id="search-container" class="col-md-12">
+            <form id="continent-form">
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-center" for="continent">Continent</label>
                 <div class="col-sm-6">
-                  <input type="text" name="continent" class="continent form-control">
+                  <input type="text" name="query" class="continent form-control">
                 </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label text-center" for="max-weeks">Max Number of Weeks</label>
-                <div class="col-sm-6">
-                  <input type="text" name="max-weeks" class="max-weeks form-control">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label text-center" for="budget">Budget</label>
-                <div class="col-sm-6">
-                  <input type="text" name="budget" class="budget form-control">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-9">
-                  <button type="submit" class="btn btn-primary right">Search</button>
+                <div class="col-sm-3">
+                  <button type="submit" class="btn btn-primary">Search</button>
                 </div>
               </div>
             </form>
+            <form id="weeks-form">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-center" for="max-weeks">Max Number of Weeks</label>
+                <div class="col-sm-6">
+                  <input type="text" name="query" class="max-weeks form-control">
+                </div>
+                <div class="col-sm-3">
+                  <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+              </div>
+            </form>
+            <form id="budget-form">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-center" for="budget">Budget</label>
+                <div class="col-sm-6">
+                  <input type="text" name="query" class="budget form-control">
+                </div>
+                <div class="col-sm-3">
+                  <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div id="search-results-container" class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Found Trips</h4>
+                <div class="card-text">
+                  <div id="queries"></div>
+                </div>
+              </div>
+            </div>
           </div>
           <div id="trips-container" class="col-md-6">
             <div class="card">
@@ -118,7 +136,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6" id="trip-details-container">
+          <div id="trip-details-container" class="col-md-6">
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title">Details</h4>
