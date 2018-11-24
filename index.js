@@ -38,6 +38,9 @@ const loadTrips = () => {
       const loadTripDetails = () => {
         const tripDetails = $('.trip-details');
         tripDetails.empty();
+        const reserveTrip = $('.reserve-trip'); //added this
+        reserveTrip.empty(); //added this
+
         const detailsURL = `https://trektravel.herokuapp.com/trips/${trip.id}`;
 
         reportStatus('Loading trip details...');
@@ -59,9 +62,36 @@ const loadTrips = () => {
             <li> ${weeks}</li>
             <li> ${cost}</li>
             <li> ${about}</li>`)
+
+          reserveTrip.append(`
+              <h1>Reserve Trip</h1>
+              <form id="reservation-form">
+                <div>
+                  <input type="hidden" name="category" value="${category}"/>
+                  <input type="hidden" name="cost" value="${cost}"/>
+                  <input type="hidden" name="continent" value="${continent}"/>
+                  <input type="hidden" name="weeks" value="${weeks}"/>
+                </div>
+
+                <div>
+                  <label for="customer-name">Your name:</label>
+                  <input type="text" name="customer-name" />
+                </div>
+
+                <div>
+                  <label for="email">Email:</label>
+                  <input type="text" name="email" />
+                </div>
+
+                <div>
+                  <label for="name">Trip Name:</label>
+                  <input type="text" name="name" value="${name}"/>
+                </div>
+
+                <input type="submit" name="make-reservation" value="Reserve" />
+              </form>`);
+
         });
-
-
       };
 
       tripList.append(`<li class="trip-details-${trip.id}">${trip.name}</li>`);
@@ -73,29 +103,20 @@ const loadTrips = () => {
     reportStatus(`Encountered an error while loading trips: ${error.message}`);
     console.log(error);
   });
-
-  //when i click on a single trip name
-  // do a axios.get on the botched URL
-
-
 };
-
-// <h1>Trip Details</h1>
-// <button id="load-trip-details">Get trip details!</button>
-// <ul id="trip-list"></ul>
 
 
 
 //
-// Creating Pets
+// Creating Reservation
 //
 const readFormData = () => {
   const parsedFormData = {};
 
-  const inputs = ["name", "age", "owner"];
+  const inputs = ["customer-name", "email", "name", "category", "cost", "weeks", "continent"];
 
   inputs.forEach((curInput) => {
-    const curData = $(`#pet-form input[name="${curInput}"]`).val();
+    const curData = $(`#reservation-form input[name="${curInput}"]`).val();
     parsedFormData[curInput] = curData ? curData : undefined;
   });
 
@@ -112,25 +133,29 @@ const readFormData = () => {
 };
 
 const clearForm = () => {
-  $(`#pet-form input[name="name"]`).val('');
-  $(`#pet-form input[name="age"]`).val('');
-  $(`#pet-form input[name="owner"]`).val('');
+  $(`#reservation-form input[name="customer-name"]`).val('');
+  $(`#reservation-form input[name="email"]`).val('');
+  $(`#reservation-form input[name="name"]`).val(''); //name is tripname
+  $(`#reservation-form input[name="continent"]`).val('');
+  $(`#reservation-form input[name="cost"]`).val('');
+  $(`#reservation-form input[name="weeks"]`).val('');
+  $(`#reservation-form input[name="category"]`).val('');
 }
 
-const createPet = (event) => {
+const createReservation = (event) => {
   // Note that createPet is a handler for a `submit`
   // event, which means we need to call `preventDefault`
   // to avoid a page reload
   event.preventDefault();
 
-  const petData = readFormData();
-  console.log(petData);
+  const reservationData = readFormData();
+  console.log(reservationData);
 
-  reportStatus('Sending pet data...');
+  reportStatus('Sending reservation data...');
 
-  axios.post(URL, petData)
+  axios.post(URL, reservationData)
   .then((response) => {
-    reportStatus(`Successfully added a pet with ID ${response.data.id}!`);
+    reportStatus(`Successfully added a reservation with ID ${response.data.id}!`);
     clearForm();
   })
   .catch((error) => {
@@ -155,5 +180,5 @@ $(document).ready(() => {
   $('#load').click(loadTrips);
   // const loadTripDetails = loadTrips
   //$('.trip-details').click(loadTripDetails);
-  $('#pet-form').submit(createPet);
+  $('#reservation-form').submit(createReservation);
 });
