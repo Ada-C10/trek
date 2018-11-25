@@ -1,8 +1,24 @@
-body {
+.current-pets  {
   font-family: sans-serif;
+  display: grid;
+  width: 100%;
+  grid-template-rows: 50px 1fr 30px;
+  grid-template-columns: 150px 1fr;
+  grid-template-areas:
+    "header header header"
+    "aside main main"
+    "aside main main"
+
 }
 
-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+#trip-list {
+  grid-area: aside;
+}
+
+ul div section {
+  grid-area: main
+}
+
+main section h1 {
+  grid-area: header
 }
