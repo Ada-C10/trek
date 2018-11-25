@@ -1,0 +1,40 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  background: url(background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #3c3c3c;
+  padding-top: 2rem;
+}
+
+span.info-label {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#trek {
+  font-size: 6rem;
+  font-family: 'Monoton', cursive;
+}
+
+.card {
+  background-color: rgba(255,255,255,0.9);
+}
+
+li.trip-name {
+  font-size: 150%;
+}
+
+a, a::hover {
+  text-decoration: none;
+}
