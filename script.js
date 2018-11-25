@@ -36,17 +36,16 @@ const loadTrips = () => {
       let regex = /p(.+)/
       let selectedTripID = `${$(this).attr('class').split(" ")[0].match(regex)[1]}`
 
-
-      console.log(`${selectedTripID}`)
-
       let tripDetails = $('.trip-details')
       tripDetails.empty()
 
       axios.get(baseURL+selectedTripID)
       .then((response) => {
         reportStatus(`Trip ${selectedTripID}`)
+        // let tripData = respose.data
 
         $(tripDetails).append(`
+          <p>TRIP ID: ${response.data.id}</p>
           <p>NAME: ${response.data.name}</p>
           <p>CONTINENT: ${response.data.continent}</p>
           <p>CATEGORY: ${response.data.category}</p>
@@ -55,7 +54,7 @@ const loadTrips = () => {
           <p>ABOUT: ${response.data.about}</p>
           `);
 
-
+      reservationForm(selectedTripID)
         });
 
       });
@@ -63,6 +62,18 @@ const loadTrips = () => {
     });
 
     // POST RESERVATION FORM //
+
+    let reservationForm = function reserveTrip(id) {
+      let reserveTrip = $('.reserve-trip')
+      reserveTrip.empty()
+
+      $(reserveTrip).append(`
+        <h3>Reserve Trip</h3>
+        <p>Your Name: </p>
+        <p>Your Email: </p>
+        <p>Trip Name: </p>
+      `)
+    }
 
   };
 
@@ -83,3 +94,5 @@ const loadTrips = () => {
   // format cost
   // format key names like NAME or CONTINENT
   // section headings
+  // fix placement of the functions
+  // add border styling
