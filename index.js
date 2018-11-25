@@ -62,13 +62,14 @@ const loadTrip = function(tripID) {
   $('#trip').removeClass();
   $('#trip').addClass('detail');
 
+
   const tripDetail = $('#trip');
   reportStatus('Retrieving info for this trip...');
 
   axios.get(baseURL + savedId)
   .then( (response) => {
 
-    reportStatus(`Reserve the ${response.data.name} trip below or toggle twice to pick a different trip.)`);
+    reportStatus(`Reserve the ${response.data.name} trip below or toggle twice to pick a different trip.`);
 
     let weeks = "0";
 
@@ -116,6 +117,7 @@ const loadTrips = () => {
   tripList.empty();
   tripList.removeClass();
   tripList.addClass('list');
+  $('body').removeClass();
 
   axios.get(baseURL)
   .then( (response) => {
@@ -169,11 +171,16 @@ const toggleList = () => {
 
       if (tripDiv.hasClass('list')) {
         tripDiv.empty();
+        $('body').addClass('static');
+        $('.main ul').removeClass();
+        $('.main ul').addClass('main-empty');
+        $('.main-empty').html("Choose your adventure!");
+        // $('.main ul')
         $('.footer').attr('id', 'body-empty');
         reportStatus('Trips emptied. Toggle to reload.');
       }
       else {
-        reportStatus('Toggle to load your next adventure!');
+        reportStatus('Toggle once to load your next adventure!');
       }
     }
   })

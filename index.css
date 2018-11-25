@@ -1,6 +1,7 @@
 html, body {
   margin: 0;
   padding: 0;
+
 }
 
 html {
@@ -8,8 +9,15 @@ html {
 }
 
 body{
-    min-height: 100%;
-  background:#f1f1f1;
+  min-height: 100%;
+}
+
+body.static {
+  background-image: url("https://cdn.dribbble.com/users/251177/screenshots/3178715/dribbble.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.8;
+  color: white;
 }
 
 ul {
@@ -23,6 +31,8 @@ ul {
   font-weight: 300;
   font-size: 50px;
   letter-spacing: 10px;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 .nav, #status-message, .footer {
@@ -31,9 +41,9 @@ ul {
 
 /*Grid */
 .grid-container {
-   height:100%;
+  height:100%;
   font-family: 'Montserrat', sans-serif;
-  padding: 1rem 3rem 1rem 3rem;
+  padding: 1rem 0 1rem 0;
   display: grid;
   grid-template-rows: 10rem 10rem auto 5rem;
   grid-template-areas: "header" "nav" "main" "footer";
@@ -43,20 +53,13 @@ ul {
   grid-area: main;
 }
 
+
 .main .main-empty {
-  position: absolute; /* or absolute */
- top: 50%;
-  bottom: 50%;
- /* left: 50%;
-  right: 50%; */
-
-  text-align: center;
+  position: absolute;
+  top: 55%;
+  left: 32%;
   font-size:36px;
-    padding-right: 5rem;
-    margin-bottom: 0;
-
-
- width:100%;
+  width:100%;
 }
 
 .main #trip.list {
@@ -94,6 +97,16 @@ ul {
   grid-area: header;
 }
 
+.header section#status-message {
+  text-align: center;
+  padding-bottom: 2rem;
+  padding-top: 1rem;
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  /* margin: 1em; */
+}
+
 .nav {
   display: grid;
   grid-template-columns: auto 25%;
@@ -110,6 +123,7 @@ ul {
 }
 
 .sub-heading {
+  color: #778899;
   grid-area: sub-heading;
 }
 
@@ -119,6 +133,11 @@ ul {
   padding: 1rem;
   padding-top: 2rem;
   bottom: 0;
+  color: #FF7F50;
+
+  background-image: url("https://66.media.tumblr.com/a6bc72247bb49b5ca19c921800d9a383/tumblr_ov04rtNPcN1vbfbhho1_400.gif");
+  height: 100%;
+  background-position: center;
 }
 
 .footer#body-empty {
@@ -233,4 +252,12 @@ ul {
 }
 #checkbox3:checked + .checkbox-label:after{
   color:#1fc1c8;
+}
+
+
+
+.stars {
+  background:#000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
+  width: 100%
+  z-index:0;
 }
