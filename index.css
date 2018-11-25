@@ -29,3 +29,7 @@ main section h1 {
 [class^="trip"] {
   border-style: double;
 }
+
+ul {
+  list-style-type:none;
+}

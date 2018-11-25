@@ -44,7 +44,6 @@ const loadTrips = () => {
   });
 };
 
-
 const loadTrip = (tripinfo) => {
   let num = tripinfo.match(/\d/);
   num = num.join("");
@@ -60,7 +59,7 @@ const loadTrip = (tripinfo) => {
     data["Category"] = response.data.category
     data["Weeks"] = response.data.weeks
     data["Cost"] = '$' + response.data.cost
-    const list = $('<ul style="list-style-type:none"></ul>')
+    const list = $('<ul></ul>')
     Object.keys(data).forEach(function(key) {
       list.append(`<li><strong>${key}</strong> : ${data[key]}</li`);
     });
@@ -76,9 +75,7 @@ const loadTrip = (tripinfo) => {
 };
 
 const createForm = (tripinfo) => {
-
   event.preventDefault();
-
   // get id number
   let num = tripinfo.match(/\d/);
   num = num.join("");
