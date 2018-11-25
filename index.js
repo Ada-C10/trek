@@ -30,14 +30,14 @@ const parseGetResponse = (element, response) => {
 const parseTripCollection = (element, response) => {
   response.forEach((trip) => {
     element.append(
-      `<li><button id="${trip.id}" class="btn btn-outline-info">
+      `<li><button id="${trip.id}" class="btn btn-outline-secondary btn-block">
       ${trip.name}</button></li>`);
   });
 }
 
 const parseIndividualTrip = (element, response) => {
   const tripProperties = ['name', 'continent', 'category', 'weeks', 'cost', 'about']
-  element.append('<h2>Trip Detail</h2>');
+  element.append('<h2>Trip Details</h2>');
   tripProperties.forEach((prop) => {
     let header = prop.replace(/^\w/, c => c.toUpperCase());
     element.append(

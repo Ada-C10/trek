@@ -1,3 +1,9 @@
+body {
+  padding: 10px;
+  background-color: gainsboro;
+  text-align: center;
+}
+
 main {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -5,6 +11,10 @@ main {
 
 ul {
   list-style: none;
+}
+
+.trip-list {
+  padding-top: 10px;
 }
 
 .current-trips {
