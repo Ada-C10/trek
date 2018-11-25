@@ -1,13 +1,28 @@
+const URL = "https://trektravel.herokuapp.com/trips";
+
+
 const reportStatus = (message) => {
-  $("#status-message").html(message);
-}
+  $('#status-message').html(message);
+};
+
+const reportError = (message, errors) => {
+  let content = `<p>${message}</p>`
+  content += "<ul>";
+  for (const field in errors) {
+    for (const problem of errors[field]) {
+      content += `<li>${field}: ${problem}</li>`;
+    }
+  }
+  content += "</ul>";
+  reportStatus(content);
+};
 
 const listTrips = () => {
   reportStatus("Loading trips...")
   const tripList = $('#trip-list');
   tripList.empty();
 
-  axios.get( "https://trektravel.herokuapp.com/trips")
+  axios.get(URL)
 
   .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
@@ -31,7 +46,9 @@ const showTripDetail = (id) => {
   const tripReservation = $('#reservation-form');
   tripReservation.empty();
 
-  axios.get( `https://trektravel.herokuapp.com/trips/${id}`)
+  const tripURL = `${URL + "/" + id}`;
+
+  axios.get( tripURL )
 
   .then((response) => {
     tripDetail.append('<h2 class="card-title list-group-item">Trip Details</h2>')
@@ -46,11 +63,14 @@ const showTripDetail = (id) => {
     tripReservation.append('<h2 class="card-title list-group-item">Reserve Trip</h2>')
     console.log(`${response.data.name}`);
     tripReservation.append(
-      `<form>
-        <div class="card-body">
+        `<div class="card-body">
           <div class="card-text">
-            <label for="cust-name">Your Name:</label>
-            <input type="text" name="cust-name"/>
+            <label for="name">Your Name:</label>
+            <input type="text" name="name"/>
+          </div>
+          <div class="card-text">
+            <label for="age">Your Age:</label>
+            <input type="number" name="age" min="1"/>
           </div>
           <div class="card-text">
             <label for="email">Email:</lable>
@@ -58,17 +78,53 @@ const showTripDetail = (id) => {
           </div>
           <div class="card-text">
             <label for="trip-name">Trip Name:</label>
-            <input type="text name="trip-name" value="${response.data.name}"
+            <input type="text" name="trip-name" value="${response.data.name}"/>
+            <input type="hidden" name="trip_id" value="${response.data.id}"/>
           </div>
-          <div class="card-text">
-            <input type="submit" name="add-reservation" value="Add Reservation" id="create-reservation" />
         </div>
+        <input type="submit" name="add-reservation" value="Add Reservation" id="create-reservation-button" />
       </form>`)
   })
   .catch((error) => {
     reportStatus(error);
     console.log(error);
   });
+};
+
+
+const createReservation = (event) => {
+  event.preventDefault();
+
+  reportStatus("Saving reservation...");
+  console.log("Making reservation");
+
+  const trip_id = $('input[name="trip_id"]').val();
+  const trip_name = $('input[name=trip-name]').val();
+
+  const data = {
+    name: $('input[name="name"]').val(),
+    email: $('input[name="email"]').val(),
+    age: $('input[name="age"]').val(),
+  };
+  console.log(`Trip: ${trip_id}`);
+
+  const postURL = `${URL}/${trip_id}/reservations`;
+  console.log(postURL);
+
+  axios.post(postURL,
+    data)
+    .then((response) => {
+      console.log(`Trip id to reserve: ${data.trip_id}`)
+      console.log(`Trip for ${data.name} is reserved.`);
+      reportStatus(`${trip_name} is reserved for ${response.data.name}.`);
+    })
+    .catch((error) => {
+      if (error.response.data && error.response.data.errors) {
+    reportError(`Encountered an error: ${error.message}`, error.response.data.errors);
+    } else {
+    reportStatus(`Encountered an error: ${error.message}`);
+    }
+    });
 };
 
 $(document).ready(() => {
@@ -79,4 +135,6 @@ $(document).ready(() => {
     console.log(id);
     showTripDetail(id);
   });
+
+  $("#reservation-form").submit(createReservation);
 });
