@@ -1,14 +1,25 @@
 body {
-  /*background-image: url("https://souldrifters.com/wp-content/uploads/2018/02/Road-Trip-in-South-Africa-Sense-of-adventure.jpg");*/
-  background-image: url("https://www.rei.com/adventures/assets/adventures/images/trip/core/pacific/nzs_hero");
+  background-image: url("https://stmed.net/sites/default/files/hot-air-balloon-wallpapers-32225-2405425.jpg");
+  background-size: 100%;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-attachment: fixed;
   padding: 2rem 2rem;
 }
+
+header {
+  padding: 2rem;
+}
+
+header a {
+  color: white;
+}
+
 main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
+  background-color: white;
+  border-radius: 20px;
 }
 
 .all-trips {
@@ -17,4 +28,13 @@ main {
 
 ul {
   list-style: none;
+}
+
+.trip {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-rez {
+  padding: 40px;
 }

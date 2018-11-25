@@ -45,6 +45,7 @@ const getTripDetails = (trip) => {
 
   axios.get(URL + `/${trip.id}`)
     .then((response) => {
+      reportStatus('');
       tripDetails.append(`
         <h2>Trip Details</h2>
         <li>Name: ${response.data.name}</li>
@@ -74,7 +75,7 @@ const getRezForm = (trip) => {
     <div>
       <input type="hidden" name="trip_id" value=${trip.id} />
     </div>
-    <input type="submit" name="reserve" value="Reserve" />
+    <input type="submit" name="reserve" value="Reserve" class="btn btn-primary" />
   `);
 
 }
