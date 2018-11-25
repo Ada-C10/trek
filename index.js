@@ -23,22 +23,27 @@ const sendGetRequest = (id) => {
 const parseGetResponse = (element, response) => {
   element.empty();
   const tripData = response.data;
-
-  if (tripData.length) {
-    tripData.forEach((trip) => {
-      element.append(
-        `<li><button id="${trip.id}">
-        ${trip.name}</button></li>`);
-    });
-  } else {
-    const headers = ['name', 'continent', 'category', 'weeks', 'cost', 'about']
-    headers.forEach((header) => {
-      element.append(
-        `<li>${header}: ${tripData[header]}</li>`
-      )
-    });
-  }
+  tripData.length ?
+  parseTripCollection(element, tripData) : parseIndividualTrip(element, tripData)
 };
+
+const parseTripCollection = (element, response) => {
+  response.forEach((trip) => {
+    element.append(
+      `<li><button id="${trip.id}">
+      ${trip.name}</button></li>`);
+  });
+}
+
+const parseIndividualTrip = (element, response) => {
+  const tripProperties = ['name', 'continent', 'category', 'weeks', 'cost', 'about']
+  tripProperties.forEach((prop) => {
+    let header = prop.replace(/^\w/, c => c.toUpperCase());
+    element.append(
+      `<li>${header}: ${response[prop]}</li>`
+    )
+  });
+}
 
 $(document).ready(() => {
   const getAllTrips = sendGetRequest('/');
