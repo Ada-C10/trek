@@ -2,6 +2,7 @@
 const baseURL = 'https://trektravel.herokuapp.com/trips/';
 let id = 0;
 
+
 const reportStatus = (message) => {
   $('.status-message').html(message);
 }
@@ -67,14 +68,20 @@ const loadTrips = () => {
 
     let reservationForm = function reserveTrip(tripData) {
       let reserveTrip = $('.reserve-trip')
-      reserveTrip.empty()
+      // reserveTrip.empty()
 
-      $(reserveTrip).append(`
-        <h3>Reserve Trip</h3>
-        <p>Your Name: </p>
-        <p>Your Email: </p>
-        <p>Trip Name: </p>
-      `)
+          $('.reserve-trip h3').empty()
+      $('.reserve-trip').prepend('<h3>Reserve Trip</h3>');
+
+
+      $('form.trip-form').css('visibility', 'visible');
+
+const dataa = {
+      name: $('input[name="name"]').attr('placeholder', `Your Name`).val(),
+      email: $('input[name="email"]').attr('placeholder', `Your Email`).val(),
+      tripName: $('input[name="trip-name"]').attr('placeholder', `${tripData.name}`).val()
+
+};
     }
 
   };

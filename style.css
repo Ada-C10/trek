@@ -1,6 +1,7 @@
 /* move to its own folder? */
 /* bootstrap it???!!!! */
 
-ul.triplist li {
-  list-style: none;
+form.trip-form {
+  visibility: hidden;
+
 }
