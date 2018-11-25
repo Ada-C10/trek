@@ -30,7 +30,7 @@ const parseGetResponse = (element, response) => {
 const parseTripCollection = (element, response) => {
   response.forEach((trip) => {
     element.append(
-      `<li><button id="${trip.id}">
+      `<li><button id="${trip.id}" class="btn btn-outline-info"> 
       ${trip.name}</button></li>`);
   });
 }
