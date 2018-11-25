@@ -37,26 +37,34 @@
     </section>
 
 
-    <section class="reserve-trip">
-      <!-- <h1>Reserve Trip</h1>
-      <form id="reservation-form">
-        <div>
-          <label for="customer-name">Your name:</label>
-          <input type="text" name="customer-name" />
-        </div>
+    <section class="reserve-trip " >
+      <form id="reservation-form" class="hidden" >
+        <h1>Reserve Trip</h1>
+          <div>
+            <input type="hidden" name="category" />
+            <input type="hidden" name="cost" />
+            <input type="hidden" name="continent" />
+            <input type="hidden" name="weeks" />
+          </div>
 
-        <div>
-          <label for="email">Email:</label>
-          <input type="text" name="email" />
-        </div>
+          <div>
+            <label for="customer-name">Your name:</label>
+            <input type="text" name="customer-name" />
+          </div>
 
-        <div>
-          <label for="trip-name">Trip name:</label>
-          <input type="text" name="trip-name" />
-        </div>
+          <div>
+            <label for="email">Email:</label>
+            <input type="text" name="email" />
+          </div>
 
-        <input type="submit" name="make-reservation" value="Reserve" />
-      </form> -->
+          <div>
+            <label for="name">Trip Name:</label>
+            <input type="text" name="name" />
+          </div>
+
+          <input type="submit" name="make-reservation" value="Reserve" />
+      </form>
+
     </section>
 
   </main>

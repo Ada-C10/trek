@@ -6,3 +6,11 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+.hidden {
+  display: none;
+}
+
+/* .active {
+  display: block;
+} */

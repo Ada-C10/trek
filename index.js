@@ -28,8 +28,6 @@ const loadTrips = () => {
   const tripList = $('#trip-list');
   tripList.empty();
 
-
-
   axios.get(URL)
   .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
@@ -38,8 +36,8 @@ const loadTrips = () => {
       const loadTripDetails = () => {
         const tripDetails = $('.trip-details');
         tripDetails.empty();
-        const reserveTrip = $('.reserve-trip'); //added this
-        reserveTrip.empty(); //added this
+        const reserveTrip = $('#reservation-form'); //added this
+        // reserveTrip.empty(); //added this
 
         const detailsURL = `https://trektravel.herokuapp.com/trips/${trip.id}`;
 
@@ -61,36 +59,17 @@ const loadTrips = () => {
             <li> ${category}</li>
             <li> ${weeks}</li>
             <li> ${cost}</li>
-            <li> ${about}</li>`)
+            <li> ${about}</li>`);
 
-          reserveTrip.append(`
-              <h1>Reserve Trip</h1>
-              <form id="reservation-form">
-                <div>
-                  <input type="hidden" name="category" value="${category}"/>
-                  <input type="hidden" name="cost" value="${cost}"/>
-                  <input type="hidden" name="continent" value="${continent}"/>
-                  <input type="hidden" name="weeks" value="${weeks}"/>
-                </div>
+          $( "#reservation-form" ).removeClass( "hidden");
 
-                <div>
-                  <label for="customer-name">Your name:</label>
-                  <input type="text" name="customer-name" />
-                </div>
-
-                <div>
-                  <label for="email">Email:</label>
-                  <input type="text" name="email" />
-                </div>
-
-                <div>
-                  <label for="name">Trip Name:</label>
-                  <input type="text" name="name" value="${name}"/>
-                </div>
-
-                <input type="submit" name="make-reservation" value="Reserve" />
-              </form>`);
-
+          reserveTrip.append(
+            $(`#reservation-form input[name="name"]`).val(`${name}`),
+            $(`#reservation-form input[name="category"]`).val(`${category}`),
+            $(`#reservation-form input[name="cost"]`).val(`${cost}`),
+            $(`#reservation-form input[name="continent"]`).val(`${continent}`),
+            $(`#reservation-form input[name="weeks"]`).val(`${weeks}`),
+          );
         });
       };
 
@@ -143,6 +122,7 @@ const clearForm = () => {
 }
 
 const createReservation = (event) => {
+  console.log("called createReservation with", event);
   // Note that createPet is a handler for a `submit`
   // event, which means we need to call `preventDefault`
   // to avoid a page reload
@@ -178,7 +158,5 @@ const createReservation = (event) => {
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
-  // const loadTripDetails = loadTrips
-  //$('.trip-details').click(loadTripDetails);
   $('#reservation-form').submit(createReservation);
 });
