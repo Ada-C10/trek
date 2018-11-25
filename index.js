@@ -21,7 +21,7 @@ const loadTrips = () => {
   })
 
   .catch((error) => {
-    console.log("In the axios.get => .catch method");
+    reportStatus(`Encountered an error while loading trips: ${error.message}`);
   })
 }
 
@@ -29,16 +29,12 @@ const loadTrips = () => {
 const createReservation = (event) => {
   event.preventDefault();
 
-  console.log("In the createReservation");
   let nameFromForm = $('input[name="name"]').val();
   let emailFromForm = $('input[name="email"]').val();
   let tripFromForm = $('input[name="trip"]').val();
   let tripid = $('input[name="reserveSpot"]').attr('id');
   let URL = `https://trektravel.herokuapp.com/trips/${tripid}/reservations`
-  // console.log(nameFromForm);
-  // console.log(emailFromForm);
-  // console.log(tripFromForm);
-  // console.log(tripid);
+
   const dataToSend = {
     name: nameFromForm,
     email: emailFromForm,
@@ -53,8 +49,10 @@ const createReservation = (event) => {
       $('#tripInfo').hide();
       $('#reserveTrip').hide();
     })
+    .catch((error) => {
+      reportStatus(`Encountered an error: ${error.message}`);
+    })
 }
-
 
 const viewTrip = function viewTrip(tripID){
   reportStatus("loading trip details...");
@@ -67,6 +65,8 @@ const viewTrip = function viewTrip(tripID){
 
   axios.get(tripDetailURL)
     .then((response) => {
+
+      reportStatus("Trip details loaded")
 
       let tripid = response.data.id;
       let name = response.data.name;
@@ -84,18 +84,16 @@ const viewTrip = function viewTrip(tripID){
       tripInfo.append(`<h3>Cost: $${cost}</h3>`);
       tripInfo.append(`<p>About: ${about}</p>`);
 
-
-
       // Populating Reservation Form
       $('input[name="trip"]').val(`${name}`);
 
       // Binding trip id to submit button id
       $('input[name="reserveSpot"]').attr('id', `${tripid}`)
 
-
-
       })
-
+      .catch((error) => {
+        reportStatus(`Encountered an error while loading trips: ${error.message}`);
+      });
 }
 
 $(document).ready(() => {
