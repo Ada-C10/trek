@@ -23,7 +23,6 @@ const listTrips = () => {
   tripList.empty();
 
   axios.get(URL)
-
   .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
     tripList.append('<h2 class="card-title list-group-item">All Trips</h2>')
@@ -49,21 +48,19 @@ const showTripDetail = (id) => {
   const tripURL = `${URL + "/" + id}`;
 
   axios.get( tripURL )
-
   .then((response) => {
-    tripDetail.append('<h2 class="card-title list-group-item">Trip Details</h2>')
-    console.log(`${response.data.name}`);
-    tripDetail.append(`<p class="list-group-item"><strong>Name:</strong>&nbsp${response.data.name}</p>`);
-    tripDetail.append(`<p class="list-group-item"><strong>Continent:</strong>&nbsp${response.data.continent}</p>`);
-    tripDetail.append(`<p class="list-group-item"><strong>Category:</strong>&nbsp${response.data.category}</p>`);
-    tripDetail.append(`<p class="list-group-item"><strong>Weeks:</strong>&nbsp${response.data.weeks}</p>`);
-    tripDetail.append(`<p class="list-group-item"><strong>Cost:</strong>&nbsp$${parseFloat(response.data.cost).toFixed(2)}</p>`);
-    tripDetail.append(`<p class="list-group-item"><strong>About:</strong><br>${response.data.about}</p>`);
+    tripDetail.append(
+      `<h2 class="card-title list-group-item">Trip Details</h2>
+      <p class="list-group-item"><strong>Name:</strong>&nbsp${response.data.name}</p>
+      <p class="list-group-item"><strong>Continent:</strong>&nbsp${response.data.continent}</p>
+      <p class="list-group-item"><strong>Category:</strong>&nbsp${response.data.category}</p>
+      <p class="list-group-item"><strong>Weeks:</strong>&nbsp${response.data.weeks}</p>
+      <p class="list-group-item"><strong>Cost:</strong>&nbsp$${parseFloat(response.data.cost).toFixed(2)}</p>
+      <p class="list-group-item"><strong>About:</strong><br>${response.data.about}</p>`)
 
-    tripReservation.append('<h2 class="card-title list-group-item">Reserve Trip</h2>')
-    console.log(`${response.data.name}`);
     tripReservation.append(
-        `<div class="card-body">
+      `<h2 class="card-title list-group-item">Reserve Trip</h2>
+        <div class="card-body">
           <div class="card-text">
             <label for="name">Your Name:</label>
             <input type="text" name="name"/>
@@ -111,8 +108,7 @@ const createReservation = (event) => {
   const postURL = `${URL}/${trip_id}/reservations`;
   console.log(postURL);
 
-  axios.post(postURL,
-    data)
+  axios.post(postURL, data)
     .then((response) => {
       console.log(`Trip id to reserve: ${data.trip_id}`)
       console.log(`Trip for ${data.name} is reserved.`);
