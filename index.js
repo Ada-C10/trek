@@ -72,6 +72,7 @@ const reserveTrip = (event) => {
   axios.post(URL + `/${createResData.id}` + '/reservations', createResData)
     .then((response) => {
       reportStatus(`Sucessfully reserved trip ${response.data.id}!`);
+      $('#reserve-form')[0].reset();
     })
     .catch((error) => {
       reportStatus(`Encountered an error: ${error.message}`)
