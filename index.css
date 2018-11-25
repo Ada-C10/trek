@@ -4,33 +4,66 @@
   padding: 0;
 }
 
-body {
-  background-image: url('black.jpg');
-  background-size: cover;
-  color: lightgray;
+.header-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.page-container {
-  height: 100vh;
-  width: 100vw;
-  margin: 0;
-  padding: 0;
+.header-title h1 {
+  font-family: 'Rock Salt', cursive;
+  font-size: 70px;
+  padding-bottom: 3rem;
 }
+
+body {
+  background-image: url('abyss.jpg');
+  background-size: cover;
+  color: white;
+  font-family: 'Fauna One', serif;
+}
+
 
 ul#trip-list {
   list-style-type: none;
-  padding: 3rem;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #status-message {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   padding-top: 3rem;
+  padding-bottom: 5rem;
+  text-align: center;
 }
 
-.all-trip-details {
-  margin: 7rem;
-  padding: 2rem;
+
+input {
+  color: black;
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  color: black;
+}
+
+
+.trip-details-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0;
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-bottom: 10%;
+  text-align: justify;
+}
+
+.trip-info {
+  margin-right: 5rem;
 }

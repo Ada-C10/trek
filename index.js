@@ -27,48 +27,51 @@ const buildClickTripDetailsHandler = (trip) => {
    const tripList = $(`#trip-list`);
    tripList.empty();
 
+   const status = $('#status-message');
+   status.empty();
+
+   const tripDetailInfo = $('.trip-details-info');
+   tripDetailInfo.empty();
 
    axios.get(`${BASEURL}${TRIPSPATH}/${tripID}`)
   .then((response) => {
     const tripDetail = $('.trip-info');
     tripDetail.empty();
+
     const tripInfo = response.data;
-    $('.all-trip-details').append(`
-      <div class="trip-info">
-      <h2>Trip Details</h2>
-      <p>Id: ${tripInfo.id}</p>
-      <p>Name: ${tripInfo.name}</p>
-      <p>Continent: ${tripInfo.continent}</p>
-      <p>Details: ${tripInfo.about}</p>
-      <p>Category: ${tripInfo.category}</p>
-      <p>Weeks: ${tripInfo.weeks}</p>
-      <p>Cost: $${tripInfo.cost}</p>
-      </div>
+    $('.trip-details-info').append(`
+        <div class="trip-info">
+          <h2>Trip Details</h2>
+          <p>Id: ${tripInfo.id}</p>
+          <p>Name: ${tripInfo.name}</p>
+          <p>Continent: ${tripInfo.continent}</p>
+          <p>Details: ${tripInfo.about}</p>
+          <p>Category: ${tripInfo.category}</p>
+          <p>Weeks: ${tripInfo.weeks}</p>
+          <p>Cost: $${tripInfo.cost}</p>
+        </div>
       `);
     const tripReservationForm = $('.reserve-trip');
     tripReservationForm.empty();
-    $('.all-trip-details').append(`
+    $('.trip-details-info').append(`
       <div class="reserve-trip">
-      <h2>Reserve Trip</h2>
-      <form id="trip-form">
-        <div>
-          <label for="name">Name</label>
-          <input type="text" name="name" />
-        </div>
-
-        <div>
-          <label for="email">Email</label>
-          <input type="text" name="email" />
-        </div>
-
-        <div>
-          <label for="trip-name">Trip Name</label>
-          <input type="text" name="trip-name" placeholder="${tripInfo.name}"/>
-        </div>
-
-        <input type="submit" name="reserve-trip" value="Reserve Trip" id="reserve-trip-button"/>
-      </form>
-    </div>
+        <h2>Reserve Trip</h2>
+        <form id="trip-form">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" name="name" />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="text" name="email" />
+          </div>
+          <div>
+            <label for="trip-name">Trip Name</label>
+            <input type="text" name="trip-name" placeholder="${tripInfo.name}"/>
+          </div>
+          <input type="submit" name="reserve-trip" value="Reserve Trip" id="reserve-trip-button" class="btn btn-light"/>
+        </form>
+      </div>
     `);
     const clickReservationHandler = buildClickReservationHandler(trip);
     const tripForm = $('#trip-form');
@@ -99,7 +102,9 @@ const buildClickReservationHandler = (trip) => {
     axios.post(endpoint, tripData)
     .then((response) => {
       console.log(response);
-      reportStatus(`Successfully added reservation with ID ${id}!`);
+      reportStatus(`
+        Thank you, ${tripData.name}!
+        Successfully booked your reservation to ${trip.name} with ID: ${id}! `);
       const reserveTripForm = $('.reserve-trip');
       reserveTripForm.toggle()
     })
@@ -122,14 +127,19 @@ const getTrips = () => {
   const tripList = $('#trip-list');
   tripList.empty();
 
-  const tripDetails = $('.all-trip-details');
+  const tripDetails = $('.trip-info');
   tripDetails.empty();
+
+  const tripForm = $('.reserve-trip')
+  tripForm.empty();
 
   const endpoint = `${BASEURL}${TRIPSPATH}`
 
   axios.get(endpoint)
     .then((response) => {
-      reportStatus(`Successfully loaded ${response.data.length} trips`);
+      reportStatus(`
+        Successfully loaded ${response.data.length} trips!<br>
+        Choose a trip below:`);
       response.data.forEach((trip) => {
         const tripName = $(`<li>${trip.name}</li>`);
         tripList.append(tripName);
