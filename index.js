@@ -16,25 +16,11 @@ const reportError = (message, errors) => {
   reportStatus(content);
 };
 
-const showTrip = (response) => {
-  const target = $('#trip-details');
-  target.css("visibility", "visible");
-  target.empty();
-  let details = `<h4>Name: <span class="trip">${response.name}</span></h4>`;
-  details += `<p>Category: <span>${response.category}</span></p>`;
-  details += `<p>Weeks: <span>${response.weeks}</span></p>`;
-  details += `<p>Cost: <span>$${response.cost}</span></p>`;
-  details += `<p>About:</p><br><p>${response.about}`;
-  target.append('<h3>Trip Details</h3>');
-  target.append(details);
-};
-
 const createReservation = (event) => {
   event.preventDefault();
   console.log(event);
   let tripID = $('.trip-name input').attr("class");
-  // console.log(colClass);
-//
+
   const data = {
     name: $('input[name="name"]').val(),
     email: $('input[name="email"]').val()
@@ -58,11 +44,25 @@ const createReservation = (event) => {
 
 const showReservationForm = (response) => {
   const target = $('#reserve-trip');
-  // target.empty();
   target.css("visibility", "visible");
   const tripName = $('.trip-name');
   tripName.empty();
-  tripName.append(`<label for="trip">Trip Name:</label><input type="text" name="trip" value="${response.name}" class="${response.id} form-control" />`);
+  tripName.append(`<label for="trip">Trip Name:</label><input type="text" name="trip" value="${response.name}" class="${response.id} form-control" readonly="readonly"/>`);
+};
+
+const showTrip = (response) => {
+  const target = $('#trip-details');
+  target.css("visibility", "visible");
+  target.empty();
+
+  let details = `<h3>Name: <span class="trip">${response.name}</span></h3>`;
+  details += `<p>Category: <span>${response.category}</span></p>`;
+  details += `<p>Weeks: <span>${response.weeks}</span></p>`;
+  details += `<p>Cost: <span>$${response.cost}</span></p>`;
+  details += `<p>About:</p><br><p>${response.about}`;
+
+  target.append('<h3>Trip Details</h3>');
+  target.append(details);
 };
 
 const buildTripCallback = (id) => {
@@ -107,6 +107,5 @@ const loadTrips = () => {
 
 $(document).ready(() => {
   $('#see-trips-button').click(loadTrips);
-  // $('#all-trips').on('click', 'li', loadTripDetails);
   $('#reservation-form').submit(createReservation);
 });
