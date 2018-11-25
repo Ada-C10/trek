@@ -109,7 +109,7 @@ const createForm = (tripinfo) => {
   form.append(divEmail)
 
   form.append(`<input type="hidden" id="tripId" name="triptId" value=${num}>`)
-  form.append('<input type="submit" name="add-pet" value="Reserve" />')
+  form.append('<input type="submit" name="add-pet" value="Reserve" class="btn btn-info" />')
 
   section.append(form)
   trip.append(section);
