@@ -1,6 +1,5 @@
 // move to its own folder?
-const baseURL = 'https://trektravel.herokuapp.com/';
-const getTripsURL = 'trips';
+const baseURL = 'https://trektravel.herokuapp.com/trips/';
 
 const reportStatus = (message) => {
   $('.status-message').html(message);
@@ -14,13 +13,12 @@ const tripList = $('.trip-list');
 tripList.empty();
 //
 
-axios.get(baseURL+getTripsURL)
+axios.get(baseURL)
   .then((response) => {
-    // reportStatus(`Successfully loaded ${response.data.length} trips.`)
-    $(tripList).append(`<p>${response.data.length}</p>`);
+    reportStatus(`All ${response.data.length} trips.`)
 
     response.data.forEach((trip) => {
-    $(tripList).append(`<p>${trip.name}</p>`);
+    $(tripList).append(`<a class="btn btn-info" role="button" href=${baseURL}${trip.id}>${trip.name}</a>`);
   });
   });
 
@@ -31,6 +29,15 @@ axios.get(baseURL+getTripsURL)
 };
 
 $(document).ready(() => {
-  $('body').hover(loadTrips);
+  $('body').click(loadTrips);
 
 });
+
+// TODO:
+// determine button colors (create custom class for buttons)
+// scroll down to show more / pagination?
+// main button - increase size, create custom class for button
+// = get error message .catch working
+// bootstrap grid for the three sections
+// bg image
+// successful status message != header or ok?
