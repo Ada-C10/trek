@@ -6,19 +6,19 @@
   grid-template-columns: 150px 1fr;
   grid-template-areas:
     "header header header"
-    "aside main main"
-    "aside main main"
-
 }
-
+/*
 #trip-list {
   grid-area: aside;
 }
-
-ul div section {
-  grid-area: main
+*/
+ul div section:last-child {
+  background-color: #25283D;
+  color: white
 }
 
+
 main section h1 {
-  grid-area: header
+  grid-area: header;
+  background-color: aquamarine;
 }
