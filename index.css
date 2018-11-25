@@ -1,4 +1,4 @@
-.current-pets  {
+.current-trips  {
   font-family: sans-serif;
   display: grid;
   width: 100%;
@@ -7,18 +7,25 @@
   grid-template-areas:
     "header header header"
 }
-/*
-#trip-list {
-  grid-area: aside;
-}
-*/
+
 ul div section:last-child {
   background-color: #25283D;
   color: white
+}
+
+ul div section:first-child {
+  text-align: center;
 }
 
 
 main section h1 {
   grid-area: header;
   background-color: aquamarine;
+  padding-top: 5px;
+  border-top-width: 50px;
+  padding-bottom: 44px;
+}
+
+[class^="trip"] {
+  border-style: double;
 }
