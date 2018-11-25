@@ -24,7 +24,6 @@ body {
   font-family: 'Fauna One', serif;
 }
 
-
 ul#trip-list {
   list-style-type: none;
   display: flex;
@@ -51,7 +50,6 @@ input {
 .btn {
   color: black;
 }
-
 
 .trip-details-and-form {
   display: flex;
