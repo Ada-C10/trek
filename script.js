@@ -17,8 +17,9 @@ const loadTrips = () => {
 
   axios.get(baseURL)
   .then((response) => {
-    reportStatus(`All ${response.data.length} trips.`)
 
+    reportStatus(`All ${response.data.length} trips.`)
+    $(tripList).append(`<h3>All Trips</h3>`);
     response.data.forEach((trip) => {
       id = trip.id;
       $(tripList).append(`<button class="trip${id} btn btn-info">${trip.name}</button>`);
@@ -41,20 +42,21 @@ const loadTrips = () => {
 
       axios.get(baseURL+selectedTripID)
       .then((response) => {
-        reportStatus(`Trip ${selectedTripID}`)
-        // let tripData = respose.data
+        let tripData = response.data
+        // reportStatus(`Trip ${tripData.id}`)
 
         $(tripDetails).append(`
-          <p>TRIP ID: ${response.data.id}</p>
-          <p>NAME: ${response.data.name}</p>
-          <p>CONTINENT: ${response.data.continent}</p>
-          <p>CATEGORY: ${response.data.category}</p>
-          <p>WEEKS: ${response.data.weeks}</p>
-          <p>COST: ${response.data.cost}</p>
-          <p>ABOUT: ${response.data.about}</p>
+          <h3>Trip Details</h3>
+          <p>TRIP ID: ${tripData.id}</p>
+          <p>NAME: ${tripData.name}</p>
+          <p>CONTINENT: ${tripData.continent}</p>
+          <p>CATEGORY: ${tripData.category}</p>
+          <p>WEEKS: ${tripData.weeks}</p>
+          <p>COST: ${tripData.cost}</p>
+          <p>ABOUT: ${tripData.about}</p>
           `);
 
-      reservationForm(selectedTripID)
+      reservationForm(tripData)
         });
 
       });
@@ -63,7 +65,7 @@ const loadTrips = () => {
 
     // POST RESERVATION FORM //
 
-    let reservationForm = function reserveTrip(id) {
+    let reservationForm = function reserveTrip(tripData) {
       let reserveTrip = $('.reserve-trip')
       reserveTrip.empty()
 
