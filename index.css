@@ -10,3 +10,7 @@ main {
 section > div {
   padding-top: 3em;
 }
+
+ul {
+  list-style: none;
+}
