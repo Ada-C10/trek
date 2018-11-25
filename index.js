@@ -11,7 +11,7 @@ const sendGetRequest = (id) => {
       .then((response) => {
         reportStatus('Successfully loaded!')
         let element = id === '/' ? $('#trip-list') : $('#trip-detail-list')
-        handleGetResponse(element, response);
+        parseGetResponse(element, response);
       })
       .catch((error) => {
         reportStatus(`Encountered an error ${error.message}`);
@@ -20,7 +20,7 @@ const sendGetRequest = (id) => {
   return buildGetRequest;
 };
 
-const handleGetResponse = (element, response) => {
+const parseGetResponse = (element, response) => {
   element.empty();
   const tripData = response.data;
 
