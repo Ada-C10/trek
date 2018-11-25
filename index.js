@@ -13,6 +13,7 @@ const loadTrips = () => {
 
   axios.get(URL)
   .then((response) => {
+    reportStatus(`Successfully loaded ${response.data.length} trips`)
     response.data.forEach((trip) => {
       tripList.append(`<li id="${trip.id}">${trip.name}</li>`);
 
@@ -47,7 +48,10 @@ const createReservation = (event) => {
   axios.post(URL, dataToSend)
     .then((response) => {
       console.log(response);
-      reportStatus(`Reservation Successfully Added with ID: ${response.data.id}`);
+      reportStatus(`Reservation Successfully Added with ID: ${response.data.id} for TripName: ${tripFromForm} for Guest: ${nameFromForm}`);
+      $('#tripForm')[0].reset();
+      $('#tripInfo').hide();
+      $('#reserveTrip').hide();
     })
 }
 
@@ -58,10 +62,12 @@ const viewTrip = function viewTrip(tripID){
   let tripInfo = $('#tripInfo')
   tripInfo.empty();
 
+  $('#tripInfo').show();
   $('#reserveTrip').show();
 
   axios.get(tripDetailURL)
     .then((response) => {
+
       let tripid = response.data.id;
       let name = response.data.name;
       let continent = response.data.continent;
@@ -77,6 +83,8 @@ const viewTrip = function viewTrip(tripID){
       tripInfo.append(`<h3>Weeks: ${weeks}</h3>`);
       tripInfo.append(`<h3>Cost: $${cost}</h3>`);
       tripInfo.append(`<p>About: ${about}</p>`);
+
+
 
       // Populating Reservation Form
       $('input[name="trip"]').val(`${name}`);
