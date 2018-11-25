@@ -45,6 +45,7 @@ const loadTrips = () => {
       .then((response) => {
         let tripData = response.data
         // reportStatus(`Trip ${tripData.id}`)
+        regexMoney = /\d(?=(\d{3})+\.)/g
 
         $(tripDetails).append(`
           <h3>Trip Details</h3>
@@ -53,7 +54,7 @@ const loadTrips = () => {
           <p>CONTINENT: ${tripData.continent}</p>
           <p>CATEGORY: ${tripData.category}</p>
           <p>WEEKS: ${tripData.weeks}</p>
-          <p>COST: ${tripData.cost}</p>
+          <p>COST: $${(tripData.cost).toFixed(2).replace(regexMoney, '$&,')}</p>
           <p>ABOUT: ${tripData.about}</p>
           `);
 
@@ -79,7 +80,7 @@ const loadTrips = () => {
 const dataa = {
       name: $('input[name="name"]').attr('placeholder', `Your Name`).val(),
       email: $('input[name="email"]').attr('placeholder', `Your Email`).val(),
-      tripName: $('input[name="trip-name"]').attr('placeholder', `${tripData.name}`).val()
+      tripName: $('input[name="tripName"]').attr('placeholder', `${tripData.name}`).val()
 
 };
     }
@@ -92,16 +93,23 @@ const dataa = {
     $('.trip-button').click(loadTrips);
   });
 
-  // TODO:
-  // determine button colors (create custom class for buttons)
-  // scroll down to show more / pagination?
-  // main button - increase size, create custom class for button
+  // LEFT OFF...FOR DEMAIN:
+  // ASAP - POST ETC - MAKE IT FUNCTIONAL FOR WAVE 3
+
+  // TODO - urgent:
   // = get error message .catch working
-  // bootstrap grid for the three sections
-  // bg image
   // successful status message != header or ok?
-  // format cost
-  // format key names like NAME or CONTINENT
+  // add full styling in general
+
+  // TODO - should finish:
+    // add border styling
+  // bg image
+  // main button - increase size, create custom class for button
   // section headings
-  // fix placement of the functions
-  // add border styling
+  // determine button colors (create custom class for buttons)
+    // fix placement of the functions
+
+
+  // TODO - nice to haves:
+  // scroll down to show more / pagination?
+  // format key names like NAME or CONTINENT
