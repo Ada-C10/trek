@@ -1,7 +1,7 @@
 const URL = 'https://trektravel.herokuapp.com/trips'
 
 const reportStatus = (message) => {
-  $('#status-message').html(message);
+  $('.status-message').html(message);
 };
 
 const sendGetRequest = (id) => {
@@ -9,12 +9,12 @@ const sendGetRequest = (id) => {
     reportStatus('Loading...');
     axios.get(URL + id)
       .then((response) => {
-        reportStatus('Successfully loaded!')
+        // reportStatus('Successfully loaded!')
         let element = id === '/' ? $('#trip-list') : $('#trip-detail-list')
         parseGetResponse(element, response);
       })
       .catch((error) => {
-        reportStatus(`Encountered an error ${error.message}`);
+        reportStatus(`${error.message}. Please try your request again.`);
       });
   };
   return buildGetRequest;
@@ -28,6 +28,7 @@ const parseGetResponse = (element, response) => {
 };
 
 const parseTripCollection = (element, response) => {
+  reportStatus(`Successfully loaded ${response.length} trips.`)
   response.forEach((trip) => {
     element.append(
       `<li><button id="${trip.id}" class="btn btn-outline-secondary btn-block">
@@ -36,14 +37,16 @@ const parseTripCollection = (element, response) => {
 }
 
 const parseIndividualTrip = (element, response) => {
-  const tripProperties = ['name', 'continent', 'category', 'weeks', 'cost', 'about']
-  element.append('<h2>Trip Details</h2>');
+  reportStatus(`Successfully loaded ${response.name}.`)
+  element.append(`<h3>${response.name}</h3>`);
+  const tripProperties = ['continent', 'category', 'weeks', 'cost']
   tripProperties.forEach((prop) => {
     let header = prop.replace(/^\w/, c => c.toUpperCase());
     element.append(
       `<li>${header}: ${response[prop]}</li>`
     )
   });
+  element.append(`<p>${response.about}</p>`)
   appendResForm(response.id);
 }
 
@@ -77,7 +80,7 @@ const reserveTrip = (event) => {
       $('#reserve-form')[0].reset();
     })
     .catch((error) => {
-      reportStatus(`Encountered an error: ${error.message}`)
+      reportStatus(`${error.message}. Please try your request again.`);
     });
 };
 
