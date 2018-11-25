@@ -66,11 +66,12 @@ const reserveTrip = (event) => {
   const createResData = {
     name: $('input[name="name"]').val(),
     email: $('input[name="email"]').val(),
+    id: $('input[id="tripId"]').val()
   };
 
-  axios.post('https://trektravel.herokuapp.com/trips/1/reservations', createResData)
+  axios.post(URL + `/${createResData.id}` + '/reservations', createResData)
     .then((response) => {
-      reportStatus('Sucessfully reserved trip!');
+      reportStatus(`Sucessfully reserved trip ${response.data.id}!`);
     })
     .catch((error) => {
       reportStatus(`Encountered an error: ${error.message}`)
