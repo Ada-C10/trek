@@ -73,12 +73,23 @@ button#details-btn {
   padding: 10px;
   text-align: justify;
 }
-#trip-details .category {
+
+.form-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  padding: 10px;
+}
+.form {
   font-family: 'Open Sans', sans-serif;
   font-size: 15px;
   padding: 10px;
 }
 
+#submit {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  padding: 10px;
+}
 
 /* background-attachment: fixed;
 color: orange; */
