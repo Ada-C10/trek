@@ -53,7 +53,7 @@ const parseIndividualTrip = (element, response) => {
 const appendResForm = (tripId) => {
   $('#reserve-form').empty();
   $('#reserve-form').append(
-    `<h3>Reserve a trip</h3>
+    `<h4>Reserve a trip</h4>
     <input type="hidden" id="tripId" name="tripId" value="${tripId}">
     <div>
       <label for="name">Name</label><input type="text" name="name" />
@@ -76,7 +76,7 @@ const reserveTrip = (event) => {
 
   axios.post(URL + `/${createResData.id}` + '/reservations', createResData)
     .then((response) => {
-      reportStatus(`Sucessfully reserved trip ${response.data.id}!`);
+      reportStatus(`Sucessfully reserved! Please save your reservation id: ${response.data.id}`);
       $('#reserve-form')[0].reset();
     })
     .catch((error) => {
