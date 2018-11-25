@@ -10,7 +10,6 @@ const loadAllTreks = () => {
   const trekList = $('#trek-list');
   trekList.empty();
 
-  // Actually load the pets
   axios.get(treksUrl)
     .then((response) => {
       response.data.forEach((trek) => {
@@ -19,21 +18,7 @@ const loadAllTreks = () => {
         trekList.append(listItem);
         listItem.on('click', () => {
           loadOneTrek(`${trek.id}`);
-          $('#trek-form').empty();
-          $('#trek-form').append(`<div>
-            <label for="name">Trek name</label>
-            <input type="text" name="name" id="name"/>
-          </div>`);
-          $('#trek-form').append(`<div>
-            <label for="age">Age</label>
-            <input type="text" name="age" id="age"/>
-          </div>`);
-          $('#trek-form').append(`<div>
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email"/>
-          </div>`);
-          $('#trek-form').append(`<input type="submit" name="add-trek" value="Add Trek" />`);
-          $('#trek-form').submit(reserveTrek(`${trek.id}`));
+          reserveTrek(`${trek.id}`);
         });
       });
     })
@@ -43,11 +28,16 @@ const loadAllTreks = () => {
 };
 
 const loadOneTrek = (id) => {
+
   const trekNumber = oneTrekUrl + id;
 
   axios.get(trekNumber)
     .then((response) => {
       $('#trek-detail').empty();
+      $('.new-trek').append(`<div class="">
+        <button id="load-detail">Details</button>
+        <ul id="trek-detail"></ul>
+      </div>`);
       const trekData = response.data
         $('#trek-detail').append(`<li> ${trekData.id}</li>`);
         $('#trek-detail').append(`<li> ${trekData.name}</li>`);
@@ -62,31 +52,46 @@ const loadOneTrek = (id) => {
     });
 };
 
+const clearForm = () => {
+  $(`#trek-form input[name="name"]`).val('');
+  $(`#trek-form input[name="age"]`).val('');
+  $(`#trek-form input[name="email"]`).val('');
+}
+
 const reserveTrek = (id) => {
+  // id.preventDefault();
+  const formHtml = `<h1 id="testing">Reserve trek</h1>
+  <form id="trek-form">
+    <div>
+      <label for="name">Trek name</label>
+      <input type="text" name="name"/>
+    </div>
 
-  id.preventDefault();
+    <div>
+      <label for="age">Age</label>
+      <input type="text" name="age"/>
+    </div>
 
+    <div>
+      <label for="email">Email</label>
+      <input type="text" name="email"/>
+    </div>
 
+    <input type="submit" name="add-trek" value="Add Trek" />
+  </form>`;
+
+  $('.new-trek').empty();
+  $('.new-trek').append(formHtml);
 
   const reserveTrekUrl = 'https://trektravel.herokuapp.com/trips/' + id + '/reservations';
 
-  const trekData = () => {
-    return {
+  const trekData = {
       name: $('#trek-form input[name="name"]').val(),
       age: $('#trek-form input[name="age"]').val(),
       email: $('#trek-form input[name="email"]').val()
-    }
-  }
-
-  const clearForm = () => {
-    $(`#pet-form input[name="name"]`).val('');
-    $(`#pet-form input[name="age"]`).val('');
-    $(`#pet-form input[name="email"]`).val('');
-  }
-
-  const hello = trekData();
+    };
   reportStatus('Sending trek data...');
-  axios.post(reserveTrekUrl, hello)
+  axios.post(reserveTrekUrl, trekData)
     .then((response) => {
       console.log(response);
       $('#testing').append(response);

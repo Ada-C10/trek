@@ -20,14 +20,14 @@
     </section>
 
     <section class="new-trek">
-      <h1 id="testing">Reserve trek</h1>
+      <!-- <h1 id="testing">Reserve trek</h1>
       <form id="trek-form">
-        <!-- <div>
+        <div>
           <label for="name">Trek name</label>
           <input type="text" name="name" id="name"/>
-        </div> -->
+        </div>
 
-        <!-- <div>
+        <div>
           <label for="age">Age</label>
           <input type="text" name="age" id="age"/>
         </div>
@@ -37,14 +37,45 @@
           <input type="text" name="email" id="email"/>
         </div>
 
-        <input type="submit" name="add-trek" value="Add Trek" /> -->
+        <input type="submit" name="add-trek" value="Add Trek" />
       </form>
 
       <div class="">
         <button id="load-detail">Details</button>
         <ul id="trek-detail"></ul>
-      </div>
+      </div> -->
     </section>
   </main>
 </body>
 </html>
+
+<!-- 
+$('.new-trek').empty();
+$('.new-trek').append(`<h1 id="testing">Reserve trek</h1>
+<form id="trek-form">
+  <div>
+    <label for="name">Trek name</label>
+    <input type="text" name="name"/>
+  </div>
+
+  <div>
+    <label for="age">Age</label>
+    <input type="text" name="age"/>
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input type="text" name="email"/>
+  </div>
+
+  <input type="submit" name="add-trek" value="Add Trek" />
+</form>`);
+
+$('.new-trek').append(`<div class="">
+  <button id="load-detail">Details</button>
+  <ul id="trek-detail"></ul>
+</div>`);
+
+$('#trek-form').on('submit', () => {
+   reserveTrek(`${trek.id}`);}
+  ); -->
