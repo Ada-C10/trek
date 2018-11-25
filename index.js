@@ -4,8 +4,8 @@ const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
-const getRequestHandler = (id) => {
-  const sendGetRequest = () => {
+const sendGetRequest = (id) => {
+  const buildGetRequest = () => {
     reportStatus('Loading...');
     axios.get(URL + id)
       .then((response) => {
@@ -17,11 +17,10 @@ const getRequestHandler = (id) => {
         reportStatus(`Encountered an error ${error.message}`);
       });
   };
-  return sendGetRequest;
+  return buildGetRequest;
 };
 
 const handleGetResponse = (element, response) => {
-  const headers = ['name', 'continent', 'category', 'weeks', 'cost', 'about']
   element.empty();
   const tripData = response.data;
 
@@ -42,12 +41,12 @@ const handleGetResponse = (element, response) => {
 };
 
 $(document).ready(() => {
-  const getAllTrips = getRequestHandler('/');
+  const getAllTrips = sendGetRequest('/');
   $('#load-all-trips').click(getAllTrips);
 
   $('ul').on('click', 'button', function(event) {
     let id = '/' + $(this).attr('id');
-    const getTripDetails = getRequestHandler(id);
+    const getTripDetails = sendGetRequest(id);
     getTripDetails();
   });
 });
