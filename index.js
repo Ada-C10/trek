@@ -14,14 +14,12 @@ const reportError = (message, errors) => {
   }
 }
 
-const loadTrips = () => {
-  statusReport("loading all trips....");
+const loadTrips = () => {;
+  statusReport("Trips Loading...");
 
   // this bit keeps stuff from getting added on more and more each time stuff appends
-  const tripList = $('#trip-list');
-
+  let tripList = $('#trip-list');
   tripList.empty();
-  // load in the trips
 
   axios.get(URL)
 
@@ -30,28 +28,51 @@ const loadTrips = () => {
   .then((response) => {
     statusReport (`Successfully loaded ${response.data.length} trip`);
 
-    // sort the trips
-
     response.data.forEach((trip) => {
-      tripList.append(`<li>${trip.name}</li>`);
-      tripList.append(`<button id="trip-details" > Trip Details </button>`)
-    });
+      let name = `<li>${trip.name} </li>`
+      tripList.append(name);
+      // create another function within, pass in the trip to new function
+      const showTrip = (trip) => {
+        // closure
+        return () => {
+          statusReport('Loading ${trip.name}...');
+          axios.get(URL + `/${trip.id}`)
+          // promise
+          .then((response) => {
+            statusReport('Successfully loaded ${trip.name}');
+
+            const tripDetails = $('#trip-details');
+            // empty it out before appending
+            tripDetails.empty();
+            // append the data to html
+            tripDetails.append(`<h2> Trip Details </h2>`);
+            tripDetails.append(`<h3> Name: ${response.data.name}</h3>`);
+            tripDetails.append(`<h3> Continent: ${response.data.continent}</h3>`);
+            tripDetails.append(`<h3> Weeks: ${response.data.weeks}</h3>`);
+            tripDetails.append(`<h3> Cost: ${response.data.cost}</h3>`);
+            tripDetails.append(`<h3> About: ${response.data.about}</h3>`);
+          })
+        }
+      }
+
+
+       const showIndTrip = showTrip(trip);
+       $('li:last').click(showIndTrip);
+     })
   })
 
-  // if cant work, catch the error
-
-  .catch((reportError) => {
-    statusReport(reportError);
-    console.log(reportError);
+  // catch the errors if promise isnt kept
+  .catch((error) => {
+    statusReport(error);
+    console.log(error);
   });
 };
 
 
+
+
 $(document).ready(() => {
-$( "#load" ).click(function(){
-  $("loadTrips").toggle();
-})
+  $('#load').click(loadTrips);
+  // step 1.
 
-
-// $('#trip-details').click();
 });
