@@ -37,6 +37,7 @@ const parseTripCollection = (element, response) => {
 
 const parseIndividualTrip = (element, response) => {
   const tripProperties = ['name', 'continent', 'category', 'weeks', 'cost', 'about']
+  element.append('<h1>Trip Detail</h1>');
   tripProperties.forEach((prop) => {
     let header = prop.replace(/^\w/, c => c.toUpperCase());
     element.append(
@@ -49,7 +50,8 @@ const parseIndividualTrip = (element, response) => {
 const appendResForm = (tripId) => {
   $('#reserve-form').empty();
   $('#reserve-form').append(
-    `<input type="hidden" id="tripId" name="tripId" value="${tripId}">
+    `<h1>Reserve a trip</h1>
+    <input type="hidden" id="tripId" name="tripId" value="${tripId}">
     <div>
       <label for="name">Name</label><input type="text" name="name" />
     </div>
