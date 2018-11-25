@@ -108,12 +108,9 @@ const createReservation = (event) => {
     .catch((error) => {
       console.log(error.response);
       if (error.response.data && error.response.data.errors) {
-        reportError(
-          `Encountered an error: ${error.message}, 'danger'`,
-          error.response.data.errors
-        );
+        reportStatus(`Encountered an error while creating reservation: ${error.message}`, 'danger');
       } else {
-        reportStatus(`Encountered an error: ${error.message}, 'danger'`);
+        reportStatus(`Encountered an error: ${error.message}`, 'danger');
       }
     });
 };
@@ -134,13 +131,13 @@ const addATrip = (event) => {
     })
     .catch((error) => {
       console.log(error.response);
+      console.log(error.response.data);
+      console.log(error.response.data.errors);
+      console.log(error.message);
       if (error.response.data && error.response.data.errors) {
-        reportError(
-          `Encountered an error: ${error.message}, 'danger'`,
-          error.response.data.errors
-        );
+        reportStatus(`Encountered an error while adding trip: ${error.message}`, 'danger');
       } else {
-        reportStatus(`Encountered an error: ${error.message}, 'danger'`);
+        reportStatus(`Encountered an error: ${error.message}`, 'danger');
       }
     });
 };
