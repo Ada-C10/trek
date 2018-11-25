@@ -28,8 +28,6 @@ const clearForm = () => {
   $(`#trip-form input[name="email"]`).val('');
 }
 
-//  READY GO!
-$(document).ready(() => {
 // ALL TRIPS
   const loadTrips = () => {
     reportStatus('Loading trips...');
@@ -135,12 +133,15 @@ $(document).ready(() => {
   };
 
 
+//  READY GO!
+$(document).ready(() => {
+
   // all trips button
   $('.load-trips').on('click', function() {
     loadTrips();
     $('list-trips').hide();
   });
-  // $('.load-trips').click(loadTrips);
+
   // one trip details
   $('.list-trips').on('click', 'p', function() {
     const id = $(this).attr('data-id');
@@ -149,15 +150,12 @@ $(document).ready(() => {
 
   $('body').on('submit', 'form#trip-form', function(event) {
     event.preventDefault();
-
     const id = $(this).attr('data-id');
     tripRequest(id);
   });
 
   $('.list-trips').scroll(function() {
   });
-
-
 
   // background image slide:
   let jumbotronBG = ['https://www.mook.com.tw/images/upload/article/10392/A10392_1409558241_1.jpg',
