@@ -4,50 +4,54 @@ const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
-const getAllTrips = () => {
-  reportStatus("Loading trips...")
-  const tripList = $('#trip-list');
-  tripList.empty();
-
-  axios.get(URL)
-    .then((response) => {
-      reportStatus(`Successfully loaded ${response.data.length} trips.`);
-      response.data.forEach((trip) => {
-        tripList.append(`<li><button id="${trip.id}">${trip.name}</button></li>`);
+const sendGetRequest = (id) => {
+  const buildGetRequest = () => {
+    reportStatus('Loading...');
+    axios.get(URL + id)
+      .then((response) => {
+        reportStatus('Successfully loaded!')
+        let element = id === '/' ? $('#trip-list') : $('#trip-detail-list')
+        parseGetResponse(element, response);
+      })
+      .catch((error) => {
+        reportStatus(`Encountered an error ${error.message}`);
       });
-    })
-    .catch((error) => {
-      reportStatus(`Encountered an error ${error.message}`);
-    });
+  };
+  return buildGetRequest;
 };
 
-const getTripDetail = (id) => {
-  reportStatus("Loading trip...")
-  const tripDetailList = $('#trip-detail-list');
-  tripDetailList.empty();
-
-  axios.get(URL + '/' + id)
-    .then((response) => {
-      reportStatus("Successfully loaded trip!")
-      let trip = response.data
-      tripDetailList.append(
-        `<li>Name: ${trip.name}</li>
-        <li>Continent: ${trip.continent}</li>
-        <li>Category: ${trip.category}</li>
-        <li>Weeks: ${trip.weeks}</li>
-        <li>Cost: ${trip.cost}</li>
-        <li>About: ${trip.about}</li>`
-      );
-    })
-    .catch((error) => {
-      reportStatus(`Encountered an error ${error.message}`);
-    });
+const parseGetResponse = (element, response) => {
+  element.empty();
+  const tripData = response.data;
+  tripData.length ?
+  parseTripCollection(element, tripData) : parseIndividualTrip(element, tripData)
 };
+
+const parseTripCollection = (element, response) => {
+  response.forEach((trip) => {
+    element.append(
+      `<li><button id="${trip.id}">
+      ${trip.name}</button></li>`);
+  });
+}
+
+const parseIndividualTrip = (element, response) => {
+  const tripProperties = ['name', 'continent', 'category', 'weeks', 'cost', 'about']
+  tripProperties.forEach((prop) => {
+    let header = prop.replace(/^\w/, c => c.toUpperCase());
+    element.append(
+      `<li>${header}: ${response[prop]}</li>`
+    )
+  });
+}
 
 $(document).ready(() => {
+  const getAllTrips = sendGetRequest('/');
   $('#load-all-trips').click(getAllTrips);
+
   $('ul').on('click', 'button', function(event) {
-    let id = $(this).attr('id');
-    getTripDetail(id);
+    let id = '/' + $(this).attr('id');
+    const getTripDetails = sendGetRequest(id);
+    getTripDetails();
   });
 });
