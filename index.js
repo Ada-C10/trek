@@ -45,6 +45,24 @@ const parseIndividualTrip = (element, response) => {
   });
 }
 
+const reserveTrip = (event) => {
+  event.preventDefault();
+  reportStatus('Sending request...');
+
+  const createResData = {
+    name: $('input[name="name"]').val(),
+    email: $('input[name="email"]').val(),
+  };
+
+  axios.post('https://trektravel.herokuapp.com/trips/1/reservations', createResData)
+    .then((response) => {
+      reportStatus('Sucessfully reserved trip!');
+    })
+    .catch((error) => {
+      reportStatus(`Encountered an error: ${error.message}`)
+    });
+};
+
 $(document).ready(() => {
   const getAllTrips = sendGetRequest('/');
   $('#load-all-trips').click(getAllTrips);
@@ -54,4 +72,6 @@ $(document).ready(() => {
     const getTripDetails = sendGetRequest(id);
     getTripDetails();
   });
+
+  $('#reserve-form').submit(reserveTrip);
 });
