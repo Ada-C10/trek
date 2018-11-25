@@ -101,13 +101,12 @@ const singleURL = `https://trektravel.herokuapp.com/trips/${id}`;
       let weeks = response.data.weeks;
       let cost = response.data.cost;
       let category = response.data.category;
-        ($('.id')).html(`TripID: ${id}`);
-        ($('.name')).html(`Name: ${name}`);
-        ($('.continent')).html(`Continent: ${continent}`);
-        ($('.about')).html(`About: ${about}`);
-        ($('.weeks')).html(`Weeks: ${weeks}`);
-        ($('.cost')).html(`Cost: ${cost}`);
-        ($('.category')).html(`Category: ${category}`);
+        ($('.name')).html(`<h2> ${name}</h2>`);
+        ($('.continent')).html(`<strong>Continent:</strong> ${continent}`);
+        ($('.about')).html(`<strong>About:</strong> ${about}`);
+        ($('.weeks')).html(`<strong>Weeks:</strong> ${weeks}`);
+        ($('.cost')).html(`<strong>Cost:</strong> $${cost}`);
+        ($('.category')).html(`<strong>Category:</strong> ${category}`);
 
     }    })
 };
