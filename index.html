@@ -1,64 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>TREK</title>
+<head>
+  <meta charset="utf-8">
+  <title>TREK</title>
 
-   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-   <script type="text/javascript" src="index.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
 
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  </head>
 
-  <body>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+  <section class="page-container">
 
     <header>
       <section id="status-message"></section>
     </header>
 
     <main>
-      <button type="button" name="button" id="load-trips-button">Load Trips</button>
+      <section class="button-container">
+          <button type="button" name="button" id="load-trips-button" class="btn btn-light">Load Trips</button>
+
+      </section>
 
       <section class="current-trips">
         <h1>TREK</h1>
         <ul id="trip-list"></ul>
       </section>
 
-      <section class="reserve-trip">
-        <h2>Reserve Trip</h2>
-        <form id="trip-form">
-          <div>
-            <label for="name">Name</label>
-            <input type="text" name="name" />
-          </div>
-
-          <div>
-            <label for="age">Age</label>
-            <input type="number" name="age" />
-          </div>
-
-          <div>
-            <label for="email">Email</label>
-            <input type="text" name="email" />
-          </div>
-
-          <!-- <div>
-            <label for="trip-name">Trip Name</label>
-            <input type="text" name="trip-name" />
-          </div> -->
-
-          <input type="submit" name="reserve-trip" value="Reserve Trip" id="reserve-trip-button" />
-        </form>
+      <section class="all-trip-details">
 
       </section>
 
-
-
     </main>
 
-    <footer>
-    </footer>
+  </section>
 
-  </body>
+</body>
 </html>

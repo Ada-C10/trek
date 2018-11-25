@@ -1,5 +1,7 @@
-const URLBASE = 'https://trektravel.herokuapp.com';
+const BASEURL = 'https://trektravel.herokuapp.com';
 const TRIPSPATH = '/trips'
+const RESERVATIONPATH = '/reservations'
+
 
 const reportStatus = (message => {
   $('#status-message').html(message);
@@ -17,15 +19,21 @@ const reportError = (message, errors) => {
   reportStatus(content);
 };
 
-const buildClickTripHandler = (trip) => {
+
+const buildClickTripDetailsHandler = (trip) => {
   const tripID = trip.id;
+
   return () => {
-    axios.get(`${URLBASE}${TRIPSPATH}/${tripID}`)
+   const tripList = $(`#trip-list`);
+   tripList.empty();
+
+
+   axios.get(`${BASEURL}${TRIPSPATH}/${tripID}`)
   .then((response) => {
     const tripDetail = $('.trip-info');
     tripDetail.empty();
     const tripInfo = response.data;
-    $('main').append(`
+    $('.all-trip-details').append(`
       <div class="trip-info">
       <h2>Trip Details</h2>
       <p>Id: ${tripInfo.id}</p>
@@ -35,21 +43,89 @@ const buildClickTripHandler = (trip) => {
       <p>Category: ${tripInfo.category}</p>
       <p>Weeks: ${tripInfo.weeks}</p>
       <p>Cost: $${tripInfo.cost}</p>
-      </div>`);
+      </div>
+      `);
+    const tripReservationForm = $('.reserve-trip');
+    tripReservationForm.empty();
+    $('.all-trip-details').append(`
+      <div class="reserve-trip">
+      <h2>Reserve Trip</h2>
+      <form id="trip-form">
+        <div>
+          <label for="name">Name</label>
+          <input type="text" name="name" />
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input type="text" name="email" />
+        </div>
+
+        <div>
+          <label for="trip-name">Trip Name</label>
+          <input type="text" name="trip-name" placeholder="${tripInfo.name}"/>
+        </div>
+
+        <input type="submit" name="reserve-trip" value="Reserve Trip" id="reserve-trip-button"/>
+      </form>
+    </div>
+    `);
+    const clickReservationHandler = buildClickReservationHandler(trip);
+    const tripForm = $('#trip-form');
+    tripForm.on('submit', clickReservationHandler);
   })
   .catch((error) => {
     reportStatus(error);
     console.log(error);
-});
+    });
+  };
 };
+
+
+const buildClickReservationHandler = (trip) => {
+  return (event) => {
+    event.preventDefault();
+
+    const tripData = {
+      name: $('input[name="name"]').val(),
+      email: $('input[name="email"]').val(),
+    };
+
+    reportStatus("Sending trip data...");
+
+    const id = trip.id;
+    const endpoint = `${BASEURL}${TRIPSPATH}/${id}${RESERVATIONPATH}`;
+
+    axios.post(endpoint, tripData)
+    .then((response) => {
+      console.log(response);
+      reportStatus(`Successfully added reservation with ID ${id}!`);
+      const reserveTripForm = $('.reserve-trip');
+      reserveTripForm.toggle()
+    })
+    .catch((error) => {
+      console.log(error.response);
+      if (error.response.data && error.response.data.errors)  {
+        reportError(
+          `Encountered an error: ${error.message}`, error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error-status: ${error.message} `);
+      }
+    });
+  };
 };
+
 const getTrips = () => {
   reportStatus('loading trips...');
 
   const tripList = $('#trip-list');
   tripList.empty();
 
-  const endpoint = `${URLBASE}${TRIPSPATH}`
+  const tripDetails = $('.all-trip-details');
+  tripDetails.empty();
+
+  const endpoint = `${BASEURL}${TRIPSPATH}`
 
   axios.get(endpoint)
     .then((response) => {
@@ -57,34 +133,17 @@ const getTrips = () => {
       response.data.forEach((trip) => {
         const tripName = $(`<li>${trip.name}</li>`);
         tripList.append(tripName);
-        const clickEachTripHandler = buildClickTripHandler(trip);
-        tripName.click(clickEachTripHandler);
+        const clickTripHandler = buildClickTripDetailsHandler(trip);
+        tripName.click(clickTripHandler);
       });
     })
     .catch((error) => {
       reportStatus(error);
       console.log(error);
     });
-}
+};
 
-
-const reserveTrip = (event) => {
-  event.preventDefault();
-
-  const tripData = {
-    name: $('input[name="name"]').val(),
-    age: $('input[name="age"]').val(),
-    email: $('input[name="email"]').val(),
-  }
-
-  reportStatus("Sending trip data...")
-
-  axios.post()
-}
 
 $(document).ready(() => {
   $('#load-trips-button').click(getTrips);
-  $('#trip-form').submit(reserveTrip);
-  // // loadPets()
-  // $('#pet-form').submit(createPet);
 });
