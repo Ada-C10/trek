@@ -61,7 +61,9 @@ const viewTrip = function viewTrip(tripID){
   tripInfo.empty();
 
   $('#tripInfo').show();
+  $('#tripInfo').css('border', 'black 1px solid');
   $('#reserveTrip').show();
+  $('#reserveTrip').css('border', 'black 1px solid');
 
   axios.get(tripDetailURL)
     .then((response) => {
@@ -73,7 +75,7 @@ const viewTrip = function viewTrip(tripID){
       let continent = response.data.continent;
       let category = response.data.category;
       let weeks = response.data.weeks;
-      let cost = response.data.cost;
+      let cost = response.data.cost.toFixed(2);
       let about = response.data.about;
 
       // Trip Details

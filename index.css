@@ -1,13 +1,38 @@
 main{
   display: flex;
   flex-direction: row;
+  padding: 50px;
 }
 
 #leftContainer{
-  background-color: lightblue;
+  /* background-color: lightblue; */
   width: 50%;
 }
 #rightContainer{
-  background-color: lightgreen;
+  /* background-color: lightgreen; */
   width: 50%;
+}
+
+ul{
+  list-style-type: none;
+}
+
+li{
+  color: blue;
+}
+
+li:hover{
+  color: purple;
+}
+
+#reserveTrip, #tripInfo{
+  padding: 20px;
+}
+
+input{
+  width: 100%;
+}
+
+input[type=submit]{
+  background-color: lightblue;
 }
