@@ -9,9 +9,8 @@ const sendGetRequest = (id) => {
     reportStatus('Loading...');
     axios.get(URL + id)
       .then((response) => {
-        // reportStatus('Successfully loaded!')
-        let element = id === '/' ? $('#trip-list') : $('#trip-detail-list')
-        parseGetResponse(element, response);
+        let callback = response.data.length ? parseTripCollection : parseIndividualTrip
+        parseGetResponse(response, callback)
       })
       .catch((error) => {
         reportStatus(`${error.message}. Please try your request again.`);
@@ -20,34 +19,34 @@ const sendGetRequest = (id) => {
   return buildGetRequest;
 };
 
-const parseGetResponse = (element, response) => {
+const parseGetResponse = (response, callback) => {
+  let tripData = response.data
+  let element = callback === parseTripCollection ? $('#trip-list') : $('#trip-detail-list')
   element.empty();
-  const tripData = response.data;
-  tripData.length ?
-  parseTripCollection(element, tripData) : parseIndividualTrip(element, tripData)
+  callback(tripData, element);
 };
 
-const parseTripCollection = (element, response) => {
-  reportStatus(`Successfully loaded ${response.length} trips.`)
-  response.forEach((trip) => {
+const parseTripCollection = (tripData, element) => {
+  reportStatus(`Successfully loaded ${tripData.length} trips.`)
+  tripData.forEach((trip) => {
     element.append(
       `<li><button id="${trip.id}" class="btn btn-outline-secondary btn-block">
       ${trip.name}</button></li>`);
   });
 }
 
-const parseIndividualTrip = (element, response) => {
-  reportStatus(`Successfully loaded ${response.name}.`)
-  element.append(`<h3>${response.name}</h3>`);
+const parseIndividualTrip = (tripData, element) => {
+  reportStatus(`Successfully loaded ${tripData.name}.`)
+  element.append(`<h3>${tripData.name}</h3>`);
   const tripProperties = ['continent', 'category', 'weeks', 'cost']
   tripProperties.forEach((prop) => {
     let header = prop.replace(/^\w/, c => c.toUpperCase());
     element.append(
-      `<li>${header}: ${response[prop]}</li>`
+      `<li>${header}: ${tripData[prop]}</li>`
     )
   });
-  element.append(`<p>${response.about}</p>`)
-  appendResForm(response.id);
+  element.append(`<p>${tripData.about}</p>`)
+  appendResForm(tripData.id);
 }
 
 const appendResForm = (tripId) => {
@@ -56,12 +55,14 @@ const appendResForm = (tripId) => {
     `<h4>Reserve a trip</h4>
     <input type="hidden" id="tripId" name="tripId" value="${tripId}">
     <div>
-      <label for="name">Name</label><input type="text" name="name" />
+      <label for="name">Name</label>
+      <input type="text" name="name" />
     </div>
     <div>
-      <label for="email">Email</label><input type="text" name="email" />
+      <label for="email">Email</label>
+      <input type="text" name="email" />
     </div>
-    <input type="submit" name="add-res" value="Add Res"/>`)
+    <input type="submit" name="add-res" value="Submit"/>`)
 }
 
 const reserveTrip = (event) => {
