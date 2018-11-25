@@ -100,7 +100,7 @@ const reserveTrip = event => {
   reportStatus("Sending trip data...");
 
   axios
-    .post(URL, tripData)
+    .post(`${URL}/${id}/reservations`)
     .then(response => {
       reportStatus(`Successfully reserved a trip with ID ${response.data.id}!`);
       clearForm();
@@ -117,7 +117,13 @@ const reserveTrip = event => {
       }
     });
 };
-
+// $(function() { //shorthand document.ready function
+//     $('#login_form').on('submit', function(e) { //use on if jQuery 1.7+
+//         e.preventDefault();  //prevent form from submitting
+//         var data = $("#login_form :input").serializeArray();
+//         console.log(data); //use the console for debugging, F12 in Chrome, not alerts
+//     });
+// });
 //
 // OK GO!!!!!
 //
