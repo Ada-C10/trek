@@ -9,6 +9,9 @@
    <script type="text/javascript" src="index.js"></script>
 
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
    <link rel="stylesheet" href="index.css">
   </head>
 
@@ -16,7 +19,7 @@
     <section id="status-message"></section>
 
     <nav class='navbar'>
-      <h1 class= 'navbar-brand'>Trek</h1>
+      <h1>Trek</h1>
     </nav>
 
     <section id='see-trips-button'>
@@ -25,33 +28,35 @@
 
     <main>
 
-      <section id="trips">
-        <ul id='all-trips'></ul>
-      </section>
+      <table id="trips" class="table">
+        <tbody id='all-trips'></tbody>
+      </table>
 
       <section id='trip-details'>
       </section>
 
       <section id='reserve-trip'>
         <h3>Reserve Trip</h3>
-        <form id="reservation-form">
+        <form id="reservation-form" class="form-group">
           <div class="trip-name">
           </div>
 
           <div>
             <label for="name">Your Name:</label>
-            <input type="text" name="name" / />
+            <input type="text" name="name" class="form-control" />
           </div>
 
           <div>
             <label for="email">Email:</label>
-            <input type="text" name="email" / />
+            <input type="text" name="email" class="form-control" />
           </div>
 
-          <input type="submit" name="add-reservation" value="Add Reservation" id='create-reservation-button'/>
+          <br />
+          <input type="submit" name="add-reservation" value="Add Reservation" id='create-reservation-button' class="button"/>
 
         </form>
       </section>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     </main>
 

@@ -18,12 +18,12 @@ const reportError = (message, errors) => {
 
 const showTrip = (response) => {
   const target = $('#trip-details');
+  target.css("visibility", "visible");
   target.empty();
-  let details = `<h4>Name: ${response.name}</h4>`;
-  details += `<p>Continent: ${response.continent}</p>`;
-  details += `<p>Category: ${response.category}</p>`;
-  details += `<p>Weeks: ${response.weeks}</p>`;
-  details += `<p>Cost: $${response.cost}</p>`;
+  let details = `<h4>Name: <span class="trip">${response.name}</span></h4>`;
+  details += `<p>Category: <span>${response.category}</span></p>`;
+  details += `<p>Weeks: <span>${response.weeks}</span></p>`;
+  details += `<p>Cost: <span>$${response.cost}</span></p>`;
   details += `<p>About:</p><br><p>${response.about}`;
   target.append('<h3>Trip Details</h3>');
   target.append(details);
@@ -62,7 +62,7 @@ const showReservationForm = (response) => {
   target.css("visibility", "visible");
   const tripName = $('.trip-name');
   tripName.empty();
-  tripName.append(`<label for="trip">Trip Name:</label><input type="text" name="trip" value="${response.name}" class="${response.id}" />`);
+  tripName.append(`<label for="trip">Trip Name:</label><input type="text" name="trip" value="${response.name}" class="${response.id} form-control" />`);
 };
 
 const buildTripCallback = (id) => {
@@ -94,7 +94,7 @@ const loadTrips = () => {
       console.log(response);
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
-        tripList.append(`<li class=${trip.id}>${trip.name}</li>`);
+        tripList.append(`<tr class=${trip.id}><td>${trip.name}</td></tr>`);
         const tripClickHandler = buildTripCallback(trip.id);
         $(`.${trip.id}`).click(tripClickHandler);
       });
@@ -104,14 +104,6 @@ const loadTrips = () => {
       console.log(error);
     });
 };
-
-// const clearTrip = () => {
-//
-//   $('#all-trips').empty();
-//   // $('#trip-details').empty();
-//   // $('#reserve-trip').empty();
-//
-// };
 
 $(document).ready(() => {
   $('#see-trips-button').click(loadTrips);
