@@ -43,11 +43,20 @@ const parseIndividualTrip = (element, response) => {
       `<li>${header}: ${response[prop]}</li>`
     )
   });
-  appendResForm($('#reserve-form'));
+  appendResForm(response.id);
 }
 
-const appendResForm = (element) => {
-  element.append('<div><label for="name">Name</label><input type="text" name="name" /></div><div><label for="email">Email</label><input type="text" name="email" /></div><div><label for="trip-name">Trip Name</label><input type="text" name="trip-name" /></div><input type="submit" name="add-res" value="Add Res"/>')
+const appendResForm = (tripId) => {
+  $('#reserve-form').empty();
+  $('#reserve-form').append(
+    `<input type="hidden" id="tripId" name="tripId" value="${tripId}">
+    <div>
+      <label for="name">Name</label><input type="text" name="name" />
+    </div>
+    <div>
+      <label for="email">Email</label><input type="text" name="email" />
+    </div>
+    <input type="submit" name="add-res" value="Add Res"/>`)
 }
 
 const reserveTrip = (event) => {
