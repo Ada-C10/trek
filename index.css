@@ -1,3 +1,52 @@
 #addForm {
   display: none;
 }
+
+
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+}
+
+
+
+header {
+  grid-column: 1 / -1;
+  background-color: yellow;
+}
+
+
+.triplist {
+  grid-column: 1 / 2;
+  grid-row: auto;
+}
+
+ul: hover {
+  background-color: yellow;
+
+}
+
+.tripdetail {
+  grid-column: 2 / -1;
+  grid-row: auto;
+  grid-column-gap: 90px;
+
+}
+
+
+.new-reservation {
+  padding-left: 50px;
+  padding-top: 50px;
+}
+
+
+ul {
+  list-style-type: none;
+}
+
+
+body {
+  background-color: blue;
+}
