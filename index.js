@@ -18,9 +18,6 @@ const reportError = (message, errors) => {
   reportStatus(content); // print that content using reportStatus
 };
 
-//
-// Loading Pets
-//
 const loadTrips = () => {
   reportStatus('Loading trips...');
 
@@ -28,23 +25,23 @@ const loadTrips = () => {
   tripList.empty();
 
   axios.get(URL)
-    .then((response) => {
-      reportStatus(`Successfully loaded ${response.data.length} trips`);
-      response.data.forEach((trip) => {
-        const div = $(`<div class="trip-${trip.id}"><button >${trip.name}</button></div>`) // make the div have the class not the button, so that eveything is added to this div, make sure that you specify the type of button
-        tripList.append(div);
-        $('button', div).click(() => { // to only activate on button inside the div
-          loadTrip(`.trip-${trip.id}`);
-          createForm(`.trip-${trip.id}`);
-          $(`.trip-${trip.id}`).on('submit', '#trip-form', createReservation);
-        })
-      });
-
-    })
-    .catch((error) => {
-      reportStatus(`Encountered an error while loading pets: ${error.message}`);
-      console.log(error);
+  .then((response) => {
+    reportStatus(`Successfully loaded ${response.data.length} trips`);
+    response.data.forEach((trip) => {
+      const div = $(`<div class="trip-${trip.id}"><button >${trip.name}</button></div>`)
+      tripList.append(div);
+      $('button', div).click(() => { // to only activate on button inside the div
+        loadTrip(`.trip-${trip.id}`);
+        createForm(`.trip-${trip.id}`);
+        $(`.trip-${trip.id}`).on('submit', '#trip-form', createReservation);
+      })
     });
+
+  })
+  .catch((error) => {
+    reportStatus(`Encountered an error while loading pets: ${error.message}`);
+    console.log(error);
+  });
 };
 
 
@@ -54,29 +51,27 @@ const loadTrip = (tripinfo) => {
   const trip = $(`${tripinfo}`);
   trip.empty();
   axios.get(URL + "/" + num)
-    .then((response) => {
-        let data = {}
-          data["Id"] = response.data.id
-          data["Name"] = response.data.name
-          data["Continent"] = response.data.continent
-          data["Details"] = response.data.about
-          data["Category"] = response.data.category
-          data["Weeks"] = response.data.weeks
-          data["Cost"] = '$' + response.data.cost
-          const list = $('<ul style="list-style-type:none"></ul>')
-          Object.keys(data).forEach(function(key) {
-              list.append(`<li><strong>${key}</strong> : ${data[key]}</li`);
-          });
-        const section = $('<section></section>');
-        section.append('<h2> Trip details </h2>')
-        section.append(list)
-        trip.append(section)
-    })
-    .catch((error) => {
-      reportStatus(`Encountered an error while loading trip: ${error.message}`);
+  .then((response) => {
+    let data = {}
+    data["Id"] = response.data.id
+    data["Name"] = response.data.name
+    data["Continent"] = response.data.continent
+    data["Details"] = response.data.about
+    data["Category"] = response.data.category
+    data["Weeks"] = response.data.weeks
+    data["Cost"] = '$' + response.data.cost
+    const list = $('<ul style="list-style-type:none"></ul>')
+    Object.keys(data).forEach(function(key) {
+      list.append(`<li><strong>${key}</strong> : ${data[key]}</li`);
     });
-    //createForm(tripinfo);
-    //$(tripinfo).on('submit', '#trip-form', createReservation);
+    const section = $('<section></section>');
+    section.append('<h2> Trip details </h2>')
+    section.append(list)
+    trip.append(section)
+  })
+  .catch((error) => {
+    reportStatus(`Encountered an error while loading trip: ${error.message}`);
+  });
 
 };
 
@@ -103,7 +98,7 @@ const createForm = (tripinfo) => {
 
   const divEmail = $('<div></div>')
   divEmail.append('<label for="email">Email</label>');
-  divEmail.append('<input type="text" name="email" />') // for and name should have the same name
+  divEmail.append('<input type="text" name="email" />') // for and name in a form should have the same name
 
   form.append(divName)
   form.append(divEmail)
@@ -130,9 +125,6 @@ const readFormData = () => {
 };
 
 const createReservation = (event) => {
-  // Note that createPet is a handler for a `submit`
-  // event, which means we need to call `preventDefault`
-  // to avoid a page reload
   event.preventDefault();
 
   const tripData = readFormData();
@@ -144,24 +136,23 @@ const createReservation = (event) => {
   //POST https://trektravel.herokuapp.com/trips/1/reservations
   let URL_R = URL + "/" + num + "/reservations"
   axios.post(URL_R, tripData)
-    .then((response) => {
-      reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
-    })
-    .catch((error) => {
-      console.log(error.response);
-      if (error.response.data && error.response.data.errors) {
-        reportError(
-          `Encountered an error: ${error.message}`,
-          error.response.data.errors
-        );
-      } else {
-        reportStatus(`Encountered an error: ${error.message}`);
-      }
-    });
+  .then((response) => {
+    reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
+  })
+  .catch((error) => {
+    console.log(error.response);
+    if (error.response.data && error.response.data.errors) {
+      reportError(
+        `Encountered an error: ${error.message}`,
+        error.response.data.errors
+      );
+    } else {
+      reportStatus(`Encountered an error: ${error.message}`);
+    }
+  });
 };
 
 // this is the homepage! the trip will not be avaiable
 $(document).ready(() => {
   $('#load').click(loadTrips);
-  //$('#pet-form').submit(createPet);
 });
