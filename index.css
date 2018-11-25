@@ -14,3 +14,7 @@ ul {
 .trip-detail {
   grid-column: 2 / 3;
 }
+
+#reserve-form {
+  text-align: center;
+}
