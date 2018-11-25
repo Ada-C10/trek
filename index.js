@@ -7,6 +7,7 @@ const reportStatus = (message => {
   $('#status-message').html(message);
 });
 
+
 const reportError = (message, errors) => {
   let content = `<p>${message}</p>`
   content += "<ul>";
@@ -30,7 +31,9 @@ const buildClickTripDetailsHandler = (trip) => {
    const status = $('#status-message');
    status.empty();
 
-   const tripDetailInfo = $('.trip-details-info');
+   reportStatus("Getting details...");
+
+   const tripDetailInfo = $('.trip-details-and-form');
    tripDetailInfo.empty();
 
    axios.get(`${BASEURL}${TRIPSPATH}/${tripID}`)
@@ -39,7 +42,7 @@ const buildClickTripDetailsHandler = (trip) => {
     tripDetail.empty();
 
     const tripInfo = response.data;
-    $('.trip-details-info').append(`
+    $('.trip-details-and-form').append(`
         <div class="trip-info">
           <h2>Trip Details</h2>
           <p>Id: ${tripInfo.id}</p>
@@ -53,21 +56,21 @@ const buildClickTripDetailsHandler = (trip) => {
       `);
     const tripReservationForm = $('.reserve-trip');
     tripReservationForm.empty();
-    $('.trip-details-info').append(`
+    $('.trip-details-and-form').append(`
       <div class="reserve-trip">
         <h2>Reserve Trip</h2>
         <form id="trip-form">
           <div>
             <label for="name">Name</label>
-            <input type="text" name="name" />
+            <input type="text" name="name" placeholder="Your Name" />
           </div>
           <div>
             <label for="email">Email</label>
-            <input type="text" name="email" />
+            <input type="text" name="email" placeholder="Your Email" />
           </div>
           <div>
             <label for="trip-name">Trip Name</label>
-            <input type="text" name="trip-name" placeholder="${tripInfo.name}"/>
+            <input type="text" name="trip-name" value="${tripInfo.name}"/>
           </div>
           <input type="submit" name="reserve-trip" value="Reserve Trip" id="reserve-trip-button" class="btn btn-light"/>
         </form>
@@ -76,6 +79,7 @@ const buildClickTripDetailsHandler = (trip) => {
     const clickReservationHandler = buildClickReservationHandler(trip);
     const tripForm = $('#trip-form');
     tripForm.on('submit', clickReservationHandler);
+    reportStatus(`Here are the details for ${tripInfo.name}`);
   })
   .catch((error) => {
     reportStatus(error);
@@ -104,7 +108,7 @@ const buildClickReservationHandler = (trip) => {
       console.log(response);
       reportStatus(`
         Thank you, ${tripData.name}!
-        Successfully booked your reservation to ${trip.name} with ID: ${id}! `);
+        Successfully booked your reservation to ${trip.name}! `);
       const reserveTripForm = $('.reserve-trip');
       reserveTripForm.toggle()
     })
@@ -120,6 +124,7 @@ const buildClickReservationHandler = (trip) => {
     });
   };
 };
+
 
 const getTrips = () => {
   reportStatus('loading trips...');

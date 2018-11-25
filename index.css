@@ -53,7 +53,7 @@ input {
 }
 
 
-.trip-details-info {
+.trip-details-and-form {
   display: flex;
   align-items: flex-start;
   justify-content: center;
