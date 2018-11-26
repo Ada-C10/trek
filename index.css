@@ -1,0 +1,56 @@
+body {
+  margin: 2%;
+
+}
+
+h4 {
+  text-align: center;
+}
+
+#continent {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+#append {
+  margin-top:  2%;
+
+  text-align: center;
+  display: grid;
+
+  grid-template-columns: 2fr 3fr;
+  grid-template-areas:
+              "a b "
+
+}
+
+#trip-list {
+  grid-area: a;
+  margin-right: 3%;
+  background-color: lightblue;
+}
+
+
+#detail {
+  margin-left: 1%;
+  text-align: left;
+  grid-area: b;
+}
+
+#tripDetail {
+  margin-left: 1%;
+
+}
+
+#tripReserve {
+ margin-left: 1%;
+
+}
+
+#new-form {
+  margin-left: 2%;
+}
+
+#trip-form {
+  margin-left: 2%;
+}
