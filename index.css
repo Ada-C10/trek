@@ -14,3 +14,7 @@ header {
   margin-top: 2em;
   margin-left: 1em;
 }
+
+.trip-details {
+  border: 1px solid black;
+}

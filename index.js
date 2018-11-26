@@ -31,20 +31,22 @@ const loadTrips = () => {
   .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
 
-    for (let i = 0; i < response.data.length; i += 1) {
-      tripList.append(`<li><a href id="${response.data[i].id}">${response.data[i].name}<a href></li>`);
-    }
-    // response.data.forEach((trip) => {
-    //   tripList.append(`<li><a href id="${trip.id}">${trip.name}<a href></li>`);
-    // });
+    response.data.forEach((trip) => {
+      tripList.append(`<li id="${trip.id}">${trip.name}</li>`);
+    });
   })
   .catch((error) => {
     reportStatus(`Encountered an error while loading trips: ${error.message}`);
     console.log(error);
   });
+
+  ////Load a trip's details
+
+
+  //
 };
 
-//
+
 // Creating Reservation
 // When specific trip clicked, details and new form are appended...or uncommented?
 //
@@ -111,12 +113,57 @@ const createReservation = (event) => {
 //
 $(document).ready(() => {
   //upon loading document hide form and detail sections
+  $('.trip-details').hide();
+  $('.reserve-trip').hide();
   $('#load').click(loadTrips);
-  $('ul').on('click', 'a', function() {
-    const content = $(this).html();
-    //upon clicking a tag shown
-    alert(`Got a click on an <li> element containing ${content}`);
+
+  $('ul').on('click', 'li', function() {
+    $('.trip-details').show();
+    $('.reserve-trip').show();
+
+    //Capture id attribute of trip that was clicked
+    const tripId = $(this).attr('id');
+
+    //Outer function for closure
+    const buildDetailCall = (content) => {
+      const tripDetail = $('#detail-info');
+      tripDetail.empty();
+
+      const reserveTrip = $('#formTripName');
+      reserveTrip.empty();
+
+      //Data to go into inside function for closure
+      const DETAIL_URL = URL + `/${content}`;
+
+      const insideDetailCall = () => {
+        //Make a get request for individual trip
+        axios.get(DETAIL_URL)
+        .then( (response) => {
+          reportStatus(`Successfully loaded ${response.data.name} trip`);
+
+          tripDetail.append(`<li>Name: ${response.data.name}</li>`);
+          tripDetail.append(`<li>Continent: ${response.data.continent}</li>`);
+          tripDetail.append(`<li>Category: ${response.data.category}</li>`);
+          tripDetail.append(`<li>Weeks: ${response.data.weeks}</li>`);
+          tripDetail.append(`<li>Cost: $${response.data.cost}</li>`);
+          tripDetail.append(`<li>About: ${response.data.about}</li>`);
+
+          //Automatically load Trip name in TripName input field
+          const input = $( "#TripName" );
+
+          $("#tripName").val(function() {
+            return this.value + `${response.data.name}`;
+          });
+
+        })
+        .catch((error) => {
+          reportStatus(`Encountered an error while loading trips: ${error.message}`);
+          console.log(error);
+        });
+      };
+      //return the inner function
+      return insideDetailCall();
+    };
+    buildDetailCall(tripId);
   });
-  // When trip is clicked load/unhide form and detail sections
-  // $('#pet-form').submit(createPet);
 });
