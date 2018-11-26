@@ -39,7 +39,7 @@ const loadTrips = () => {
 
   })
   .catch((error) => {
-    reportStatus(`Encountered an error while loading pets: ${error.message}`);
+    reportStatus(`Encountered an error while loading trip: ${error.message}`);
     console.log(error);
   });
 };
