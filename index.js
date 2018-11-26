@@ -19,37 +19,6 @@ const reportError = (message, errors) => {
   reportStatus(content);
 };
 
-const loadTrips = () => {
-  reportStatus("Loading trips...");
-  // Prep work
-  const tripList = $("#trip-list");
-  tripList.empty();
-
-  // Actually load the trips - axis.get() returns a promise. .then is called is called on return value of axis.get().
-  axios
-    .get(URL)
-    .then(response => {
-      // .then runs if call succeeds
-      $("#status-message").addClass("success");
-      reportStatus(`Successfully loaded ${response.data.length} trips`);
-      response.data.forEach(trip => {
-        // QUESTION is there a better way to keep the trip id for later?
-        tripList.append(`<li class="trip", id=${trip.id}>${trip.name}</li>`);
-      });
-    })
-    // .catch is called on return value of .then()
-    .catch(error => {
-      if (error.response.data && error.response.data.errors) {
-        reportError(
-          `Encountered an error: ${error.message}`,
-          error.response.data.errors
-        );
-      } else {
-        reportStatus(`Encountered an error: ${error.message}`);
-      }
-    });
-};
-
 const showReservationForm = event => {
   const tripForm =
     `<h1>Reserve Trip</h1>` +
@@ -80,7 +49,9 @@ const showReservationForm = event => {
     `<input type="submit" id="reservation-button" name="add-reservation" value="Complete Reservation">` +
     `</input>` +
     `</form>`;
-  $("#reservation").append(tripForm);
+  $("#reservation")
+    .empty()
+    .append(tripForm);
 };
 const readFormData = () => {
   const parsedFormData = {};
@@ -130,7 +101,6 @@ const createReservation = event => {
 // How do we get details of trip they click on?
 // We have a url for the get request but how do we use that/get the id?
 const getTripData = event => {
-  console.log(event);
   let URL = `https://trektravel.herokuapp.com/trips/${event.id}`;
   axios
     .get(URL)
@@ -148,7 +118,9 @@ const getTripData = event => {
       parsedTripData.cost = response.data.cost;
 
       // Append to trip-details section
-      $("#trip-details").append("<h1>Trip Information</h1>");
+      $("#trip-details")
+        .empty()
+        .append("<h1>Trip Information</h1>");
 
       // For each in parsedTripData
       for (let detail in parsedTripData) {
@@ -157,7 +129,6 @@ const getTripData = event => {
             `<h2>${detail}</h2>: <p>${parsedTripData[detail]}</p>` +
             `</div>`
         );
-        // $("#trip-details").append(`<p>${parsedTripData[detail]}`);
       }
     })
     .catch(error => {
@@ -166,6 +137,38 @@ const getTripData = event => {
       console.log(error);
     });
 };
+
+const loadTrips = () => {
+  reportStatus("Loading trips...");
+  // Prep work
+  const tripList = $("#trip-list");
+  tripList.empty();
+
+  // Actually load the trips - axis.get() returns a promise. .then is called is called on return value of axis.get().
+  axios
+    .get(URL)
+    .then(response => {
+      // .then runs if call succeeds
+      $("#status-message").addClass("success");
+      reportStatus(`Successfully loaded ${response.data.length} trips`);
+      response.data.forEach(trip => {
+        // QUESTION is there a better way to keep the trip id for later? QUESTION
+        tripList.append(`<li class="trip", id=${trip.id}>${trip.name}</li>`);
+      });
+    })
+    // .catch is called on return value of .then()
+    .catch(error => {
+      if (error.response.data && error.response.data.errors) {
+        reportError(
+          `Encountered an error: ${error.message}`,
+          error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error: ${error.message}`);
+      }
+    });
+};
+
 $(document).ready(() => {
   $("#load").click(loadTrips);
   $("#trip-list").on("click", "li", function(event) {

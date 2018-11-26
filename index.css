@@ -45,6 +45,7 @@ main {
 
 #reservation-button {
   font-size: 1rem;
+  font-stretch: extra-expanded;
 }
 
 ul {
@@ -124,7 +125,7 @@ p {
 
 .detailContainer {
   padding: 1rem;
-  border: 1px solid gray;
+  border: 1px solid #1e62d0;
 }
 
 .detailContainer:nth-child(even) {
@@ -156,6 +157,10 @@ button {
   grid-row: 2 / 3;
 }
 
+#reservation h1 {
+  padding-top: 1rem;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -173,7 +178,9 @@ input {
   border-style: outset;
 }
 
-input:hover {
+input:hover,
+#reservation-button,
+#load {
   border-style: inset;
   font-weight: bold;
   cursor: pointer;
@@ -187,4 +194,5 @@ input:hover {
 label {
   font-weight: bold;
   margin-bottom: 0.5rem;
+  text-align: left;
 }
