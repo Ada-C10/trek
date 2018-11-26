@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    transition: 0.1s; }
+
+body {
+    font-family: 'Roboto Condensed', Helvetica, sans-serif;
+    text-align: left;
+    font-size: 18px;
+    color: whitesmoke;
+    background-color: #184d65;
+
+
+}
+
+.container {
+    max-width: 450px;
+    margin: 0 auto; }
+
+h3 {
+    color: #C3FF00;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em; }
+
+h4 {
+    text-transform: uppercase; }
+
+.disabled h3 {
+    color: #535353;
+    cursor: not-allowed; }
+
+.button-active {
+    color: #C3FF00;
+    background-color: #535353; }
+
+
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-left: 1rem;
+}
+
+a {
+    cursor: pointer;
+    color: whitesmoke; }
+
+a:hover,a.hover {
+    text-decoration: underline;
+}
+#nav-btns{
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: center;
+    /*padding-bottom: 1rem;*/
+}
+nav {
+    background-color: #303030;
+    color: #EFEFEF;
+    /*background-image: url("Mountain/mountain.svg");*/
+    /*background-position: center;*/
+}
+
+nav h1{
+    padding: 1.30rem 0 0 1rem;
+    color: #C3FF00;
+    font-size: 5rem;
+    float: left;
+}
+
+
+.hide {
+    display: none; }
+
+.search-forms form, .trip-form form{
+    background-color: #535353;
+    padding: 1em;
+    color: #EFEFEF;
+
+}
+
+
+
+.search-forms, .trip-form {
+    display: flex;
+    background-color: #535353
+}
+
+
+.search-forms h1, .trip-form h1, .rsv-form h1 {
+    font-weight: 400;
+    color: #C3FF00;
+    padding: 1rem;
+}
+
+
+button {
+    background-color: #C3FF00;
+    border-radius: 4px;
+    border: none;
+    color: #535353;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#status-message {
+    background-color: whitesmoke;
+    color: #303030;
+    display: flex;
+    justify-content: center;
+}
+
+.current-treks {
+    margin-top: 3rem;
+    padding-left: 5rem;
+}
+
+.current-treks h1, .trip-details h1{
+    margin: 1rem;
+
+}
+#splitright{
+    grid-column-start: 2;
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.trip-details {
+    margin-top: 3rem;
+    padding-right: 5rem;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.rsv-form {
+    grid-row-start: 2;
+    padding-top: 1rem;
+    justify-self: center;
+
+}
+
+.rsv-form h1{
+    background-color: #535353;
+    padding-top: 2rem;
+    text-align: center;
+}
+
+#reservation-form{
+    background-color: #535353;
+    padding: 0 2rem 2rem 2rem;
+}
+
+#reservation-form div{
+    padding: 0.5rem;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+
+}
+
+#rsv-list, #show-title{
+    padding-top: 2rem;
+}

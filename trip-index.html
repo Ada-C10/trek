@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Treks</title>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="trip-index.js"></script>
+    <link rel="stylesheet" href="trip-index-style.css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet'>
+</head>
+    <body>
+        <nav id="nav-items">
+            <h1>Trek 👣 </h1>
+            <div id="nav-btns">
+                <button id="load">List Trips!</button>
+                <button class="add-a-trip">Add Your Own Trip</button>
+                <button class="adv-search">Advanced Search</button>
+            </div>
+        </nav>
+        <!-- Nav Menu -->
+        <div class='nav-menu'>
+            <section class="trip-form">
+                <h1>Create a New Trip</h1>
+                <form id="addTrip-form">
+                    <div>
+                        <label for="name">Name</label>
+                        <input type="text" name="name" />
+                    </div>
+                    <div>
+                        <label for="continent">Continent</label>
+                        <input type="text" name="continent" />
+                    </div>
+                    <div>
+                        <label for="about">Description</label>
+                        <input type="text" name="about" />
+                    </div>
+                    <div>
+                        <label for="category">Category</label>
+                        <input type="text" name="category" />
+                    </div>
+                    <div>
+                        <label for="weeks">Duration(weeks)</label>
+                        <input type="number" name="weeks" />
+                    </div>
+                    <div>
+                        <label for="cost">Cost($)</label>
+                        <input type="number" name="cost" />
+                    </div>
+                    <input type="submit" name="add-trip" value="Add a New Trip" />
+                </form>
+            </section>
+        </div>
+
+        <!-- Search Forms -->
+        <section class="search-forms">
+            <h1>Refine Your Search</h1>
+            <form id="search-weeks">
+                <div class="form-search">
+                    <label for="weeks">Duration(weeks): </label>
+                    <input type="number" name="weeks" />
+                    <input type="submit" name="search-by-weeks" value="Search by Duration" />
+                </div>
+            </form>
+
+            <form id="search-budget">
+                <div class="form-search">
+                    <label for="budget">Budget: </label>
+                    <input type="number" name="budget" />
+                    <input type="submit" name="search-by-weeks" value="Search by Cost" />
+                </div>
+            </form>
+
+            <form id="search-continent">
+                <div class="form-search">
+                    <label for="continent">Continent: </label>
+                    <select name="continent">
+                        <option style="display:none"></option>
+                        <option value="Africa">Africa</option>
+                        <option value="Asia">Asia</option>
+                        <option value="Europe">Europe</option>
+                        <option value="North America">North America</option>
+                        <option value="South America">South America</option>
+                        <option value="Antarctica">Antarctica</option>
+                        <option value="Australia">Australia</option>
+                    </select>
+
+                    <input type="submit" name="search-by-weeks" value="Search by Continent" />
+                </div>
+            </form>
+        </section>
+
+
+        <!--Show status messages here - keep at top for now-->
+        <section id="status-message"></section>
+
+        <main>
+            <section class="current-treks">
+                <h1><a id="load2">Adventure Awaits</a></h1>
+                <ul id="trip-list"></ul>
+            </section>
+
+            <section id="splitright">
+
+
+            <div class="trip-details">
+                <h1>Trek Details</h1>
+                <article id="details">
+                    <!--//JS JQ load trip details-->
+                </article>
+
+            </div>
+            <div class="rsv-form hide">
+                <h1>Reserve this Trip</h1>
+                <form id="reservation-form">
+                    <div>
+                        <label for="name">Name: </label>
+                        <input type="text" name="name" />
+                    </div>
+                    <div>
+                        <label for="age">Age: </label>
+                        <input type="number" name="age" />
+                    </div>
+                    <div>
+                        <label for="email">Email: </label>
+                        <input type="text" name="email" />
+                    </div>
+                    <input type="submit" name="add-reservation" value="Add Reservation" />
+                </form>
+                <button id="showReservations">Show Current Reservations</button>
+                <section class="current-rsvs">
+                    <h3 id="show-title">Existing Reservations</h3>
+                    <ul id="rsv-list"></ul>
+                </section>
+            </div>
+
+            </section>
+
+
+
+        </main>
+    </body>
+</html>
