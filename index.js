@@ -5,6 +5,17 @@ const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
+const reportError = (message, errors) => {
+  let content = `<p>${message}</p><ul>`;
+  for (const field in errors) {
+    for (const problem of errors[field]) {
+      content += `<li>${field}: ${problem}</li>`;
+    }
+  }
+  content += "</ul>";
+  reportStatus(content);
+};
+
 const loadTrips = () => {
   reportStatus("loading trips...");
 
@@ -45,16 +56,13 @@ const loadTrips = () => {
 //
 
 function createButton() {
-  const $button = $('<button/>', {
+  const button = $('<button/>', {
     text: 'See Trip Details',
     id: 'details-btn'
   });
-  return $button
+  return button
 }
 
-// function createForm() {
-//   const $form =
-// }
 
 
 const clickDetails = (id) => {
@@ -71,43 +79,97 @@ const clickDetails = (id) => {
     tripDetails.append(`<li class="name">${response.data.name}, ${response.data.continent}</li>`);
     tripDetails.append(`<li class="description">${response.data.about}</li>`);
     tripDetails.append(`<li class="description">${response.data.weeks} week(s)</li>`);
-    tripDetails.append(`<li class="description"> $ ${response.data.cost}</li>`);
+    tripDetails.append(`<li class="description"> $${response.data.cost}</li>`);
     tripDetails.append(`<li class="description">Category: ${response.data.category}</li>`);
-    let reservation = $(`<h2 class="form-title">Request this Trip</h2>
-    <form id="trip-form" data-id="${response.data.id}">
-    <div>
-    <label class='form' for="name">Name</label>
-    <input type="text" name="name" />
-    </div>
-    <div>
-    <label class='form' for="age">Age</label>
-    <input type="integer" age="age" />
-    </div>
-    <div>
-    <label class='form' for="email">Email </label>
-    <input type="text" name="email" />
-    </div>
-    <input type="submit" id="submit" name="add-reservation" value="Add Reservation" />
-    </form>`)
+    let reservation = $(`<h2 class="form-title">Request this trip</h2>
+                        <form id="trip-form" data-id="${response.data.id}">
+                          <div>
+                            <label class='form' for="name">Name</label>
+                            <input type="text" name="name" />
+                          </div>
+                          <div>
+                            <label class='form' for="age">Age</label>
+                            <input class='age' type="integer" name="age" />
+                          </div>
+                          <div>
+                            <label class='form' for="email">Email </label>
+                            <input class='email' type="text" name="email" />
+                          </div>
+                          <input type="submit" name="add-reservation" value="Add Reservation" />
+                        </form>`)
     tripDetails.append(reservation)
   })
-
-
-  // const createReservation = () => {
-  //   event.preventDefault();
-  //   let reservationURL = (tripURL + `/` + `reservations`)
-  //   axios.post(reservationURL)
-  //   .then((response) => {
-  //     console.log('post method workd');
-  //     console.log(response);
-  //   })
-  //
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
-  // };
-
 }
+
+const readFormData = () => {
+  const parsedFormData = {};
+
+  // const idFromForm = $(`#trip-form label[data-id]`).val();
+  // parsedFormData['id'] = idFromForm ? idFromForm : undefined;
+
+  const nameFromForm = $(`#trip-form input[name="name"]`).val();
+  parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+
+  const ageFromForm = $(`#trip-form input[name="age"]`).val();
+  parsedFormData['age'] = ageFromForm ? ageFromForm : undefined;
+
+  const emailFromForm = $(`#trip-form input[name="email"]`).val();
+  parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
+
+  return parsedFormData;
+};
+
+// const createReservation = () => {
+//   event.preventDefault();
+//   let reservationURL = (tripURL + `/` + `reservations`)
+//   axios.post(reservationURL)
+//   .then((response) => {
+//     console.log('post method workd');
+//     console.log(response);
+//   })
+//
+//   .catch((error) => {
+//     console.log(error);
+//   });
+// };
+
+// const clearForm = () => {
+//   $(`#trip-form input[name="name"]`).val('');
+//   $(`#trip-form input[name="age"]`).val('');
+//   $(`#trip-form input[name="email"]`).val('');
+// }
+
+const createReservation = (event) => {
+  // Note that createTrip is a handler for a `submit`
+  // event, which means we need to call `preventDefault`
+  // to avoid a page reload
+  event.preventDefault();
+
+  alert ('something');
+
+  const reservationData = readFormData();
+  console.log(reservationData);
+  // let reservationURL = (tripURL + `/` + `reservations`)
+  //
+  // reportStatus('Sending trip data...');
+  //
+  // axios.post(URL, reservationData)
+  // .then((response) => {
+  //   reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
+  //   clearForm();
+  // })
+  // .catch((error) => {
+  //   console.log(error.response);
+  //   if (error.response.data && error.response.data.errors) {
+  //     reportError(
+  //       `Encountered an error: ${error.message}`,
+  //       error.response.data.errors
+  //     );
+  //   } else {
+  //     reportStatus(`Encountered an error: ${error.message}`);
+  //   }
+  // });
+};
 
 
 
@@ -131,7 +193,7 @@ const clickDetails = (id) => {
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
-  // $('#new-reservation').hide();
+  $('#trip-form').submit(createReservation);
   // $("#details-btn").click(function(){
   //     $("ul#trip-details").slideDown();
   // });
