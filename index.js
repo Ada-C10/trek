@@ -43,14 +43,14 @@ const loadOneTrip = (id) => {
     axios.get(BaseURL + '/'+ id)
     .then((response) => {
 
-      oneTrip.append(`<h1>Trip Details</h1>
-        <h3>Name: ${response.data.name}</h3>
-        <p>ID: ${response.data.id}</p>
-        <p>Continent: ${response.data.continent}</p>
-        <p>About: ${response.data.about}</p>
-        <p>Category: ${response.data.category}</p>
-        <p>Duration: ${response.data.weeks}</p>
-        <p>Cost: ${response.data.cost}</p>`);
+      oneTrip.append(`<h2>Trip Details</h2>
+        <h4><strong>Name: </strong>${response.data.name}</h4>
+        <p><strong>ID:</strong> ${response.data.id}</p>
+        <p><strong>Continent:</strong> ${response.data.continent}</p>
+        <p><strong>About:</strong> ${response.data.about}</p>
+        <p><strong>Category:</strong> ${response.data.category}</p>
+        <p><strong>Duration:</strong> ${response.data.weeks}</p>
+        <p><strong>Cost:</strong> ${response.data.cost}</p>`);
   });
 };
 
@@ -60,16 +60,18 @@ const generateForm = (trip) => {
     form.empty();
 
     form.append(`
-      <h2>Reserve your spot for ${trip.name} trip</h2>
       <form id="trip-form">
-      <div>
+      <h4>Reserve your spot for ${trip.name} trip</h4>
+      <div class="form-group">
         <label for="name">Your Name</label>
-        <input type="text" name="name" />
+        <input type="text" class="form-control" name="name" placeholder="Full Name"/>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
       </div>
 
-      <div>
+      <div class="form-group">
         <label for="email">Email Address</label>
-        <input type="text" name="email" />
+        <input type="text" class="form-control" name="email" placeholder="Email Address" />
+        <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
       </div>
 
       <input type="submit" name="reserve" value="Reserve" />
