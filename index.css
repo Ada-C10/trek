@@ -1,7 +1,6 @@
 .container {
   display: grid;
   grid-gap: 25px;
-  /* grid-template-columns: 2fr 2fr; */
   grid-template-areas:
     "header  header"
     "content details"
@@ -9,8 +8,6 @@
     "content book"
     "content book"
     "content book";
-  /* grid-template-rows: 1fr 2fr 2fr; */
-
 }
 
 header {
