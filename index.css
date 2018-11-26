@@ -1,8 +1,8 @@
 header {
   background-color: navy;
   color: white;
-  padding: 40px;
-  font-size: 2em;
+  padding: 30px;
+  font-size: 1.5em;
   display: flex;
   align-content: center;
   justify-content: center;
@@ -13,6 +13,20 @@ main {
   grid-template-columns: 1fr 1fr;
 }
 
+button {
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+#trip-list-section {
+  grid-column: 1;
+  }
+
 #trip-aside {
   grid-column: 2;
+  border-left: black solid;
+}
+
+#trip-blurb {
+  list-style: none;
 }
