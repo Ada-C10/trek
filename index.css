@@ -103,7 +103,7 @@ ul {
 .main ul#trip.detail {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-areas: "trip-show" "trip-form";
+  grid-template-areas: "trip-show" "trip-form-div";
   justify-content: space-around;
   justify-content: space-between;
 }

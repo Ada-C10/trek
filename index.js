@@ -105,7 +105,7 @@ const loadTrip = function(tripID) {
     $('.trek').removeAttr('id');
     //show
     tripDetail.append('<div class=trip-show></div>');
-    tripDetail.append(`<div class=trip-form id=${savedId}></div>`);
+    tripDetail.append(`<div class=trip-form-div><form class="trip-form" id=${savedId}></form></div>`);
     const tripShow = $('.trip-show');
     const tripForm = $('.trip-form');
 
@@ -122,12 +122,6 @@ const loadTrip = function(tripID) {
   .catch((error) => {
     reportStatus(`Encountered an error while loading trip: ${error.message}`);
   });
-  // $('.trip-form').submit(submitForm(savedId));
-
-  // $('.trip-form').on('submit', function(event){
-  //   console.log("here")
-  //   submitForm(event);
-  // })
 }
 
 const loadTrips = () => {
@@ -221,12 +215,8 @@ $(document).ready(() => {
     loadTrip(event.target.id);
   })
 
-  // submit reservation via button submit
-  // $('body').on('submit', '.trip-form', function(event){
-  //   submitForm(event);
-  // })
-
-  $('.trip-form').submit(submitForm);
-  // $('.trip-form').on('submit', submitForm);
-
+  // submit reservation via form elem
+  $('body').on('submit', '.trip-form', function(event){
+    submitForm(event);
+  })
 });
