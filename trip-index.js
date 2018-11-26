@@ -47,7 +47,7 @@ const loadTrips = () => {
     // show user what's up, this can go anywhere b/c of async loading
     reportStatus('Loading trips...');
 
-    // Actually load the pets
+    // Actually load the trips
     axios.get(URL)
         .then((response) => {
             reportStatus(`Successfully loaded ${response.data.length} trips`);
@@ -63,6 +63,7 @@ const loadTrips = () => {
 
 const readFormData = (whichForm) => {
     const parsedFormData = $(`${whichForm}`).serialize();
+    console.log('parsedFormData');
     console.log(parsedFormData);
 
     return parsedFormData;
@@ -125,21 +126,23 @@ const addTrip = (event) => {
         });
 };
 
-const queryFilter = (event, whichForm) => {
+const queryFilter = (event, whichSubmit) => {
     event.preventDefault();
-    const queryData = readFormData(`search-${whichform}`);
-    axios.get(URL + queryData)
+    const filteredTripList = $('#trip-list');
+    filteredTripList.empty();
+    const queryData = readFormData(`${whichSubmit}`);
+    console.log('query data');
+    console.log(queryData);
+    const temp = queryData.split('=');
+    const searchString = temp[0] + `?query=` + temp[1];
+    console.log(URL+searchString);
+    axios.get(URL + searchString)
         .then((response) => {
-            // reportStatus(`Successfully loaded ${response.data.length} trips`);
-            // console.log(response);
-            $('.trip-details').html(`<h2>${response.data.name}</h2>
-                                    <p class="description">${response.data.about}</p>
-                                    <ul>
-                                    <li>Category: ${response.data.category}</li>
-                                    <li>Continent: ${response.data.continent}</li>  
-                                    <li>Culture: ${response.data.culture}</li>
-                                    <li>Duration: ${response.data.weeks} week(s)</li>
-                                    <li id="money">Cost: $${response.data.cost}</li></ul>`);
+            reportStatus(`Successfully loaded ${response.data.length} trips`);
+            clearForm(whichSubmit);
+            response.data.forEach((trip) => {
+                filteredTripList.append(`<li><a class="trip-info" id="${trip.id}">${trip.name}</a></li>`);
+            });
         })
         .catch((error) => {
             reportStatus(`Encountered an error while loading trips: ${error.message}`);
@@ -175,7 +178,7 @@ $(document).ready(() => {
         $('.search-forms').toggle('slow');
     });
 
-    $('.search-forms').on('click', '#search-weeks', function(event){
+    $('.search-forms').on('click', '#search-weeks, #search-budget, #search-continent', function(event){
         console.log("#search-" + this[0].name);
         let sub = "#search-" + this[0].name;
         queryFilter(event, sub);
