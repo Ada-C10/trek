@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Trek</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <section id="status-message"></section>
+  <main>
+    <h1>Trek</h1>
+    <button class="ugly-button" id="load">See All Trips</button>
+    <article class="trek-container">
+      <section class="current-trips">
+        <h2 id="reveal-heading-list-trips">All Trips</h2>
+        <ul id="trip-list"></ul>
+      </section>
+
+      <section class="details-new-trip">
+        <section id="trip-details">
+          <h2 id="reveal-heading-details">Trip Details</h2>
+          <ul id="trip-details-list"></ul>
+        </section>
+        <section id="new-trip">
+        </section>
+      </section>
+
+    </article>
+  </main>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
