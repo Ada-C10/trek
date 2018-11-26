@@ -13,9 +13,10 @@ const imageObj = {
 
 const findNumTrips = function(){
   event.preventDefault();
-  
+
   return axios.get(baseURL)
   .then(response => {
+    removeError();
     reportStatus('Loading available trips...');
     return response.data
   })
@@ -43,16 +44,23 @@ const reportStatus = (message) => {
 };
 
 const reportError = (message, errors) => {
-  let content = `<p>${message}</p><ul>`;
+  const headerDiv = $('.header');
+  headerDiv.attr('id', 'error');
+
+  let content = `<p>${message} Please fix: ( `;
   for (const field in errors) {
     for (const problem of errors[field]) {
-      content += `<li>${field}: ${problem}</li>`;
+      content += `${field}: ${problem} `;
     }
   }
-  content += "</ul>";
+  content += ")</p>";
   reportStatus(content);
 };
 
+const removeError = () => {
+  const headerDiv = $('.header');
+  headerDiv.removeAttr('id');
+}
 
 const reloadHome = () => {
   $('body').addClass('static');
@@ -61,6 +69,7 @@ const reloadHome = () => {
   $('.main-empty').html("Choose your adventure!");
   $('.footer').attr('id', 'body-empty');
   $('.trek').attr('id', 'home-header');
+  removeError();
   reportStatus(`Choose your own adventure. Click toggle or tap on words below.`);
 }
 
@@ -83,12 +92,13 @@ const submitForm = (event) => {
     name: $('input[name="name"]').val(),
     email: $('input[name="email"]').val(),
   };
-
+  removeError();
   reportStatus('Sending trip data...');
 
   axios.post(url, tripData)
   .then((response) => {
     alert(`Successfully reserved trip ${tripName} with id ${tripId} for ${response.data.name}`);
+    removeError();
     reportStatus(`Successfully reserved trip ${tripName} with id ${tripId} for ${response.data.name}`);
     $('.trip-form').get()[0].reset();
   })
@@ -114,11 +124,12 @@ const loadTrip = function(tripID) {
   $('body').removeClass();
 
   const tripDetail = $('#trip');
+  removeError();
   reportStatus('Retrieving info for this trip...');
 
   axios.get(baseURL + savedId)
   .then( (response) => {
-
+    removeError();
     reportStatus(`Reserve the ${response.data.name} trip below or toggle twice to pick a different trip.`);
 
     let weeks = "0";
@@ -180,6 +191,7 @@ const loadTrips = () => {
 
   axios.get(baseURL)
   .then( (response) => {
+    removeError();
     reportStatus(`Successfully loaded ${response.data.length} trips.`);
 
     response.data.forEach( (response) => {
@@ -229,9 +241,11 @@ const toggleList = () => {
     else {
       if (tripDiv.hasClass('list')) {
         reloadHome();
+        removeError();
         reportStatus('Trips emptied. Toggle to reload.');
       }
       else {
+        removeError();
         reportStatus('Toggle once to load your next adventure!');
       }
     }

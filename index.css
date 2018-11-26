@@ -45,6 +45,14 @@ ul {
   padding: 0;
 }
 
+.header#error section#status-message {
+  color: #d92626;
+  background-color: #ffe6e6;
+  border-color: #ffcccc;
+  display: flex;
+  flex-direction: column;
+}
+
 .header h1 {
   text-align: center;
   font-family: 'lato',sans-serif;
@@ -139,9 +147,9 @@ div input[name=age] {
   text-align: center;
   padding-bottom: 1rem;
   padding-top: 1rem;
-  color: #B8860B;
-  background-color: #EEE8AA;
-  border-color:	#DAA520;
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
 }
 
 .nav {
