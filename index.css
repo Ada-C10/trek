@@ -1,7 +1,12 @@
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 .header-welcome {
   text-align: center;
 }
 
-.all-trips ul {
+ul {
   list-style: none;
 }
