@@ -69,13 +69,15 @@ const reserveTrip = (event) => {
   event.preventDefault();
   reportStatus('Sending request...');
 
-  const createResData = {
+  const resFormData = {
     name: $('input[name="name"]').val(),
     email: $('input[name="email"]').val(),
     id: $('input[id="tripId"]').val()
   };
 
-  axios.post(URL + `/${createResData.id}` + '/reservations', createResData)
+  const uri = URL + `/${resFormData.id}` + '/reservations'
+
+  axios.post(uri, resFormData)
     .then((response) => {
       reportStatus(`Sucessfully reserved! Please save your reservation id: ${response.data.id}`);
       $('#reserve-form')[0].reset();
