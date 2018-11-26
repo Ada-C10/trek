@@ -1,0 +1,95 @@
+.container {
+  display: grid;
+  grid-gap: 25px;
+  grid-template-areas:
+    "header  header"
+    "content details"
+    "content details"
+    "content book"
+    "content book"
+    "content book";
+}
+
+header {
+  background-color: grey;
+  background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
+  background: rgba(204, 204, 204, 0.5);
+  grid-area: header;
+  padding-bottom: 2%;
+  color: white;
+  border-radius: 5px;
+}
+
+.book {
+  background-color: white;
+  background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
+  background: rgba(204, 204, 204, 0.5);
+  grid-area: book;
+  color: white;
+  border-radius: 5px;
+}
+
+.content {
+  background-color: white;
+  background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
+  background: rgba(204, 204, 204, 0.5);
+  grid-area: content;
+  color: white;
+  border-radius: 5px;
+}
+
+.details {
+  background-color: white;
+  background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
+  background: rgba(204, 204, 204, 0.5);
+  grid-area: details;
+  color: white;
+  border-radius: 5px;
+}
+
+ul {
+  list-style: none;
+}
+
+#escape-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8%;
+}
+
+body {
+ background: url(./assets/fire2.jpg);
+ background-repeat: no-repeat;
+ background-size: cover;
+ margin: 4%;
+ padding-top: 2%;
+}
+
+header h1 {
+  padding: 2%;
+  padding-left: 5%;
+  font-size: 80px !important;
+  font-family: 'Black Ops One', cursive !important;
+  padding-bottom: 0%;
+}
+
+.form-info {
+  padding:4%;
+}
+
+#load {
+  margin: 5%;
+  background-color:#cc3300;
+  font-size: 2em;
+}
+
+input[name="book-escape"] {
+  background-color:#cc3300;
+  float: right;
+}
+
+.detail-list {
+  padding: 5%;
+  margin-right: 5%;
+}
