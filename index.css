@@ -140,11 +140,16 @@ ul {
 .toggle {
   grid-area: toggle;
   align-self: center;
+  padding-top: 1rem;
+
 }
 
 .sub-heading {
   color: #778899;
   grid-area: sub-heading;
+  text-align: center;
+  padding-left: 2rem;
+
 }
 
 .footer {
