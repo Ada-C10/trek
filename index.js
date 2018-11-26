@@ -11,6 +11,19 @@ const imageObj = {
   Antarctica: "https://static.boredpanda.com/blog/wp-content/uploads/2015/03/dsc02117-3_1600x1200px__880.jpg"
 }
 
+const findNumTrips = function(){
+  return axios.get(baseURL)
+  .then(response => {
+    reportStatus('Loading available trips...');
+    return response.data
+  })
+};
+
+const loadRandomTrip = (numTrips) =>{
+  const tripId = Math.ceil(Math.random() * (numTrips));
+  loadTrip(tripId);
+};
+
 const reportStatus = (message) => {
   const statusDiv = $('#status-message')
   statusDiv.empty();
@@ -65,6 +78,7 @@ const loadTrip = function(tripID) {
   $('#trip').empty();
   $('#trip').removeClass();
   $('#trip').addClass('detail');
+  $('body').removeClass();
 
   const tripDetail = $('#trip');
   reportStatus('Retrieving info for this trip...');
@@ -184,23 +198,31 @@ const toggleList = () => {
 
 $(document).ready(() => {
 
-  //starting status
+  //starting initial status
   reportStatus("Choose your own adventure. Click toggle twice or tap on words below!");
 
-  //go home via click
+  //go home via click of heading
   $('body').on('click', '.trek', function(){
     reloadHome();
   })
 
-  //load trips via click
+  //load trips via clicking empty main words
   $('body').on('click', '.main-empty', function(){
     loadTrips();
+  })
+
+//pick random trip via clicking subhading
+  $('body').on('click', '.sub-heading', function(){
+    findNumTrips()
+    .then(data => {
+      loadRandomTrip(data.length);
+    });
   })
 
   // load trips via toggle
   toggleList();
 
-  // load trip
+  // load trip via button
   $('body').on('click', '.select-trip', function(event){
     loadTrip(event.target.id);
   })
