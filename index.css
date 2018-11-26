@@ -1,7 +1,6 @@
 html, body {
   margin: 0;
   padding: 0;
-
 }
 
 html {
@@ -20,17 +19,14 @@ body.static {
 }
 
 body h1 {
-color: blue;
-text-decoration: underline;
-padding: 1rem;
-  /* border: 1px solid blue; */
+  color: blue;
+  text-decoration: underline;
+  padding: 1rem;
 }
 
 body h1#home-header {
   color: lightblue;
   text-decoration: none;
-  /* border: none; */
-
 }
 
 ul {
@@ -72,9 +68,7 @@ ul {
 .main .main-empty {
   position: absolute;
   top: 55%;
-  /* margin-left: 32%; */
   font-size:36px;
-  /* width:100%; */
   margin-left: 32%;
   padding: 0.5rem;
   text-align: center;
@@ -111,7 +105,24 @@ ul {
 .main ul#trip.detail div.trip-form-div, .main ul#trip.detail div.trip-show {
   padding: 10rem 8rem 10rem 8rem;
   align-self: center;
+  /* text-align: center; */
 }
+
+/* ul#trip.detail div.trip-form-div */
+
+div#form-button {
+  padding-top: 1rem;
+}
+
+/* width: 10rem; */
+
+div input[name=age] {
+   width: 10rem;
+}
+
+/* div input[name=reserve-trip], div input[name=clear-trip]  {
+text-align: center;
+} */
 
 .main #trip.list img {
   max-width: 13rem;
@@ -153,7 +164,6 @@ ul {
   grid-area: sub-heading;
   text-align: center;
   padding-left: 2rem;
-
 }
 
 .footer {
@@ -177,7 +187,6 @@ ul {
 }
 
 /* Checkbox*/
-
 .toggle{
   width:60px;
   text-align:center;
@@ -191,6 +200,7 @@ ul {
   border:none;
   outline:none;
 }
+
 .checkbox-label{
 
   display:block;
@@ -208,6 +218,7 @@ ul {
   background:#f8f8f8;
   cursor:pointer;
 }
+
 .checkbox-label:before{
   content:'';
   display:block;
@@ -230,6 +241,7 @@ ul {
   -moz-box-shadow:0 3px 3px rgba(0,0,0,.2),0 0 0 2px #dddddd;
   box-shadow:0 3px 3px rgba(0,0,0,.2),0 0 0 2px #dddddd;
 }
+
 .checkbox-label:after{
   content:attr(data-off);
   display:block;
@@ -243,14 +255,15 @@ ul {
   text-align:right;
   color: #1fc1c8;
   white-space:nowrap;
-
 }
+
 .ios-toggle:checked + .checkbox-label{
   /*box-shadow*/
   -webkit-box-shadow:inset 0 0 0 20px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
   -moz-box-shadow:inset 0 0 0 20px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
   box-shadow:inset 0 0 0 20px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
 }
+
 .ios-toggle:checked + .checkbox-label:before{
   left:calc(100% - 36px);
   /*box-shadow*/
@@ -258,6 +271,7 @@ ul {
   -moz-box-shadow:0 0 0 2px transparent,0 3px 3px rgba(0,0,0,.3);
   box-shadow:0 0 0 2px transparent,0 3px 3px rgba(0,0,0,.3);
 }
+
 .ios-toggle:checked + .checkbox-label:after{
   content:attr(data-on);
   left:60px;
@@ -281,8 +295,6 @@ ul {
 #checkbox3:checked + .checkbox-label:after{
   color:#1fc1c8;
 }
-
-
 
 .stars {
   background:#000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
