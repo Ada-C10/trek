@@ -12,6 +12,8 @@ const imageObj = {
 }
 
 const findNumTrips = function(){
+  event.preventDefault();
+  
   return axios.get(baseURL)
   .then(response => {
     reportStatus('Loading available trips...');
@@ -103,6 +105,7 @@ const submitForm = (event) => {
 };
 
 const loadTrip = function(tripID) {
+  event.preventDefault();
 
   const savedId = tripID;
   $('#trip').empty();
@@ -166,6 +169,8 @@ const loadTrip = function(tripID) {
 }
 
 const loadTrips = () => {
+
+  event.preventDefault();
 
   const tripList = $('#trip');
   tripList.empty();
