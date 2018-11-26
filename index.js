@@ -20,7 +20,7 @@ const loadTrips = () => {
   // reportStatus('Loading trips...');
 
   const tripList = $('#trip-list');
-  tripList.empty();
+  // tripList.empty();
 
   axios.get(URL)
   .then((response) => {
@@ -153,14 +153,9 @@ const showTrip = (id) => {
 
 
   $(document).ready(() => {
+    $('#trip-list').toggle();
 
-    $("#load").click(loadTrips).show();
-
-    $("#load").on("click", loadTrips, function() {
-      $('#trip-list').toggle();
-      $(".trip-info").hide();
-      $(".new-trip").hide();
-    });
+    $("#load").click(loadTrips);
 
     $('#trip-list').on("click", "a", function() {
       showTrip(this.id);
