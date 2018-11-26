@@ -19,7 +19,7 @@ const reportError = (message, errors) => {
   reportStatus(content);
 };
 
-const showReservationForm = event => {
+const showReservationForm = (tripName, id) => {
   const tripForm =
     `<h1>Reserve Trip</h1>` +
     `<form id=trip-form>` +
@@ -37,14 +37,12 @@ const showReservationForm = event => {
     `<label for="Trip Name">` +
     "Trip" +
     `</label>` +
-    `<input type="text" name="tripName" value="${
-      event.textContent
-    }" readonly>` +
+    `<input type="text" name="tripName" value="${tripName}" readonly>` +
     `</input>` +
     `</input>` +
     `<label for="tripID">` +
     `</label>` +
-    `<input type="text" name="tripID" value="${event.id}" hidden>` +
+    `<input type="text" name="tripID" value="${id}" hidden>` +
     `</input>` +
     `<input type="submit" id="reservation-button" name="add-reservation" value="Complete Reservation">` +
     `</input>` +
@@ -100,8 +98,9 @@ const createReservation = event => {
 };
 // How do we get details of trip they click on?
 // We have a url for the get request but how do we use that/get the id?
-const getTripData = event => {
-  let URL = `https://trektravel.herokuapp.com/trips/${event.id}`;
+const getTripData = id => {
+  console.log(id);
+  let URL = `https://trektravel.herokuapp.com/trips/${id}`;
   axios
     .get(URL)
     .then(response => {
@@ -152,8 +151,11 @@ const loadTrips = () => {
       $("#status-message").addClass("success");
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach(trip => {
-        // QUESTION is there a better way to keep the trip id for later? QUESTION
-        tripList.append(`<li class="trip", id=${trip.id}>${trip.name}</li>`);
+        let listItem = $(`<li class="trip">${trip.name}</li>`).click(event => {
+          getTripData(trip.id);
+          showReservationForm(trip.name, trip.id);
+        });
+        tripList.append(listItem);
       });
     })
     // .catch is called on return value of .then()
@@ -171,13 +173,13 @@ const loadTrips = () => {
 
 $(document).ready(() => {
   $("#load").click(loadTrips);
-  $("#trip-list").on("click", "li", function(event) {
-    // Perform get request
-    console.log(this);
-    getTripData(this);
-    // Show trip form as well in #reservation section
-    showReservationForm(this);
-    // Submit form on click
-    $("#trip-form").submit(createReservation);
-  });
+  // $("#trip-list").on("click", "li", function(event) {
+  //   // Perform get request
+  //   console.log(this);
+  //   getTripData(this);
+  //   // Show trip form as well in #reservation section
+  //   showReservationForm(this);
+  //   // Submit form on click
+  $("#trip-form").submit(createReservation);
+  // });
 });
