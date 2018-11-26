@@ -32,4 +32,68 @@
   overflow: scroll;
 }
 
- 
+form div, input[type="submit"] {
+ display: inline-block;
+}
+form div input[type="text"] {
+ border: none;
+ font-size: 1em;
+ width: 7em;
+ padding: 5px 0 5px 5px;
+}
+
+.hidden {
+ display: none;
+}
+
+body {
+ background-color: darkslateblue;
+ font-family: 'Open Sans', sans-serif;
+ color: #ffffff;
+}
+#top-nav {
+ text-align: center;
+}
+h1 {
+ font-size: 3em;
+ margin: 0;
+}
+h2 {
+ text-align: center;
+}
+button#display-trips, input[type="submit"] {
+ border: none;
+ margin: 0 auto 1em auto;
+ font-size: 1em;
+ padding: 5px 30px;
+ background-color: #EADEDB;
+ color: #333333;
+}
+#trips-info, #trip-info {
+ border: solid 1px #ffffff;
+ position: relative;
+}
+#trips-info h2, #trip-info h2 {
+ margin: 0;
+ line-height: 5em;
+ background-color: #EADEDB;
+ color: #944743;
+ position: sticky;
+ top: 0;
+ border-bottom: solid 1px #ffffff;
+}
+ul {
+  margin: 0;
+ list-style-type: none;
+ padding: 0 1em;
+ text-align: center;
+}
+li:first-child {
+ border: none;
+}
+li {
+ display: block;
+ height: 5em;
+ line-height: 5em;
+ border-top: solid 1px #ffffff;
+}
