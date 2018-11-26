@@ -78,14 +78,14 @@ const parseIndividualTrip = (tripData, element) => {
     )
   });
   element.append(`<p>${tripData.about}</p>`)
-  appendResForm(tripData.id);
+  appendResForm(tripData);
 }
 
-const appendResForm = (tripId) => {
+const appendResForm = (tripData) => {
   $('#reserve-form').empty();
   $('#reserve-form').append(
-    `<h4>Reserve a trip</h4>
-    <input type="hidden" id="tripId" name="tripId" value="${tripId}">
+    `<h4>Make a reservation for ${tripData.name}</h4>
+    <input type="hidden" id="tripId" name="tripId" value="${tripData.id}">
     <div>
       <label for="name">Name</label>
       <input type="text" name="name" />
