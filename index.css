@@ -1,0 +1,98 @@
+@import url('http://fonts.googleapis.com/css?family=Special+Elite');
+@import url('http://fonts.googleapis.com/css?family=Economica');
+html, body {
+  height: 100%
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: SpecialElite;
+  color: black;
+  text-align: center
+  padding: 0;
+  margin: 0;
+  bottom: 0;
+  font-size: 18px;
+}
+
+body#background {
+  background: url("https://pngimage.net/wp-content/uploads/2018/06/travel-background-png-2.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 10px;
+  font-family: Economica;
+}
+
+.container {
+  flex: 1 0 auto;
+}
+
+#load-all {
+  padding-bottom: 10px;
+}
+
+.card ul{
+  padding-left: 1px;
+  list-style-type: none;
+
+}
+
+.trip-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+}
+
+.trips-section {
+  grid-column-start: 1;
+
+}
+
+.details-sec {
+  grid-column-start: 2;
+}
+
+.info {
+  padding: 5px;
+  padding-bottom: 10px;
+  /* background-color: lightblue; */
+}
+
+#displayForm {
+  padding-top: 50px;
+}
+#trip-form h3 {
+  padding-bottom: 10px;
+}
+
+li {
+  padding: 2px;
+}
+
+
+.footer {
+  flex-shrink: 0;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 15px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(38, 38, 38);
+}
+
+.footer p {
+  color: white;
+}
