@@ -29,9 +29,9 @@ const reloadHome = () => {
 
 const createForm = (tripDiv) => {
   tripDiv.append('<div><h2>Take me there!</h2></div>');
-  tripDiv.append('<div><label for=name>Name </label><input name=name type=text/></div>');
-  tripDiv.append('<div><label for=email>Email</label><input name=email type=text/></div>');
-  tripDiv.append('<div><label for=age>Age (optional)</label><input type=text name=age/></div>');
+  tripDiv.append('<div><label for=name><strong>Name</strong></label><input name=name type=text/></div>');
+  tripDiv.append('<div><label for=email><strong>Email</strong></label><input name=email type=text/></div>');
+  tripDiv.append('<div><label for=age><strong>Age (optional)</strong></label><input type=text name=age/></div>');
   tripDiv.append('<div><input name=reserve-trip type=submit value="Book Trip" /></div>');
   tripDiv.append('<div><input name=clear-trip type=reset value="Clear Data" /></div>')
 };
@@ -100,7 +100,7 @@ const loadTrip = function(tripID) {
     const tripForm = $('.trip-form');
 
     tripShow.append(`<li><strong>Continent: </strong>${response.data.continent}</li>`)
-    tripShow.append(`<li><strong>Name: </strong><div id="trip-name">${response.data.name}</div></li><li>${weeks}</li>`);
+    tripShow.append(`<li><strong>Name: </strong><div id="trip-name">${response.data.name}</div></li>`);
     tripShow.append(`<li><strong>Category: </strong>${response.data.category}</li>`);
     tripShow.append(`<li><strong>Length: </strong>${weeks}</li>`);
     tripShow.append(`<li><strong>Cost: </strong>$${response.data.cost}</li>`);

@@ -108,6 +108,11 @@ ul {
   justify-content: space-between;
 }
 
+.main ul#trip.detail div.trip-form-div, .main ul#trip.detail div.trip-show {
+  padding: 10rem 8rem 10rem 8rem;
+  align-self: center;
+}
+
 .main #trip.list img {
   max-width: 13rem;
   height: 13rem;
@@ -124,7 +129,6 @@ ul {
   color: #155724;
   background-color: #d4edda;
   border-color: #c3e6cb;
-  /* margin: 1em; */
 }
 
 .nav {
