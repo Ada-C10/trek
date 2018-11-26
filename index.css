@@ -1,9 +1,15 @@
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  padding-top: 50px;
+}
+
+
 main {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-
-/* #reservations {
-  grid-column-start: 2;
-  grid-column-end: 3;
-} */
