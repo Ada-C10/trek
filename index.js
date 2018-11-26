@@ -1,11 +1,11 @@
-const URL = 'https://trektravel.herokuapp.com/trips';
+const URL = 'https://trektravel.herokuapp.com/trips/';
 
 // Status Reports
 const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
-const reportError = (message, error) => {
+const reportError = (message, errors) => {
   let content = `<p>${message}</p><ul>`;
   for (const field in errors) {
     for (const problem of errors[field]) {
@@ -22,12 +22,15 @@ const loadTrips = () => {
 
   const tripList = $('#trip-list');
   tripList.empty();
+  // const infoList = $('#info-list');
 
   axios.get(URL)
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
-        tripList.append(`<li>${trip.name}</li>`);
+        // tripList.append(`<a href="${URL}/${trip.id}" id="trip-button"><li class ="trip-details">${trip.name}</li></a>`);
+        tripList.append(`<li class ="trip-details"><a class="trip-button" id=${trip.id}>${trip.name}</a></li>`);
+        // tripList.append(`<li>continent: ${trip.continent}, weeks: ${trip.weeks}, category: ${trip.category}</li>`);
       });
     })
     .catch((error) => {
@@ -41,7 +44,33 @@ const loadTrips = () => {
     });
 };
 
+
+//Toggle trip detail
+const loadDetails = (id) => {
+  reportStatus('Sending trip data..');
+  // const DETURL = (`${URL}\\${this.id}`);
+  const tripBlurb = $('#trip-blurb');
+  tripBlurb.empty();
+
+  axios.get(URL + id)
+  .then((response) => {
+    // $('#trip-blurb').append(`<p>${response.data.find(x => x.id ==$(this.id)).about}</p>`);
+    for (let tripInfo in response.data) {
+      tripBlurb.append(`<li><strong>${tripInfo}</strong>: ${response.data[tripInfo]} </li>`);
+  }
+    reportStatus(`Successfully loaded trip data`);
+  });
+};
+
+
+///
 $(document).ready(() => {
   $('#see-trips').click(loadTrips);
-  // $('#pet-form').submit(createPet);
+  // $('#trip-list').click(loadDetails);
+  $('#trip-list').on('click', 'a', function() {
+    loadDetails(this.id);
+
+
+  });
+
 })
