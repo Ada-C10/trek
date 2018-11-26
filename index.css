@@ -27,11 +27,11 @@ body h1:hover,.sub-heading:hover, .main .main-empty:hover {
   text-decoration: underline;
 }
 
-.main .main-empty:hover {
+.main .main-empty:hover ,.sub-heading:hover {
   color: yellow;
 }
 
-body h1:hover,.sub-heading:hover {
+body h1:hover {
   color: blue;
 }
 
