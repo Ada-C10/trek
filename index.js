@@ -9,8 +9,12 @@ const sendGetRequest = (id) => {
     reportStatus('Loading...');
     axios.get(URL + id)
       .then((response) => {
-        let callback = response.data.length ? parseTripCollection : parseIndividualTrip
-        parseGetResponse(response, callback)
+        if (response.status === 204) {
+          reportStatus(`Request failed with status code ${response.status}: ${response.statusText}.`)
+        } else {
+          let callback = response.data.length ? parseTripCollection : parseIndividualTrip
+          parseGetResponse(response, callback)
+        }
       })
       .catch((error) => {
         reportStatus(`${error.message}. Please try your request again.`);
