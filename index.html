@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Trek</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+
+    <header>
+      <h1><a href="index.html">Trek</a></h1>
+      <button id="load" class="btn btn-primary">See All Trips</button>
+      <section id="status-message"></section>
+    </header>
+
+    <main>
+      <section class="all-trips">
+        <ul id="trip-list"></ul>
+      </section>
+
+      <article class="trip">
+        <ul id="trip-details"></ul>
+        <section class="new-rez">
+          <form id="rez-form">
+          </form>
+        </section>
+      </article>
+    </main>
+  </body>
+</html>
