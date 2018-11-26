@@ -1,4 +1,4 @@
-const URL = 'https://trektravel.herokuapp.com/trips';
+const URL = 'https://trektravel.herokuapp.com/trips/';
 
 // Status Reports
 const reportStatus = (message) => {
@@ -30,7 +30,7 @@ const loadTrips = () => {
       response.data.forEach((trip) => {
         // tripList.append(`<a href="${URL}/${trip.id}" id="trip-button"><li class ="trip-details">${trip.name}</li></a>`);
         tripList.append(`<li class ="trip-details"><a class="trip-button" id=${trip.id}>${trip.name}</a></li>`);
-        tripList.append(`<li>continent: ${trip.continent}, weeks: ${trip.weeks}, category: ${trip.category}</li>`);
+        // tripList.append(`<li>continent: ${trip.continent}, weeks: ${trip.weeks}, category: ${trip.category}</li>`);
       });
     })
     .catch((error) => {
@@ -44,16 +44,17 @@ const loadTrips = () => {
     });
 };
 
-//Toggle trip detail
-const loadDetails = () => {
-  reportStatus('Sending trip data..');
 
-  const DETURL = (`${URL}\\${this.id}`);
+//Toggle trip detail
+const loadDetails = (id) => {
+  reportStatus('Sending trip data..');
+  // const DETURL = (`${URL}\\${this.id}`);
   const tripBlurb = $('#trip-blurb');
-  axios.get(DETURL)
+  axios.get(URL + id)
   .then((response) => {
     reportStatus(`Successfully loaded trip data`);
     // $('#trip-blurb').append(`<p>${response.data.find(x => x.id ==$(this.id)).about}</p>`);
+
       tripBlurb.append(`<p>${response.data.about}</p>`);
 
   });
@@ -63,12 +64,9 @@ const loadDetails = () => {
 ///
 $(document).ready(() => {
   $('#see-trips').click(loadTrips);
-  $('#trip-list').click(loadDetails);
-  // $('#pet-form').submit(createPet);
-
+  // $('#trip-list').click(loadDetails);
   $('#trip-list').on('click', 'li', function() {
-    // $(this).toggle();
-    alert(`Clicked on "${$(this).html()}"`);
+    loadDetails(this.id);
 
 
   });
