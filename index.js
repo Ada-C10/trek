@@ -64,6 +64,7 @@ const submitForm = (event) => {
 
   axios.post(url, tripData)
   .then((response) => {
+    alert(`Successfully reserved trip ${tripName} with id ${tripId} for ${response.data.name}`);
     reportStatus(`Successfully reserved trip ${tripName} with id ${tripId} for ${response.data.name}`);
     $('.trip-form').get()[0].reset();
   })
