@@ -2,3 +2,8 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+/* #reservations {
+  grid-column-start: 2;
+  grid-column-end: 3;
+} */
