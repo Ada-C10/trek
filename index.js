@@ -37,7 +37,7 @@ const loadTrips = () => {
 
 
 const showTrip = (id) => {
-  reportStatus('Loading your next adventure...');
+  // reportStatus('Loading your next adventure...');
 
   const tripInfo = $('.trip-info');
   tripInfo.empty();
@@ -56,16 +56,16 @@ const showTrip = (id) => {
       <li><strong>Cost:</strong> $${trip.cost}</li>
       <p><strong>Details:</strong> ${trip.about}</p>
       `);
-      tripReserveration.append(`<form id="trip-form">
+      tripReserveration.append(`<h2>Reservse Your Trip</h2><form id="trip-form" >
       <input type="hidden" name="tripid" readonly="readonly" value="${trip.id}"/>
       <label for="name">Name</label>
       <input type="text" name="name" /></br>
       <label for="email">Email</label>
       <input type="text" name="email" /></br>
       <label for="trip">Destination</label>
-      <input name="trip" readonly="readonly" value="${trip.name}"/></br>
+      <input type="text" name="trip" readonly="readonly" value="${trip.name}"/></br>
       <input type="submit" name="add-trip" value="Book Trip" />
-      </form>`)
+      </form>`).addClass("form-group");
 
       // Add click handler for reservation form submit
       $("#trip-form").on("submit", function(event) {
@@ -103,7 +103,7 @@ const showTrip = (id) => {
     axios.post(URL + '/' + trip.id + "/reservations", formData)
 
     .then((response) => {
-      reportStatus(`Successfully booked your next adventure to ${response.data.name}!`);
+      reportStatus(`Successfully booked your next adventure to ${response.data.destination}!`);
       clearForm();
     })
     .catch((error) => {
@@ -153,9 +153,19 @@ const showTrip = (id) => {
 
 
   $(document).ready(() => {
+
     $("#load").click(loadTrips);
+
     $('#trip-list').on("click", "a", function() {
-      showTrip(this.id);
+      showTrip(this.id)
     });
-    $('#newtrip-form').submit(createTrip);
-  });
+
+
+    $('#newtrip-form').submit(createTrip); //submit new trip
+
+    $('#add-trip').hide(); //Initially form wil be hidden.
+    $('#btnTrip').click(function() {
+      $('#add-trip').toggle();
+    });
+
+  }); //document ready end

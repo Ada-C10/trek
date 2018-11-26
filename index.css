@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC|Cabin+Sketch|Covered+By+Your+Grace|Lobster+Two|Bungee+Shade|El+Messiri');
 
+body {
+  background-image: url('http://theendlessadventure.co/assets/images/mobile-bg.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+
 main {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -8,20 +16,22 @@ main {
                        'list reservation';
 }
 
-#trip-list {
+.current-trips {
   grid-area: list;
+  padding-right: 10px;
 }
 
-.new-trip {
+.trip-info {
   grid-area: trip;
 }
 
-.reservation {
+#trip-form {
   grid-area: reservation;
 }
-input[name="name"] {
+
+/* input[name="name"] {
   sytle css
-}
+} */
 
 nav {
   background: black;
@@ -29,36 +39,59 @@ nav {
   font-size: 4.5em;
   font-family: 'Cabin Sketch','Amatic SC', cursive;
   color: white;
+  width: auto;
+}
+
+.next-adventure {
+  padding-top: 1em;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 1.5em;
 }
 
 /* Button Style */
 #load {
   font-family: "Bungee Shade";
-  font-size: 1.5em;
+  font-size: 1.75em;
+  border: none;
+  background-color: transparent;
 }
 
 #load:hover {
   font-family: "Bungee Shade";
-  font-size: 1.5em;
-  color: orange;
+  color: blue;
 }
 
 #btnTrip{
   font-family: "Bungee Shade";
-  font-size: 1.5em;
+  font-size: 1.75em;
+  border: none;
+  background-color: transparent;
+
 }
 
 #btnTrip:hover {
   font-family: "Bungee Shade";
-  font-size: 1.5em;
-  color: blue;
+  color: white;
+}
+
+#trip-list:after {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#trip-list > li  {
+  list-style: none;
+  text-decoration: none;
+  font-family: "Cabin Sketch";
+  font-size: 1.25em;
+  letter-spacing: 1.25px;
 }
 
 
-#trip-list {
-  list-style: none;
-  font-family: "Cabin Sketch";
-  font-size: 1.25em;
+#trip-list > li > a {
+  text-decoration: none;
+  color: white;
 }
 
 #trip-list > li > a:hover {
@@ -66,4 +99,83 @@ nav {
   font-family: "Cabin Sketch";
   color: #39ff14;
   font-size: 1.5em;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 1em;
+}
+
+input[type=number], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 1em;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+    color:white;
+    font-size: 1.25em;
+}
+
+input[type=submit] {
+    margin-top: 8px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+.new-trip > h2 {
+  color: white;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+
+.trip-info {
+  padding-top: 8px;
+  font-size: 1.05em;
+  font-family: 'Times';
+
+}
+
+.trip-info > li {
+  list-style: none;
+}
+
+.trip-info > p {
+}
+
+#add-trip {
+  background-color: white;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
 }
