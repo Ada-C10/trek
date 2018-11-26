@@ -17,6 +17,16 @@ const findNumTrips = function(){
     reportStatus('Loading available trips...');
     return response.data
   })
+  .catch((error) => {
+    if (error.response.data && error.response.data.errors) {
+      reportError(
+        `Encountered an error while finding trips: ${error.message}`,
+        error.response.data.errors
+      );
+    } else {
+      reportStatus(`Encountered an error while finding trip: ${error.message}`);
+    }
+  });
 };
 
 const loadRandomTrip = (numTrips) =>{
@@ -29,6 +39,18 @@ const reportStatus = (message) => {
   statusDiv.empty();
   statusDiv.html(message);
 };
+
+const reportError = (message, errors) => {
+  let content = `<p>${message}</p><ul>`;
+  for (const field in errors) {
+    for (const problem of errors[field]) {
+      content += `<li>${field}: ${problem}</li>`;
+    }
+  }
+  content += "</ul>";
+  reportStatus(content);
+};
+
 
 const reloadHome = () => {
   $('body').addClass('static');
@@ -69,7 +91,14 @@ const submitForm = (event) => {
     $('.trip-form').get()[0].reset();
   })
   .catch((error) => {
-    reportStatus(`Encountered an error while reserving this trip: ${error.message}`);
+    if (error.response.data && error.response.data.errors) {
+      reportError(
+        `Encountered an error while reserving this trip: ${error.message}`,
+        error.response.data.errors
+      );
+    } else {
+      reportStatus(`Encountered an error: ${error.message}`);
+    }
   });
 };
 
@@ -125,7 +154,14 @@ const loadTrip = function(tripID) {
     createForm(tripForm);
   })
   .catch((error) => {
-    reportStatus(`Encountered an error while loading trip: ${error.message}`);
+    if (error.response.data && error.response.data.errors) {
+      reportError(
+        `Encountered an error while loading trip: ${error.message}`,
+        error.response.data.errors
+      );
+    } else {
+      reportStatus(`Encountered an error while loading trip: ${error.message}`);
+    }
   });
 }
 
@@ -212,11 +248,11 @@ $(document).ready(() => {
     loadTrips();
   })
 
-//pick random trip via clicking subhading
+  //pick random trip via clicking subhading
   $('body').on('click', '.sub-heading', function(){
     alert(`Feeling lucky?`);
     findNumTrips()
-    .then(data => {
+    .then((data) => {
       loadRandomTrip(data.length);
     });
   })
