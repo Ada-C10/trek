@@ -22,6 +22,7 @@ const findNumTrips = function(){
 const loadRandomTrip = (numTrips) =>{
   const tripId = Math.ceil(Math.random() * (numTrips));
   loadTrip(tripId);
+  alert(`How about trip #${tripId}!`);
 };
 
 const reportStatus = (message) => {
