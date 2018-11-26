@@ -12,9 +12,23 @@ const displayError = (error) => {
   }
 }
 
+const displayFormErrors = (error) => {
+  const formErrors = error.response.data.errors
+  $('.form-errors').empty();
+  for (const field in formErrors) {
+    for (const problem of formErrors[field]) {
+      $('.form-errors').append(`<li>${capitalize(field)}: ${problem}`);
+    }
+  }
+};
+
 const displayNoContentError = (response) => {
   reportStatus(`Request failed with status code ${response.status}: ${response.statusText}.`);
 };
+
+const capitalize = (string) => {
+  return string.replace(/^\w/, c => c.toUpperCase());
+}
 
 const sendGetRequest = (id) => {
   const buildGetRequest = () => {
@@ -56,7 +70,7 @@ const parseIndividualTrip = (tripData, element) => {
   element.append(`<h3>${tripData.name}</h3>`);
   const tripProperties = ['continent', 'category', 'weeks', 'cost']
   tripProperties.forEach((prop) => {
-    let header = prop.replace(/^\w/, c => c.toUpperCase());
+    let header = capitalize(prop);
     element.append(
       `<li>${header}: ${tripData[prop]}</li>`
     )
@@ -104,6 +118,9 @@ const reserveTrip = (event) => {
     })
     .catch((error) => {
         displayError(error);
+        if (error.response.data.errors) {
+          displayFormErrors(error);
+        }
     });
 };
 
