@@ -17,7 +17,7 @@ const displayFormErrors = (error) => {
   $('.form-errors').empty();
   for (const field in formErrors) {
     for (const problem of formErrors[field]) {
-      $('.form-errors').append(`<li>${capitalize(field)}: ${problem}`);
+      $('.form-errors').append(`<p>${capitalize(field)}: ${problem}</p>`);
     }
   }
 };
@@ -58,6 +58,7 @@ const parseGetResponse = (response, callback) => {
 
 const parseTripCollection = (tripData, element) => {
   reportStatus(`Successfully loaded ${tripData.length} trips.`)
+  $('.form-errors').empty();
   tripData.forEach((trip) => {
     element.append(
       `<li><button id="${trip.id}" class="btn btn-outline-secondary btn-block">
@@ -67,6 +68,7 @@ const parseTripCollection = (tripData, element) => {
 
 const parseIndividualTrip = (tripData, element) => {
   reportStatus(`Successfully loaded ${tripData.name}.`)
+  $('.form-errors').empty();
   element.append(`<h3>${tripData.name}</h3>`);
   const tripProperties = ['continent', 'category', 'weeks', 'cost']
   tripProperties.forEach((prop) => {
@@ -113,6 +115,7 @@ const reserveTrip = (event) => {
         displayNoContentError(response);
       } else {
         reportStatus(`Sucessfully reserved! Please save your reservation id: ${response.data.id}`);
+        $('.form-errors').empty();
       }
       $('#reserve-form')[0].reset();
     })
