@@ -39,6 +39,40 @@ const listTrips = () => {
 };
 
 
+const tripsByContinentList = () => {
+  reportStatus("Click on a continent to view trips")
+  const tripList = $('#trip-list');
+  tripList.empty();
+
+  const continents = ['Africa', 'Antarctica', 'Asia', 'Australasia', 'Europe', 'North America', 'South America'];
+
+  tripList.append(
+    continents.forEach((continent) => {
+        tripList.append(`<a class="nav-link" id=${encodeURIComponent(continent)}>${continent}</a>`);
+      })
+  );
+};
+
+
+const showContinentTrips = (continent) => {
+  const tripList = $('#trip-list');
+  tripList.empty();
+  reportStatus(`Viewing ${continent} trips.`)
+  axios.get(`${URL}/continent?query=${continent}`)
+    .then((response) => {
+      reportStatus(`Successfully loaded ${response.data.length} ${decodeURIComponent(continent)} trips`)
+      tripList.append(`<h2 class="card-title list-group-item">${decodeURIComponent(continent)} Trips</h2>`)
+      response.data.forEach((trip) => {
+        tripList.append(`<button class="list-group-item list-group-item-action" id=${trip.id}>${trip.name}</button>`);
+      });
+    })
+    .catch((error) => {
+      reportStatus(error);
+      // console.log(error);
+    });
+  };
+
+
 const showTripDetail = (id) => {
   const tripDetail = $('#trip-detail');
   tripDetail.empty();
@@ -133,4 +167,12 @@ $(document).ready(() => {
   });
 
   $("#reservation-form").submit(createReservation);
+
+  $("#continents").click(tripsByContinentList);
+
+  $("#trip-list").on("click", ".nav-link", function() {
+    const continent = $(this)[0].id;
+    console.log(continent);
+    showContinentTrips(continent);
+  });
 });
