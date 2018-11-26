@@ -158,6 +158,7 @@ const createTrip = (event) => {
 
 const searchTrips = (option) => {
   $('#trip-details-container').hide();
+  $('#search-results-container').hide();
   reportStatus('Searching for trips...', 'info');
 
   const searchData = $(`#${option}-form`).serialize();
