@@ -5,7 +5,6 @@ body {
   background-repeat: no-repeat;
   position: relative;
   background-attachment: fixed;
-
 }
 
 .current-trips {
@@ -15,7 +14,8 @@ body {
   margin: 0;
   background-color: white;
   opacity: 0.8;
-  filter: alpha(opacity=50); /* For IE8 and earlier */
+  filter: alpha(opacity=50);
+
 
 }
 
@@ -31,30 +31,6 @@ body {
     width: 0;
     height: 0;
 
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
 }
 
 input:checked + .slider {
@@ -78,13 +54,33 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
-}
+} */
 
 #trip-list {
   color: red;
 }
 
-#status-message{
+#status-message {
 
   color: white;
+}
+
+#trip-details {
+  width: 320px;
+  padding: 10px;
+  border: 5px solid gray;
+  margin: 0;
+  background-color: white;
+  opacity: 0.8;
+  filter: alpha(opacity=50);
+}
+
+#reserve{
+  width: 320px;
+  padding: 10px;
+  border: 5px solid gray;
+  margin: 0;
+  background-color: white;
+  opacity: 0.8;
+  filter: alpha(opacity=50);
 }
