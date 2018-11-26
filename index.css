@@ -18,12 +18,17 @@ body#background {
   background-size: cover;
 }
 
+
 nav {
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding-bottom: 10px;
   font-family: Economica;
+}
+
+#load-all {
+  padding-bottom: 10px;
 }
 h3 {
   text-decoration: underline;
@@ -42,16 +47,23 @@ h3 {
 
 .trips-section {
   grid-column-start: 1;
+
 }
 
 .details-sec {
   grid-column-start: 2;
 }
+
 .info {
   padding: 5px;
   padding-bottom: 10px;
-  background-color: lightblue;
+  /* background-color: lightblue; */
 }
+
+#displayForm {
+  padding-top: 50px;
+}
+
 
 li {
   padding: 2px;

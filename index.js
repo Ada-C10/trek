@@ -61,7 +61,8 @@ const generateForm = (trip) => {
 
     form.append(`
       <form id="trip-form">
-      <h4><strong>Reserve your spot for ${trip.name} trip</strong></h4>
+      <h4>Reserve your spot for <strong>${trip.name} trip </strong> now by completing this form</h4>
+      <p> </p>
       <div class="form-group">
         <label for="name">Your Name</label>
         <input type="text" class="form-control" name="name" placeholder="Full Name"/>
@@ -112,7 +113,7 @@ const createReservation = (id) => {
       .then((response) => {
         console.log(response);
           clearForm();
-        console.log('I have sent a post request')
+
       })
 
       .catch((error) => {
