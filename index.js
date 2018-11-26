@@ -29,7 +29,7 @@ const loadTrips = () => {
       response.data.forEach((trip) => {
         // tripList.append(`<a href="${URL}/${trip.id}" id="trip-button"><li class ="trip-details">${trip.name}</li></a>`);
         tripList.append(`<li class ="trip-details"><a class="trip-button" id=${trip.id}>${trip.name}</a></li>`);
-
+        tripList.append(`<p>continent: ${trip.continent}, weeks: ${trip.weeks}, category: ${trip.category}</p>`);
       });
     })
     .catch((error) => {
