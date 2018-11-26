@@ -4,7 +4,15 @@ const reportStatus = (message) => {
   $('.status-message').html(message);
 };
 
-const noContentError = (response) => {
+const displayError = (error) => {
+  if (error.response === undefined) {
+    reportStatus(`${error.message}`)
+  } else {
+    reportStatus(`${error.message}: ${error.response.statusText}`);
+  }
+}
+
+const displayNoContentError = (response) => {
   reportStatus(`Request failed with status code ${response.status}: ${response.statusText}.`);
 };
 
@@ -14,14 +22,14 @@ const sendGetRequest = (id) => {
     axios.get(URL + id)
       .then((response) => {
         if (response.status === 204) {
-          noContentError(response);
+          displayNoContentError(response);
         } else {
           let callback = response.data.length ? parseTripCollection : parseIndividualTrip
           parseGetResponse(response, callback)
         }
       })
       .catch((error) => {
-        reportStatus(`${error.message}. Please try your request again.`);
+        displayError(error);
       });
   };
   return buildGetRequest;
@@ -87,11 +95,15 @@ const reserveTrip = (event) => {
 
   axios.post(uri, resFormData)
     .then((response) => {
-      reportStatus(`Sucessfully reserved! Please save your reservation id: ${response.data.id}`);
+      if (response.status === 204) {
+        displayNoContentError(response);
+      } else {
+        reportStatus(`Sucessfully reserved! Please save your reservation id: ${response.data.id}`);
+      }
       $('#reserve-form')[0].reset();
     })
     .catch((error) => {
-      reportStatus(`${error.message}. Please try your request again.`);
+        displayError(error);
     });
 };
 
