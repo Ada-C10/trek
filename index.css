@@ -97,3 +97,14 @@ li {
  line-height: 5em;
  border-top: solid 1px #ffffff;
 }
+
+.error {
+  background-color: #EADEDB;
+  color: #944743;
+}
+ .error li {
+  display: block;
+  border: none;
+  height: 2em;
+  line-height: 2em;
+}
