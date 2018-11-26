@@ -21,6 +21,47 @@ const reportError = (message, errors) => {
 };
 
 
+const getDetails = (trip) => {
+    const tripDetailInfo = $('.trip-details-and-form');
+    tripDetailInfo.append(`
+        <div class="trip-info">
+          <h2>Trip Details</h2>
+          <p>Id: ${trip.id}</p>
+          <p>Name: ${trip.name}</p>
+          <p>Continent: ${trip.continent}</p>
+          <p>Details: ${trip.about}</p>
+          <p>Category: ${trip.category}</p>
+          <p>Weeks: ${trip.weeks}</p>
+          <p>Cost: $${trip.cost}</p>
+        </div>
+      `)
+}
+
+
+const getForm = (trip) => {
+  const tripFormInfo = $('.trip-details-and-form');
+  tripFormInfo.append(`
+    <div class="reserve-trip">
+      <h2>Reserve Trip</h2>
+      <form id="trip-form">
+        <div>
+          <label for="name">Name</label>
+          <input type="text" name="name" placeholder="Your Name" />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="text" name="email" placeholder="Your Email" />
+        </div>
+        <div>
+          <label for="trip-name">Trip Name</label>
+          <input type="text" name="trip-name" value="${trip.name}"/>
+        </div>
+        <input type="submit" name="reserve-trip" value="Reserve Trip" id="reserve-trip-button" class="btn btn-light"/>
+      </form>
+    </div>
+  `)
+}
+
 const buildClickTripDetailsHandler = (trip) => {
   const tripID = trip.id;
 
@@ -40,42 +81,11 @@ const buildClickTripDetailsHandler = (trip) => {
   .then((response) => {
     const tripDetail = $('.trip-info');
     tripDetail.empty();
-
     const tripInfo = response.data;
-    $('.trip-details-and-form').append(`
-        <div class="trip-info">
-          <h2>Trip Details</h2>
-          <p>Id: ${tripInfo.id}</p>
-          <p>Name: ${tripInfo.name}</p>
-          <p>Continent: ${tripInfo.continent}</p>
-          <p>Details: ${tripInfo.about}</p>
-          <p>Category: ${tripInfo.category}</p>
-          <p>Weeks: ${tripInfo.weeks}</p>
-          <p>Cost: $${tripInfo.cost}</p>
-        </div>
-      `);
+    getDetails(tripInfo);
     const tripReservationForm = $('.reserve-trip');
     tripReservationForm.empty();
-    $('.trip-details-and-form').append(`
-      <div class="reserve-trip">
-        <h2>Reserve Trip</h2>
-        <form id="trip-form">
-          <div>
-            <label for="name">Name</label>
-            <input type="text" name="name" placeholder="Your Name" />
-          </div>
-          <div>
-            <label for="email">Email</label>
-            <input type="text" name="email" placeholder="Your Email" />
-          </div>
-          <div>
-            <label for="trip-name">Trip Name</label>
-            <input type="text" name="trip-name" value="${tripInfo.name}"/>
-          </div>
-          <input type="submit" name="reserve-trip" value="Reserve Trip" id="reserve-trip-button" class="btn btn-light"/>
-        </form>
-      </div>
-    `);
+    getForm(tripInfo);
     const clickReservationHandler = buildClickReservationHandler(trip);
     const tripForm = $('#trip-form');
     tripForm.on('submit', clickReservationHandler);
