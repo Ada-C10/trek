@@ -61,6 +61,28 @@ const loadTrips = () => {
         });
 };
 
+const loadRsvs = (tripId) => {
+    // Prep work
+    const rsvList = $('#rsv-list');
+    rsvList.empty();
+
+    // show user what's up, this can go anywhere b/c of async loading
+    reportStatus('Loading reservations...');
+    console.log(URL + tripId + "/reservations")
+    // Actually load the trips
+    axios.get(URL + tripId + "/reservations")
+        .then((response) => {
+            reportStatus(`Successfully loaded ${response.data.length} trips`);
+            response.data.forEach((trip) => {
+                rsvList.append(`<li><a class="trip-info" id="${trip.id}">${trip.name}</a></li>`);
+            });
+        })
+        .catch((error) => {
+            reportStatus(`Encountered an error while loading trips: ${error.message}`);
+            console.log(error);
+        });
+};
+
 const readFormData = (whichForm) => {
     const parsedFormData = $(`${whichForm}`).serialize();
     console.log('parsedFormData');
@@ -153,19 +175,20 @@ const queryFilter = (event, whichSubmit) => {
 };
 
 $(document).ready(() => {
-    $(".rsv-form, .trip-form, .trip-details").hide();
-    $('#load').click(loadTrips);
+    $(".trip-form, .trip-details, .search-forms, #show-title").hide();
+    $('#load, #load2').click(loadTrips);
 
     $('#trip-list').on('click', 'a', function(event){
         console.log(this.id);
         // event.preventDefault();
         $('.trip-details').show();
         loadDetails(this.id);
-        $('.drop-rsv-btn').show();
+        // $('.drop-rsv-btn').show();
         $(".rsv-form").show();
         $("#reservation-form").addClass(`${this.id}`);
+        $("#showReservations").addClass(`${this.id}`);
     });
-
+    // $(".rsv-form").show();
     $('#reservation-form').submit(createRsv);
 
     $('.add-a-trip').on('click', () =>{
@@ -182,8 +205,12 @@ $(document).ready(() => {
         console.log("#search-" + this[0].name);
         let sub = "#search-" + this[0].name;
         queryFilter(event, sub);
-        // $(`#${sub}`).submit(queryFilter);
     });
 
+    $('#showReservations').on('click', function(){
+        $("#show-title").show();
+        let tripId = (this.className);
+        loadRsvs(tripId);
+    });
 
 });
