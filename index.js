@@ -54,11 +54,11 @@ const loadDetails = (id) => {
 
   axios.get(URL + id)
   .then((response) => {
-    reportStatus(`Successfully loaded trip data`);
     // $('#trip-blurb').append(`<p>${response.data.find(x => x.id ==$(this.id)).about}</p>`);
-    response.data.forEach((trip) => {
-      tripBlurb.append(`<p>${trip.about}</p>`);
-    });
+    for (let tripInfo in response.data) {
+      tripBlurb.append(`<li><strong>${tripInfo}</strong>: ${response.data[tripInfo]} </li>`);
+  }
+    reportStatus(`Successfully loaded trip data`);
   });
 };
 
