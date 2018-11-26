@@ -19,9 +19,20 @@ body.static {
 }
 
 body h1 {
-  color: blue;
-  text-decoration: underline;
   padding: 1rem;
+  color: black;
+}
+
+body h1:hover,.sub-heading:hover, .main .main-empty:hover {
+  text-decoration: underline;
+}
+
+.main  .main-empty:hover {
+  color: blue;
+}
+
+body h1:hover,.sub-heading:hover {
+  color: blue;
 }
 
 body h1#home-header {
