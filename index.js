@@ -92,7 +92,6 @@ const showTrip = (id) => {
     });
     $(document).on('submit', '#trip-form', function(event){
       event.preventDefault();
-      // $(`input:hidden`).val()
       reserveTrip($(`input:hidden`).val());
     });
   });
