@@ -1,7 +1,3 @@
-// Error Handling
-// Think about asynchronous stuff
-// DRY up the code
-
 const INDEX_URL = "https://trektravel.herokuapp.com/trips";
 
 const hideDetails = () => {
@@ -30,7 +26,7 @@ const reportError = (message, errors) => {
     }
   }
   content += "</ul>";
-  reportStatus(content);
+  reportStatus(content, 'warning');
 };
 
 const clearForm = (formName) => {
@@ -70,7 +66,6 @@ const loadTrips = () => {
 
   const tripList = $('#trips');
   tripList.empty();
-
   const ul = $('<ul></ul>');
 
   reportStatus('Loading all trips...', 'info');
@@ -164,6 +159,7 @@ const createTrip = (event) => {
 const searchTrips = (option) => {
   $('#trip-details-container').hide();
   reportStatus('Searching for trips...', 'info');
+
   const searchData = $(`#${option}-form`).serialize();
   const query = $(`#${option}-form`).serializeArray();
   const searchList = $('#queries');
