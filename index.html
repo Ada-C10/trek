@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <link rel="stylesheet" href="index.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+  <header>
+    <h1>Welcome to the Trips Page</h1>
+  </header>
+  <section id="status-message"></section>
+
+  <main>
+    <div class="container">
+
+      <div class="triplist">
+
+        <button id="button-load-trips">All Trips</button>
+        <ul id="trip-list"></ul>
+      </div>
+
+      <div class="tripdetail">
+        <ul id="trip-detail"></ul>
+
+        <div class="new-reservation">
+          <form id="addForm">
+            <h1>Add reservation</h1>
+            <div>
+              <label for="name">Name</label>
+              <input type="text" name="name" />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input type="text" name="email" />
+            </div>
+            <input type="submit" name="add-trip" value="Add Trip" />
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+  </footer>
+
+</body>
+</html>

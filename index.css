@@ -1,0 +1,46 @@
+#addForm {
+  display: none;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+}
+
+header {
+  grid-column: 1 / -1;
+  margin-top: 30px;
+}
+
+
+.triplist {
+  grid-column: 1 / 2;
+  grid-row: auto;
+}
+
+
+.tripdetail {
+  grid-column: 2 / -1;
+  grid-row: auto;
+  grid-column-gap: 90px;
+
+}
+
+
+.new-reservation {
+  padding-left: 50px;
+  padding-top: 50px;
+}
+
+
+ul {
+  list-style-type: none;
+}
+
+body {
+  background-image: url("download-1.jpg");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
