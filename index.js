@@ -63,4 +63,56 @@ const URL = 'https://trektravel.herokuapp.com/trips';
     reportStatus(`There was a problem loading the trip: ${error.response.statusText}`);
   });
 };
- 
+
+// Get form data
+ const FORM_FIELDS = ['name', 'email'];
+const inputField = name => $(`#reservation-form input[name="${name}"]`);
+ const getFormData = () => {
+  const getInput = name => {
+    const input = inputField(name).val();
+    return input ? input : undefined;
+  };
+   const formData = {};
+  FORM_FIELDS.forEach((field) => {
+    formData[field] = getInput(field);
+  });
+   return formData;
+};
+ const clearForm = () => {
+  FORM_FIELDS.forEach((field) => {
+    inputField(field).val('');
+  });
+}
+ // Reserve Trip
+ const reserveTrip = (event) => {
+  event.preventDefault();
+  const tripId = $('#trip span').text();
+  const reservationUrl = URL + '/' + tripId + '/reservations';
+  const reservationData = getFormData();
+   reportStatus(`Reserving trip ${tripId}`);
+   axios.post(reservationUrl, reservationData)
+  .then(() => {
+    reportStatus(`Successfully reserved trip ${tripId}.`);
+    clearForm();
+  })
+  .catch((error) => {
+    if (error.response.data && error.response.data.errors) {
+      reportError(`There was an error reserving the trip: ${error}`, error.response.data.errors);
+    } else {
+      reportError(`There was a problem reserving the trip: ${error.response.statusText}.`, null);
+    }
+  });
+ };
+ // Document Ready
+ $(document).ready(() => {
+  $('#display-trips').click(() => {
+    $('#trips-info').show();
+    loadTrips();
+  });
+  $('ul').on('click', 'li', function() {
+    let tripId = $(this).next().text();
+    loadTrip(tripId);
+    $('#trip-info').show();
+  });
+  $('#reservation-form').submit(reserveTrip);
+});
