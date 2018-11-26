@@ -37,33 +37,24 @@ const createForm = (tripDiv) => {
 };
 
 const submitForm = (event) => {
-  console.log(event);
 
   event.preventDefault();
-
-  const tripId= $('.trip-form').get()[0].id;
-  const tripName= $('.trip-form').get()[0].name;
+  const tripId = $('.trip-form').get()[0].id;
+  const tripName = $.parseHTML($('#trip-name').html())[0].textContent;
   const url = baseURL + tripId + "/reservations/";
-  console.log(url);
   const tripData = {
     name: $('input[name="name"]').val(),
     email: $('input[name="email"]').val(),
-
   };
-  console.log(tripData);
 
   reportStatus('Sending trip data...');
 
   axios.post(url, tripData)
   .then((response) => {
-    console.log("here")
     reportStatus(`Successfully reserved trip ${tripName} with id ${tripId} for ${response.data.name}`);
-  $('.trip-form').get()[0].reset();
+    $('.trip-form').get()[0].reset();
   })
   .catch((error) => {
-
-    console.log(tripData)
-    console.log(url)
     reportStatus(`Encountered an error while reserving this trip: ${error.message}`);
   });
 };
@@ -71,7 +62,6 @@ const submitForm = (event) => {
 const loadTrip = function(tripID) {
 
   const savedId = tripID;
-
   $('#trip').empty();
   $('#trip').removeClass();
   $('#trip').addClass('detail');
@@ -110,7 +100,7 @@ const loadTrip = function(tripID) {
     const tripForm = $('.trip-form');
 
     tripShow.append(`<li><strong>Continent: </strong>${response.data.continent}</li>`)
-    tripShow.append(`<li><strong>Name: </strong>${response.data.name}</li><li>${weeks}</li>`);
+    tripShow.append(`<li><strong>Name: </strong><div id="trip-name">${response.data.name}</div></li><li>${weeks}</li>`);
     tripShow.append(`<li><strong>Category: </strong>${response.data.category}</li>`);
     tripShow.append(`<li><strong>Length: </strong>${weeks}</li>`);
     tripShow.append(`<li><strong>Cost: </strong>$${response.data.cost}</li>`);
