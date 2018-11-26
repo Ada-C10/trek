@@ -50,13 +50,15 @@ const loadDetails = (id) => {
   reportStatus('Sending trip data..');
   // const DETURL = (`${URL}\\${this.id}`);
   const tripBlurb = $('#trip-blurb');
+  tripBlurb.empty();
+
   axios.get(URL + id)
   .then((response) => {
     reportStatus(`Successfully loaded trip data`);
     // $('#trip-blurb').append(`<p>${response.data.find(x => x.id ==$(this.id)).about}</p>`);
-
-      tripBlurb.append(`<p>${response.data.about}</p>`);
-
+    response.data.forEach((trip) => {
+      tripBlurb.append(`<p>${trip.about}</p>`);
+    });
   });
 };
 
@@ -65,7 +67,7 @@ const loadDetails = (id) => {
 $(document).ready(() => {
   $('#see-trips').click(loadTrips);
   // $('#trip-list').click(loadDetails);
-  $('#trip-list').on('click', 'li', function() {
+  $('#trip-list').on('click', 'a', function() {
     loadDetails(this.id);
 
 
