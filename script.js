@@ -1,14 +1,28 @@
 // move to its own folder?
 const baseURL = 'https://trektravel.herokuapp.com/trips/';
 let id = 0;
+let post = '1/reservations';
 
 
 const reportStatus = (message) => {
   $('.status-message').html(message);
 }
 
+const reportError = (message, errors) => {
+  let content = `<p>${message}</p>`
+  content += "<ul>";
+  for (const field in errors) {
+    for (const problem of errors[field]) {
+      content += `<li>${field}: ${problem}</li>`;
+    }
+  }
+  content += "</ul>";
+  reportStatus(content);
+};
+
 // --- VIEW ALL TRIPS --- //
 const loadTrips = () => {
+
   reportStatus('Loading trips...')
 
   // wrap up into one function?
@@ -28,13 +42,9 @@ const loadTrips = () => {
 
     });
 
-    // .catch((error) => {
-    //   reportStatus(`Encountered an error while loading trips: ${error.message}`);
-    // });
-
 
     // --- VIEW DETAILS FOR SELECTED TRIP --- //
-    $(`.trip-list *`).click( function(event) {
+    $(`.trip-list *`).click( function() {
       let regex = /p(.+)/
       let selectedTripID = `${$(this).attr('class').split(" ")[0].match(regex)[1]}`
 
@@ -58,33 +68,78 @@ const loadTrips = () => {
           <p>ABOUT: ${tripData.about}</p>
           `);
 
-      reservationForm(tripData)
+          reservationForm(tripData)
         });
 
       });
 
     });
+    // .catch((error) => {
+    //   reportStatus(`Encountered an error while loading trips: ${error.message}`);
+    // });
 
-    // POST RESERVATION FORM //
+  };
 
-    let reservationForm = function reserveTrip(tripData) {
-      let reserveTrip = $('.reserve-trip')
-      // reserveTrip.empty()
+  // POST RESERVATION FORM //
 
-          $('.reserve-trip h3').empty()
-      $('.reserve-trip').prepend('<h3>Reserve Trip</h3>');
+  let reservationForm = function reservationForm(tripData) {
+
+    let reserveTrip = $('.reserve-trip')
+    // reserveTrip.empty()
+
+    $('.reserve-trip h3').empty()
+    $('.reserve-trip').prepend('<h3>Reserve Trip</h3>');
 
 
-      $('form.trip-form').css('visibility', 'visible');
+    $('form.trip-form').css('visibility', 'visible');
 
-const dataa = {
-      name: $('input[name="name"]').attr('placeholder', `Your Name`).val(),
-      email: $('input[name="email"]').attr('placeholder', `Your Email`).val(),
-      tripName: $('input[name="tripName"]').attr('placeholder', `${tripData.name}`).val()
-
-};
+     let reservation = {
+      name: $('input[name="name"]').attr('placeholder', `Your Name`),
+      email: $('input[name="email"]').attr('placeholder', `Your Email`),
+      tripName: $('input[name="tripName"]').attr('placeholder', `${tripData.name}`)
+      // name: $('input[name="name"]').val(),
+      // email: $('input[name="email"]').val(),
+      // tripName: $('input[name="tripName"]').val()
     }
 
+
+
+
+    let postIt = () => {
+      event.preventDefault();
+
+      for (r in reservation) {
+        reservation[r] = reservation[r].val()
+      };
+
+
+
+
+
+
+    axios.post(baseURL+post, reservation)
+    .then((response) => {
+      reportStatus(`Thanks, ${response.data.id}! Successfully reserved your trip.`);
+    })
+    // .catch((error) => {
+    //   reportStatus(`Encountered an error while loading trips: ${error.message}`);
+    // });
+
+
+    .catch((error) => {
+      if (error.response.data && error.response.data.errors) {
+        reportError(
+          `Encountered an error: ${error.message}`,
+          error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error: ${error.message}`);
+      }
+    });
+
+
+};
+$(`.trip-form`).submit(postIt);
   };
 
 
@@ -102,14 +157,16 @@ const dataa = {
   // add full styling in general
 
   // TODO - should finish:
-    // add border styling
+  // add border styling
   // bg image
   // main button - increase size, create custom class for button
   // section headings
   // determine button colors (create custom class for buttons)
-    // fix placement of the functions
+  // fix placement of the functions
+  //trip name --> placeholder ok or real value?
 
 
   // TODO - nice to haves:
   // scroll down to show more / pagination?
   // format key names like NAME or CONTINENT
+  // refactor
