@@ -61,8 +61,8 @@ const loadOneTrip = (id) => {
 
       reportStatus(`Successfully loaded details for  ${response.data.name} trip`);
 
-      oneTrip.append(`<section class="info"><h4>Here is the details for <p>
-        <strong> ${response.data.name}</strong></p></h4>
+      oneTrip.append(`<section class="info"><h3>Here is the details for <p>
+        <strong> ${response.data.name}</strong></p></h3>
         <p><strong>ID:</strong> ${response.data.id}</p>
         <p><strong>Continent:</strong> ${response.data.continent}</p>
         <p><strong>About:</strong> ${response.data.about}</p>
@@ -83,7 +83,6 @@ const generateForm = (trip) => {
   form.append(`
     <form id="trip-form">
     <h4>Reserve your spot for <strong>${trip.name} trip </strong> now by completing this form</h4>
-    <p> </p>
     <div class="form-group">
     <label for="name">Your Name</label>
     <input type="text" class="form-control" name="name" placeholder="Full Name"/>
