@@ -7,8 +7,8 @@
   src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/javascript" src="index.js"></script>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -20,38 +20,56 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-4">
-            <h1>List-o-Trips</h1>
-            <button id="load">Get trips!</button>
-            <ul id="trip-list"></ul>
-          </div>
+          <h1>List-o-Trips</h1>
+          <button id="load">Get trips!</button>
+          <ul id="trip-list"></ul>
+        </div>
+        <div class="col-sm-4">
+          <h3>Journey</h3>
+          <p class="showList">
+            <p>
+
+            </p>
+            <br />
+          </p></div>
           <div class="col-sm-4">
-            <h3>Journey</h3>
-            <p class="showList">
-              <p>
+            <h1>Reserve a trip</h1>
+            <form id="site-form">
+              <div>
+                <label for="name">Name</label>
+                <input type="text" name="name" />
+              </div>
 
-              </p>
-              <br />
-            </p></div>
-            <div class="col-sm-4">
-              <h1>Reserve a trip</h1>
-              <form id="site-form">
-                <div>
-                  <label for="name">Name</label>
-                  <input type="text" name="name" />
-                </div>
-
-                <div>
-                  <label for="email">Email</label>
-                  <input type="string" name="email" />
-                </div>
+              <div>
+                <label for="email">Email</label>
+                <input type="string" name="email" />
+              </div>
 
                 <div>
                   <label for="tripID">Trip name</label>
-                  <input type="text" name="${trip.name}" />
+                  <input type="text" name="tripID" />
                 </div>
 
                 <input type="submit" name="reserve-trip" value="ReserveTrip"/> </form>
               </p>
+              <div class="col-sm-4">
+                <h3>Create a Trip!</h3>
+                <form id="trip-form">
+                  <div>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" />
+                  </div>
+
+                  <div>
+                    <label for="email">Email</label>
+                    <input type="string" name="email" />
+                  </div>
+
+                    <div>
+                      <label for="tripID">Trip name</label>
+                      <input type="text" name="trip-name" />
+                    </div>
+                    <input type="submit" name="create-trip" value="CreateTrip"/> </form>
             </main>
           </body>
           </html>

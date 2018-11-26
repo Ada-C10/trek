@@ -5,4 +5,5 @@ body {
 main {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  padding: 5px;
 }

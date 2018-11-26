@@ -40,7 +40,6 @@ const loadTrips = () => {
         reportStatus(
           `Encountered an error while loading trips: ${error.message}`
         );
-
         console.log(error);
       });
   });
@@ -79,7 +78,7 @@ const readFormData = () => {
   parsedFormData["email"] = emailFromForm ? emailFromForm : undefined;
 
   const tripNameFromForm = $(`#trip-form input[name="trip-name"]`).val();
-  parsedFormData["trip-name"] = tripNameFromForm ? tripNameFromForm : undefined;
+  parsedFormData["showTrip"] = tripNameFromForm ? tripNameFromForm : undefined;
 
   return parsedFormData;
 };
@@ -117,16 +116,36 @@ const reserveTrip = event => {
       }
     });
 };
-// $(function() { //shorthand document.ready function
-//     $('#login_form').on('submit', function(e) { //use on if jQuery 1.7+
-//         e.preventDefault();  //prevent form from submitting
-//         var data = $("#login_form :input").serializeArray();
-//         console.log(data); //use the console for debugging, F12 in Chrome, not alerts
-//     });
-// });
-//
-// OK GO!!!!!
-//
+
+const createTrip = event => {
+  event.preventDefault();
+
+  const tripData = readFormData();
+  console.log(tripData);
+
+  reportStatus("Sending trip data...");
+
+  axios
+    .post(URL, tripData)
+    .then(response => {
+      reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
+      clearForm();
+    })
+    .catch(error => {
+      console.log(error.response);
+      if (error.response.data && error.response.data.errors) {
+        reportError(
+          `Encountered an error: ${error.message}`,
+          error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error: ${error.message}`);
+      }
+    });
+};
+// const trips =
+// ["Cairo to Zanzibar","Everest Base Camp Trek","Golden Triangle""Egypt & Jordan Adventure","Best of New Zealand","Trans-Mongolian Adventure","Sziget Festival Experience", "Dunes, Deltas & Falls","Highlights of Morocco","Local Living Ecuador—Amazon Jungle","Costa Rica Volcanoes & Surfing","Sheepshead World Championships","In Search of Iguassu–Rio to Buenos Aires","Jamaica Encompassed","Antarctica Classic in Depth","Rio de Janeiro Carnival Experience","Kenya & Uganda Gorilla Adventure", "San Diego, Grand Canyon & Vegas","Sin, Surf & Sierras","Historic American Cities by Rail", "Best of Australia","Explore Whitsundays: Solway Lass Tall Ship Sailing","Great Ocean Road - Melbourne to Adelaide", "Ultimate Sydney","Sunnyville ","Blanery Castle","Northern Choice (Auckland to Wellington)","Complete Australia","Remote Northern Lau and Kadavu Discovery Cruise","Local Living Croatia","Whisky Tour from Edinburgh","Clubbing in Bucharest Tour","Hokkaido Winter Festivals","Ancient Empires—Beijing to Tokyo","Cambodia on a Shoestring","Essential India","Northern Hilltribes & Villages","Titanic Journey to New York City","✨✨ Hogwarts Castle Tour ✨✨","Mission to Mars","Mission to Saturn"]
+
 $(document).ready(() => {
   $("#load").click(loadTrips);
   $("#trip-form").submit(reserveTrip);
@@ -134,4 +153,5 @@ $(document).ready(() => {
     console.log("loading trip");
     showTrip(this.id);
   });
+  $("#trip-form").submit(createTrip);
 });
