@@ -61,14 +61,15 @@ const loadOneTrip = (id) => {
 
       reportStatus(`Successfully loaded details for  ${response.data.name} trip`);
 
-      oneTrip.append(`<section class="info"><h3>Here is the details for <p>
-        <strong> ${response.data.name}</strong></p></h3>
+      oneTrip.append(`<section class="info">
+        <h3><strong>Trip Details</strong></h3>
+        <p>Here is the details for <strong> ${response.data.name}</strong></p>
         <p><strong>ID:</strong> ${response.data.id}</p>
         <p><strong>Continent:</strong> ${response.data.continent}</p>
-        <p><strong>About:</strong> ${response.data.about}</p>
         <p><strong>Category:</strong> ${response.data.category}</p>
         <p><strong>Duration:</strong> ${response.data.weeks} week(s)</p>
-        <p><strong>Cost:</strong> $${response.data.cost}</p></section>`);
+        <p><strong>Cost:</strong> $${response.data.cost}</p>
+        <p><strong>Description:</strong> ${response.data.about}</p></section>`);
   })
   .catch((error) => {
     reportStatus(`Encountered an error while loading the trip: ${error.message}`);
@@ -82,7 +83,8 @@ const generateForm = (trip) => {
 
   form.append(`
     <form id="trip-form">
-    <h4>Reserve your spot for <strong>${trip.name} trip </strong> now by completing this form</h4>
+    <h3><strong>Reserve Trip</strong></h3>
+    <p>Reserve your spot for <strong>${trip.name} trip </strong> now by completing this form</p>
     <div class="form-group">
     <label for="name">Your Name</label>
     <input type="text" class="form-control" name="name" placeholder="Full Name"/>
