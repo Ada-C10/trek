@@ -105,24 +105,15 @@ ul {
 .main ul#trip.detail div.trip-form-div, .main ul#trip.detail div.trip-show {
   padding: 10rem 8rem 10rem 8rem;
   align-self: center;
-  /* text-align: center; */
 }
-
-/* ul#trip.detail div.trip-form-div */
 
 div#form-button {
   padding-top: 1rem;
 }
 
-/* width: 10rem; */
-
 div input[name=age] {
    width: 10rem;
 }
-
-/* div input[name=reserve-trip], div input[name=clear-trip]  {
-text-align: center;
-} */
 
 .main #trip.list img {
   max-width: 13rem;
