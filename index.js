@@ -4,13 +4,17 @@ const reportStatus = (message) => {
   $('.status-message').html(message);
 };
 
+const noContentError = (response) => {
+  reportStatus(`Request failed with status code ${response.status}: ${response.statusText}.`);
+};
+
 const sendGetRequest = (id) => {
   const buildGetRequest = () => {
     reportStatus('Loading...');
     axios.get(URL + id)
       .then((response) => {
         if (response.status === 204) {
-          reportStatus(`Request failed with status code ${response.status}: ${response.statusText}.`)
+          noContentError(response);
         } else {
           let callback = response.data.length ? parseTripCollection : parseIndividualTrip
           parseGetResponse(response, callback)
