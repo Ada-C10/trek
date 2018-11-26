@@ -14,6 +14,10 @@ const loadTrips = () => {
       tripList.append(`<li><a href="#" id="${trip.id}">${trip.name}</a></li>`);
     });
     reportStatus(`Successfully loaded all trips`);
+  })
+  .catch((error) => {
+    reportStatus(`Encountered an error while loading trips: ${error.message}`);
+    console.log(error);
   });
 };
 
@@ -45,6 +49,10 @@ const showTrip = (id) => {
       <input type="submit" class="ugly-button" name="reserve-trip" value="Reserve" />
       </form>`)
       reportStatus(`Successfully loaded all trips`);
+    })
+    .catch((error) => {
+      reportStatus(`Encountered an error while loading trip: ${error.message}`);
+      console.log(error);
     });
   };
 
@@ -67,6 +75,10 @@ const showTrip = (id) => {
       reportStatus(`Successfully reserved Trip #${id}!`);
       clearForm();
     })
+    .catch((error) => {
+      reportStatus(`Encountered an error while reserving trip: ${error.message}`);
+      console.log(error);
+    });
   };
 
 
