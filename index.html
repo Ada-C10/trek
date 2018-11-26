@@ -13,7 +13,28 @@
       <section id="display-status">
       </section>
     </header>
-     
+
+    <section id="trips-info" class="hidden">
+      <h2>All Trips</h2>
+      <ul id="all-trips"></ul>
+    </section>
+     <section id="trip-info" class="hidden">
+      <h2>Trip Details</h2>
+       <section id="trip"></section>
+       <section id="reservation">
+        <form id="reservation-form">
+          <div>
+            <input type="text" name="name" placeholder="Name" />
+          </div>
+          <div>
+            <input type="text" name="email" placeholder="Email" />
+          </div>
+          <input type="submit" name="make-reservation" value="Reserve" />
+        </form>
+      </section>
+       <section id="about-trip"></section>
+     </section>
+
     <script
     src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
