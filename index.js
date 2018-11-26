@@ -25,11 +25,9 @@ const loadTrips = () => {
   axios.get(URL)
   .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
-    console.log('loadTrips function');
+
     response.data.forEach((trip) => {
-      let tripId = trip.id;
-      let tripUrl = `https://trektravel.herokuapp.com/trips/${tripId}`;
-      tripList.append(`<li class = "test"><a href = ${tripUrl}>${trip.name}</a></li><li>${trip.id}</li><li>${tripUrl}</li><li><button class = "button" id = ${trip.id}>Get Trip Info!</button></li>`);
+      tripList.append(`<li>${trip.name}<br><button class = "button" id = ${trip.id}>Get Trip Info!</button></li><br><br>`);
     });
 
   })
@@ -39,6 +37,7 @@ const loadTrips = () => {
   });
 
 };
+
 
 const showTrip = (id) => {
 
@@ -62,11 +61,13 @@ const showTrip = (id) => {
 
 
 const showReservationForm = (tripId) => {
+
   const reservationForm = $('#reservations');
 
   reservationForm.append(`<h2>Reserve Your Spot!</h2>`);
+
   reservationForm.append(`
-    <form id="reservation-form">
+    <form id="reservation-form" class="${tripId}">
     <div>
     <label for="name">Your Name</label>
     <input type="text" name="name" />
@@ -81,7 +82,6 @@ const showReservationForm = (tripId) => {
     </form>
     `)
 };
-
 
 
 
@@ -104,11 +104,11 @@ const clearForm = () => {
 }
 
 
-const createReservation = (event, tripId) => {
-  event.preventDefault();
+const createReservation = (tripId) => {
 
   const reservationData = readFormData();
   console.log(reservationData);
+  console.log(tripId);
 
   const URL3 = `https://trektravel.herokuapp.com/trips/${tripId}/reservations`;
   console.log(URL3);
@@ -140,13 +140,17 @@ $(document).ready(() => {
   $('#trips').click(loadTrips);
 
   $('#trip-list').on('click', '.button', function() {
+    $( 'h2' ).remove();
+    $( '#reservation-form' ).remove();
     let newId = $(this).attr('id');
     showTrip(newId);
+    // $('#reservation-form').submit(createReservation);
     // $(`#reservations`).show();
   });
 
-  $('#reservation-form').on('submit', '.button', function() {
-    let tripId = $(this).attr('id');
+  $('#reservations').on('submit', 'form', function(event) {
+    let tripId = $(this).attr('class');
+    event.preventDefault();
     createReservation(tripId);
   });
 
