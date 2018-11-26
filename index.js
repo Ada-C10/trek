@@ -116,17 +116,43 @@ const reserveTrip = event => {
       }
     });
 };
+const tripFormData = () => {
+  const parsedTripFormData = {};
+
+  const tripNameFromForm = $(`#new-trip-form input[name="trip-name"]`).val();
+  parsedTripFormData["trip-name"] = tripNameFromForm
+    ? tripNameFromForm
+    : undefined;
+
+  const continentFromForm = $(`#new-trip-form input[name="continent"]`).val();
+  parsedTripFormData["email"] = continentFromForm
+    ? continentFromForm
+    : undefined;
+
+  const aboutFromForm = $(`#new-trip-form input[name="about"]`).val();
+  parsedTripFormData["about"] = aboutFromForm ? aboutFromForm : undefined;
+
+  const categoryFromForm = $(`#new-trip-form input[name="about"]`).val();
+  parsedTripFormData["about"] = categoryFromForm ? categoryFromForm : undefined;
+
+  const weeksFromForm = $(`#new-trip-form input[name="weeks"]`).val();
+  parsedTripFormData["weeks"] = weeksFromForm ? weeksFromForm : undefined;
+
+  const costFromForm = $(`#new-trip-form input[name="cost"]`).val();
+  parsedTripFormData["cost"] = costFromForm ? costFromForm : undefined;
+  return parsedTripFormData;
+};
 
 const createTrip = event => {
   event.preventDefault();
 
-  const tripData = readFormData();
-  console.log(tripData);
+  const newTripData = readFormData();
+  console.log(newTripData);
 
   reportStatus("Sending trip data...");
 
   axios
-    .post(URL, tripData)
+    .post(URL, newTripData)
     .then(response => {
       reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
       clearForm();
@@ -153,5 +179,5 @@ $(document).ready(() => {
     console.log("loading trip");
     showTrip(this.id);
   });
-  $("#trip-form").submit(createTrip);
+  $("#new-trip-form").submit(createTrip);
 });
