@@ -1,0 +1,80 @@
+.jumbotron {
+  font-family: 'Arvo', serif;
+  height: 75rem;
+  background: no-repeat center center fixed;
+  background-size: cover;
+}
+
+#status-message {
+  padding: 2rem;
+  color: white;
+  font-weight: bold;
+}
+
+.container {
+  padding-top: 2rem;
+}
+
+.trip-btn {
+  padding: 2rem;
+}
+
+.list-trips {
+  padding: 2rem;
+  background-color: white;
+  opacity: 0.75;
+  height: 48rem;
+  overflow-y: scroll;
+}
+
+.trip:hover {
+  font-weight: bold;
+}
+
+.trip-details {
+  padding: 2rem;
+  margin-bottom: 1rem;
+  height: 30rem;
+  background-color: white;
+  opacity: 0.75;
+  overflow-y: scroll;
+}
+
+.trip-reservation {
+  padding: 2rem;
+  height: 17rem;
+  background-color: white;
+  opacity: 0.85;
+}
+
+input[type="submit"] {
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+input[type="text"] {
+  font-weight: bold;
+  margin: 1rem;
+
+}
+
+input[type="text"]:hover {
+  font-weight: bold;
+}
+
+
+.trek-title {
+  padding: 1rem;
+  color: white;
+  font-family: 'Caveat Brush', cursive;
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+.info {
+  color: blue;
+}
+
+footer {
+  font-family: 'Arvo', serif;
+}
