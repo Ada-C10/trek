@@ -1,0 +1,67 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.header-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header-title h1 {
+  font-family: 'Rock Salt', cursive;
+  font-size: 70px;
+  padding-bottom: 3rem;
+}
+
+body {
+  background-image: url('abyss.jpg');
+  background-size: cover;
+  color: white;
+  font-family: 'Fauna One', serif;
+}
+
+ul#trip-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#status-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+  text-align: center;
+}
+
+
+input {
+  color: black;
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  color: black;
+}
+
+.trip-details-and-form {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0;
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-bottom: 10%;
+  text-align: justify;
+}
+
+.trip-info {
+  margin-right: 5rem;
+}
