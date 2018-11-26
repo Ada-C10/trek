@@ -27,8 +27,8 @@ body h1:hover,.sub-heading:hover, .main .main-empty:hover {
   text-decoration: underline;
 }
 
-.main  .main-empty:hover {
-  color: blue;
+.main .main-empty:hover {
+  color: yellow;
 }
 
 body h1:hover,.sub-heading:hover {
