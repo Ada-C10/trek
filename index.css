@@ -108,3 +108,16 @@ li {
   height: 2em;
   line-height: 2em;
 }
+
+@media only screen and (max-width: 820px) {
+
+    #trips-info {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      height: 44vh;
+    }
+    #trip-info {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+}
