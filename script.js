@@ -1,12 +1,11 @@
-// move to its own folder?
+// --- RE-USABLE ---//
 const baseURL = 'https://trektravel.herokuapp.com/trips/';
 let id = 0;
 let post = '1/reservations';
 
-
 const reportStatus = (message) => {
   $('.status-message').html(message);
-}
+};
 
 const reportError = (message, errors) => {
   let content = `<p>${message}</p>`
@@ -34,7 +33,7 @@ const loadTrips = () => {
   .then((response) => {
 
     reportStatus(`All ${response.data.length} trips.`)
-    $(tripList).append(`<h3>All Trips</h3>`);
+    $(tripList).html(`<h3>All Trips</h3>`);
     response.data.forEach((trip) => {
       id = trip.id;
       $(tripList).append(`<button class="trip${id} btn btn-info">${trip.name}</button>`);
@@ -44,7 +43,7 @@ const loadTrips = () => {
 
 
     // --- VIEW DETAILS FOR SELECTED TRIP --- //
-    $(`.trip-list *`).click( function() {
+    let loadTripDetails = function loadTripDetails() {
       let regex = /p(.+)/
       let selectedTripID = `${$(this).attr('class').split(" ")[0].match(regex)[1]}`
 
@@ -57,7 +56,7 @@ const loadTrips = () => {
         // reportStatus(`Trip ${tripData.id}`)
         regexMoney = /\d(?=(\d{3})+\.)/g
 
-        $(tripDetails).append(`
+        $(tripDetails).html(`
           <h3>Trip Details</h3>
           <p>TRIP ID: ${tripData.id}</p>
           <p>NAME: ${tripData.name}</p>
@@ -68,57 +67,61 @@ const loadTrips = () => {
           <p>ABOUT: ${tripData.about}</p>
           `);
 
-          reservationForm(tripData)
-        });
 
-      });
+
+
+          reservationForm(tripData)
+
+        });
+        // .catch((error) => {
+        //       reportStatus(`Encountered an error while loading trips: ${error.message}`);
+        //     });
+
+      };
+$(`.trip-list *`).click(loadTripDetails)
 
     });
-    // .catch((error) => {
-    //   reportStatus(`Encountered an error while loading trips: ${error.message}`);
-    // });
+
 
   };
 
   // POST RESERVATION FORM //
 
   let reservationForm = function reservationForm(tripData) {
+    $('form').off()
+
 
     let reserveTrip = $('.reserve-trip')
-    // reserveTrip.empty()
-
-    $('.reserve-trip h3').empty()
-    $('.reserve-trip').prepend('<h3>Reserve Trip</h3>');
-
-
+    // (reserveTrip).empty()
     $('form.trip-form').css('visibility', 'visible');
+            // $('form h3').empty();
+        // $(`.reserve-trip h3`).empty();
+
+
+
 
      let reservation = {
       name: $('input[name="name"]').attr('placeholder', `Your Name`),
       email: $('input[name="email"]').attr('placeholder', `Your Email`),
       tripName: $('input[name="tripName"]').attr('placeholder', `${tripData.name}`)
-      // name: $('input[name="name"]').val(),
-      // email: $('input[name="email"]').val(),
-      // tripName: $('input[name="tripName"]').val()
     }
+
 
 
 
 
     let postIt = () => {
       event.preventDefault();
+      $('form.trip-form').css('visibility', 'hidden');
 
       for (r in reservation) {
         reservation[r] = reservation[r].val()
       };
 
 
-
-
-
-
     axios.post(baseURL+post, reservation)
     .then((response) => {
+
       reportStatus(`Thanks, ${response.data.id}! Successfully reserved your trip.`);
     })
     // .catch((error) => {
@@ -139,7 +142,8 @@ const loadTrips = () => {
 
 
 };
-$(`.trip-form`).submit(postIt);
+
+$(`form`).submit(postIt);
   };
 
 

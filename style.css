@@ -5,3 +5,7 @@ form.trip-form {
   visibility: hidden;
 
 }
+
+span.strong {
+  font-weight: bold;
+}
