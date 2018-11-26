@@ -1,5 +1,4 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
-const URL2 = `https://trektravel.herokuapp.com/trips/1`;
 
 
 const reportStatus = (message) => {
@@ -26,31 +25,32 @@ const loadTrips = () => {
   axios.get(URL)
   .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
-    console.log('test');
+    console.log('loadTrips function');
     response.data.forEach((trip) => {
       let tripId = trip.id;
       let tripUrl = `https://trektravel.herokuapp.com/trips/${tripId}`;
-      tripList.append(`<li class = "test"><a href = ${tripUrl}>${trip.name}</a></li><li>${trip.id}</li><li>${tripUrl}</li><li><button id = "trip">Get Trip Info!</button></li>`);
+      tripList.append(`<li class = "test"><a href = ${tripUrl}>${trip.name}</a></li><li>${trip.id}</li><li>${tripUrl}</li><li><button class = "button" id = ${trip.id}>Get Trip Info!</button></li>`);
     });
+
   })
   .catch((error) => {
     reportStatus(`Encountered an error: ${error.message}`);
     console.log(error);
   });
+
 };
 
-const showTrip = () => {
+const showTrip = (id) => {
   const tripInfo = $('#tripTable');
   tripInfo.empty();
 
+  const URL2 = `https://trektravel.herokuapp.com/trips/${id}`;
 
   axios.get(URL2)
   .then((response) => {
-    // console.log('test2');
 
     Object.keys(response.data).forEach((key) => {
       tripInfo.append(`<tr><th>${key}</th><td>${response.data[key]}</td>`);
-      console.log(key, response.data[key]);
     });
 
   })
@@ -60,6 +60,9 @@ const showTrip = () => {
 $(document).ready(() => {
   $('#trips').click(loadTrips);
 
-  $('#trip-list').on('click', '#trip', showTrip);
+  $('#trip-list').on('click', '.button', function() {
+    let newId = $(this).attr('id');
+    showTrip(newId);
+  });
 
 });
