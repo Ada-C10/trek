@@ -14,11 +14,11 @@ const loadTrips = () => {
   axios.get(BaseURL)
   .then((response) => {
 
-    title = $(`<h3>List of trips</h3>`);
+    title = $(`<h3><strong>List of trips</strong></h3>`);
     tripList.append(title);
 
     response.data.forEach((trip) => {
-      const singleTrip = $(`<li class="${trip.id}" class="list-group-item">${trip.name}</li>`)
+      const singleTrip = $(`<li class="${trip.id}" class="list-group-item"><strong>${trip.name}</strong></li>`)
       tripList.append(singleTrip);
 
       // call the load one trip function to pass in the trip id so that at a click it will show the trip detail and the form to reserve it
@@ -43,14 +43,14 @@ const loadOneTrip = (id) => {
     axios.get(BaseURL + '/'+ id)
     .then((response) => {
 
-      oneTrip.append(`<h3>Trip Details</h3>
-        <h4><strong>Name: </strong>${response.data.name}</h4>
+      oneTrip.append(`<section class="info"><h4>Here is the details for <p>
+        <strong> ${response.data.name}</strong></p></h4>
         <p><strong>ID:</strong> ${response.data.id}</p>
         <p><strong>Continent:</strong> ${response.data.continent}</p>
         <p><strong>About:</strong> ${response.data.about}</p>
         <p><strong>Category:</strong> ${response.data.category}</p>
         <p><strong>Duration:</strong> ${response.data.weeks} week(s)</p>
-        <p><strong>Cost:</strong> $${response.data.cost}</p>`);
+        <p><strong>Cost:</strong> $${response.data.cost}</p></section>`);
   });
 };
 
@@ -61,20 +61,18 @@ const generateForm = (trip) => {
 
     form.append(`
       <form id="trip-form">
-      <h4>Reserve your spot for ${trip.name} trip</h4>
+      <h4><strong>Reserve your spot for ${trip.name} trip</strong></h4>
       <div class="form-group">
         <label for="name">Your Name</label>
         <input type="text" class="form-control" name="name" placeholder="Full Name"/>
-        <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
       </div>
 
       <div class="form-group">
         <label for="email">Email Address</label>
         <input type="text" class="form-control" name="email" placeholder="Email Address" />
-        <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
       </div>
 
-      <input type="submit" name="reserve" value="Reserve" />
+      <input type="submit" name="reserve" value="Reserve" type="button" class="btn btn-primary btn-lg"/>
       </form>`);
 
       const reserve = (event) => {

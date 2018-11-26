@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Trek Travel</title>
+<head>
+  <meta charset="utf-8">
+  <title>Trek Travel</title>
 
-   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-   <script type="text/javascript" src="index.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
 
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-   <link rel="stylesheet" href="index.css">
-  </head>
-  <body id="background">
-    <header>
-      <h1></h1>
-      <nav>
-        <ul></ul>
-      </nav>
-    </header>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body id="background">
+  <header>
+    <nav>
+      <h1>Welcome to Trek - What's your next destination?</h1>
+    </nav>
+  </header>
 
-    <main>
-      <section class="trips-section">
-        <button id="load-all" type="button" class="btn btn-primary btn-lg btn-block">Press Me to Get Available Trips</button>
-        <div class="card" style="width: 40rem;">
-        <h1 id="title"></h1>
-        <ul id="trip-list" class="list-group list-group-flush"></ul>
+  <main>
+    <div class="container">
+      <button id="load-all" type="button" class="btn btn-primary btn-lg btn-block">Press Me to Get Available Trips</button>
+      <div class="trip-info">
+
+
+        <section class="trips-section">
+          <div class="card" style="width: 40rem;">
+            <h1 id="title"></h1>
+            <ul id="trip-list" class="list-group list-group-flush"></ul>
+          </div>
+        </section>
+        <section class="details-sec">
+
+        <section id="one-trip"></section>
+
+        <section id="displayForm"></section>
+      </section>
       </div>
-      </section>
+    </div>
+  </main>
 
-      <section id="one-trip">
-
-      </section>
-
-      <section id="displayForm">
-
-      </section>
-
-
-    </main>
-
-    <footer>
-    </footer>
-
-  </body>
+  <footer class="footer">
+    <p>Customer Care  |  Privacy Policy  |  Terms of Service</p>
+    <p> 2018 SEM Ltd. All Rights Reserved</p>
+  </footer>
+</body>
 </html>

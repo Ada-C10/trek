@@ -1,28 +1,73 @@
-
+@import url('http://fonts.googleapis.com/css?family=Special+Elite');
+@import url('http://fonts.googleapis.com/css?family=Economica');
+body {
+  font-family: SpecialElite;
+  color: black;
+  text-align: center
+  padding: 0;
+  margin: 0;
+  bottom: 0;
+  font-size: 18px;
+}
 
 body#background {
-  background: url("https://nancieteresa.files.wordpress.com/2015/01/grunge-travel-background-239421341.jpg") no-repeat center center fixed;
+  background: url("https://pngimage.net/wp-content/uploads/2018/06/travel-background-png-2.png") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
 
-/* body {
-  background-image: url("http://www.coastalfamilyhealth.com.au/wp-content/uploads/2018/04/coastal-family-health-travel-clinic.jpg");
-  background-repeat: no-repeat;
-} */
-
-.card {
-  padding-left: 10px;
-  background-color: seashell;
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 10px;
+  font-family: Economica;
+}
+h3 {
+  text-decoration: underline;
 }
 
+.card ul{
+  padding-left: 1px;
+  list-style-type: none;
+
+}
+
+.trip-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+}
 
 .trips-section {
-  font-size: 15px;
+  grid-column-start: 1;
+}
+
+.details-sec {
+  grid-column-start: 2;
+}
+.info {
+  padding: 5px;
+  padding-bottom: 10px;
+  background-color: lightblue;
 }
 
 li {
   padding: 2px;
+}
+
+footer{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 15px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(38, 38, 38);
+  color: White;
+}
+
+footer p {
+  color: white;
 }
