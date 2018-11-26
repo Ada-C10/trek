@@ -2,19 +2,15 @@
   display: none;
 }
 
-
-
 .container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
 }
 
-
-
 header {
   grid-column: 1 / -1;
-  background-color: yellow;
+  margin-top: 30px;
 }
 
 
@@ -23,10 +19,6 @@ header {
   grid-row: auto;
 }
 
-ul: hover {
-  background-color: yellow;
-
-}
 
 .tripdetail {
   grid-column: 2 / -1;
@@ -46,7 +38,9 @@ ul {
   list-style-type: none;
 }
 
-
 body {
-  background-color: blue;
+  background-image: url("download-1.jpg");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
