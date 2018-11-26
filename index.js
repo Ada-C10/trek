@@ -48,15 +48,15 @@ const showTrip = (id) => {
   axios.get(URL + "/" + id)
   .then((response) => {
     let trip = response.data
-    tripInfo.append(`<li><strong>Reference Number:</strong> ${trip.id}</li>
-      <li><strong>Destination:</strong> ${trip.name}</li>
+    tripInfo.append(`<h2>${trip.name}</h2><li><strong>Reference Number:</strong> ${trip.id}</li>
       <li><strong>Category:</strong> ${trip.category}</li>
       <li><strong>Continent:</strong> ${trip.continent}</li>
       <li><strong>Weeks:</strong> ${trip.weeks}</trip>
-      <li><strong>Cost:</strong> $${trip.cost}</li>
+      <li><strong>Cost:</strong> $${trip.cost.toFixed(2)}</li>
       <p><strong>Details:</strong> ${trip.about}</p>
       `);
-      tripReserveration.append(`<h2>Reservse Your Trip</h2><form id="trip-form" >
+      tripReserveration.append(`<h2>Reservse Your Trip</h2>
+      <form id="trip-form">
       <input type="hidden" name="tripid" readonly="readonly" value="${trip.id}"/>
       <label for="name">Name</label>
       <input type="text" name="name" /></br>
@@ -91,7 +91,7 @@ const showTrip = (id) => {
   };
 
   const clearForm = () => {
-  $("#trip-form")[0].reset();
+    $("#trip-form")[0].reset();
   }
 
   const reserveTrip = (trip) => {
@@ -154,18 +154,30 @@ const showTrip = (id) => {
 
   $(document).ready(() => {
 
-    $("#load").click(loadTrips);
+    $("#load").click(loadTrips).show();
 
-    $('#trip-list').on("click", "a", function() {
-      showTrip(this.id)
+    $("#load").on("click", loadTrips, function() {
+      $('#trip-list').toggle();
+      $(".trip-info").hide();
+      $(".new-trip").hide();
     });
 
+    $('#trip-list').on("click", "a", function() {
+      showTrip(this.id);
+      $(".trip-info").css("background-color", "white").css('opacity', '0.75');
+      $('#add-trip').hide();
+      $(".trip-info").show();
+      $(".new-trip").show();
+    });
 
-    $('#newtrip-form').submit(createTrip); //submit new trip
+    $('#newtrip-form').submit(createTrip);
 
     $('#add-trip').hide(); //Initially form wil be hidden.
     $('#btnTrip').click(function() {
+      $('#add-trip').css("background-color", "white").css('opacity', '0.85');
       $('#add-trip').toggle();
+      $(".trip-info").hide();
+      $(".new-trip").hide();
     });
 
   }); //document ready end

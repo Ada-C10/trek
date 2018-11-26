@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Cabin+Sketch|Covered+By+Your+Grace|Lobster+Two|Bungee+Shade|El+Messiri');
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Cabin+Sketch|Covered+By+Your+Grace|Lobster+Two|Bungee+Shade|El+Messiri|Source+Sans+Pro');
 
 body {
   background-image: url('http://theendlessadventure.co/assets/images/mobile-bg.jpg');
@@ -43,10 +43,10 @@ nav {
 }
 
 .next-adventure {
-  padding-top: 1em;
+  padding-top: 2em;
   display: flex;
   justify-content: space-around;
-  padding-bottom: 1.5em;
+  padding-bottom: 3em;
 }
 
 /* Button Style */
@@ -72,7 +72,7 @@ nav {
 
 #btnTrip:hover {
   font-family: "Bungee Shade";
-  color: white;
+  color: blue;
 }
 
 #trip-list:after {
@@ -127,12 +127,12 @@ input[type=number], select, textarea {
 label {
     padding: 12px 12px 12px 0;
     display: inline-block;
-    color:white;
-    font-size: 1.25em;
+    font-size: 1.15em;
+    font-family: "Cabin Sketch";
 }
 
 input[type=submit] {
-    margin-top: 8px;
+    margin-top: 20px;
     background-color: #4CAF50;
     color: white;
     padding: 12px 20px;
@@ -143,8 +143,20 @@ input[type=submit] {
 }
 
 .new-trip > h2 {
-  color: white;
+  font-family: "Bungee Shade";
+  font-size: 1.75em;
+  color: bold black;
+  text-transform: uppercase;
 }
+
+
+
+#trip-form > label {
+  color: white;
+  text-transform: uppercase;
+  font-family: "Cabin Sketch";
+}
+
 
 input[type=submit]:hover {
     background-color: #45a049;
@@ -162,20 +174,35 @@ input[type=submit]:hover {
 .trip-info {
   padding-top: 8px;
   font-size: 1.05em;
-  font-family: 'Times';
+  font-family:
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 10px;
+}
 
+.trip-info > h2 {
+  font-family: "Cabin Sketch";
+  font-size: 1.5em;
+  text-align: center;
 }
 
 .trip-info > li {
   list-style: none;
+
 }
 
-.trip-info > p {
+#newtrip-form > label {
+  font-family: "Cabin Sketch";
 }
 
 #add-trip {
   background-color: white;
-  padding-right: 10px;
-  padding-left: 10px;
-  padding-bottom: 10px;
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-bottom: 15px;
+  padding-top: 5px;
+}
+
+#add-trip > h2 {
+  font-family: "Cabin Sketch";
 }
