@@ -1,0 +1,35 @@
+
+ body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+}
+ #top-nav {
+  min-height: 20px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+ #trips-info {
+  height: 80vh;
+  overflow: scroll;
+  min-width: 400px;
+}
+ #trip-info {
+  min-width: 400px;
+}
+ #trip, #reservation, #about-trip {
+  padding: 0 1em;
+}
+ #trip {
+  height: 25vh;
+}
+ #reservation {
+  height: 5vh;
+}
+ #about-trip {
+  height: 30vh;
+  overflow: scroll;
+}
+
+ 
