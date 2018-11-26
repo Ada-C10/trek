@@ -1,4 +1,3 @@
-// Work on Search! (3 buttons - can only search for one at a time)
 // Error Handling
 // Think about asynchronous stuff
 // DRY up the code
@@ -14,11 +13,24 @@ const hideDetails = () => {
   $('#new-trip-container').hide();
 };
 
+
 const reportStatus = (message, status) => {
   $('#alert').removeClass();
   $('#alert').addClass(`alert alert-${status}`);
   $('#status-message').html(message);
   $('#alert-container').show();
+};
+
+const reportError = (message, errors) => {
+  let content = `<p>${message}</p>`
+  content += "<ul>";
+  for (const field in errors) {
+    for (const problem of errors[field]) {
+      content += `<li>${field}: ${problem}</li>`;
+    }
+  }
+  content += "</ul>";
+  reportStatus(content);
 };
 
 const clearForm = (formName) => {
@@ -30,7 +42,7 @@ const readFormData = (formName) => {
   let formData = $(`${formName}`).serializeArray();
 
   for(let field of formData){
-    parsedFormData[`${field.name}`] = field.value
+    parsedFormData[`${field.name}`] = field.value;
   }
 
   return parsedFormData;
@@ -77,7 +89,7 @@ const loadTrips = () => {
       reportStatus(`Successfully loaded ${response.data.length} trips.`, 'success');
     })
     .catch((error) => {
-      reportStatus(`Could not load. ${error}.`, 'warning');
+      reportStatus(`Encountered an error: ${error}.`, 'warning');
     });
 };
 
@@ -96,7 +108,7 @@ const loadTripDetails = (event) => {
       reportStatus(`Successfully loaded ${response.data.name}.`, 'success');
     })
     .catch((error) => {
-      reportStatus(`Could not load. Error: ${error}.`, 'warning');
+      reportStatus(`Encountered an error: ${error}.`, 'warning');
     });
 };
 
@@ -117,18 +129,15 @@ const createReservation = (event) => {
       clearForm("#trip-form");
     })
     .catch((error) => {
-      console.log(error.response);
-      // if (error.response.data && error.response.data.errors) {
-      //   // User our new helper method
-      //   reportError(
-      //     `Encountered an error: ${error.message}`,
-      //     error.response.data.errors
-      //   );
-      // } else {
-      //   // This is what we had before
-      //   reportStatus(`Encountered an error: ${error.message}`);
-      // }
-    })
+      if (error.response.data && error.response.data.errors) {
+        reportError(
+          `Encountered an error: ${error.message}`,
+          error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error: ${error.message}`);
+      }
+    });
 };
 
 const createTrip = (event) => {
@@ -141,13 +150,18 @@ const createTrip = (event) => {
       clearForm("#create-form");
     })
     .catch((error) => {
-      console.log(error.message);
-      // reportStatus(`Encountered an error: ${error.message}`);
+      if (error.response.data && error.response.data.errors) {
+        reportError(
+          `Encountered an error: ${error.message}`,
+          error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error: ${error.message}`);
+      }
     });
 };
 
 const searchTrips = (option) => {
-  $('#search-results-container').show();
   $('#trip-details-container').hide();
   reportStatus('Searching for trips...', 'info');
   const searchData = $(`#${option}-form`).serialize();
@@ -160,17 +174,22 @@ const searchTrips = (option) => {
 
   axios.get(url)
     .then((response) => {
-      response.data.forEach((trip) => {
-        const li = $('<li></li>');
-        const a = $(`<a>${trip.name}</a>`);
-        a.attr('href', `https://trektravel.herokuapp.com/trips/${trip.id}`);
-        a.data('id', trip.id);
-        li.append(a);
-        ul.append(li);
-      });
-      searchList.append(ul);
-      reportStatus(`Successfully loaded ${response.data.length} trips.`, 'success');
-      $('#search-results-container h4').html(`Search Results [${option}: ${query[0].value}]`);
+      if (response.data !== "") {
+        response.data.forEach((trip) => {
+          const li = $('<li></li>');
+          const a = $(`<a>${trip.name}</a>`);
+          a.attr('href', `https://trektravel.herokuapp.com/trips/${trip.id}`);
+          a.data('id', trip.id);
+          li.append(a);
+          ul.append(li);
+        });
+        searchList.append(ul);
+        reportStatus(`Successfully loaded ${response.data.length} trips.`, 'success');
+        $('#search-results-container h4').html(`Search Results [${option}: ${query[0].value}]`);
+        $('#search-results-container').show();
+      } else {
+        reportStatus(`Could not find. Please search again.`, 'warning');
+      }
       clearForm(`#${option}-form`);
     })
     .catch((error) => {
