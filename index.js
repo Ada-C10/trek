@@ -22,7 +22,6 @@ const findNumTrips = function(){
 const loadRandomTrip = (numTrips) =>{
   const tripId = Math.ceil(Math.random() * (numTrips));
   loadTrip(tripId);
-  alert(`How about trip #${tripId}!`);
 };
 
 const reportStatus = (message) => {
@@ -214,6 +213,7 @@ $(document).ready(() => {
 
 //pick random trip via clicking subhading
   $('body').on('click', '.sub-heading', function(){
+    alert(`Feeling lucky?`);
     findNumTrips()
     .then(data => {
       loadRandomTrip(data.length);
