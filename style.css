@@ -1,9 +1,39 @@
 /* move to its own folder? */
 /* bootstrap it???!!!! */
 
-form.trip-form {
-  visibility: hidden;
+body {
+  background-image: url('venice.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+h3 {
+  background-color: #ffffff;
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.btn-group-lg {
+  margin: 0;
+}
+
+.reserve-trip, .trip-details {
+  border: 1px #000000 solid;
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+
+.reserve-trip, .trip-details {
+  visibility: hidden;
 }
 
 span.strong {

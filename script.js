@@ -44,11 +44,14 @@ const loadTrips = () => {
 
     // --- VIEW DETAILS FOR SELECTED TRIP --- //
     let loadTripDetails = function loadTripDetails() {
+
       let regex = /p(.+)/
       let selectedTripID = `${$(this).attr('class').split(" ")[0].match(regex)[1]}`
 
       let tripDetails = $('.trip-details')
       tripDetails.empty()
+
+      tripDetails.css('visibility', 'visible');
 
       axios.get(baseURL+selectedTripID)
       .then((response) => {
@@ -58,13 +61,13 @@ const loadTrips = () => {
 
         $(tripDetails).html(`
           <h3>Trip Details</h3>
-          <p>TRIP ID: ${tripData.id}</p>
-          <p>NAME: ${tripData.name}</p>
-          <p>CONTINENT: ${tripData.continent}</p>
-          <p>CATEGORY: ${tripData.category}</p>
-          <p>WEEKS: ${tripData.weeks}</p>
-          <p>COST: $${(tripData.cost).toFixed(2).replace(regexMoney, '$&,')}</p>
-          <p>ABOUT: ${tripData.about}</p>
+          <p><span class="strong">TRIP ID</span>: ${tripData.id}</p>
+          <p><span class="strong">NAME</span>: ${tripData.name}</p>
+          <p><span class="strong">CONTINENT</span>: ${tripData.continent}</p>
+          <p><span class="strong">CATEGORY</span>: ${tripData.category}</p>
+          <p><span class="strong">WEEKS</span>: ${tripData.weeks}</p>
+          <p><span class="strong">COST</span>: $${(tripData.cost).toFixed(2).replace(regexMoney, '$&,')}</p>
+          <p><span class="strong">ABOUT</span>: ${tripData.about}</p>
           `);
 
 
@@ -93,7 +96,7 @@ $(`.trip-list *`).click(loadTripDetails)
 
     let reserveTrip = $('.reserve-trip')
     // (reserveTrip).empty()
-    $('form.trip-form').css('visibility', 'visible');
+    reserveTrip.css('visibility', 'visible');
             // $('form h3').empty();
         // $(`.reserve-trip h3`).empty();
 
@@ -112,7 +115,7 @@ $(`.trip-list *`).click(loadTripDetails)
 
     let postIt = () => {
       event.preventDefault();
-      $('form.trip-form').css('visibility', 'hidden');
+      $('.reserve-trip').css('visibility', 'hidden');
 
       for (r in reservation) {
         reservation[r] = reservation[r].val()
