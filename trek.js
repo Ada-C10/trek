@@ -21,6 +21,17 @@ const listTrips = () => {
   reportStatus("Loading trips...")
   const tripList = $('#trip-list');
   tripList.empty();
+  const navBar = $('#navigation-bar');
+  navBar.empty();
+
+  const continents = ['Africa', 'Antarctica', 'Asia', 'Australasia', 'Europe', 'North America', 'South America'];
+  navBar.append('<p>Use the links below for trips by continent.</p>')
+
+  navBar.append(
+    continents.forEach((continent) => {
+        navBar.append(`<a class="nav-link" id=${encodeURIComponent(continent)}>${continent}</a>`);
+      })
+  );
 
   axios.get(URL)
   .then((response) => {
@@ -36,21 +47,6 @@ const listTrips = () => {
     reportStatus(error);
     console.log(error);
   });
-};
-
-
-const tripsByContinentList = () => {
-  reportStatus("Click on a continent to view trips")
-  const tripList = $('#trip-list');
-  tripList.empty();
-
-  const continents = ['Africa', 'Antarctica', 'Asia', 'Australasia', 'Europe', 'North America', 'South America'];
-
-  tripList.append(
-    continents.forEach((continent) => {
-        tripList.append(`<a class="nav-link" id=${encodeURIComponent(continent)}>${continent}</a>`);
-      })
-  );
 };
 
 
@@ -125,6 +121,7 @@ const showTripDetail = (id) => {
 
 const createReservation = (event) => {
   event.preventDefault();
+  $('html, body').animate({ scrollTop: 0 }, 'fast');
 
   reportStatus("Saving reservation...");
   console.log("Making reservation");
@@ -168,9 +165,7 @@ $(document).ready(() => {
 
   $("#reservation-form").submit(createReservation);
 
-  $("#continents").click(tripsByContinentList);
-
-  $("#trip-list").on("click", ".nav-link", function() {
+  $("#navigation-bar").on("click", ".nav-link", function() {
     const continent = $(this)[0].id;
     console.log(continent);
     showContinentTrips(continent);

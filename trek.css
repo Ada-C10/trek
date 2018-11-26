@@ -31,9 +31,15 @@ header {
 #status-message {
   text-align: center;
   font-size: 2rem;
+  color: red;
+}
+
+#navigation-bar {
+  text-align: center;
+  font-size: 2rem;
 }
 
 .nav-link {
   padding-right: 10px;
-  font-size: 2rem;
+  font-size: 3rem;
 }
