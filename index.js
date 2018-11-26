@@ -114,9 +114,6 @@ const singleURL = `https://trektravel.herokuapp.com/trips/${id}`;
 const bookForm = (id) =>{
   $('#form').show();
   document.getElementById('tripID').value = id
-
-
-
 }
 
 $(document).ready(() => {
