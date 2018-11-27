@@ -52,18 +52,39 @@ const loadTrips = () => {
     });
   })
   .catch((error) => {
-    reportError(error)
+    reportError(error);
     console.log('something went wrong');
   });
 };
 
-const loadTripDetails = (trip) => {
-  const tripDetails = () => {
-    console.log(trip)
-  };
+const loadTripDetails = (tripId) => {
 
-  return tripDetails;
-}
+  const tripDetails = () => {
+
+    const detail = $('#trip-detail');
+    detail.empty();
+
+    axios.get(`${TRIPS}/${tripId}`)
+    .then((response) => {
+      reportStatus(`Successfully loaded detail of trip!`)
+      detail.append(`<div class='detail-container'>
+      <h2>Trip Details</h2>
+        <li id="name">${response.data.name}</li>
+        <li id="continent">${response.data.continent}</li>
+        <li id="about">${response.data.about}</li>
+        <li id="weeks">Weeks: ${response.data.weeks}</li>
+        <li id="cost">Cost: $${response.data.cost}</li>
+      </div>`);
+    })
+    .catch((error) => {
+      reportError(error);
+      console.log('something went wrong :c');
+    });
+  };
+  return tripDetails();
+};
+
+
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
@@ -72,6 +93,6 @@ $(document).ready(() => {
     const tripId = $(this).attr('id');
     loadTripDetails(tripId)
   });
-  
-  // $('#trip-form').submit(createTrip);
+
+  $('#trip-form').submit(createTrip);
 });

@@ -1,9 +1,51 @@
+*{
+  list-style: none;
+  font-family: 'Roboto Mono', monospace;
+}
+
+h1, h2{
+  font-family: 'Roboto Slab', serif;
+}
 body{
-  background-color: peachpuff;
+  background-color: rgb(240, 235, 237);
   margin: 50px;
 }
 
 main{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
+}
+
+.current-trips > *{
+  margin: 20px;
+}
+#trip-detail{
+  grid-columns: 2 / 3;
+}
+
+.detail-container{
+  background-color: rgba(191, 163, 176, 0.31);
+  margin-left: 100px;
+  margin-right: 100px;
+  padding: 30px;
+}
+
+#name{
+  font-size: 2.5rem;
+  padding-bottom: 5px;
+}
+
+#continent{
+  font-size: 2rem;
+  padding-bottom: 5px;
+}
+
+#trip-list li{
+  padding: 3px;
+
+}
+
+#trip-list li:hover{
+  background-color: rgb(219, 193, 204);
+  font-style: italic;
 }
