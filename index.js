@@ -216,7 +216,7 @@ const createTrip = event => {
   reportStatus("Sending trip data...");
 
   axios
-    .post(`${URL}, newTripData`)
+    .post(URL, parsedTripFormData)
     .then(response => {
       reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
       $("#trip-list").append(tripFormData);
