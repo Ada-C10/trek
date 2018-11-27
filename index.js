@@ -1,8 +1,6 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
 
-//
-// Status Mancontinentment
-//
+
 const reportStatus = (message) => {
   $('#status-message').html(message);
 };
@@ -21,7 +19,7 @@ const reportError = (message, errors) => {
 //
 // Loading Trips
 //
-const loadtrips = () => {
+const loadTrips = () => {
   reportStatus('Loading trips...');
 
   const tripList = $('#trip-list');
@@ -64,6 +62,8 @@ const getOneTrip = (id) => {
     .catch((error) => {
       reportStatus(`Encountered an error loading trip ${id}: ${error.message}`)
     })
+
+    document.getElementById('trip-id').value=`${id}`;
   };
 
 // Reserving trip
@@ -92,10 +92,7 @@ const readFormData = () => {
 
   const aboutFromForm = $(`#trip-form input[name="about"]`).val();
   parsedFormData['about'] = aboutFromForm ? aboutFromForm : undefined;
-
-  return parsedFormData;
 };
-
 const clearForm = () => {
   $(`#trip-form input[name="name"]`).val('');
   $(`#trip-form input[name="continent"]`).val('');
@@ -103,8 +100,70 @@ const clearForm = () => {
   $(`#trip-form input[name="weeks"]`).val('');
   $(`#trip-form input[name="cost"]`).val('');
   $(`#trip-form input[name="about"]`).val('');
+};
 
-}
+// reservation
+const readReservationFormData = () => {
+  const parsedFormData = {};
+
+  const reservationNameFromForm = $(`#reservation-form input[name="reservationName"]`).val();
+  parsedFormData['name'] = reservationNameFromForm ? reservationNameFromForm : undefined;
+
+  const ageFromForm = $(`#reservation-form input[name="age"]`).val();
+  parsedFormData['age'] = ageFromForm ? ageFromForm : undefined;
+
+  const emailFromForm = $(`#reservation-form input[name="email"]`).val();
+  parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
+
+  const reservationTripID = $(`#reservation-form input[name="trip-id"]`).val();
+  parsedFormData['trip-id'] = reservationTripID ? reservationTripID : undefined;
+
+  return parsedFormData;
+};
+
+  // reservation
+  const clearReservationForm = () => {
+
+  $(`#reservation-form input[name="reservationName"]`).val('');
+  $(`#reservation-form input[name="age"]`).val('');
+  $(`#reservation-form input[name="email"]`).val('');
+  $(`#reservation-form input[name="trip-id"]`).val('')
+
+};
+
+// create reservation
+
+const createReservation = (event) => {
+  // Note that createtrip is a handler for a `submit`
+  // event, which means we need to call `preventDefault`
+  // to avoid a pcontinent reload
+  event.preventDefault();
+
+  const tripData = readReservationFormData();
+  console.log(tripData);
+
+  reportStatus('Sending trip data...');
+  const reservationURL = URL + '/' + tripData["trip-id"] + '/reservations'
+
+  axios.post(reservationURL, tripData)
+    .then((response) => {
+      reportStatus(`Successfully added a reservation with ID ${response.data.id}!`);
+      clearReservationForm();
+    })
+    .catch((error) => {
+      console.log(error.response);
+      if (error.response.data && error.response.data.errors) {
+        reportError(
+          `Encountered an error: ${error.messmessage}`,
+          error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error: ${error.messmessage}`);
+      }
+    });
+  };
+
+// create trip
 
 const createTrip = (event) => {
   // Note that createtrip is a handler for a `submit`
@@ -139,6 +198,7 @@ const createTrip = (event) => {
 // OK GO!!!!!
 //
 $(document).ready(() => {
-  $('#load').click(loadtrips);
+  $('#load').click(loadTrips);
   $('#trip-form').submit(createTrip);
+  $('#reservation-form').submit(createReservation);
 });
