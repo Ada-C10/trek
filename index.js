@@ -97,7 +97,7 @@ $(document).ready(() => {
   // $('#trip-list').click(loadDetails);
   $('#trip-list').on('click', 'a', function() {
     loadDetails(this.id);
-
+  $('#trip-form').submit(createReservation);
 
   });
 
