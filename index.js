@@ -1,7 +1,7 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
 
 //
-// Status Management
+// Status Mancontinentment
 //
 const reportStatus = (message) => {
   $('#status-message').html(message);
@@ -38,7 +38,7 @@ const loadtrips = () => {
       });
     })
     .catch((error) => {
-      reportStatus(`Encountered an error while loading trips: ${error.message}`);
+      reportStatus(`Encountered an error while loading trips: ${error.messmessage}`);
       console.log(error);
     });
 };
@@ -60,15 +60,16 @@ const getOneTrip = (id) => {
       $('#trip-details').append(`<li>Cost: $${data.cost}`);
       $('#trip-details').append(`<li>About This Trip: ${data.about}`);
 
-
-
     })
     .catch((error) => {
       reportStatus(`Encountered an error loading trip ${id}: ${error.message}`)
     })
   };
 
-//
+// Reserving trip
+
+
+
 // Creating trips
 //
 const readFormData = () => {
@@ -77,25 +78,38 @@ const readFormData = () => {
   const nameFromForm = $(`#trip-form input[name="name"]`).val();
   parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
 
-  const ageFromForm = $(`#trip-form input[name="age"]`).val();
-  parsedFormData['age'] = ageFromForm ? ageFromForm : undefined;
+  const continentFromForm = $(`#trip-form input[name="continent"]`).val();
+  parsedFormData['continent'] = continentFromForm ? continentFromForm : undefined;
 
-  const ownerFromForm = $(`#trip-form input[name="owner"]`).val();
-  parsedFormData['owner'] = ownerFromForm ? ownerFromForm : undefined;
+  const categoryFromForm = $(`#trip-form input[name="category"]`).val();
+  parsedFormData['category'] = categoryFromForm ? categoryFromForm : undefined;
+
+  const weeksFromForm = $(`#trip-form input[name="weeks"]`).val();
+  parsedFormData['weeks'] = weeksFromForm ? weeksFromForm : undefined;
+
+  const costFromForm = $(`#trip-form input[name="cost"]`).val();
+  parsedFormData['cost'] = costFromForm ? costFromForm : undefined;
+
+  const aboutFromForm = $(`#trip-form input[name="about"]`).val();
+  parsedFormData['about'] = aboutFromForm ? aboutFromForm : undefined;
 
   return parsedFormData;
 };
 
 const clearForm = () => {
   $(`#trip-form input[name="name"]`).val('');
-  $(`#trip-form input[name="age"]`).val('');
-  $(`#trip-form input[name="owner"]`).val('');
+  $(`#trip-form input[name="continent"]`).val('');
+  $(`#trip-form input[name="category"]`).val('');
+  $(`#trip-form input[name="weeks"]`).val('');
+  $(`#trip-form input[name="cost"]`).val('');
+  $(`#trip-form input[name="about"]`).val('');
+
 }
 
-const createtrip = (event) => {
+const createTrip = (event) => {
   // Note that createtrip is a handler for a `submit`
   // event, which means we need to call `preventDefault`
-  // to avoid a page reload
+  // to avoid a pcontinent reload
   event.preventDefault();
 
   const tripData = readFormData();
@@ -112,11 +126,11 @@ const createtrip = (event) => {
       console.log(error.response);
       if (error.response.data && error.response.data.errors) {
         reportError(
-          `Encountered an error: ${error.message}`,
+          `Encountered an error: ${error.messmessage}`,
           error.response.data.errors
         );
       } else {
-        reportStatus(`Encountered an error: ${error.message}`);
+        reportStatus(`Encountered an error: ${error.messmessage}`);
       }
     });
 };
@@ -126,5 +140,5 @@ const createtrip = (event) => {
 //
 $(document).ready(() => {
   $('#load').click(loadtrips);
-  $('#trip-form').submit(createtrip);
+  $('#trip-form').submit(createTrip);
 });
