@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Bungee+Outline|Bungee+Shade');
+
+body {
+  background: url(https://images.unsplash.com/photo-1484544808355-8ec84e534d75?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fc1407c2a550b0ebf3def8b81fa7b4a2&dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb)no-repeat center center fixed;
+  background-size: cover;
+}
+h1 {
+  font-family: 'Bungee Shade', cursive;
+  color: white;
+  font-size: 4.5rem;
+
+}
+section {
+  background-color: #d5d8dd;
+  opacity: 0.9;
+}
+
+.col {
+  padding-right: 3em;
+  padding-left: 2em;
+}
+
+form {
+  padding: 1em 2em;
+}

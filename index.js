@@ -3,6 +3,7 @@ const URL = 'https://trektravel.herokuapp.com/trips';
 
 const reportStatus = (message) => {
   $('#status-message').html(message);
+
 };
 
 const reportError = (message, errors) => {
@@ -22,15 +23,18 @@ const loadTrips = () => {
 
   // Prep work
   const tripList = $('#trip-list');
+  const tbody = $('<tbody class="trips"></tbody>')
   tripList.empty();
-
+  tripList.append('<thead><tr><th scope="col">Trips</th></thead></tr>')
   // Actually load the trips
   axios.get(URL)
   .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
     response.data.forEach((trip) => {
-      tripList.append(`<li>${trip.name}</li>`);
+      tbody.append(`<tr><td id=${trip.id}>${trip.name}</td></tr>`);
+      tripList.append(tbody);
     });
+
   })
   .catch((error) => {
     console.log(error);
@@ -39,6 +43,7 @@ const loadTrips = () => {
   });
 
 };
+
 
 const readFormData = () => {
   const parsedFormData = {};
@@ -49,10 +54,10 @@ const readFormData = () => {
   //   parsedFormData[field.name] = field.value
   // }
 
-  const inputs = ["name", "age", "owner"]
+  const inputs = [ "name", "email"]
 
   inputs.forEach((curInput)=> {
-    const curData = $(`#trip-form input[name="${curInput}"]`).val();
+    const curData = $(`#reservation-form input[name="${curInput}"]`).val();
     parsedFormData[curInput] = curData ? curData : undefined;
   });
 
@@ -64,32 +69,32 @@ const readFormData = () => {
   //
   // const ownerFromForm = $(`#trip-form input[name="owner"]`).val();
   // parsedFormData['owner'] = ownerFromForm ? ownerFromForm : undefined;
-
+  console.log(parsedFormData)
   return parsedFormData;
 };
 
 const clearForm = () => {
-  $(`#trip-form input[name="name"]`).val('');
-  $(`#trip-form input[name="age"]`).val('');
-  $(`#trip-form input[name="owner"]`).val('');
+  $(`#reservation-form input[name="name"]`).val('');
+  $(`#reservation-form input[name="email"]`).val('');
+  $(`#reservation-form input[name="id"]`).val('');
 }
 
 
-const createTrip = (event) => {
-  // Note that createTrip is a handler for a `submit`
+const createRes = (event) => {
+  // Note that createRes is a handler for a `submit`
   // event, which means we need to call `preventDefault`
   // to avoid a page reload
   event.preventDefault();
 
   // Later we'll read these values from a form
-  const tripData = readFormData();
-  console.log(event.parsedformdata)
+  const resData = readFormData();
+  const tripID = $(`#reservation-form input[name="id"]`).val();
   reportStatus('Sending trip data...');
-
-  axios.post(URL, tripData)
+  console.log(tripID, resData)
+  axios.post(`${URL}/${tripID}/reservations`, resData)
   .then((response) => {
     console.log(response);
-    reportStatus('Successfully added a trip!');
+    reportStatus('Successfully added a Reservation!');
     clearForm();
   })
   .catch((error) => {
@@ -110,10 +115,47 @@ const createTrip = (event) => {
   });
 };
 
+const tripDetails = (id) => {
+  console.log(event)
+   //const URL = https://trektravel.herokuapp.com/trips/weeks?query=3
+   reportStatus(`Loading trip id: ${id}...`);
+
+   // Prep work
+   const tripDetail = $('#trip-details');
+   tripDetail.empty();
+   $('.trip-name').empty();
+   tripDetail.append('<h2 class="text-center card-header">Trip Details</h2>')
+   // Actually load the trips
+   axios.get(`${URL}/${id}`)
+   .then((response) => {
+     reportStatus(`Successfully loaded trip`);
+
+     const entries = Object.entries(response.data);
+     for (const [key, value] of entries) {
+       tripDetail.append(`<p class="card-text">${key}:${value}</p>`);
+     }
+
+     $('.trip-name').append(`<input type="text" name="trip-name" class="form-control" value='${response.data.name}' readonly/>`)
+     $(`#reservation-form input[name="id"]`).val(response.data.id);
+   })
+   .catch((error) => {
+     console.log(error);
+     reportStatus(`Encountered an error while loading trips: ${error.message}`);
+
+   });
+
+}
+
 
 
 
 $(document).ready(() => {
+  $('.new-reservation').hide();
   $('#load').click(loadTrips);
-  $('#trip-form').submit(createTrip)
+  $('#trip-list').on('click','td', function(event) {
+    tripDetails(event.target.id);
+    $('.new-reservation').show();
+    // newTripForm();
+ });
+ $('#reservation-form').on('submit', createRes);
 });
