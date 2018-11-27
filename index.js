@@ -1,4 +1,3 @@
-// index.js
 let URL = 'https://trektravel.herokuapp.com/trips';
 
 const reportStatus = (message) => {
@@ -30,7 +29,6 @@ const loadTrips = () => {
       tripList.append(button)
       button.on('click', () => {
         clickDetails(`${trip.id}`);
-        // createForm(`${trip.id}`);
       })
     })
     .catch((error) => {
@@ -39,15 +37,6 @@ const loadTrips = () => {
     });
   });
 };
-
-// $("#details-btn").click(function(){
-//     $("ul#trip-details").slideDown();
-// });
-
-// button.on('click', () => {
-//   clickDetails(`${trip.id}`).slideDown();
-// })
-//
 
 function createButton() {
   const button = $('<button/>', {
@@ -62,10 +51,7 @@ const clickDetails = (id) => {
   const tripDetails = $('#trip-details');
   tripDetails.empty();
   const tripForm = createForm(id);
-  // tripForm.empty();
-  // $('.new-reservation').show();
   const tripURL = (URL + `/` + id)
-  // console.log(tripURL)
   axios.get(tripURL)
   .then((response) => {
     tripDetails.append(`<li class="name">${response.data.name}, ${response.data.continent}</li>`);
@@ -101,7 +87,6 @@ const createForm = (id) => {
   return tripForm
  }
 
-
 const readFormData = () => {
   const parsedFormData = {};
 
@@ -120,20 +105,6 @@ const readFormData = () => {
   return parsedFormData;
 };
 
-// const createReservation = () => {
-//   event.preventDefault();
-//   let reservationURL = (tripURL + `/` + `reservations`)
-//   axios.post(reservationURL)
-//   .then((response) => {
-//     console.log('post method workd');
-//     console.log(response);
-//   })
-//
-//   .catch((error) => {
-//     console.log(error);
-//   });
-// };
-
 const clearForm = () => {
   $(`#trip-form input[name="name"]`).val('');
   $(`#trip-form input[name="age"]`).val('');
@@ -141,15 +112,10 @@ const clearForm = () => {
 }
 
 const createReservation = (event) => {
-  // Note that createTrip is a handler for a `submit`
-  // event, which means we need to call `preventDefault`
-  // to avoid a page reload
   event.preventDefault();
 
   const reservationData = readFormData();
   let reservationURL = (URL + `/` + reservationData.trip_id + `/` + `reservations`)
-  // console.log(tripURL)
-  //
   reportStatus('Sending trip data...');
 
   axios.post(reservationURL, reservationData)
@@ -170,48 +136,7 @@ const createReservation = (event) => {
   });
 };
 
-
-
-// function clickDetails(tripId) {
-//   alert('something happened');
-  // URL = $(URL).append(trip.id)
-  // axios.get(URL)
-  // .then((response) => {
-  //   response.for((trip) => {
-  //     tripList.append(`<li>${trip.name}</li>`);
-  //     tripList.append(createButton())
-  //   });
-  // })
-  // .catch((error) => {
-  //   reportStatus(error);
-  //   console.log(error);
-  // });
-// }
-
-
-
 $(document).ready(() => {
   $('#load').click(loadTrips);
   $('#trip-form').submit(createReservation);
-  // $('#trip-form').submit(createReservation);
-  // $("#details-btn").click(function(){
-  //     $("ul#trip-details").slideDown();
-  // });
-  // $('#trip-form').submit(createReservation);
-  // we select something by the id of create trip button. when an event on this element called submit happens, we wil use the callback createTrip
 });
-
-// event
-// parse the form on the HTML for user input
-// make the POST request
-// give UI feedback
-
-
-// $(document).ready(function(){
-//     $(".btn1").click(function(){
-//         $("p").slideUp();
-//     });
-//     $(".btn2").click(function(){
-//         $("p").slideDown();
-//     });
-// });
