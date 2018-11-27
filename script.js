@@ -38,6 +38,9 @@ const loadTrips = () => {
       // console.log(`trip${id}`)
 
     });
+    // .catch((error) => {
+    //   reportStatus(`Encountered an error while loading trips: ${error.message}`);
+    // });
 
 
     // --- VIEW DETAILS FOR SELECTED TRIP --- //
@@ -82,8 +85,9 @@ const loadTrips = () => {
 $(`.trip-list *`).click(loadTripDetails)
 
     });
-
-
+    // .catch((error) => {
+    //       reportStatus(`Encountered an error while loading trips: ${error.message}`);
+    //     });
   };
 
   // POST RESERVATION FORM //
@@ -119,10 +123,6 @@ $(`.trip-list *`).click(loadTripDetails)
 
       reportStatus(`Thanks, ${response.data.id}! Successfully reserved your trip.`);
     })
-    // .catch((error) => {
-    //   reportStatus(`Encountered an error while loading trips: ${error.message}`);
-    // });
-
 
     .catch((error) => {
       if (error.response.data && error.response.data.errors) {
@@ -135,10 +135,13 @@ $(`.trip-list *`).click(loadTripDetails)
       }
     });
 
+$('form').trigger("reset");
+$('html, body').animate({scrollTop:0},0);
 
 };
 
 $(`form`).submit(postIt);
+
   };
 
 
@@ -147,25 +150,6 @@ $(`form`).submit(postIt);
     $('.trip-button').click(loadTrips);
   });
 
-  // LEFT OFF...FOR DEMAIN:
-  // ASAP - POST ETC - MAKE IT FUNCTIONAL FOR WAVE 3
-
-  // TODO - urgent:
-  // get error message .catch working for all 3 functions
-  // add full styling in general
-  // wrap button group and h3 in a div to make things equal-ish
-  // semicolon police
-
-  // TODO - should finish:
-  // main button - increase size, create custom class for button
-  // determine button colors (create custom class for buttons)
-  //trip name --> placeholder ok or real value?
-  // somewhat transparent bg for the three capsules
-  // scroll up after submission so can see status
-  // clear form with .val("")
-
-
-
-  // TODO - nice to haves:
+  // TODO
   // scroll down to show more / pagination?
-  // refactor
+  // DRY/refactor

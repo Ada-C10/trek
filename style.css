@@ -1,13 +1,9 @@
-/* move to its own folder? */
-/* bootstrap it???!!!! */
-
 body {
   background-image: url('venice.jpg');
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
   background-color: #ffffff;
   padding: 10px;
   font-family: helvetica, sans-serif;
@@ -17,6 +13,7 @@ h1 {
   color: #5bc0de;
   margin-bottom: 0;
   text-shadow: 2px 2px #666666;
+  letter-spacing: 10px;
 }
 
 h3 {
@@ -57,7 +54,6 @@ header {
   margin-bottom: 20px;
 }
 
-
 .reserve-trip, .trip-details {
   visibility: hidden;
 }
@@ -70,5 +66,4 @@ span.strong {
   font-size: 1.1em;
   color: #666666;
   text-shadow: 2px 2px yellow;
-
 }
