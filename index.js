@@ -51,15 +51,17 @@ const getOneTrip = (id) => {
     .then((response) => {
       $('#trip-details').empty();
       const data = response.data;
-      $('#trip-details').append(`<li>Trip ID: ${data.id}`);
-      $('#trip-details').append(`<li>Destination: ${data.name}`);
-      $('#trip-details').append(`<li>Continent: ${data.continent}`);
-      $('#trip-details').append(`<li>Duration: ${data.weeks}`);
-      $('#trip-details').append(`<li>Cost: $${data.cost}`);
-      $('#trip-details').append(`<li>About This Trip: ${data.about}`);
+      $('#trip-details').append(`<h2>Trip Details</h2>`);
+      $('#trip-details').append(`<li><strong>Trip ID:</strong> ${data.id}`);
+      $('#trip-details').append(`<li><strong>Destination:</strong> ${data.name}`);
+      $('#trip-details').append(`<li><strong>Continent:</strong> ${data.continent}`);
+      $('#trip-details').append(`<li><strong>Duration:</strong> ${data.weeks}`);
+      $('#trip-details').append(`<li><strong>Cost:</strong> $${data.cost}`);
+      $('#trip-details').append(`<li><strong>About This Trip:</strong> ${data.about}`);
 
+      $('#new-reservation').empty();
       $('#new-reservation').append(`
-        <h1>create a new reservation</h1>
+        <h1>Create A New Reservation</h1>
         <div>
           <label for="reservationName">Name</label>
           <input type="text" name="reservationName" />
