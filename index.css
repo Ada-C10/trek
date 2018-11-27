@@ -1,0 +1,26 @@
+
+@media only screen and (min-width: 600px) and (min-width: 400px){
+    #website-container {
+        background-color: white;
+    }
+}
+
+body {
+  font-family: sans-serif;
+  display: grid;
+  grid-template-rows: 1fr;
+
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.hidden {
+  display: none;
+}
+
+.first-column, .second-column {
+  width: 60rem;
+}
