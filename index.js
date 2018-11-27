@@ -157,6 +157,13 @@ const showTrip = (id) => {
 
     $("#load").click(loadTrips);
 
+
+    $("#load").on("click", loadTrips, function() {
+      $('#trip-list').toggle();
+      $(".trip-info").hide();
+      $(".new-trip").hide();
+    });
+
     $('#trip-list').on("click", "a", function() {
       showTrip(this.id);
       $(".trip-info").css("background-color", "white").css('opacity', '0.75');
