@@ -1,0 +1,49 @@
+
+/*font-family: 'Roboto', sans-serif;
+font-family: 'Poppins', sans-serif;
+*/
+
+form {
+  display:none;
+  
+
+}
+
+body{
+  background-color: lightyellow;
+  font-family: 'Poppins', sans-serif;
+}
+
+h1{
+  font-size: 3em;
+}
+
+#status-message{
+  margin-left: 2.5em;
+}
+
+li{
+  list-style-type: none;
+}
+
+
+main{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+}
+
+header{
+  grid-column: span 2;
+  padding-bottom: 2em;
+  margin-left: 2.5em;
+
+}
+
+#trip-list{
+  grid-column: span 1;
+}
+
+#Trip{
+  grid-column: span 1;
+}
