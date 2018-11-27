@@ -16,6 +16,10 @@ const loadAllTrips = () => {
       tripTable.append('<tr><th><h1>All Trips</h1></th></tr>');
       response.data.forEach((trip) => {
         tripTable.append(`<tr id="trip-${trip.id}"><td>${trip.name}</td></tr>`);
+        // build a click handler for each element id
+        $("#trip-table").on("click", `#trip-${trip.id}`, function() {
+          return loadTripDetails(trip.id);
+        });
       });
       $("table, th, td").addClass("table-border");
     })
@@ -23,19 +27,15 @@ const loadAllTrips = () => {
      reportStatus(`Encountered an error while loading trips: ${error.message}`);
      console.log(error);
   });
-  $("#trip-table").on("click", "#trip-1", function() {
-    return loadTripDetails();
-});
 };
 
-const loadTripDetails = () => {
-  console.log('Yay you loaded');
+const loadTripDetails = (tripId) => {
   const tripDetails = $('#trip-details');
   tripDetails.empty();
   reportStatus('<strong>Loading trip details...</strong>');
   tripDetails.append('<table id="trip-card"></table>')
   const tripCard = $('#trip-card');
-  axios.get(URL + '/1')
+  axios.get(`${URL}/${tripId}`)
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} trip`);
       tripCard.append('<tr><th><h1>Trip Details</h1></th></tr>');
