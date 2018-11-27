@@ -62,18 +62,17 @@ const reservationForm = (trip) => {
   const form =$('#form')
   form.empty();
 
+
   form.append(`
     <h2>Reserve a Trip</h2>
     <div>
       <label for="name">name</label>
       <input type="text" name="name" />
     </div>
-
     <div>
       <label for="email">Email</label>
       <input type="text" name="email" />
     </div>
-
     <div>
       <input type="hidden" name="trip_id" value=${trip.id} />
     </div>
