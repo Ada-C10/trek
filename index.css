@@ -1,0 +1,58 @@
+.current-trips  {
+  font-family: sans-serif;
+}
+
+#info {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  /* grid-auto-rows: minmax(100px, auto); */ 
+  /* grid-template-rows: 50px 1fr 30px; */
+  /* grid-template-columns: 150px 1fr; */
+  grid-template-areas:
+    "header header"
+    "list details"
+    "list reservation"
+}
+
+#info-trip {
+  grid-area: details;
+}
+
+#reserve-trip {
+  grid-area: reservation;
+}
+
+.current-trips {
+  grid-area: list
+}
+
+header {
+  background-color: aquamarine;
+  padding-top: 5px;
+  border-top-width: 50px;
+  padding-bottom: 44px;
+  padding-top: 44px;
+  font-size: 60px;
+  text-align: center;
+}
+
+ul div section:first-child {
+  grid-area: reservation;
+    text-align: center;
+  }
+
+
+main section:first-child h1 {
+  grid-area: header;
+
+}
+
+
+ul {
+  list-style-type:none;
+}
+
+section button {
+  grid-area: list
+}
