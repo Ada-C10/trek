@@ -66,6 +66,30 @@ const loadDetails = (id) => {
   });
 };
 
+// Make reservation
+const createReservation = (event) => {
+  event.preventDefault();
+
+  const data = {
+    name: $('input[name="name"]').val(),
+    email: $('input[name="name"]').val(),
+  };
+
+  axios.post(URL, data)
+    .then((response)=> {
+      reportStatus('Succesfully added reservation')
+    })
+    .catch((error) => {
+      if (error.response.data && error.response.data.errors) {
+        reportError(
+          `Encountered an error: ${error.message}`, error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error: ${error.message}`);
+      }
+    });
+};
+
 
 ///
 $(document).ready(() => {

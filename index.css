@@ -1,11 +1,17 @@
 header {
-  background-color: navy;
+  /* background-color: navy; */
+
   color: white;
   padding: 30px;
   font-size: 1.5em;
   display: flex;
   align-content: center;
   justify-content: center;
+}
+
+body {
+  background-image: url("http://www.lovethispic.com/uploaded_images/56944-Blue-Starry-Sky.jpg");
+  background-size: cover;
 }
 
 main {
@@ -24,9 +30,16 @@ button {
 
 #trip-aside {
   grid-column: 2;
-  border-left: black solid;
+  /* border-left: black solid; */
 }
 
 #trip-blurb {
   list-style: none;
+}
+
+#trip-list-section, #trip-aside {
+  margin: 30px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.6;
 }
