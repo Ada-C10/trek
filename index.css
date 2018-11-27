@@ -1,0 +1,42 @@
+body {
+  padding: 10px;
+  background-color: gainsboro;
+  text-align: center;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+ul {
+  list-style: none;
+}
+
+.status-message {
+  font-weight: 600;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.trip-list {
+  padding-top: 10px;
+}
+
+.trip-info {
+  height: 50vh;
+  overflow: scroll;
+}
+
+.current-trips {
+  grid-column: 1 / 2;
+}
+
+.trip-detail {
+  grid-column: 2 / 3;
+}
+
+#reserve-form {
+  text-align: center;
+  padding-top: 20px;
+}

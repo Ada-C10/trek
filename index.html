@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Trek</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <header>
+      <h1>Trek</h1>
+      <button type="button" class="btn btn-outline-info btn-lg" id="load-all-trips">Find your next adventure...</button>
+    </header>
+    <section class="status-message"></section>
+    <section class="form-errors"></section>
+    <main>
+      <section class="current-trips">
+
+        <ul id="trip-list"></ul>
+      </section>
+
+      <section class="trip-detail">
+        <div class="trip-info">
+          <ul id="trip-detail-list"></ul>
+        </div>
+        
+        <form id="reserve-form">
+        </form>
+      </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+  </body>
+</html>
