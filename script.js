@@ -101,16 +101,16 @@ const loadTrips = () => {
       tripName: $('input[name="tripName"]').attr('placeholder', `${tripData.name}`)
     };
 
-  //  --- POST RESERVATION FORM --- //
+    //  --- POST RESERVATION FORM --- //
     let postIt = () => {
       reportStatus(`Attempting to reserve trip: ${tripData.name}...`);
       event.preventDefault();
 
       for (let r in reservation) {
         if (reservation[r]) {
-        reservation[r] = reservation[r].val();
+          reservation[r] = reservation[r].val();
+        }
       }
-    }
 
       axios.post(baseURL+id+post, reservation)
       .then((response) => {
@@ -132,12 +132,12 @@ const loadTrips = () => {
           reportStatus(`Encountered an error: ${error.message}`);
         }
         // ono something went wrong? LET'S TRY THAT FORM AGAIN.
-            reservationForm(tripData);
-            $('html, body').animate({scrollTop:0},0);
+        reservationForm(tripData);
+        $('html, body').animate({scrollTop:0},0);
       });
     }
-          $(`form`).submit(postIt);
-    };
+    $(`form`).submit(postIt);
+  };
 
 
   // --- SET IT OFF --- //
@@ -149,3 +149,4 @@ const loadTrips = () => {
   // - scroll down or click to show/load more (don't load all trips at once)
   // - more DRY/refactor
   // - why isn't catch working for the get requests? b/c the functions are nested???
+  // - move files into appropriate folders
