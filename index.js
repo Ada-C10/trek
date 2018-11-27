@@ -18,10 +18,6 @@ const reportError = (message, errors) => {
 
 const loadTrips = () => {
   reportStatus("loading trips...");
-
-  // const reservationForm = $('.new-reservation');
-
-
   const tripList = $('#trip-list');
   tripList.empty();
 
@@ -29,14 +25,12 @@ const loadTrips = () => {
   .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
     response.data.forEach((trip) => {
-      // let singleTrip = $(`<li>${trip.name}</li>`)
       let button = createButton()
-
       tripList.append(`<li>${trip.name}</li>`);
       tripList.append(button)
       button.on('click', () => {
         clickDetails(`${trip.id}`);
-        // clickDetails(`${trip.id}`);
+        // createForm(`${trip.id}`);
       })
     })
     .catch((error) => {
@@ -63,15 +57,13 @@ function createButton() {
   return button
 }
 
-
-
 const clickDetails = (id) => {
 
   const tripDetails = $('#trip-details');
   tripDetails.empty();
-  const tripForm = $('#new-reservation');
-  tripForm.empty();
-  $('.new-reservation').show();
+  const tripForm = createForm(id);
+  // tripForm.empty();
+  // $('.new-reservation').show();
   const tripURL = (URL + `/` + id)
   // console.log(tripURL)
   axios.get(tripURL)
@@ -81,31 +73,40 @@ const clickDetails = (id) => {
     tripDetails.append(`<li class="description">${response.data.weeks} week(s)</li>`);
     tripDetails.append(`<li class="description"> $${response.data.cost}</li>`);
     tripDetails.append(`<li class="description">Category: ${response.data.category}</li>`);
-    let reservation = $(`<h2 class="form-title">Request this trip</h2>
-                        <form id="trip-form" data-id="${response.data.id}">
-                          <div>
-                            <label class='form' for="name">Name</label>
-                            <input type="text" name="name" />
-                          </div>
-                          <div>
-                            <label class='form' for="age">Age</label>
-                            <input class='age' type="integer" name="age" />
-                          </div>
-                          <div>
-                            <label class='form' for="email">Email </label>
-                            <input class='email' type="text" name="email" />
-                          </div>
-                          <input type="submit" name="add-reservation" value="Add Reservation" />
-                        </form>`)
-    tripDetails.append(reservation)
   })
 }
+
+const createForm = (id) => {
+  const tripForm = $('#trip-form')
+  tripForm.empty();
+   tripForm.append(`
+    <h2 class='form-title'>Reserve Trip</h2>
+    <div>
+      <label class='form' for="name">Your name</label>
+      <input class='name' type="text" name="name" />
+    </div>
+    <div>
+      <label class='form' for="age">Age</label>
+      <input class='age' type="text" name="age" />
+    </div>
+    <div>
+      <label class='form' for="email">Email</label>
+      <input class='email' type="text" name="email" />
+    </div>
+    <div>
+      <input type="hidden" name="trip_id" value=${id} />
+    </div>
+    <input type="submit" class='submit' name="reserve" value="Reserve" class="btn btn-primary" />
+  `);
+  return tripForm
+ }
+
 
 const readFormData = () => {
   const parsedFormData = {};
 
-  // const idFromForm = $(`#trip-form label[data-id]`).val();
-  // parsedFormData['id'] = idFromForm ? idFromForm : undefined;
+  const tripFromForm = $(`#trip-form input[name="trip_id"]`).val();
+   parsedFormData['trip_id'] = tripFromForm ? tripFromForm : undefined;
 
   const nameFromForm = $(`#trip-form input[name="name"]`).val();
   parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
@@ -133,11 +134,11 @@ const readFormData = () => {
 //   });
 // };
 
-// const clearForm = () => {
-//   $(`#trip-form input[name="name"]`).val('');
-//   $(`#trip-form input[name="age"]`).val('');
-//   $(`#trip-form input[name="email"]`).val('');
-// }
+const clearForm = () => {
+  $(`#trip-form input[name="name"]`).val('');
+  $(`#trip-form input[name="age"]`).val('');
+  $(`#trip-form input[name="email"]`).val('');
+}
 
 const createReservation = (event) => {
   // Note that createTrip is a handler for a `submit`
@@ -145,30 +146,28 @@ const createReservation = (event) => {
   // to avoid a page reload
   event.preventDefault();
 
-  alert ('something');
-
   const reservationData = readFormData();
-  console.log(reservationData);
-  // let reservationURL = (tripURL + `/` + `reservations`)
+  let reservationURL = (URL + `/` + reservationData.trip_id + `/` + `reservations`)
+  // console.log(tripURL)
   //
-  // reportStatus('Sending trip data...');
-  //
-  // axios.post(URL, reservationData)
-  // .then((response) => {
-  //   reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
-  //   clearForm();
-  // })
-  // .catch((error) => {
-  //   console.log(error.response);
-  //   if (error.response.data && error.response.data.errors) {
-  //     reportError(
-  //       `Encountered an error: ${error.message}`,
-  //       error.response.data.errors
-  //     );
-  //   } else {
-  //     reportStatus(`Encountered an error: ${error.message}`);
-  //   }
-  // });
+  reportStatus('Sending trip data...');
+
+  axios.post(reservationURL, reservationData)
+  .then((response) => {
+    reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
+    clearForm();
+  })
+  .catch((error) => {
+    console.log(error.response);
+    if (error.response.data && error.response.data.errors) {
+      reportError(
+        `Encountered an error: ${error.message}`,
+        error.response.data.errors
+      );
+    } else {
+      reportStatus(`Encountered an error: ${error.message}`);
+    }
+  });
 };
 
 
@@ -194,6 +193,7 @@ const createReservation = (event) => {
 $(document).ready(() => {
   $('#load').click(loadTrips);
   $('#trip-form').submit(createReservation);
+  // $('#trip-form').submit(createReservation);
   // $("#details-btn").click(function(){
   //     $("ul#trip-details").slideDown();
   // });
