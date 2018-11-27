@@ -58,7 +58,7 @@ const tripDetails = (trip) => {
       tripDetailsList.append(`<li>About: ${tripData.about}</li>`);
     })
   }
-const reservationForm = (trip) => {
+const reservationForm = (trip_id) => {
   const form =$('#form')
   form.empty();
 
@@ -74,7 +74,7 @@ const reservationForm = (trip) => {
       <input type="text" name="email" />
     </div>
     <div>
-      <input type="hidden" name="trip_id" value=${trip.id} />
+      <input type="hidden" name="trip_id" value=${trip_id} />
     </div>
     <input type="submit" name="reserve" value="Reserve" />
   `);
