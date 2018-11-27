@@ -130,8 +130,6 @@ function getTripCreateTemplate() {
   );
 }
 
-// *******************************************************
-
 const readFormData = () => {
   const parsedFormData = {};
 
@@ -184,20 +182,20 @@ const tripFormData = () => {
   const parsedTripFormData = {};
 
   const tripNameFromForm = $(`#new-trip-form input[name="trip-name"]`).val();
-  parsedTripFormData["trip-name"] = tripNameFromForm
-    ? tripNameFromForm
-    : undefined;
+  parsedTripFormData["name"] = tripNameFromForm ? tripNameFromForm : undefined;
 
   const continentFromForm = $(`#new-trip-form input[name="continent"]`).val();
-  parsedTripFormData["email"] = continentFromForm
+  parsedTripFormData["continent"] = continentFromForm
     ? continentFromForm
     : undefined;
 
   const aboutFromForm = $(`#new-trip-form input[name="about"]`).val();
   parsedTripFormData["about"] = aboutFromForm ? aboutFromForm : undefined;
 
-  const categoryFromForm = $(`#new-trip-form input[name="about"]`).val();
-  parsedTripFormData["about"] = categoryFromForm ? categoryFromForm : undefined;
+  const categoryFromForm = $(`#new-trip-form input[name="category"]`).val();
+  parsedTripFormData["category"] = categoryFromForm
+    ? categoryFromForm
+    : undefined;
 
   const weeksFromForm = $(`#new-trip-form input[name="weeks"]`).val();
   parsedTripFormData["weeks"] = weeksFromForm ? weeksFromForm : undefined;
@@ -210,13 +208,13 @@ const tripFormData = () => {
 const createTrip = event => {
   event.preventDefault();
 
-  const tripFormData = readFormData();
+  const formData = tripFormData();
   console.log(tripFormData);
 
   reportStatus("Sending trip data...");
 
   axios
-    .post(URL, parsedTripFormData)
+    .post(URL, formData)
     .then(response => {
       reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
       $("#trip-list").append(tripFormData);
@@ -234,8 +232,6 @@ const createTrip = event => {
       }
     });
 };
-// const trips =
-// ["Cairo to Zanzibar","Everest Base Camp Trek","Golden Triangle""Egypt & Jordan Adventure","Best of New Zealand","Trans-Mongolian Adventure","Sziget Festival Experience", "Dunes, Deltas & Falls","Highlights of Morocco","Local Living Ecuador—Amazon Jungle","Costa Rica Volcanoes & Surfing","Sheepshead World Championships","In Search of Iguassu–Rio to Buenos Aires","Jamaica Encompassed","Antarctica Classic in Depth","Rio de Janeiro Carnival Experience","Kenya & Uganda Gorilla Adventure", "San Diego, Grand Canyon & Vegas","Sin, Surf & Sierras","Historic American Cities by Rail", "Best of Australia","Explore Whitsundays: Solway Lass Tall Ship Sailing","Great Ocean Road - Melbourne to Adelaide", "Ultimate Sydney","Sunnyville ","Blanery Castle","Northern Choice (Auckland to Wellington)","Complete Australia","Remote Northern Lau and Kadavu Discovery Cruise","Local Living Croatia","Whisky Tour from Edinburgh","Clubbing in Bucharest Tour","Hokkaido Winter Festivals","Ancient Empires—Beijing to Tokyo","Cambodia on a Shoestring","Essential India","Northern Hilltribes & Villages","Titanic Journey to New York City","✨✨ Hogwarts Castle Tour ✨✨","Mission to Mars","Mission to Saturn"]
 
 $(document).ready(() => {
   $("#load").click(loadTrips);
