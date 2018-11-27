@@ -81,6 +81,10 @@ font-size: 7em;
   margin-top: 10px;
 }
 
+.btn-danger {
+  margin-top: 2em;
+}
+
 #reservation-form {
   background-color: #eeeeee;
   padding: 2em;

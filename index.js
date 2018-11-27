@@ -67,15 +67,15 @@ const showReservationForm = (tripId) => {
     <h2>Reserve Your Spot!</h2>
     <div>
     <label for="name">Your Name</label>
-    <input type="text" name="name" />
+    <input class="form-control" type="text" name="name" />
     </div>
-
+    <br>
     <div>
     <label for="email">Your Email</label>
-    <input type="text" name="email" />
+    <input class="form-control" type="text" name="email" />
     </div>
 
-    <input type="submit" name="add-reservation" value="Reserve Now" id="${tripId}"/>
+    <input type="submit" class="btn btn-danger" name="add-reservation" value="Reserve Now" id="${tripId}"/>
     </form>
     `)
 };
@@ -142,5 +142,4 @@ $(document).ready(() => {
     event.preventDefault();
     createReservation(tripId);
   });
-
 });
