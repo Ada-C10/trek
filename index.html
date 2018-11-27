@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Trek with axios</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <section id="status-message"></section>
+
+  <main>
+    <section class="current-treks">
+      <h1>Treks</h1>
+      <button id="load">Get treks!</button>
+      <ul id="trek-list"></ul>
+    </section>
+
+    <section class="new-trek">
+      <!-- <h1 id="testing">Reserve trek</h1>
+      <form id="trek-form">
+        <div>
+          <label for="name">Trek name</label>
+          <input type="text" name="name" id="name"/>
+        </div>
+
+        <div>
+          <label for="age">Age</label>
+          <input type="text" name="age" id="age"/>
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input type="text" name="email" id="email"/>
+        </div>
+
+        <input type="submit" name="add-trek" value="Add Trek" />
+      </form>
+
+      <div class="">
+        <button id="load-detail">Details</button>
+        <ul id="trek-detail"></ul>
+      </div> -->
+    </section>
+  </main>
+</body>
+</html>
+
+<!-- 
+$('.new-trek').empty();
+$('.new-trek').append(`<h1 id="testing">Reserve trek</h1>
+<form id="trek-form">
+  <div>
+    <label for="name">Trek name</label>
+    <input type="text" name="name"/>
+  </div>
+
+  <div>
+    <label for="age">Age</label>
+    <input type="text" name="age"/>
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input type="text" name="email"/>
+  </div>
+
+  <input type="submit" name="add-trek" value="Add Trek" />
+</form>`);
+
+$('.new-trek').append(`<div class="">
+  <button id="load-detail">Details</button>
+  <ul id="trek-detail"></ul>
+</div>`);
+
+$('#trek-form').on('submit', () => {
+   reserveTrek(`${trek.id}`);}
+  ); -->
