@@ -68,12 +68,12 @@ const loadTripDetails = (tripId) => {
     .then((response) => {
       reportStatus(`Successfully loaded detail of trip!`)
       detail.append(`<div class='detail-container'>
-      <h2>Trip Details</h2>
+      <h2>Trip ${response.data.id} Details</h2>
         <li id="name">${response.data.name}</li>
         <li id="continent">${response.data.continent}</li>
         <li id="about">${response.data.about}</li>
-        <li id="weeks">Weeks: ${response.data.weeks}</li>
-        <li id="cost">Cost: $${response.data.cost}</li>
+        <li id="weeks"><b>Weeks:</b> ${response.data.weeks}</li>
+        <li id="cost"><b>Cost:</b> $${response.data.cost}</li>
       </div>`);
     })
     .catch((error) => {

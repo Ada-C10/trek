@@ -40,9 +40,17 @@ main{
   padding-bottom: 5px;
 }
 
+#about{
+  padding-bottom: 10px;
+}
+#weeks{
+  border-top: 1px solid rgba(167, 162, 168, 0.61);
+  padding-top: 10px;
+}
+
+
 #trip-list li{
   padding: 3px;
-
 }
 
 #trip-list li:hover{
