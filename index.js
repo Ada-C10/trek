@@ -46,29 +46,31 @@ const loadTrips = () => {
         axios.get(detailsURL)
         .then((response) => {
           reportStatus(`Successfully loaded trip details`);
-          const name = response.data.name;
+          const tripName = response.data.name;
           const continent = response.data.continent;
           const category = response.data.category;
           const weeks = response.data.weeks;
           const cost = response.data.cost;
           const about = response.data.about;
+          const tripId = response.data.id;
 
           tripDetails.append(`<h1>Trip Details</h1>
-            <li> ${name}</li>
-            <li> ${continent}</li>
-            <li> ${category}</li>
-            <li> ${weeks}</li>
-            <li> ${cost}</li>
-            <li> ${about}</li>`);
+            <li> Trip: ${tripName}</li>
+            <li> ${weeks} weeks</li>
+            <li> $${cost}</li>
+            <li> Continent: ${continent}</li>
+            <li> Category: ${category}</li>
+            <li> About: ${about}</li>`);
 
           $( "#reservation-form" ).removeClass( "hidden");
 
           reserveTrip.append(
-            $(`#reservation-form input[name="name"]`).val(`${name}`),
-            $(`#reservation-form input[name="category"]`).val(`${category}`),
-            $(`#reservation-form input[name="cost"]`).val(`${cost}`),
-            $(`#reservation-form input[name="continent"]`).val(`${continent}`),
-            $(`#reservation-form input[name="weeks"]`).val(`${weeks}`),
+            $(`#reservation-form input[name="tripName"]`).val(`${tripName}`),
+            $(`#reservation-form input[name="tripId"]`).val(`${tripId}`),
+            // $(`#reservation-form input[name="category"]`).val(`${category}`),
+            // $(`#reservation-form input[name="cost"]`).val(`${cost}`),
+            // $(`#reservation-form input[name="continent"]`).val(`${continent}`),
+            // $(`#reservation-form input[name="weeks"]`).val(`${weeks}`),
           );
         });
       };
@@ -92,7 +94,8 @@ const loadTrips = () => {
 const readFormData = () => {
   const parsedFormData = {};
 
-  const inputs = ["customer-name", "email", "name", "category", "cost", "weeks", "continent"];
+  const inputs = ["tripId", "email", "name", "tripName"];
+  // const inputs = ["customer-name", "email", "name", "category", "cost", "weeks", "continent"];
 
   inputs.forEach((curInput) => {
     const curData = $(`#reservation-form input[name="${curInput}"]`).val();
@@ -112,28 +115,28 @@ const readFormData = () => {
 };
 
 const clearForm = () => {
-  $(`#reservation-form input[name="customer-name"]`).val('');
+  $(`#reservation-form input[name="tripId"]`).val('');
+  $(`#reservation-form input[name="name"]`).val('');
   $(`#reservation-form input[name="email"]`).val('');
-  $(`#reservation-form input[name="name"]`).val(''); //name is tripname
-  $(`#reservation-form input[name="continent"]`).val('');
-  $(`#reservation-form input[name="cost"]`).val('');
-  $(`#reservation-form input[name="weeks"]`).val('');
-  $(`#reservation-form input[name="category"]`).val('');
+  $(`#reservation-form input[name="tripName"]`).val(''); //name is tripname
+  // $(`#reservation-form input[name="continent"]`).val('');
+  // $(`#reservation-form input[name="cost"]`).val('');
+  // $(`#reservation-form input[name="weeks"]`).val('');
+  // $(`#reservation-form input[name="category"]`).val('');
 }
 
 const createReservation = (event) => {
-  console.log("called createReservation with", event);
-  // Note that createPet is a handler for a `submit`
-  // event, which means we need to call `preventDefault`
-  // to avoid a page reload
-  event.preventDefault();
 
-  const reservationData = readFormData();
-  console.log(reservationData);
+  event.preventDefault(); //avoids page reload
+
+  const reservationTripId = readFormData().tripId;
+  const reservationData = readFormData()
 
   reportStatus('Sending reservation data...');
 
-  axios.post(URL, reservationData)
+  const reservationURL = `https://trektravel.herokuapp.com/trips/${reservationTripId}/reservations`;
+console.log(reservationData);
+  axios.post(reservationURL, reservationData)
   .then((response) => {
     reportStatus(`Successfully added a reservation with ID ${response.data.id}!`);
     clearForm();
