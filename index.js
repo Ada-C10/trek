@@ -45,7 +45,7 @@ const loadTrips = () => {
 const tripShowHandler = (trip) => {
 
   // Prep work
-  const tripsShow = $('#trips-list');
+  const tripsShow = $('#trip-view');
   const tripID = trip.id;
   return () => {
     reportStatus('Loading trip...');
@@ -54,7 +54,12 @@ const tripShowHandler = (trip) => {
     axios.get(BASE_URL + tripID)
     .then((response) => {
       reportStatus(`Found your get-away`);
-      const newTrip = $(`<li>${response.data.name}, $${response.data.cost}</li><li>${response.data.continent}, ${response.data.weeks} weeks</li><li>Trip type:${response.data.category}</li><li>Details:${response.data.about}</li></ul>`);
+      const newTrip = $(`<h2>${response.data.name}</h2>
+        <h3>$${response.data.cost} ${response.data.continent}, ${response.data.weeks} weeks</h3>
+         <ul>
+         <li><strong>Trip type:</strong> ${response.data.category}</li>
+         <li><strong>Details:</strong> ${response.data.about}</li>
+         </ul>`);
       tripsShow.append(newTrip);
       const reserveButton = $(`<button class="reserve">Sign me up!</button>`)
       tripsShow.append(reserveButton);
@@ -73,7 +78,7 @@ const reserveFormHandler = (trip) => {
 
   const tripID = trip.id;
 
-  const form = `<h3>Add a reservation ${tripID}</h3>
+  const form = `<h3>Add a reservation for ${trip.name}</h3>
   <form id="reservation-form">
   <div>
   <label for="name">Name</label>
@@ -87,15 +92,14 @@ const reserveFormHandler = (trip) => {
   <label for="email">Email</label>
   <input type="text" name="email" />
   </div>
-  <input type="submit" name="add-reservation" value="Reserve it!" />
+  <input id ="reserve-button" type="submit" name="add-reservation" value="Reserve it!" />
   </form>`
 
   // Prep work
-  const tripsShow = $('#trips-list');
+  const tripsShow = $('#trip-view');
 
   return () => {
     reportStatus('Loading resevation...');
-    tripsShow.empty();
     tripsShow.append(form);
     const result = (event) => {
       event.preventDefault();
