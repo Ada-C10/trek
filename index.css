@@ -23,6 +23,11 @@ ul {
   padding-top: 10px;
 }
 
+.trip-info {
+  height: 50vh;
+  overflow: scroll;
+}
+
 .current-trips {
   grid-column: 1 / 2;
 }
@@ -33,4 +38,5 @@ ul {
 
 #reserve-form {
   text-align: center;
+  padding-top: 20px;
 }
