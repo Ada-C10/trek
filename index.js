@@ -5,6 +5,7 @@ const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
+
 const reportError = (message, errors) => {
   let content = `<p>${message}</p><ul>`;
   for (const field in errors) {
@@ -17,7 +18,6 @@ const reportError = (message, errors) => {
 };
 
 
-
 const loadTrips = () => {
   reportStatus('Loading trips...');
   const tripList = $('#trip-list');
@@ -27,15 +27,14 @@ const loadTrips = () => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
 
     response.data.forEach((trip) => {
-      tripList.append(`<li>${trip.name}<br><button class = "button" id = ${trip.id}>Get Trip Info!</button></li><br><br>`);
+      tripList.append(`<div class="card-body">${trip.name}<br><button type = "button" class = "button btn btn-secondary" id = ${trip.id}>Get Trip Info!</button></div><br><br>`);
     });
-
   })
+
   .catch((error) => {
     reportStatus(`Encountered an error: ${error.message}`);
     console.log(error);
   });
-
 };
 
 
@@ -49,14 +48,13 @@ const showTrip = (id) => {
   axios.get(URL2)
   .then((response) => {
     let tripId = response.data.id;
-    tripInfo.append(`<h2>Trip&nbsp;Details</h2>`);
+    tripInfo.append(`<tr><td colspan="2"><h2 class = "trip-header">Trip&nbsp;Details&nbsp;for&nbsp;${response.data.name}</h2></td></tr>`);
     Object.keys(response.data).forEach((key) => {
-      tripInfo.append(`<tr><th>${key}</th><td>${response.data[key]}</td>`);
+      tripInfo.append(`<tr><th>${key}</th><td>${response.data[key]}</td></tr>`);
     });
     showReservationForm(tripId);
 
   });
-
 };
 
 
@@ -64,10 +62,9 @@ const showReservationForm = (tripId) => {
 
   const reservationForm = $('#reservations');
 
-  reservationForm.append(`<h2>Reserve Your Spot!</h2>`);
-
   reservationForm.append(`
     <form id="reservation-form" class="${tripId}">
+    <h2>Reserve Your Spot!</h2>
     <div>
     <label for="name">Your Name</label>
     <input type="text" name="name" />
@@ -82,7 +79,6 @@ const showReservationForm = (tripId) => {
     </form>
     `)
 };
-
 
 
 const readFormData = () => {
@@ -127,16 +123,11 @@ const createReservation = (tripId) => {
     } else {
       reportStatus(`Encountered an error: ${error.message}`);
     }
-
   });
-
 };
 
 
-
-
 $(document).ready(() => {
-  // $(`#reservations`).hide();
   $('#trips').click(loadTrips);
 
   $('#trip-list').on('click', '.button', function() {
@@ -144,8 +135,6 @@ $(document).ready(() => {
     $( '#reservation-form' ).remove();
     let newId = $(this).attr('id');
     showTrip(newId);
-    // $('#reservation-form').submit(createReservation);
-    // $(`#reservations`).show();
   });
 
   $('#reservations').on('submit', 'form', function(event) {
@@ -153,11 +142,5 @@ $(document).ready(() => {
     event.preventDefault();
     createReservation(tripId);
   });
-
-
-
-
-  // $('#reservation-form').submit(createReservation);
-
 
 });
