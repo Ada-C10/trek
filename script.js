@@ -45,6 +45,7 @@ const loadTrips = () => {
 
     // --- VIEW DETAILS FOR SELECTED TRIP --- //
     let loadTripDetails = function loadTripDetails() {
+      reportStatus('Loading trip...');
 
       let regex = /p(.+)/
       let selectedTripID = `${$(this).attr('class').split(" ")[0].match(regex)[1]}`
@@ -56,6 +57,8 @@ const loadTrips = () => {
 
       axios.get(baseURL+selectedTripID)
       .then((response) => {
+
+        reportStatus(``)
         let tripData = response.data
         // reportStatus(`Trip ${tripData.id}`)
         regexMoney = /\d(?=(\d{3})+\.)/g
@@ -82,7 +85,7 @@ const loadTrips = () => {
         //     });
 
       };
-$(`.trip-list *`).click(loadTripDetails)
+      $(`.trip-list *`).click(loadTripDetails)
 
     });
     // .catch((error) => {
@@ -99,10 +102,10 @@ $(`.trip-list *`).click(loadTripDetails)
     let reserveTrip = $('.reserve-trip')
     // (reserveTrip).empty()
     reserveTrip.css('visibility', 'visible');
-            // $('form h3').empty();
-        // $(`.reserve-trip h3`).empty();
+    // $('form h3').empty();
+    // $(`.reserve-trip h3`).empty();
 
-     let reservation = {
+    let reservation = {
       name: $('input[name="name"]').attr('placeholder', `Your Name`),
       email: $('input[name="email"]').attr('placeholder', `Your Email`),
       tripName: $('input[name="tripName"]').attr('placeholder', `${tripData.name}`)
@@ -110,39 +113,47 @@ $(`.trip-list *`).click(loadTripDetails)
 
 
     let postIt = () => {
+      reportStatus(`Attempting to reserve trip: ${reservation.tripName}...`)
       event.preventDefault();
-      $('.reserve-trip').css('visibility', 'hidden');
+
 
       for (r in reservation) {
-        reservation[r] = reservation[r].val()
-      };
-
-
-    axios.post(baseURL+post, reservation)
-    .then((response) => {
-
-      reportStatus(`Thanks, ${response.data.id}! Successfully reserved your trip.`);
-    })
-
-    .catch((error) => {
-      if (error.response.data && error.response.data.errors) {
-        reportError(
-          `Encountered an error: ${error.message}`,
-          error.response.data.errors
-        );
-      } else {
-        reportStatus(`Encountered an error: ${error.message}`);
+        if (reservation[r]) {
+        reservation[r] = reservation[r].val();
       }
-    });
+    }
 
-$('form').trigger("reset");
-$('html, body').animate({scrollTop:0},0);
 
-};
+      axios.post(baseURL+post, reservation)
+      .then((response) => {
+        reportStatus(`Successfully reserved your trip! Confirmation #${response.data.id}`);
 
-$(`form`).submit(postIt);
+        $('.reserve-trip').css('visibility', 'hidden');
+        $('form').trigger("reset");
+        $('html, body').animate({scrollTop:0},0);
 
-  };
+      })
+
+      .catch((error) => {
+        if (error.response.data && error.response.data.errors) {
+          reportError(
+            `Encountered an error: ${error.message}`,
+            error.response.data.errors
+          );
+        } else {
+          reportStatus(`Encountered an error: ${error.message}`);
+        }
+reservationForm(tripData)
+      });
+    }
+      // $('form').trigger("reset");
+      // $('html, body').animate({scrollTop:0},0);
+          $(`form`).submit(postIt);
+    };
+
+
+
+
 
 
 
