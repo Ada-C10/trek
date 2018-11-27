@@ -31,7 +31,10 @@ const loadtrips = () => {
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
-        tripList.append(`<li>${trip.name}</li>`);
+        const oneTrip = $(`<li>${trip.name}</li>`)
+        tripList.append(oneTrip);
+
+        oneTrip.on('click', () => {getOneTrip(`${trip.id}`)});
       });
     })
     .catch((error) => {
@@ -39,6 +42,31 @@ const loadtrips = () => {
       console.log(error);
     });
 };
+
+// Single trip detail
+//
+
+const getOneTrip = (id) => {
+  const tripURL = URL + '/' + id;
+
+  axios.get(tripURL)
+    .then((response) => {
+      $('#trip-details').empty();
+      const data = response.data;
+      $('#trip-details').append(`<li>Trip ID: ${data.id}`);
+      $('#trip-details').append(`<li>Destination: ${data.name}`);
+      $('#trip-details').append(`<li>Continent: ${data.continent}`);
+      $('#trip-details').append(`<li>Duration: ${data.weeks}`);
+      $('#trip-details').append(`<li>Cost: $${data.cost}`);
+      $('#trip-details').append(`<li>About This Trip: ${data.about}`);
+
+
+
+    })
+    .catch((error) => {
+      reportStatus(`Encountered an error loading trip ${id}: ${error.message}`)
+    })
+  };
 
 //
 // Creating trips
