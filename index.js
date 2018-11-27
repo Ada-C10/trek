@@ -10,25 +10,23 @@ const reportError = (message, errors) => {
   for (const field in errors) {
     for (const problem of errors[field]) {
       content += `<li>${field}: ${problem}</li>`;
-    }
+    };
   }
-}
+};
 
-const generateForm = (section) => {
+  // create a form and append it to the html
+const createForm = (section) => {
   section.empty();
   section.append('<h1> Reserve a Trip </h1>');
-
+  // id = trip form
   section.append('<form id="trip-form">');
-
   const form = $('#trip-form');
-
   form.append('<div><label for="name">Name</label><input type="text" name="name"/></div>');
   form.append('<div><label for="age">Age</label><input type="number" name="age"/></div>');
   form.append('<div><label for="email">Email</label><input type="text" name="email"/></div>');
   form.append('<div><input type="submit" name="add-trip" value="Reserve" /></div>');
 
 };
-
 
 const loadTrips = () => {
   statusReport("Trips Loading...");
@@ -46,11 +44,11 @@ const loadTrips = () => {
       const showTrip = (trip) => {
         // closure
         return () => {
-          statusReport('Loading ${trip.name}...');
+          statusReport(`Loading ${trip.name}...`);
           axios.get(URL + `/${trip.id}`)
           // promise
           .then((response) => {
-            statusReport('Successfully loaded ${trip.name}');
+            statusReport(`Successfully loaded ${trip.name}`);
             // connect trip details to the id in html
             const tripDetails = $('#trip-details');
             // empty it out before appending
@@ -64,7 +62,7 @@ const loadTrips = () => {
             tripDetails.append(`<h3> About: ${response.data.about}</h3>`);
             // start reserve a trip form
             const form = $('#reserve');
-            generateForm(form);
+            createForm(form);
           })
           .catch((error) => {
             statusReport(error);
@@ -81,15 +79,12 @@ const loadTrips = () => {
             'age': $('input[name="age"]').val(),
             'email': $('input[name="email"]').val(),
           }
-
           axios.post(URL + `/${trip.id}/reservations`, data)
           // promise
-
           .then((response) => {
             statusReport(`Successfully added trip reservation with name: ${response.data.name}`);
           })
           // if not, error
-
           .catch((error) => {
             if (error.response.data && error.response.data.errors) {
               reportError(
@@ -109,7 +104,6 @@ const loadTrips = () => {
       $('#reserve').on('submit', '#trip-form', makeReservation);
     })
   })
-
   // catch the errors if promise isnt kept
   .catch((error) => {
     statusReport(error);
