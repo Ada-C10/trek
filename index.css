@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Allerta+Stencil|Monoton|Noto+Sans+SC');
+
+body {
+  /* font-family: sans-serif; */
+  font-family: 'Noto Sans SC', sans-serif;
+  padding: 15px;
+  background-color: grey;
+  color: white;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 'list trip'
+                       'list reservation';
+}
+
+#hero {
+  font-family: 'Allerta Stencil', sans-serif;
+  color: white;
+  font-size: 3em;
+
+}
+
+.all-trips {
+  grid-area: list;
+  /* background-color: white; */
+  padding: 10px;
+}
+
+.trip-info {
+  grid-area: trip;
+
+}
+
+.reservation {
+  grid-area: reservation;
+}
+
+btn {
+  padding-left: 15px;
+}
+ul {
+  list-style: none;
+}
