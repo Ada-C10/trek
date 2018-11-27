@@ -34,7 +34,7 @@ const loadTrip = (id) => {
  const tripDetails = $('#trip-details');
  tripDetails.empty();
 
- axios.get(URL + `/${id}`).then((response) => {
+ axios.post(URL + `/${id}`).then((response) => {
    reportStatus(`Loading trip ....`);
    let trip = response.data
 

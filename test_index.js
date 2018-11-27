@@ -41,8 +41,10 @@ const showTrip = (id) => {
     $('.trip').append(`
       <div class="trip-info">
       <h1>Trip Details</h1>
+      <p>Trip ID : ${trip.id}</p>
       <p>Trip Name : ${trip.name}</p>
       <p>Continent : ${trip.continent}</p>
+      <p>Category : ${trip.category}</p>
       <p>Cost : $${trip.cost}</p>
       <p>Weeks : ${trip.weeks}</p>
       <p>About : <p>${trip.about}</p></p>
