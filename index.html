@@ -1,70 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8">
-  <title>Trips with axios</title>
-
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-
-
-
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script type="text/javascript" src="index.js"></script>
-  <link rel="stylesheet" href="index.css">
-</head>
-<body>
-  <section id="status-message"></section>
-
-  <main>
-    <section class="current-trips">
-      <h1>List of Trips</h1>
-      <button id="load">Get trips!</button>
-      <ul id="trip-list"></ul>
-    </section>
-
-    <section>
-      <ul class="trip-details"></ul>
-    </section>
-
-
-    <section class="reserve-trip " >
-      <form id="reservation-form" class="hidden" >
-        <h1>Reserve Trip</h1>
-
-          <div>
-            <label for="name">Your name:</label>
-            <input type="text" name="name" />
-          </div>
-
-          <div>
-            <label for="email">Email:</label>
-            <input type="text" name="email" />
-          </div>
-
-          <div>
-            <label for="trip-name">Trip Name:</label>
-            <input type="text" name="tripName" />
-          </div>
-
-          <div>
-            <input type="hidden" name="tripId" />
-          </div>
-
-          <input type="submit" name="make-reservation" value="Reserve" />
-      </form>
-
-    </section>
-
-  </main>
-</body>
+   <head>
+      <meta charset="utf-8">
+      <title>Trips with axios</title>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script
+         src="https://code.jquery.com/jquery-3.3.1.js"></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script type="text/javascript" src="index.js"></script>
+      <link rel="stylesheet" href="index.css">
+   </head>
+   <body class="">
+      <h1 class="text-center">Trek!</h1>
+      <section class="text-center" id="status-message"></section>
+      </br>
+      <main class="container">
+         <div class="row">
+            <div class="col-sm-6 first-column">
+               <section class="current-trips">
+                  <section class="text-left">
+                     <button id="load" class="btn btn-primary">Get trips!</button>
+                  </section>
+                  <section>
+                     <ul id="trip-list"></ul>
+                  </section>
+               </section>
+            </div>
+            <div class="col-sm-6 second-column">
+               <section>
+                  <ul class="trip-details"></ul>
+               </section>
+               <section class="reserve-trip" >
+                  <form id="reservation-form" class="hidden" >
+                     <h1>Reserve Trip</h1>
+                     <section class="form-group">
+                        <label for="name">Your name:</label>
+                        <input type="text" class="form-control" name="name" />
+                     </section>
+                     <section class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" name="email" />
+                     </section>
+                     <section class="form-group">
+                        <input type="hidden" class="form-control" name="tripId" />
+                     </section>
+                     <section class="form-group">
+                        <label for="trip-name">Trip Name:</label>
+                        <input type="text" class="form-control" name="tripName" />
+                     </section>
+                     <div class="form-group">
+                        <button type="submit" class="btn btn-primary" name="make-reservation"/>Reserve</button>
+                     </div>
+                  </form>
+               </section>
+            </div>
+         </div>
+      </main>
+   </body>
 </html>

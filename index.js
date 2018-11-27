@@ -1,5 +1,4 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
-// & + .serialize() tac on to the end
 
 //
 // Status Management
@@ -62,104 +61,81 @@ const loadTrips = () => {
             <li> Category: ${category}</li>
             <li> About: ${about}</li>`);
 
-          $( "#reservation-form" ).removeClass( "hidden");
+            $( "#reservation-form" ).removeClass( "hidden");
 
-          reserveTrip.append(
-            $(`#reservation-form input[name="tripName"]`).val(`${tripName}`),
-            $(`#reservation-form input[name="tripId"]`).val(`${tripId}`),
-            // $(`#reservation-form input[name="category"]`).val(`${category}`),
-            // $(`#reservation-form input[name="cost"]`).val(`${cost}`),
-            // $(`#reservation-form input[name="continent"]`).val(`${continent}`),
-            // $(`#reservation-form input[name="weeks"]`).val(`${weeks}`),
-          );
-        });
-      };
+            $(`#reservation-form input[name="tripName"]`).val(`${tripName}`);
+            $(`#reservation-form input[name="tripId"]`).val(`${tripId}`);
+          });
+        };
 
-      tripList.append(`<li class="trip-details-${trip.id}">${trip.name}</li>`);
-      $(`.trip-details-${trip.id}`).click(loadTripDetails);
-      //return loadTripDetails;
+        tripList.append(`<li class="trip-details-${trip.id}">${trip.name}</li>`);
+        $(`.trip-details-${trip.id}`).click(loadTripDetails);
+      });
+    })
+    .catch((error) => {
+      reportStatus(`Encountered an error while loading trips: ${error.message}`);
+      console.log(error);
     });
-  })
-  .catch((error) => {
-    reportStatus(`Encountered an error while loading trips: ${error.message}`);
-    console.log(error);
-  });
-};
+  };
 
 
 
-//
-// Creating Reservation
-//
-const readFormData = () => {
-  const parsedFormData = {};
-
-  const inputs = ["tripId", "email", "name", "tripName"];
-  // const inputs = ["customer-name", "email", "name", "category", "cost", "weeks", "continent"];
-
-  inputs.forEach((curInput) => {
-    const curData = $(`#reservation-form input[name="${curInput}"]`).val();
-    parsedFormData[curInput] = curData ? curData : undefined;
-  });
-
-  // const nameFromForm = $(`#pet-form input[name="name"]`).val();
-  // parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
   //
-  // const ageFromForm = $(`#pet-form input[name="age"]`).val();
-  // parsedFormData['age'] = ageFromForm ? ageFromForm : undefined;
+  // Creating Reservation
   //
-  // const ownerFromForm = $(`#pet-form input[name="owner"]`).val();
-  // parsedFormData['owner'] = ownerFromForm ? ownerFromForm : undefined;
+  const readFormData = () => {
+    const parsedFormData = {};
 
-  return parsedFormData;
-};
+    const inputs = ["tripId", "email", "name", "tripName"];
 
-const clearForm = () => {
-  $(`#reservation-form input[name="tripId"]`).val('');
-  $(`#reservation-form input[name="name"]`).val('');
-  $(`#reservation-form input[name="email"]`).val('');
-  $(`#reservation-form input[name="tripName"]`).val(''); //name is tripname
-  // $(`#reservation-form input[name="continent"]`).val('');
-  // $(`#reservation-form input[name="cost"]`).val('');
-  // $(`#reservation-form input[name="weeks"]`).val('');
-  // $(`#reservation-form input[name="category"]`).val('');
-}
+    inputs.forEach((curInput) => {
+      const curData = $(`#reservation-form input[name="${curInput}"]`).val();
+      parsedFormData[curInput] = curData ? curData : undefined;
+    });
 
-const createReservation = (event) => {
+    return parsedFormData;
+  };
 
-  event.preventDefault(); //avoids page reload
+  const clearForm = () => {
+    $(`#reservation-form input[name="tripId"]`).val('');
+    $(`#reservation-form input[name="name"]`).val('');
+    $(`#reservation-form input[name="email"]`).val('');
+    $(`#reservation-form input[name="tripName"]`).val('');
+  }
 
-  const reservationTripId = readFormData().tripId;
-  const reservationData = readFormData()
+  const createReservation = (event) => {
 
-  reportStatus('Sending reservation data...');
+    event.preventDefault(); //avoids page reload
 
-  const reservationURL = `https://trektravel.herokuapp.com/trips/${reservationTripId}/reservations`;
-console.log(reservationData);
-  axios.post(reservationURL, reservationData)
-  .then((response) => {
-    reportStatus(`Successfully added a reservation with ID ${response.data.id}!`);
-    clearForm();
-  })
-  .catch((error) => {
-    console.log(error.response);
-    if (error.response.data && error.response.data.errors) {
-      reportError(
-        `Encountered an error: ${error.message}`,
-        error.response.data.errors
-      );
-    } else {
-      reportStatus(`Encountered an error: ${error.message}`);
-    }
-  });
-};
+    const reservationTripId = readFormData().tripId;
+    const reservationData = readFormData()
 
-//
-// OK GO!!!!!
-//
+    reportStatus('Sending reservation data...');
+
+    const reservationURL = `https://trektravel.herokuapp.com/trips/${reservationTripId}/reservations`;
+    console.log(reservationData);
+    axios.post(reservationURL, reservationData)
+    .then((response) => {
+      reportStatus(`Successfully added a reservation for ${response.data.name}!
+        A confirmation has been sent to ${response.data.email}`);
+        clearForm();
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error.response.data && error.response.data.errors) {
+          reportError(
+            `Encountered an error: ${error.message}`,
+            error.response.data.errors
+          );
+        } else {
+          reportStatus(`Encountered an error: ${error.message}`);
+        }
+      });
+    };
 
 
-$(document).ready(() => {
-  $('#load').click(loadTrips);
-  $('#reservation-form').submit(createReservation);
-});
+
+    $(document).ready(() => {
+      $('#load').click(loadTrips);
+      $('#reservation-form').submit(createReservation);
+    });
