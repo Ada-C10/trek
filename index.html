@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Trek</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <header>
+    <h1>Trek</h1>
+  </header>
+  <section id="status-message"></section>
+
+  <main class="main">
+    <section class="current-trips">
+      <!-- append element below when load button is clicked -->
+      <!-- <h1>List-o-Pets</h1> -->
+      <button id="load">Show me the Trips!</button>
+      <!-- append element below when load button is clicked -->
+      <ul id="trip-list">
+
+      </ul>
+    </section>
+
+    <section class="trip-details">
+      <h2>Trip Details</h2>
+      <ul id="detail-info">
+
+      </ul>
+      </section>
+
+    <section class="reserve-trip">
+      <h2>Reserve Trip</h2>
+      <form id="reservation-form">
+        <div>
+          <label for="name">Name</label>
+          <input type="text" name="name" />
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input type="email" name="email" />
+        </div>
+
+        <div id="formtripName">
+          <label for="trip">Trip Name</label>
+          <input id="tripName" type="text" name="tripName" />
+        </div>
+
+        <input type="submit" name="add-reservation" value="Reserve" id="add-reservation-button" />
+      </form>
+    </section>
+  </main>
+</body>
+</html>
