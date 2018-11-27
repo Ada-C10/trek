@@ -1,16 +1,27 @@
 const FORM_FIELDS = ['name', 'email'];
 
+const INFO_FIELD = ['about','continent', 'category', 'weeks', 'cost'];
+
 const URL = 'https://trektravel.herokuapp.com/trips';
 const getTripURL = (tripId) => { return `${URL}/${tripId}` };
 const getReservationURL = (tripId) => { return `${getTripURL(tripId)}/reservations` };
 
-const formFieldHTMLString = (field) => {
+const getInfo = (info) => {
+  let requestedInfo = `<section id='trip-info'><h3>${info['name']}</h3>`;
+  INFO_FIELD.forEach((infoField) => {
+    requestedInfo +=
+    `<p><strong>${infoField}: </strong><span class='info-field'>${info[`${infoField}`]}</span></p>`;
+  });
+  requestedInfo += `</section>`;
+  return requestedInfo;
+};
+
+const getFieldName = (field) => {
   return `<label for=${field}>${field}</label><input type='string' name=${field} id=${field} />`;
 };
 
 const inputField = name => $(`#reservation-form input[name='${name}']`);
 const getInput = name => { return inputField(name).val() || undefined };
-
 
 const reservationFormData = () => {
   const formData = {};
@@ -19,24 +30,10 @@ const reservationFormData = () => {
 };
 
 const loadForm = () => {
-  let resFormString = `<section id='book'><h4>Reserve Trip</h4><form id='reservation-form'>`;
-  FORM_FIELDS.forEach((field) => { resFormString += formFieldHTMLString(field) });
-  resFormString +=
+  let formData = `<section id='book'><h4>Reserve Trip</h4><form id='reservation-form'>`;
+  FORM_FIELDS.forEach((field) => { formData += getFieldName(field) });
+  formData +=
   `<br /><input type='submit' name='add-reservation' value='Add Reservation' /></form></section>`;
-  return resFormString;
-};
-
-const readFormData = () => {
-  const getInput = name => {
-    const input = inputField(name).val();
-    return input ? input : undefined;
-  };
-
-  const formData = {};
-  FORM_FIELDS.forEach((field) => {
-    formData[field] = getInput(field);
-  });
-
   return formData;
 };
 
@@ -65,7 +62,7 @@ const getTrip = (tripID) => {
   tripInfo.empty();
   axios.get(getTripURL(tripID))
   .then((response) => {
-    tripInfo.append(response.data.about)
+    tripInfo.append(getInfo(response.data))
     .append(loadForm());
     $('#reservation-form').submit(function(event) { createReservation(event, tripID); });
   })
@@ -75,6 +72,18 @@ const getTrip = (tripID) => {
   });
 };
 
+const createReservation = (event, tripID) => {
+  event.preventDefault();
+  axios.post(getReservationURL(tripID), reservationFormData())
+  .then((response) => {
+    reportStatus(`Successfully added a reservation with ID ${response.data.trip_id}!`);
+  })
+  .catch((error) => {
+    console.log(error.response);
+    reportStatus(`Encountered an error while creating a reservation: ${error.message}`);
+  });
+  clearForm();
+};
 
 $(document).ready(() => {
   $('.hidden-at-start').hide();
