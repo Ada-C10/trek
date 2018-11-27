@@ -1,4 +1,4 @@
-const URL = 'https://trektravel.herokuapp.com/trips ';
+const URL = 'https://trektravel.herokuapp.com/trips';
 
 //
 // Status Management
@@ -21,16 +21,24 @@ const reportError = (message, errors) => {
 //
 // Loading Trips
 //
-const loadTrips = () => {
+const loadTrips = (query) => {
+
+  console.log(event)
+  console.log(query)
   $("#status-message").show()
   reportStatus('Loading trips...');
 
   const tripList = $('#trip-list');
   tripList.empty();
 
+let tripsURL = URL
+
+if (query){
+   tripsURL +=`/continent?query=${query}`
+}
 
 
-  axios.get(URL)
+  axios.get(tripsURL)
   .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips!`);
     response.data.forEach((trip) => {
@@ -147,7 +155,10 @@ const reserveTrip = (event) => {
 $(document).ready(() => {
   $("#status-message").hide()
   $(".individual-trip").hide()
-  $('#load').click(loadTrips);
+  $('#load').click(function(){
+  let query = $('select[name=Continent]').val()
+    loadTrips(query)
+  });
   $('#trip-list').on('click', 'li', function(event){
     $(".individual-trip").show()
     loadTripDetails(event.target.id);//will also parse the details into hidden fiels for the reserveTrip form
