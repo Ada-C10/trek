@@ -1,5 +1,5 @@
 const URL = "https://trektravel.herokuapp.com/trips";
-
+let hiddenID = null;
 //
 // Status Management
 //
@@ -22,7 +22,7 @@ const loadTrips = () => {
   reportStatus("Loading trips...");
 
   const tripList = $("#trip-list");
-
+  tripList.empty();
   axios.get(URL).then(response => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
     response.data
@@ -46,17 +46,13 @@ const loadTrips = () => {
 };
 const showTrip = id => {
   return () => {
+    hiddenID = id;
     axios
       .get(`${URL}/${id}`)
       .then(response => {
-        $(".showList").append(`<div><strong>Trip Name:</strong> ${
-          response.data.name
-        }</div>
-          <div><strong>Trip continent:</strong> ${response.data.continent}</div>
-          <div><strong>Description:</strong> ${response.data.about}</div>
-          <div><strong>Weeks:<strong> ${response.data.weeks}</div>
-          <div><strong>Cost:</strong> ${response.data.cost}</div>
-          <div><br></br></div>`);
+        getTripTemplate(response);
+        getReserveTemplate(response);
+        getTripCreateTemplate();
       })
       .catch(error => {
         reportStatus(
@@ -66,6 +62,74 @@ const showTrip = id => {
       });
   };
 };
+function getTripTemplate(response) {
+  console.log(response.data.name);
+  $("#showList").html(`<div><strong>Trip Name:</strong> ${
+    response.data.name
+  }</div>
+  <div>
+  <strong>Trip continent:</strong> ${response.data.continent}
+  </div>
+  <div><strong>Description:</strong> ${response.data.about}</div>
+  <div><strong>Weeks:<strong> ${response.data.weeks}</div>
+  <div><strong>Cost:</strong> ${response.data.cost}</div>
+  <div><br></br></div>`);
+}
+function getReserveTemplate(response) {
+  $("#trip-form").html(
+    `<h1>Reserve a trip</h1>
+    <div>
+    <label for="name">Name</label>
+    <input type="text" name="name" />
+    </div>
+    <div>
+    <label for="email">Email</label>
+    <input type="string" name="email" />
+    </div>
+
+    <div>
+    <label for="tripID">Trip name</label>
+    <input type="text" name="tripID" value="${response.data.name}"/>
+    </div>
+    <div>
+    <input type="hidden"  name="hiddenID" value="" />
+    </div>
+
+    <input type="submit" name="reserve-trip" value="ReserveTrip"/>`
+  );
+}
+function getTripCreateTemplate() {
+  $("#new-trip-form").html(
+    `<div>
+    <label for="name">Trip Name: </label>
+    <input type="text" name="name" />
+    </div>
+
+    <div>
+    <label for="continent">Continent: </label>
+    <input type="string" name="continent" />
+    </div>
+
+    <div>
+    <label for="about">About: </label>
+    <input type="text" name="trip-name" />
+    </div>
+    <div>
+    <label for="category">Category: </label>
+    <input type="text" name="name" />
+    </div>
+    <div>
+    <label for="weeks">Weeks : </label>
+    <input type="text" name="weeks" />
+    </div>
+    <div>
+    <label for="Cost">Cost: </label>
+    <input type="text" name="cost" />
+    </div>
+    <input type="submit" name="create-trip" value="CreateTrip"/>`
+  );
+}
+
 // *******************************************************
 
 const readFormData = () => {
@@ -99,7 +163,7 @@ const reserveTrip = event => {
   reportStatus("Sending trip data...");
 
   axios
-    .post(`${URL}/${id}/reservations`)
+    .post(`${URL}/${hiddenID}/reservations`, tripData)
     .then(response => {
       reportStatus(`Successfully reserved a trip with ID ${response.data.id}!`);
       clearForm();
@@ -146,15 +210,16 @@ const tripFormData = () => {
 const createTrip = event => {
   event.preventDefault();
 
-  const newTripData = readFormData();
-  console.log(newTripData);
+  const tripFormData = readFormData();
+  console.log(tripFormData);
 
   reportStatus("Sending trip data...");
 
   axios
-    .post(URL, newTripData)
+    .post(`${URL}, newTripData`)
     .then(response => {
       reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
+      $("#trip-list").append(tripFormData);
       clearForm();
     })
     .catch(error => {
