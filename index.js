@@ -50,20 +50,18 @@ const loadTrips = () => {
         axios.get(URL + '/' + trip.id)
         .then((response) => {
           $('#single-trek').append(`<div>
-            <h4>Details</h4>
             <ul id="trip-detail"></ul>
             </div>`);
           const trip = response.data;
           // console.log(trip);
-          $('#trip-detail').append(`
-            <li>${trip.id}</li>
-            <li>${trip.name}</li>
-            <li>${trip.continent}</li>
-            <li>${trip.category}</li>
-            <li>${trip.weeks}</li>
-            <li>${trip.cost}</li>
-            <li>${trip.about}</li>
-            `);
+          $('#trip-detail').append(`<h4>Details for trek: ${trip.name}</h4>`);
+          $('#trip-detail').append(`<li>${trip.id}</li>`);
+          $('#trip-detail').append(`<li>${trip.continent}</li>`);
+          $('#trip-detail').append(`<li>${trip.category}</li>`);
+          $('#trip-detail').append(`<li>${trip.weeks}</li>`);
+          $('#trip-detail').append(`<li>${trip.cost}</li>`);
+          $('#trip-detail').append(`<li>${trip.about}</li>`);
+
 
             const form = $('#new-reservation');
             reservationForm(form)
@@ -81,7 +79,7 @@ const loadTrips = () => {
 const reservationForm = (trip) => {
   trip.empty();
     trip.append(`<div>
-      <h4>Reserve trek</h4>
+      <h4>Reserve this trek!</h4>
       <form id="reservation-form">
         <div>
           <label for="name">Your name</label>
