@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>trek trek trek</title>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300|Roboto+Slab" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <h1>🚗 Trek outta here!</h1>
+    </nav>
+  </header>
+
+  <main>
+    <section class="current-trips">
+      <button type="button" class="btn btn-light" id="load">Where to?</button>
+      <ul id="trip-list"></ul>
+    </section>
+
+    <section id="trip-detail">
+    </section>
+
+    <section class="reservation" id="hidden">
+      <h4>Make a reservation for this trip</h4>
+      <form id="reservation-form">
+        <div>
+          <label for="name">Your name</label>
+          <input type="text" name="name" />
+        </div>
+
+        <div>
+          <label for="name">Email</label>
+          <input type="text" name="email" />
+        </div>
+
+        <div>
+          <label for="name">Trip ID</label>
+          <input type="number" name="trip_id" />
+        </div>
+
+        <input type="submit" name="add-trip" value="Add Trip" class="btn btn-light"/>
+      </form>
+    </section>
+  </main>
+
+  <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
