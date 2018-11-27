@@ -47,8 +47,9 @@ const loadTrips = () => {
 const loadTrip = (tripinfo) => {
   let num = tripinfo.match(/\d/);
   num = num.join("");
-  const trip = $(`${tripinfo}`);
-  trip.empty();
+  // const trip = $(`${tripinfo}`);
+  const section = $('#info-trip');
+  section.empty();
   axios.get(URL + "/" + num)
   .then((response) => {
     let data = {}
@@ -63,10 +64,10 @@ const loadTrip = (tripinfo) => {
     Object.keys(data).forEach(function(key) {
       list.append(`<li><strong>${key}</strong> : ${data[key]}</li`);
     });
-    const section = $('<section></section>');
+    //const section = $('<section></section>');
     section.append('<h2> Trip details </h2>')
     section.append(list)
-    trip.append(section)
+    //trip.append(section)
   })
   .catch((error) => {
     reportStatus(`Encountered an error while loading trip: ${error.message}`);
@@ -79,12 +80,11 @@ const createForm = (tripinfo) => {
   // get id number
   let num = tripinfo.match(/\d/);
   num = num.join("");
-  let trip = $(`${tripinfo}`);
   console.log(tripinfo)
 
   //generate form
   // Create a section element (not in the DOM)
-  const section = $('<section></section>');
+  const section = $('#reserve-trip');
   section.append('<h2>Reserve Trip</h2>');
 
   const form = $('<form id = "trip-form"></form>')
@@ -104,7 +104,6 @@ const createForm = (tripinfo) => {
   form.append('<input type="submit" name="add-pet" value="Reserve" class="btn btn-info" />')
 
   section.append(form)
-  trip.append(section);
 }
 
 const readFormData = () => {
