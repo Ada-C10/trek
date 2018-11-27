@@ -30,7 +30,7 @@ const loadTrips = () => {
     // console.log(response);
     // reportStatus(`Successfully loaded ${response.data.length} trips`)
 
-    response.data.slice(0, 10).forEach((trip) => {
+    response.data.forEach((trip) => {
 
       const $tripItem = $(`<li>${trip.name}</li>`);
       // console.log($tripItem);
