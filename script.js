@@ -1,7 +1,7 @@
 // --- RE-USABLE ---//
 const baseURL = 'https://trektravel.herokuapp.com/trips/';
 let id = 0;
-const post = '1/reservations';
+const post = '/reservations';
 
 const reportStatus = (message) => {
   $('.status-message').html(message);
@@ -30,38 +30,35 @@ const loadTrips = () => {
   axios.get(baseURL)
   .then((response) => {
 
-    reportStatus(``)
+    reportStatus(``);
     $(tripList).html(`<h3>All Trips</h3>`);
     response.data.forEach((trip) => {
       id = trip.id;
       $(tripList).append(`<button class="trip${id} btn btn-info">${trip.name}</button>`);
-      // console.log(`trip${id}`)
-
     });
+    // wah this throws a token whatever something error:
     // .catch((error) => {
     //   reportStatus(`Encountered an error while loading trips: ${error.message}`);
     // });
-
 
     // --- VIEW DETAILS FOR SELECTED TRIP --- //
     let loadTripDetails = function loadTripDetails() {
       reportStatus('Loading trip...');
 
-      let regex = /p(.+)/
-      let selectedTripID = `${$(this).attr('class').split(" ")[0].match(regex)[1]}`
+      const regex = /p(.+)/;
+      let selectedTripID = `${$(this).attr('class').split(" ")[0].match(regex)[1]}`;
 
-      let tripDetails = $('.trip-details')
-      tripDetails.empty()
+      const tripDetails = $('.trip-details');
+      tripDetails.empty();
 
       tripDetails.css('visibility', 'visible');
 
       axios.get(baseURL+selectedTripID)
       .then((response) => {
 
-        reportStatus(``)
-        let tripData = response.data
-        // reportStatus(`Trip ${tripData.id}`)
-        regexMoney = /\d(?=(\d{3})+\.)/g
+        reportStatus(``);
+        let tripData = response.data;
+        const regexMoney = /\d(?=(\d{3})+\.)/g;
 
         $(tripDetails).html(`
           <h3>Trip Details</h3>
@@ -74,64 +71,55 @@ const loadTrips = () => {
           <p><span class="strong">ABOUT</span>: ${tripData.about}</p>
           `);
 
-
-
-
-          reservationForm(tripData)
-
+          // pass selected trip data to form
+          reservationForm(tripData);
         });
+        // wah this throws a token whatever something error:
         // .catch((error) => {
-        //       reportStatus(`Encountered an error while loading trips: ${error.message}`);
+        //       reportStatus(`Encountered an error while loading trip: ${error.message}`);
         //     });
-
       };
-      $(`.trip-list *`).click(loadTripDetails)
 
+      // did you happen to click on a trip? have i got a trip for you!
+      $(`.trip-list *`).click(loadTripDetails);
     });
-    // .catch((error) => {
-    //       reportStatus(`Encountered an error while loading trips: ${error.message}`);
-    //     });
   };
 
-  // POST RESERVATION FORM //
-
+  //  --- VIEW RESERVATION FORM -- //
   let reservationForm = function reservationForm(tripData) {
-    $('form').off()
+    // this code prevents us from creating a new object with each new click
+    // we only want one; not 8984030 million objects
+    $('form').off();
 
-
-    let reserveTrip = $('.reserve-trip')
-    // (reserveTrip).empty()
+    let reserveTrip = $('.reserve-trip');
     reserveTrip.css('visibility', 'visible');
-    // $('form h3').empty();
-    // $(`.reserve-trip h3`).empty();
+    id = tripData.id;
 
     let reservation = {
-      name: $('input[name="name"]').attr('placeholder', `Your Name`),
-      email: $('input[name="email"]').attr('placeholder', `Your Email`),
+      name: $('input[name="name"]').attr('placeholder', `Name`),
+      email: $('input[name="email"]').attr('placeholder', `Email`),
       tripName: $('input[name="tripName"]').attr('placeholder', `${tripData.name}`)
-    }
+    };
 
-
+  //  --- POST RESERVATION FORM --- //
     let postIt = () => {
-      reportStatus(`Attempting to reserve trip: ${reservation.tripName}...`)
+      reportStatus(`Attempting to reserve trip: ${tripData.name}...`);
       event.preventDefault();
 
-
-      for (r in reservation) {
+      for (let r in reservation) {
         if (reservation[r]) {
         reservation[r] = reservation[r].val();
       }
     }
 
-
-      axios.post(baseURL+post, reservation)
+      axios.post(baseURL+id+post, reservation)
       .then((response) => {
-        reportStatus(`Successfully reserved your trip! Confirmation #${response.data.id}`);
+        reportStatus(`Successfully reserved your trip! Confirmation #${response.data.id}.`);
 
+        // make it nice if our post was met with success
         $('.reserve-trip').css('visibility', 'hidden');
         $('form').trigger("reset");
         $('html, body').animate({scrollTop:0},0);
-
       })
 
       .catch((error) => {
@@ -143,24 +131,21 @@ const loadTrips = () => {
         } else {
           reportStatus(`Encountered an error: ${error.message}`);
         }
-reservationForm(tripData)
+        // ono something went wrong? LET'S TRY THAT FORM AGAIN.
+            reservationForm(tripData);
+            $('html, body').animate({scrollTop:0},0);
       });
     }
-      // $('form').trigger("reset");
-      // $('html, body').animate({scrollTop:0},0);
           $(`form`).submit(postIt);
     };
 
 
-
-
-
-
-
+  // --- SET IT OFF --- //
   $(document).ready(() => {
     $('.trip-button').click(loadTrips);
   });
 
   // TODO
-  // scroll down to show more / pagination?
-  // DRY/refactor
+  // - scroll down or click to show/load more (don't load all trips at once)
+  // - more DRY/refactor
+  // - why isn't catch working for the get requests? b/c the functions are nested???
