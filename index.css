@@ -1,0 +1,25 @@
+main {
+  padding: 2em;
+}
+
+ul {
+  list-style: none;
+}
+
+.header-welcome {
+  text-align: center;
+  padding: 2em;
+}
+
+.body-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+
+#status-message {
+  padding: 2em;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
