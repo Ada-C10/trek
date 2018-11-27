@@ -10,23 +10,49 @@ body {
 
   background-color: #ffffff;
   padding: 10px;
+  font-family: helvetica, sans-serif;
+}
+
+h1 {
+  color: #5bc0de;
+  margin-bottom: 0;
+  text-shadow: 2px 2px #666666;
 }
 
 h3 {
-  background-color: #ffffff;
+  background-color: #ffffff; opacity:0.9;
   margin: 0;
   padding-top: 10px;
   padding-bottom: 10px;
   text-align: center;
 }
 
-.btn-group-lg {
+header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.btn-group-vertical * {
   margin: 0;
+  border: 1px #000000 solid;
+}
+
+.btn-info {
+  background-color: #5bc0de; opacity:0.9;
+  font-size: 1.1em;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.btn-block {
+  background-color: #ffffff; opacity:0.7;
+  color: #000000;
+  font-weight: bold;
 }
 
 .reserve-trip, .trip-details {
   border: 1px #000000 solid;
-  background-color: #ffffff;
+  background-color: #ffffff; opacity:0.9;
   padding: 20px;
   margin-bottom: 20px;
 }
@@ -38,4 +64,11 @@ h3 {
 
 span.strong {
   font-weight: bold;
+}
+
+.status-message, .status-message * {
+  font-size: 1.1em;
+  color: #666666;
+  text-shadow: 2px 2px yellow;
+
 }

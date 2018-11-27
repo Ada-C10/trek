@@ -1,7 +1,7 @@
 // --- RE-USABLE ---//
 const baseURL = 'https://trektravel.herokuapp.com/trips/';
 let id = 0;
-let post = '1/reservations';
+const post = '1/reservations';
 
 const reportStatus = (message) => {
   $('.status-message').html(message);
@@ -22,17 +22,15 @@ const reportError = (message, errors) => {
 // --- VIEW ALL TRIPS --- //
 const loadTrips = () => {
 
-  reportStatus('Loading trips...')
+  reportStatus('Loading trips...');
 
-  // wrap up into one function?
   const tripList = $('.trip-list');
   tripList.empty();
-  //
 
   axios.get(baseURL)
   .then((response) => {
 
-    reportStatus(`All ${response.data.length} trips.`)
+    reportStatus(``)
     $(tripList).html(`<h3>All Trips</h3>`);
     response.data.forEach((trip) => {
       id = trip.id;
@@ -100,17 +98,11 @@ $(`.trip-list *`).click(loadTripDetails)
             // $('form h3').empty();
         // $(`.reserve-trip h3`).empty();
 
-
-
-
      let reservation = {
       name: $('input[name="name"]').attr('placeholder', `Your Name`),
       email: $('input[name="email"]').attr('placeholder', `Your Email`),
       tripName: $('input[name="tripName"]').attr('placeholder', `${tripData.name}`)
     }
-
-
-
 
 
     let postIt = () => {
@@ -159,21 +151,21 @@ $(`form`).submit(postIt);
   // ASAP - POST ETC - MAKE IT FUNCTIONAL FOR WAVE 3
 
   // TODO - urgent:
-  // = get error message .catch working
-  // successful status message != header or ok?
+  // get error message .catch working for all 3 functions
   // add full styling in general
+  // wrap button group and h3 in a div to make things equal-ish
+  // semicolon police
 
   // TODO - should finish:
-  // add border styling
-  // bg image
   // main button - increase size, create custom class for button
-  // section headings
   // determine button colors (create custom class for buttons)
-  // fix placement of the functions
   //trip name --> placeholder ok or real value?
+  // somewhat transparent bg for the three capsules
+  // scroll up after submission so can see status
+  // clear form with .val("")
+
 
 
   // TODO - nice to haves:
   // scroll down to show more / pagination?
-  // format key names like NAME or CONTINENT
   // refactor
