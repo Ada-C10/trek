@@ -16,21 +16,19 @@ const reportError = (message, errors) => {
   reportStatus(content);
 };
 
-const createPet = (event => {
+const createReservation = (event => {
   event.preventDefault();
 
-  const petData = {
+  const reservationData = {
     name: $('input[name="name"]').val(),
-    age: $('input[name="age"]').val(),
-    owner: $('input[name="owner"]').val()
+    email: $('input[name="email"]').val(),
+    trip_id: $('input[name="trip_id"]').val()
   };
+  console.log(reservationData)
 
-  reportStatus('Sending pet data...');
-
-  axios.post(URL, petData)
+  axios.post(`${TRIPS}/${reservationData.trip_id}/reservations`, reservationData)
   .then((response) => {
-    console.log(response.data)
-    reportStatus(`successfully added a pet with ID ${response.data.id}`)
+    reportStatus(`Successfully added a reservation with ID ${response.data.id}`)
   })
   .catch((error) => {
     reportStatus(`Encountered an error: ${error.message}`);
@@ -60,20 +58,19 @@ const loadTrips = () => {
 const loadTripDetails = (tripId) => {
 
   const tripDetails = () => {
-
     const detail = $('#trip-detail');
     detail.empty();
-
     axios.get(`${TRIPS}/${tripId}`)
     .then((response) => {
-      reportStatus(`Successfully loaded detail of trip!`)
+      reportStatus(`Successfully loaded detail of trip!`);
+
       detail.append(`<div class='detail-container'>
       <h2>Trip ${response.data.id} Details</h2>
-        <li id="name">${response.data.name}</li>
-        <li id="continent">${response.data.continent}</li>
-        <li id="about">${response.data.about}</li>
-        <li id="weeks"><b>Weeks:</b> ${response.data.weeks}</li>
-        <li id="cost"><b>Cost:</b> $${response.data.cost}</li>
+      <li id="name">${response.data.name}</li>
+      <li id="continent">${response.data.continent}</li>
+      <li id="about">${response.data.about}</li>
+      <li id="weeks"><b>Weeks:</b> ${response.data.weeks}</li>
+      <li id="cost"><b>Cost:</b> $${response.data.cost}</li>
       </div>`);
     })
     .catch((error) => {
@@ -85,14 +82,14 @@ const loadTripDetails = (tripId) => {
 };
 
 
-
 $(document).ready(() => {
   $('#load').click(loadTrips);
 
   $('ul').on('click', 'li', function(){
     const tripId = $(this).attr('id');
-    loadTripDetails(tripId)
+    loadTripDetails(tripId);
+    $('#hidden').css('visibility', 'visible');
   });
 
-  $('#trip-form').submit(createTrip);
+  $('#reservation-form').submit(createReservation);
 });
