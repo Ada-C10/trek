@@ -28,6 +28,8 @@ const loadTrips = () => {
   const tripList = $('#trip-list');
   tripList.empty();
 
+
+
   axios.get(URL)
   .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips!`);
@@ -40,6 +42,27 @@ const loadTrips = () => {
     console.log(error);
   });
 };
+
+// const loadTripsbySearchQuery = (query) => {
+//   $("#status-message").show()
+//   reportStatus(`Loading trips in ${query} ...`);
+//
+//   const tripList = $('#trip-list');
+//   tripList.empty();
+//
+  // const queryURL =    `https://trektravel.herokuapp.com/trips/continent?query=${query}`
+//   axios.get(queryURL)
+//   .then((response) => {
+//     reportStatus(`Successfully loaded ${response.data.length} trips!`);
+//     response.data.forEach((trip) => {
+//       tripList.append(`<li id= ${trip.id}> ${trip.name}</li>`);
+//     });
+//   })
+//   .catch((error) => {
+//     reportStatus(`Encountered an error while loading trips: ${error.message}`);
+//     console.log(error);
+//   });
+// };
 //  click event -- acton show details
 //
 //View Individual Trip Details
@@ -108,14 +131,12 @@ const reserveTrip = (event) => {
     clearForm();
   })
   .catch((error) => {
-    console.log(error.response.request.responseText);
     if (error.response) {
-      console.log(error.response.request.responseText)
       reportError(
-        `Encountered an error: ${error.response.request.responseText}`
+        `Encountered an error:`,error.response.data.errors
       );
     } else {
-      reportStatus(`Encountered an error: ${error.message}`);
+      reportStatus(`Encountered an error: ${error.message}`, error.response.data.errors);
     }
   });
 };
