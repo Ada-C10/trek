@@ -58,12 +58,28 @@ const getOneTrip = (id) => {
       $('#trip-details').append(`<li>Cost: $${data.cost}`);
       $('#trip-details').append(`<li>About This Trip: ${data.about}`);
 
+      $('#new-reservation').append(`
+        <h1>create a new reservation</h1>
+        <div>
+          <label for="reservationName">Name</label>
+          <input type="text" name="reservationName" />
+        </div>
+        <div>
+          <label for="age">Age</label>
+          <input type="text" name="age" />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="text" name="email" />
+
+        </div>
+        <input type="submit" name="create-reservation" value="Add reservation" />
+        <input type="hidden" name="trip-id" value="${data.id}"/>
+      `);
     })
     .catch((error) => {
       reportStatus(`Encountered an error loading trip ${id}: ${error.message}`)
-    })
-
-    document.getElementById('trip-id').value=`${id}`;
+    });
   };
 
 // Reserving trip
@@ -102,20 +118,20 @@ const clearForm = () => {
   $(`#trip-form input[name="about"]`).val('');
 };
 
-// reservation
+// creating reservation
 const readReservationFormData = () => {
   const parsedFormData = {};
 
-  const reservationNameFromForm = $(`#reservation-form input[name="reservationName"]`).val();
+  const reservationNameFromForm = $(`#new-reservation input[name="reservationName"]`).val();
   parsedFormData['name'] = reservationNameFromForm ? reservationNameFromForm : undefined;
 
-  const ageFromForm = $(`#reservation-form input[name="age"]`).val();
+  const ageFromForm = $(`#new-reservation input[name="age"]`).val();
   parsedFormData['age'] = ageFromForm ? ageFromForm : undefined;
 
-  const emailFromForm = $(`#reservation-form input[name="email"]`).val();
+  const emailFromForm = $(`#new-reservation input[name="email"]`).val();
   parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
 
-  const reservationTripID = $(`#reservation-form input[name="trip-id"]`).val();
+  const reservationTripID = $(`#new-reservation input[name="trip-id"]`).val();
   parsedFormData['trip-id'] = reservationTripID ? reservationTripID : undefined;
 
   return parsedFormData;
@@ -200,5 +216,5 @@ const createTrip = (event) => {
 $(document).ready(() => {
   $('#load').click(loadTrips);
   $('#trip-form').submit(createTrip);
-  $('#reservation-form').submit(createReservation);
+  $('#new-reservation').submit(createReservation);
 });
