@@ -1,0 +1,7 @@
+.hidden {
+  display: none;
+}
+
+article:hover {
+  cursor: pointer; /*for indicating that it can be clicked...*/
+}
