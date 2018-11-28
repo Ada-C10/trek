@@ -29,8 +29,8 @@ main {
 }
 
 .bg-blur {
-  filter: blur(20px);
-  -webkit-filter: blur(20px);
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
 }
 
 header {

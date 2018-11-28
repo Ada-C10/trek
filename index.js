@@ -130,7 +130,7 @@ const createReservation = (tripId) => {
     .then((response) => {
       console.log(response);
       reportStatus(`Success! You're on your way!
-        (RESERVATION ID: ${response.data.id}
+        (RESERVATION ID: ${response.data.id} -
         TRIP ID: ${response.data.trip_id})`
       );
       clearForm();
