@@ -83,6 +83,8 @@ const createReservation = (id) => {
   const data = {
     name: $('input[name="name"]').val(),
     email: $('input[name="email"]').val(),
+    trip_id: id.val()
+    // trip_id: $('input[trip_id="trip_id"]').val(),
   };
 
   axios.post(reserveURL, data)
