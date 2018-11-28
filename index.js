@@ -80,7 +80,7 @@ const reportError = (message, errors) => {
     tripDiv.append('<div><label for=email><strong>Email</strong></label><input name=email type=text/></div>');
     tripDiv.append('<div><label for=age><strong>Age (optional)</strong></label><input type=text name=age></div>');
     tripDiv.append('<div id=form-button><input name=reserve-trip type=submit value="Book Trip" /></div>');
-    tripDiv.append('<div id=form-button><input name=clear-trip type=reset value="Clear Data" /></div>')
+    tripDiv.append('<div id=form-button><input name=clear-trip type=reset value="Clear Data" /></div>');
   };
 
   const submitForm = (event) => {
