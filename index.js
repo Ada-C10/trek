@@ -1,58 +1,75 @@
 const URL = "https://trektravel.herokuapp.com/trips/" //travel trip API
 
+// =======STATUS MESSAGES========
 const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
+// =======HIDDEN TOGGLE=========
 const toggleMe = (id) => { //hide and show items
   $(`article[id$=${id}] h3`).click(() => { //when article ending with id is clicked
     $(`summary[id=trip-${id}]`).toggleClass("hidden"); //unhide loaded trip information
     $(`form`).toggleClass("hidden"); //unhide form info
+    clearForm()  ;
+    $(`form`).submit( {"trip": id}, submitReservation); //FORM SUBMISSION FUNCTION, PASS ON DATA TO BE USED IN FORM, only submits per each trip
     $(`article[id!=trip-info-${id}]`).toggleClass("hidden"); //hide trips that do not equal this article's id
 });
 }
 
+// =======FORM DATA========
 const readFormData = () => {
   const parsedFormData = {};
 
-  const nameFromForm = $(`#form[id^='form-'] input name='name'`).val();
+  const nameFromForm = $( `input[name='name']`).val();
   parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+  console.log(nameFromForm);
 
-  const emailFromForm = $(`#form[id^='form-'] input name='email'`).val();
+  const emailFromForm = $(`input[name='email']`).val();
+  console.log(emailFromForm);
   parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
 
+  console.log()
+  console.log(parsedFormData);
   return parsedFormData;
+
 };
 
-const clearForm = () => {
-  $(`#form[id^='form-'] input name='name'`).val('');
-  $(`#form[id^='form-'] input name='email'`).val('');
+const clearForm = () => { //clear out form after submission
+  $('form')[0].reset();
 }
 
-const submitReservation = (event) => {
-  event.preventDefault();
-  const postURL = URL+'reservations';
+// =======FORM SUBMISSIONS=======
+  const submitReservation = (event) => {
+    const tripID = event.data.trip
+    event.preventDefault(); //prevents reload
+    const reserveData = readFormData();
+    const sendData = {
+        'name': reserveData["name"],
+        'email': reserveData["email"]
+    };
+    console.log(tripID);
 
-  const reserveData = readFormData();
+    const postURL = URL+tripID+"/reservations";
 
-  axios.post(postURL, reserveData)
-    .then((response) => {
-      reportStatus(`Successfully submitted reservation ${response.data.id}!`);
-      clearForm();
-    })
-    .catch((error) => {
-      console.log(error.response);
-      if (error.response.data && error.response.data.errors) {
-        reportStatus(
-          `Encountered an error: ${error.message}`,
-          error.response.data.errors
-        );
-      } else {
-        reportStatus(`Encountered an error: ${error.message}`);
-      }
-    });
-};
+    axios.post(postURL, sendData)
+      .then((response) => {
+        clearForm;
+        reportStatus(`Successfully submitted reservation ${response.data.id}!`);
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error.response.data && error.response.data.errors) {
+          reportStatus(
+            `Encountered an error: ${error.message}`,
+            error.response.data.errors
+          );
+        } else {
+          reportStatus(`Encountered an error: ${error.message}`);
+        }
+      });
+  }
 
+// =======TRIPS LIST VIEW========
 const allTripView = () => {
   let tripInfo = [];
   const tripsSection = (data) => {return $(`
@@ -61,14 +78,6 @@ const allTripView = () => {
       <summary id='trip-${data.id}' class='hidden'>
 
       </summary>
-
-      <form id='form-${data.id}' class='hidden'>
-        <label for="name">Name</label>
-        <input type="text" name="name" />
-        <label for="email">eMail</label>
-        <input type="text" name="email" />
-        <input type="submit" name="reservation" value="Reserve Your Space Now!"/>
-    </form>
     </article>
     `)
   };
@@ -79,9 +88,8 @@ const allTripView = () => {
     console.log(tripInfo);
     tripInfo.forEach((trip) => {
       $("#trip-info").append(tripsSection(trip));
-      singleTripInfo(trip.id);
-      toggleMe(trip.id);
-      $('form').submit(submitReservation)
+      singleTripInfo(trip.id); //DOWNLOAD TRIP INFORMATION
+      toggleMe(trip.id); //TOGGLE FUNCTION WHEN ARTICLE CLICKED
       });
   })
   .catch((error) => {
@@ -90,6 +98,22 @@ const allTripView = () => {
   });
 }
 
+// ========CREATE FORM ===============
+const createForm = () => {
+
+  return $(`
+    <form class='hidden'>
+      <label for="name">Name</label>
+      <input type="text" name="name" />
+      <label for="email">eMail</label>
+      <input type="text" name="email" />
+
+      <input type="submit" name="reservation" value="Reserve Your Space Now!"/>
+    </form>
+  `)
+}
+
+// ==========SINGLE TRIP INFO=========
 const singleTripInfo = (id) => {
   let singleTrip = [];
   const idURL = URL+id;
@@ -107,7 +131,7 @@ const singleTripInfo = (id) => {
   axios.get(idURL)
   .then((response) => {
     singleTrip = response.data;
-    $(`#trip-${id}`).append(singleTripInfo(singleTrip));
+    $(`#trip-${id}`).append(singleTripInfo(singleTrip)); // APPEND TO SUMMARY WITH TRIP ID
    })
   .catch((error) => {
     reportStatus(`Encountered an error while loading trips: ${error.message}`);
@@ -117,7 +141,11 @@ const singleTripInfo = (id) => {
 
 
 $(document).ready(() => {
-  $("#trip-view").click(allTripView);
+  $("#trip-view").click( () => {
+    allTripView();
+    $("#trip-view").hide();
+  });
+  $('main').append(createForm); //only one form for everyone
 });
 
 
