@@ -159,7 +159,7 @@ const reportError = (message, errors) => {
       const tripForm = $('.trip-form');
 
       const listConfig = [
-        { "Continent ": response.data.continent },
+        { "Continent: ": response.data.continent },
         { "Name: ": response.data.name },
         { "Category: ": response.data.category },
         { "Length: ": weeks },
