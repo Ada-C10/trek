@@ -164,6 +164,7 @@ const loadTrip = function(tripID) {
     tripShow.append(`<li><strong>Cost: </strong>$${response.data.cost}</li>`);
     tripShow.append(`<li><strong>About: </strong>${about}</li>`);
 
+
     //edit form
     createForm(tripForm);
   })
