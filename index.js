@@ -54,22 +54,29 @@ const loadDetails = (id) => {
   const tripBlurb = $('#trip-blurb');
   tripBlurb.empty();
 
+  // const tripForm =$('#trip-form');
+  // tripForm.empty();
+
   axios.get(URL + id)
   .then((response) => {
-    // $('#trip-blurb').append(`<p>${response.data.find(x => x.id ==$(this.id)).about}</p>`);
     tripBlurb.append('<h3>Trip Details</h3>');
 
     for (let tripInfo in response.data) {
       tripBlurb.append(`<li><strong>${tripInfo}</strong>: ${response.data[tripInfo]} </li>`);
-  }
+    }
     reportStatus(`Successfully loaded trip data`);
+
+    // tripForm.append('<h3>Reserve Trip</h3>');
   });
+
+
 };
 
 // Make reservation
-const createReservation = (event, id) => {
-  event.preventDefault();
-
+const createReservation = (id) => {
+  // event.preventDefault();
+// TypeError: event.preventDefault is not a function at createReservation
+// why??
   const reserveURL = `https://trektravel.herokuapp.com/trips/${id}/reservations`
 
   const data = {
@@ -96,11 +103,11 @@ const createReservation = (event, id) => {
 ///
 $(document).ready(() => {
   $('#see-trips').click(loadTrips);
-  // $('#trip-list').click(loadDetails);
+
   $('#trip-list').on('click', 'a', function() {
     loadDetails(this.id);
-  $('#trip-form').submit(createReservation(this.id));
-
+    const trip_id = this.id
+  $('#trip-form').submit(createReservation(trip_id));
   });
 
 })
