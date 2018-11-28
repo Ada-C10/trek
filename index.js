@@ -47,7 +47,7 @@ const loadTrips = () => {
 };
 
 
-//Toggle trip detail
+//Show trip detail
 const loadDetails = (id) => {
   reportStatus('Sending trip data..');
   // const DETURL = (`${URL}\\${this.id}`);
@@ -62,7 +62,7 @@ const loadDetails = (id) => {
     tripBlurb.append('<h3>Trip Details</h3>');
 
     for (let tripInfo in response.data) {
-      tripBlurb.append(`<li><strong>${tripInfo}</strong>: ${response.data[tripInfo]} </li>`);
+      tripBlurb.append(`<li class="trip info"><strong>${tripInfo}</strong>: ${response.data[tripInfo]} </li>`);
     }
     reportStatus(`Successfully loaded trip data`);
 
@@ -74,6 +74,7 @@ const loadDetails = (id) => {
 
 // Make reservation
 const createReservation = (id) => {
+// const createReservation = (event) => {
   // event.preventDefault();
 // TypeError: event.preventDefault is not a function at createReservation
 // why??

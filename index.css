@@ -43,7 +43,7 @@ button {
   /* grid-area: 3 / 2 / 3 / 2; */
 }
 
-#trip-list-section, #trip-aside, .new-reservation {
+#trip-list-section, #trip-info, .new-reservation {
   margin: 30px;
   background-color: #ffffff;
   border: 1px solid black;
