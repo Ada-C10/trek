@@ -165,6 +165,7 @@ const loadTrip = function(tripID) {
     tripShow.append(`<li><strong>About: </strong>${about}</li>`);
 
     //edit form
+    
     createForm(tripForm);
   })
   .catch((error) => {
