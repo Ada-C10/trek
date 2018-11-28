@@ -67,15 +67,17 @@ const loadDetails = (id) => {
 };
 
 // Make reservation
-const createReservation = (event) => {
+const createReservation = (event, id) => {
   event.preventDefault();
+
+  const reserveURL = `https://trektravel.herokuapp.com/trips/${id}/reservations`
 
   const data = {
     name: $('input[name="name"]').val(),
-    email: $('input[name="name"]').val(),
+    email: $('input[name="email"]').val(),
   };
 
-  axios.post(URL, data)
+  axios.post(reserveURL, data)
     .then((response)=> {
       reportStatus('Succesfully added reservation')
     })
@@ -97,7 +99,7 @@ $(document).ready(() => {
   // $('#trip-list').click(loadDetails);
   $('#trip-list').on('click', 'a', function() {
     loadDetails(this.id);
-  $('#trip-form').submit(createReservation);
+  $('#trip-form').submit(createReservation(this.id));
 
   });
 
