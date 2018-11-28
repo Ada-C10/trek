@@ -8,18 +8,18 @@ const loadTrips = () => {
 
 
   axios.get(URL).then((response) => {
-      response.data.forEach((trip) => {
-        const tripHTML = $(`<li><a href="#">${trip.name}</a></li>`);
-        tripList.append(tripHTML);
+    response.data.forEach((trip) => {
+      const tripHTML = $(`<li><a href="#">${trip.name}</a></li>`);
+      tripList.append(tripHTML);
 
-        tripHTML.click(() => {
-          loadTripDetail(trip.id);
-        })
-      });
-    })
-    .catch((error) => {
-      console.log(error);
+      tripHTML.click(() => {
+        loadTripDetail(trip.id);
+      })
     });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 };
 
 const loadTripDetail = (id) => {
@@ -39,44 +39,74 @@ tripDetail.empty();
      <p>Weeks : ${trip.weeks}</p>
      <p>About : ${trip.about}</p>
      `)
-     const reservationForm = $('.reservation')
-      reservationForm.empty();
 
-      $('.reservation').append(`
-        <h1>Reserve Trip</h1>
-        <form id="trip-form">
-        <div>
-        <label for="name">Name</label>
-        <input type="text" name="name" />
-        </div>
+    const $reservationForm = $('.reservation');
 
-        <div>
-        <label for="email">Email</label>
-        <input type="text" name="email" />
-        </div>
+    $reservationForm.empty();
+    $reservationForm.append(`
+      <h1>Reserve Trip</h1>
+      <form id="trip-form">
+      <div>
+      <label for="name">Name</label>
+      <input type="text" name="name" />
+      </div>
 
-        <div>
-        <label for="trip">Trip Name</label>
-        <input type="text" name="trip" value="${trip.name}"/>
-        </div>
+      <div>
+      <label for="email">Email</label>
+      <input type="text" name="email" />
+      </div>
 
-        <div>
-        <input type="hidden" value=${trip.id}/>
-        </div>
+      <div>
+      <label for="trip">Trip Name</label>
+      <input type="text" name="trip" value="${trip.name}"/>
+      </div>
 
-        <input type="submit" name="reserve-trip" value="Reserve Trip" />
-        </form>
-        `)
+      <div>
+      <input type="hidden" name="trip_id" value="${trip.id}" />
+      </div>
 
+      <input type="submit" name="reserve-trip" value="Reserve Trip" />
+      </form>
+      `);
 });
+}
+
+const reserveTrip = (event) => {
+  event.preventDefault();
+
+  const tripData = {};
+  $(event.target).serializeArray().forEach((item) => {
+    tripData[item.name] = item.value;
+  });
+
+  console.log(tripData)
+
+  axios.post(URL + `/` + tripData.trip_id + `/reservations`, tripData)
+  .then((response) => {
+    console.log('success');
+    console.log(response);
+    // reportStatus('Reservation Successful!');
+    // clearForm();
+  })
+  .catch((error) => {
+    console.log('error');
+    console.log(error.response);
+    // if (error.response.data && error.response.data.console.errors) {
+    //   reportError(
+    //     `Encountered an error: ${error.message}`,
+    //     error.response.data.errors
+    //   );
+    // } else {
+    //   reportStatus(`Encountered an error: ${error.message}`);
+    // }
+  });
 }
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
-  //$('#trip-list').on("click", "a", function (){
-  //})
+  $('.reservation').on("submit", "form", reserveTrip);
+});
 
-  });
 //});
 //
 // $(document).ready(() => {
