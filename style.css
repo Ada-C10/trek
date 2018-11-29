@@ -1,0 +1,90 @@
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+html {
+  background: url("https://images.unsplash.com/photo-1537522306408-8435f315b2e3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7524eb105d6f756457a2747a3a49a501&auto=format&fit=crop&w=1950&q=80") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body::after {
+  filter: blur(13px);
+}
+
+body {
+  margin-left: 15%;
+  margin-right: 15%;
+  background: none;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+          "nav nav"
+          "list right-side-info";
+}
+
+#whole-right-subside {
+  height: 100%;
+  border-bottom-right-radius: 15px;
+  border-bottom: 6px solid red;
+}
+
+.nav {
+  height: 75px;
+  background-color: white;
+  grid-area: nav;
+}
+
+#list {
+  height: 45rem;
+  border-bottom-left-radius: 15px;
+  grid-area: list;
+  border-bottom: 6px solid red;
+ }
+
+#right-side-info {
+  height: 50rem;
+  grid-area: right-side-info;
+  border-bottom-right-radius: 15px;
+  display: grid;
+  grid-template-rows: 30rem 15rem;
+  grid-template-areas:
+          "trip-info"
+          "book";
+}
+
+#trip-info {
+  overflow: scroll;
+  grid-area: trip-info;
+}
+
+#book {
+  height: 100%;
+  grid-area: book;
+  border-bottom-right-radius: 15px;
+  border-bottom: 6px solid red;
+}
+
+#trips-list {
+  overflow: scroll;
+  max-height: 38rem;
+}
+
+#book, #trip-info, #list, #trips-list, #whole-right-subside {
+  background-color: white;
+  padding: 5px;
+}
+
+.info-field {
+  text-align: justify;
+}
+
+.green {
+  background-color: green;
+}
