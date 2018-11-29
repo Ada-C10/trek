@@ -83,40 +83,7 @@ const reportError = (message, errors) => {
     tripDiv.append('<div id=form-button><input name=clear-trip type=reset value="Clear Data" /></div>');
   };
 
-<<<<<<< HEAD
-    $('.footer').removeAttr('id');
-    $('.trek').removeAttr('id');
-    //show
-    tripDetail.append('<div class=trip-show></div>');
-    tripDetail.append(`<div class=trip-form-div><form class="trip-form" id=${savedId}></form></div>`);
-    const tripShow = $('.trip-show');
-    const tripForm = $('.trip-form');
-
-    tripShow.append(`<li><strong>Continent: </strong>${response.data.continent}</li>`)
-    tripShow.append(`<li><strong>Name: </strong><div id="trip-name">${response.data.name}</div></li>`);
-    tripShow.append(`<li><strong>Category: </strong>${response.data.category}</li>`);
-    tripShow.append(`<li><strong>Length: </strong>${weeks}</li>`);
-    tripShow.append(`<li><strong>Cost: </strong>$${response.data.cost}</li>`);
-    tripShow.append(`<li><strong>About: </strong>${about}</li>`);
-
-    //edit form
-    
-    createForm(tripForm);
-  })
-  .catch((error) => {
-    if (error.response.data && error.response.data.errors) {
-      reportError(
-        `Encountered an error while loading trip: ${error.message}`,
-        error.response.data.errors
-      );
-    } else {
-      reportStatus(`Encountered an error while loading trip: ${error.message}`);
-    }
-  });
-}
-=======
   const submitForm = (event) => {
->>>>>>> refactor
 
     event.preventDefault();
     const tripId = $('.trip-form').get()[0].id;
