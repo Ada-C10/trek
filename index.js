@@ -58,7 +58,7 @@ const loadTrips = () => {
 };
 
 const getTrip = (tripID) => {
-  const tripInfo = $('#trip-info');
+  const tripInfo = $('#right-side-info');
   tripInfo.empty();
   axios.get(getTripURL(tripID))
   .then((response) => {
@@ -86,7 +86,11 @@ const createReservation = (event, tripID) => {
 };
 
 $(document).ready(() => {
-  $('.hidden-at-start').hide();
+  // $('.hidden-at-start').hide();
+
+  $('#load-trips-button').click(loadTrips);
+  $('.side-info').click(getTrip);
+
 
   $('#load-trips-button').on('click', function() {
     $('#list').slideDown('slow');
