@@ -18,7 +18,6 @@ reportStatus('Loading trips...'); //place before axios call, shows before error 
       tripList.append(tag);
       tag.click(() => {
         tripDetails(trip);
-        console.log(trip);
         reservationForm(trip.id);
       })
 
