@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>TREK</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+
+	<body>
+
+
+		<main class="container">
+			<section class="nav">
+				<span><button id="load-trips-button">Get All Trips</button></span>
+				<section id="status-message"></section>
+			</section>
+
+			<section id="list" class="all-trips hidden-at-start">
+				<h3 class="trip-list-header">Trips List</h3>
+				<ul id="trips-list" ></ul>
+			</section>
+
+			<section id="right-side-info" class="hidden-at-start side-info">
+
+			</section>
+
+		</main>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script type="text/javascript" src="index.js"></script>
+	</body>
+</html>
