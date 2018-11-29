@@ -86,11 +86,7 @@ const createReservation = (event, tripID) => {
 };
 
 $(document).ready(() => {
-  // $('.hidden-at-start').hide();
-
-  $('#load-trips-button').click(loadTrips);
-  $('.side-info').click(getTrip);
-
+  $('.hidden-at-start').hide();
 
   $('#load-trips-button').on('click', function() {
     $('#list').slideDown('slow');
