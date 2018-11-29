@@ -260,7 +260,8 @@ const reportError = (message, errors) => {
   };
 
   $(document).ready(() => {
-
+    //is supposed to start in the position I want
+// $('#checkbox3').bootstrapToggle();
     //starting initial status
     reportStatus("Choose your own adventure. Click toggle twice or tap on words below!");
 
