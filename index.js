@@ -48,107 +48,42 @@ const reportError = (message, errors) => {
   headerDiv.attr('id', 'error');
 
   let content = `<p>${message} Please fix: ( `;
-  for (const field in errors) {
-    for (const problem of errors[field]) {
-      content += `${field}: ${problem} `;
+    for (const field in errors) {
+      for (const problem of errors[field]) {
+        content += `${field}: ${problem} `;
+      }
     }
-  }
-  content += ")</p>";
-  reportStatus(content);
-};
-
-const removeError = () => {
-  const headerDiv = $('.header');
-  headerDiv.removeAttr('id');
-}
-
-const reloadHome = () => {
-  $('body').addClass('static');
-  $('.main ul').removeClass();
-  $('.main ul').addClass('main-empty');
-  $('.main-empty').html("Choose your adventure!");
-  $('.footer').attr('id', 'body-empty');
-  $('.trek').attr('id', 'home-header');
-  removeError();
-  reportStatus(`Choose your own adventure. Click toggle or tap on words below.`);
-}
-
-const createForm = (tripDiv) => {
-  tripDiv.append('<div><h2>Take me there!</h2></div>');
-  tripDiv.append('<div><label for=name><strong>Name</strong></label><input name=name type=text/></div>');
-  tripDiv.append('<div><label for=email><strong>Email</strong></label><input name=email type=text/></div>');
-  tripDiv.append('<div><label for=age><strong>Age (optional)</strong></label><input type=text name=age></div>');
-  tripDiv.append('<div id=form-button><input name=reserve-trip type=submit value="Book Trip" /></div>');
-  tripDiv.append('<div id=form-button><input name=clear-trip type=reset value="Clear Data" /></div>')
-};
-
-const submitForm = (event) => {
-
-  event.preventDefault();
-  const tripId = $('.trip-form').get()[0].id;
-  const tripName = $.parseHTML($('#trip-name').html())[0].textContent;
-  const url = baseURL + tripId + "/reservations/";
-  const tripData = {
-    name: $('input[name="name"]').val(),
-    email: $('input[name="email"]').val(),
+    content += ")</p>";
+    reportStatus(content);
   };
-  removeError();
-  reportStatus('Sending trip data...');
 
-  axios.post(url, tripData)
-  .then((response) => {
-    alert(`Successfully reserved trip ${tripName} with id ${tripId} for ${response.data.name}`);
+  const removeError = () => {
+    const headerDiv = $('.header');
+    headerDiv.removeAttr('id');
+  }
+
+  const reloadHome = () => {
+    $('body').addClass('static');
+    $('.main ul').removeClass();
+    $('.main ul').addClass('main-empty');
+    $('.main-empty').html("Choose your adventure!");
+    $('.footer').attr('id', 'body-empty');
+    $('.trek').attr('id', 'home-header');
     removeError();
-    reportStatus(`Successfully reserved trip ${tripName} with id ${tripId} for ${response.data.name}`);
-    $('.trip-form').get()[0].reset();
-  })
-  .catch((error) => {
-    if (error.response.data && error.response.data.errors) {
-      reportError(
-        `Encountered an error while reserving this trip: ${error.message}`,
-        error.response.data.errors
-      );
-    } else {
-      reportStatus(`Encountered an error: ${error.message}`);
-    }
-  });
-};
+    reportStatus(`Choose your own adventure. Click toggle or tap on words below.`);
+  }
 
-const loadTrip = function(tripID) {
-  event.preventDefault();
+  const createForm = (tripDiv, tripName) => {
+    tripDiv.append('<div><h2>Take me there!</h2></div>');
+    tripDiv.append(`<input type="hidden" name="trip-name" value=${tripName}>`);
+    tripDiv.append('<div><label for=name><strong>Name</strong></label><input name=name type=text/></div>');
+    tripDiv.append('<div><label for=email><strong>Email</strong></label><input name=email type=text/></div>');
+    tripDiv.append('<div><label for=age><strong>Age (optional)</strong></label><input type=text name=age></div>');
+    tripDiv.append('<div id=form-button><input name=reserve-trip type=submit value="Book Trip" /></div>');
+    tripDiv.append('<div id=form-button><input name=clear-trip type=reset value="Clear Data" /></div>');
+  };
 
-  const savedId = tripID;
-  $('#trip').empty();
-  $('#trip').removeClass();
-  $('#trip').addClass('detail');
-  $('body').removeClass();
-
-  const tripDetail = $('#trip');
-  removeError();
-  reportStatus('Retrieving info for this trip...');
-
-  axios.get(baseURL + savedId)
-  .then( (response) => {
-    removeError();
-    reportStatus(`Reserve the ${response.data.name} trip below or toggle twice to pick a different trip.`);
-
-    let weeks = "0";
-    let about = "";
-
-    if (response.data.weeks == "1") {
-      weeks = "1 week";
-    }
-    else {
-      weeks = response.data.weeks + " Weeks";
-    }
-
-    if (response.data.about == null) {
-      about = "";
-    }
-    else{
-      about = response.data.about;
-    }
-
+<<<<<<< HEAD
     $('.footer').removeAttr('id');
     $('.trek').removeAttr('id');
     //show
@@ -179,114 +114,219 @@ const loadTrip = function(tripID) {
     }
   });
 }
+=======
+  const submitForm = (event) => {
+>>>>>>> refactor
 
-const loadTrips = () => {
-
-  event.preventDefault();
-
-  const tripList = $('#trip');
-  tripList.empty();
-  tripList.removeClass();
-  tripList.addClass('list');
-  $('body').removeClass();
-
-  axios.get(baseURL)
-  .then( (response) => {
+    event.preventDefault();
+    const tripId = $('.trip-form').get()[0].id;
+    const tripName = $('input[name="trip-name"]').val();
+    const url = baseURL + tripId + "/reservations/";
+    const tripData = {
+      name: $('input[name="name"]').val(),
+      email: $('input[name="email"]').val(),
+    };
     removeError();
-    reportStatus(`Successfully loaded ${response.data.length} trips.`);
+    reportStatus('Sending trip data...');
 
-    response.data.forEach( (response) => {
-
-      const imageLink = imageObj[response["continent"]];
-      let continental = "";
-
-      if (response["continent"] === "Europe") {
-        continental = response["continent"] + "an";
+    axios.post(url, tripData)
+    .then((response) => {
+      alert(`Successfully reserved trip ${tripName} with id ${tripId} for ${response.data.name}`);
+      removeError();
+      reportStatus(`Successfully reserved trip ${tripName} with id ${tripId} for ${response.data.name}`);
+      $('.trip-form').get()[0].reset();
+    })
+    .catch((error) => {
+      if (error.response.data && error.response.data.errors) {
+        reportError(
+          `Encountered an error while reserving this trip: ${error.message}`,
+          error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error: ${error.message}`);
       }
-      else if (response["continent"] === "Antarctica") {
-        continental = "Antarctic";
+    });
+  };
+
+  const loadTrip = function(tripID) {
+    event.preventDefault();
+
+    const savedId = tripID;
+    $('#trip').empty();
+    $('#trip').removeClass();
+    $('#trip').addClass('detail');
+    $('body').removeClass();
+
+    const tripDetail = $('#trip');
+    removeError();
+    reportStatus('Retrieving info for this trip...');
+
+    axios.get(baseURL + savedId)
+    .then( (response) => {
+      removeError();
+      reportStatus(`Reserve the ${response.data.name} trip below or toggle twice to pick a different trip.`);
+
+      let weeks = "0";
+      let about = "";
+
+      if (response.data.weeks == "1") {
+        weeks = "1 week";
       }
       else {
-        continental = response["continent"] + "n";
+        weeks = response.data.weeks + " Weeks";
+      }
+
+      if (response.data.about == null) {
+        about = "";
+      }
+      else{
+        about = response.data.about;
       }
 
       $('.footer').removeAttr('id');
       $('.trek').removeAttr('id');
+      //show
+      tripDetail.append('<div class=trip-show></div>');
+      tripDetail.append(`<div class=trip-form-div><form class="trip-form" id=${savedId}></form></div>`);
+      const tripShow = $('.trip-show');
+      const tripForm = $('.trip-form');
 
-      tripList.append(`<li id=${response["id"]}></li>`);
-      const tripItem = $(`#trip.list li#${response["id"]}`);
-      tripItem.append(`<div><img src=${imageLink} alt="Iconic ${continental} image"></div>`);
-      tripItem.append(`<div><strong>${continental} Adventure</strong></div>`);
-      tripItem.append(`<div>${response["name"]}</div>`);
-      tripItem.append(`<div><button class="select-trip" id=${response["id"]}>Trek here!</button></div`);
+      const listConfig = [
+        { "Continent: ": response.data.continent },
+        { "Name: ": response.data.name },
+        { "Category: ": response.data.category },
+        { "Length: ": weeks },
+        { "Cost: ": response.data.cost},
+        { "About: ": about }
+      ];
+
+      for ( let attr of listConfig ){
+        tripShow.append(`<li><strong>${Object.keys(attr)[0]}</strong>${Object.values(attr)[0]}</li>`);
+      }
+
+      //edit form
+      createForm(tripForm, response.data.name);
+    })
+    .catch((error) => {
+      if (error.response.data && error.response.data.errors) {
+        reportError(
+          `Encountered an error while loading trip: ${error.message}`,
+          error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error while loading trip: ${error.message}`);
+      }
     });
-  })
-  .catch((error) => {
-    reportStatus(`Encountered an error while loading trips: ${error.message}`);
-  });
-};
+  }
 
-const toggleList = () => {
+  const loadTrips = () => {
 
-  $('.toggle').on('change', (event) => {
+    event.preventDefault();
 
-    const tripDiv = $('#trip')
+    const tripList = $('#trip');
+    tripList.empty();
+    tripList.removeClass();
+    tripList.addClass('list');
+    $('body').removeClass();
 
-    if (event.target.checked && tripDiv.hasClass('detail')){
-      alert("This will clear out your current trip.");
-      loadTrips();
-    }
-    else if (event.target.checked) {
-      loadTrips();
-    }
-    else {
-      if (tripDiv.hasClass('list')) {
-        reloadHome();
-        removeError();
-        reportStatus('Trips emptied. Toggle to reload.');
+    axios.get(baseURL)
+    .then( (response) => {
+      removeError();
+      reportStatus(`Successfully loaded ${response.data.length} trips.`);
+
+      response.data.forEach( (response) => {
+
+        const imageLink = imageObj[response["continent"]];
+        let continental = "";
+
+        if (response["continent"] === "Europe") {
+          continental = response["continent"] + "an";
+        }
+        else if (response["continent"] === "Antarctica") {
+          continental = "Antarctic";
+        }
+        else {
+          continental = response["continent"] + "n";
+        }
+
+        $('.footer').removeAttr('id');
+        $('.trek').removeAttr('id');
+
+        tripList.append(`<li id=${response["id"]}></li>`);
+        const tripItem = $(`#trip.list li#${response["id"]}`);
+        tripItem.append(`<div><img src=${imageLink} alt="Iconic ${continental} image"></div>`);
+        tripItem.append(`<div><strong>${continental} Adventure</strong></div>`);
+        tripItem.append(`<div>${response["name"]}</div>`);
+        tripItem.append(`<div><button class="select-trip" id=${response["id"]}>Trek here!</button></div`);
+      });
+    })
+    .catch((error) => {
+      reportStatus(`Encountered an error while loading trips: ${error.message}`);
+    });
+  };
+
+  const toggleList = () => {
+
+    $('.toggle').on('change', (event) => {
+
+      const tripDiv = $('#trip')
+
+      if (event.target.checked && tripDiv.hasClass('detail')){
+        alert("This will clear out your current trip.");
+        loadTrips();
+      }
+      else if (event.target.checked) {
+        loadTrips();
       }
       else {
-        removeError();
-        reportStatus('Toggle once to load your next adventure!');
+        if (tripDiv.hasClass('list')) {
+          reloadHome();
+          removeError();
+          reportStatus('Trips emptied. Toggle to reload.');
+        }
+        else {
+          removeError();
+          reportStatus('Toggle once to load your next adventure!');
+        }
       }
-    }
-  })
-};
+    })
+  };
 
-$(document).ready(() => {
+  $(document).ready(() => {
+    //is supposed to start in the position I want
+// $('#checkbox3').bootstrapToggle();
+    //starting initial status
+    reportStatus("Choose your own adventure. Click toggle twice or tap on words below!");
 
-  //starting initial status
-  reportStatus("Choose your own adventure. Click toggle twice or tap on words below!");
+    //go home via click of heading
+    $('body').on('click', '.trek', function(){
+      reloadHome();
+    })
 
-  //go home via click of heading
-  $('body').on('click', '.trek', function(){
-    reloadHome();
-  })
+    //load trips via clicking empty main words
+    $('body').on('click', '.main-empty', function(){
+      loadTrips();
+    })
 
-  //load trips via clicking empty main words
-  $('body').on('click', '.main-empty', function(){
-    loadTrips();
-  })
+    //pick random trip via clicking subhading
+    $('body').on('click', '.sub-heading', function(){
+      alert(`Feeling lucky?`);
+      findNumTrips()
+      .then((data) => {
+        loadRandomTrip(data.length);
+      });
+    })
 
-  //pick random trip via clicking subhading
-  $('body').on('click', '.sub-heading', function(){
-    alert(`Feeling lucky?`);
-    findNumTrips()
-    .then((data) => {
-      loadRandomTrip(data.length);
-    });
-  })
+    // load trips via toggle
+    toggleList();
 
-  // load trips via toggle
-  toggleList();
+    // load trip via button
+    $('body').on('click', '.select-trip', function(event){
+      loadTrip(event.target.id);
+    })
 
-  // load trip via button
-  $('body').on('click', '.select-trip', function(event){
-    loadTrip(event.target.id);
-  })
-
-  // submit reservation via form elem
-  $('body').on('submit', '.trip-form', function(event){
-    submitForm(event);
-  })
-});
+    // submit reservation via form elem
+    $('body').on('submit', '.trip-form', function(event){
+      submitForm(event);
+    })
+  });
