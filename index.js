@@ -18,16 +18,17 @@ reportStatus('Loading trips...'); //place before axios call, shows before error 
       tripList.append(tag);
       tag.click(() => {
         tripDetails(trip);
+        console.log(trip);
+        reservationForm(trip.id);
       })
 
-    });
+    })
   })
   .catch((error) => { //all .catch(callback) to do something when the response fails
     reportStatus(`Encountered an error while loading trips: ${error.message}`);
     console.log(error);
   });
 };
-
 
 const reportError = (message, errors) => {
   let content = `<p>${message}</p>`
@@ -50,6 +51,7 @@ const tripDetails = (trip) => {
     .then((response) => {
       const tripData = response.data;
       console.log(trip)
+      tripDetailsList.append(`<li>Name: ${tripData.id}</li>`);
       tripDetailsList.append(`<li>Name: ${tripData.name}</li>`);
       tripDetailsList.append(`<li>Category: ${tripData.category}</li>`);
       tripDetailsList.append(`<li>Continent: ${tripData.continent}</li>`);
@@ -59,6 +61,7 @@ const tripDetails = (trip) => {
     })
   }
 const reservationForm = (trip_id) => {
+  console.log(trip_id)
   const form =$('#form')
   form.empty();
 
@@ -74,7 +77,7 @@ const reservationForm = (trip_id) => {
       <input type="text" name="email" />
     </div>
     <div>
-      <input type="hidden" name="trip_id" value=${trip_id} />
+      <input type="hidden" name="trip_id" value="${trip_id}" />
     </div>
     <input type="submit" name="reserve" value="Reserve" />
   `);
@@ -109,7 +112,7 @@ const reserveTrip = (event) => { //handler for a `submit`
   const tripInfo = readFormData(); //values from the form
   console.log(tripInfo);
 
-  axios.post(URL + '/' + tripInfo.trip_id + '/reservations', tripInfo)
+  axios.post(URL + '/' + tripInfo.trip_id+ '/reservations', tripInfo)
    .then((response) => {
      reportStatus(`Successfully reserved ${response.data.id}!`);
      clearForm();
@@ -129,8 +132,5 @@ const reserveTrip = (event) => { //handler for a `submit`
 $(document).ready(() => {
   $('#load').click(loadTrips);
 
-  $('#trip-list').on('click', 'li', function(trip) {
-    reservationForm(trip);
-  });
   $('#form').submit(reserveTrip);
 });
