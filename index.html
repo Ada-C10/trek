@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Trek</title>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <!-- Script for axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- Link to local javascript page  -->
+    <script type="text/javascript" src="index.js"></script>
+    <!-- Link to local CSS page -->
+    <link rel="stylesheet" href="index.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond:700|Oswald:400" rel="stylesheet">
+  </head>
+  <body>
+    <main>
+      <section id="status-message"></section>
+      <section class="current-trips">
+        <h1>Trips</h1>
+        <button id="load" class="btn-primary">Show Trips</button>
+        <ul id="trip-list"></ul>
+      </section>
+      <div id="trip-info-container">
+        <section id="trip-details">
+        </section>
+        <section id="reservation">
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

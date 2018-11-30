@@ -1,0 +1,198 @@
+* {
+  font-family: "Oswald", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+  font-family: "EB Garamond", serif;
+}
+
+main {
+  margin: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr;
+  grid-column-gap: 2rem;
+  color: #1e62d0;
+}
+
+#load,
+#reservation-button {
+  margin-bottom: 1rem;
+  background: #3d94f6;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+  color: #fff;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 200;
+  box-shadow: 1px 1px 15px 0px #000;
+  text-shadow: 1px 1px 15px #000;
+  border: solid 1px #337fed;
+  cursor: pointer;
+  background-image: -webkit-linear-gradient(top, #3d94f6, #1e62d0);
+    background-image: -moz-linear-gradient(top, #3d94f6, #1e62d0);
+    background-image: -ms-linear-gradient(top, #3d94f6, #1e62d0);
+    background-image: -o-linear-gradient(top, #3d94f6, #1e62d0);
+    background-image: linear-gradient(to bottom, #3d94f6, #1e62d0);
+}
+
+#reservation-button {
+  font-size: 1rem;
+  font-stretch: extra-expanded;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.current-trips li {
+  padding: 1rem;
+  margin-bottom: 1px;
+  border: 1px solid #1e62d0;
+  text-align: center;
+  color: #fff;
+  background-color: #1e62d0;
+  font-size: 1rem;
+  border-style: outset;
+  font-weight: 200;
+}
+
+.current-trips li:hover {
+  background-color: #3d94f6;
+  color: white;
+  border-style: inset;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+#status-message {
+  text-align: center;
+  grid-column: 1 / 3;
+  grid-row: 1 / 1;
+  font-size: 1.5rem;
+}
+
+.error {
+  color: #be3a30;
+  font-weight: bold;
+}
+
+.success {
+  color: #26aa8a;
+  font-style: italic;
+}
+
+.current-trips {
+  grid-column: 1 / 1;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.current-trips h1 {
+  text-align: center;
+}
+
+#trip-list {
+  display: flex;
+  flex-direction: column;
+}
+
+#trip-details {
+  /* display: flex;
+  flex-direction: column; */
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+#trip-details h1 {
+  text-align: center;
+}
+
+.detailContainer h2,
+p {
+  display: inline;
+}
+
+.detailContainer {
+  padding: 1rem;
+  border: 1px solid #1e62d0;
+}
+
+.detailContainer:nth-child(even) {
+  background: #3d94f6;
+  color: white;
+}
+
+#detail {
+  text-transform: capitalize;
+}
+
+.detailContainer h2 {
+  text-transform: capitalize;
+}
+
+button {
+  padding: 5px;
+  font-weight: bold;
+}
+
+#trip-info-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#reservation {
+  text-align: center;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+#reservation h1 {
+  padding-top: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+}
+
+input {
+  border: 1px solid ##3d94f6;
+  color: #1e62d0;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  max-width: 100%;
+  font-size: 1rem;
+  border-style: outset;
+}
+
+input:hover,
+#reservation-button,
+#load {
+  border-style: inset;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+::placeholder {
+  color: #1e62d0;
+  font-size: 1rem;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
