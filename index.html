@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Trips with ada</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <section id="status-message"></section>
+
+  <main>
+    <section class="current-trips">
+      <h1>List of Trips</h1>
+      <section class="query-options">
+        <select name="Continent">
+          <option value="">Show All</option>
+          <option value="Africa">Africa</option>
+          <option value="Europe">Europe</option>
+          <option value="Asia">Asia</option>
+          <option value="North America">North America</option>
+          <option value="South America">South America</option>
+          <option value="Australia">Australia</option>
+          <option value="Antarctica">Antarctica</option>
+        </select>
+      </section>
+      <button id="load">Show trips!</button>
+      <ul id="trip-list"></ul>
+    </section>
+    <section class="individual-trip">
+      <h1>Trip Details</h1>
+      <ul id="trip-details"></ul>
+      <section class="reserve-trip">
+        <h1>Reserve trip</h1>
+        <form id="trip-form">
+          <div>
+            <p class="trip-name">Trip Name:<strong></strong> </p>
+          </div>
+
+          <div>
+            <label for="name">Full Name: </label>
+            <input type="text" name="name" />
+          </div>
+
+          <div>
+            <label for="email">Email: </label>
+            <input type="text" name="email" />
+          </div>
+
+
+          <div class="hidden-values">
+            <input type="hidden" id="tripID" name="id">
+            <input type="hidden" id="continent" name="continent">
+            <input type="hidden" id="category" name="category">
+            <input type="hidden" id="weeks" name="weeks">
+            <input type="hidden" id="cost" name="cost">
+          </div>
+
+          <input type="submit" name="reserve-trip" value="Reserve Trip" />
+        </form>
+      </section>
+    </section>
+
+
+
+  </main>
+</body>
+</html>
