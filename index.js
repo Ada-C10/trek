@@ -57,7 +57,7 @@ const parsedTripDetails = (response) => {
 
 const fillForm = (event) => {
   $(`#trip-form input[name="trip-name"]`).attr("value", `${$(event.target).text()}`);
-  $(`#trip-form input[name="id"]`).attr("value", `${$(event.target).data("id")}`)
+  $(`#trip-form input[name="id"]`).attr("value", `${$(event.target).data("id")}`);
 };
 
 const loadTrips = () => {
