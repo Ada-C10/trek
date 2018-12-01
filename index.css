@@ -47,3 +47,17 @@ nav {
 .card {
   margin: 3rem 0;
 }
+
+.initially-hidden {
+  display: none;
+}
+
+.scroll-one {
+  max-height: 650px;
+  overflow-y: auto;
+}
+
+.scroll-two {
+  max-height: 300px;
+  overflow-y: auto;
+}

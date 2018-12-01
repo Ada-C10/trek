@@ -7,6 +7,7 @@ const hideDetails = () => {
   $('#trip-details-container').hide();
   $('#trips-container').hide();
   $('#new-trip-container').hide();
+  $('#content-container').removeClass("initially-hidden");
 };
 
 
