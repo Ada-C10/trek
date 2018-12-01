@@ -61,3 +61,8 @@ nav {
   max-height: 300px;
   overflow-y: auto;
 }
+
+.special-color {
+  background-color: rgba(245, 245, 245, 1);
+  opacity: .7;
+}
