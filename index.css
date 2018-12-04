@@ -1,0 +1,68 @@
+#trip {
+  text-align: left;
+}
+
+#trip h4 {
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+form {
+  margin-top: 2rem;
+}
+
+nav {
+  margin-bottom: 1rem;
+}
+
+.jumbotron {
+  margin-bottom: 1rem;
+  background-image: url(jumbotronbackground.jpg);
+  background-position: 0% 26%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  text-shadow: black 0.5em 0.5em 0.5em;
+  padding: 4em;
+}
+
+.jumbotron h1 {
+  font-size: 8rem;
+  font-family: 'Permanent Marker', cursive;
+}
+
+.col-md-6 {
+  height: 20vh;
+  text-align: center;
+}
+
+.right {
+  float: right;
+}
+
+.card {
+  margin: 3rem 0;
+}
+
+.initially-hidden {
+  display: none;
+}
+
+.scroll-one {
+  max-height: 650px;
+  overflow-y: auto;
+}
+
+.scroll-two {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.special-color {
+  background-color: rgba(245, 245, 245, 1);
+  opacity: .7;
+}

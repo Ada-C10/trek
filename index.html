@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Trek</title>
+    <meta charset="utf-8">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Bree+Serif|Permanent+Marker" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+  </head>
+
+  <body>
+    <header class="text-center">
+      <div class="jumbotron">
+        <h1 class="text-center display-4">Trek</h1>
+      </div>
+      <nav>
+        <button id="load" class="btn btn-primary">Get trips!</button>
+        <button id="build" class="btn btn-primary">Create trip!</button>
+        <button id="search" class="btn btn-primary">Search</button>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <section id="alert-container">
+          <div id="alert">
+            <div id="status-message"></div>
+          </div>
+        </section>
+        <section class="row initially-hidden" id="content-container">
+          <section id="new-trip-container" class="col-md-12">
+            <div class="card special-color">
+              <div class="card-body">
+                <h4 class="card-title text-center">Fill in the details below.</h4>
+                <div class="card-text">
+                  <form id="create-form">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="name">Name</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="name" class="name form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="continent">Continent</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="continent" class="continent form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="category">Category</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="category" class="category form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="weeks">Weeks</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="weeks" class="weeks form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="cost">Cost</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="cost" class="cost form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="about">About</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="about" class="about form-control">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary right">Create Trip!</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="search-container" class="col-md-12">
+            <div class="card special-color">
+              <div class="card-body">
+                <h4 class="card-title text-center">Search</h4>
+                <div class="card-text">
+                  <form id="continent-form">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="continent">Continent</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="query" class="continent form-control">
+                      </div>
+                      <div class="col-sm-3">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                      </div>
+                    </div>
+                  </form>
+                  <form id="weeks-form">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="max-weeks">Max Number of Weeks</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="query" class="max-weeks form-control">
+                      </div>
+                      <div class="col-sm-3">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                      </div>
+                    </div>
+                  </form>
+                  <form id="budget-form">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label text-center" for="budget">Budget</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="query" class="budget form-control">
+                      </div>
+                      <div class="col-sm-3">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="search-results-container" class="col-md-6">
+            <div class="card special-color">
+              <div class="card-body">
+                <h4 class="card-title"></h4>
+                <div class="card-text">
+                  <div id="queries"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="trips-container" class="col-md-6">
+            <div class="card special-color">
+              <div class="card-body">
+                <h4 class="card-title">All Trips</h4>
+                <div class="card-text scroll-one">
+                  <div id="trips"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="trip-details-container" class="col-md-6">
+            <div class="card special-color">
+              <div class="card-body">
+                <h4 class="card-title">Details</h4>
+                <div class="card-text scroll-two">
+                  <div id="trip"></div>
+                </div>
+              </div>
+            </div>
+            <div class="card special-color">
+              <div class="card-body">
+                <h4 class="card-title">Reserve your spot!</h4>
+                <div class="card-text">
+                  <form id="trip-form">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label" for="name">Name</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="name" class="name form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label" for="email">Email</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="email" class="email form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label" for="trip-name">Trip</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="trip-name" class="trip-name form-control">
+                      </div>
+                    </div>
+                    <input type="hidden" name="id">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <button type="submit" name="add-trip" class="btn btn-primary right">Add Trip</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+  </body>
+</html>
