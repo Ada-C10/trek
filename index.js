@@ -125,7 +125,7 @@ const createReservation = (event) => {
       clearForm("#trip-form");
     })
     .catch((error) => {
-      if (error.response.data && error.response.data.errors) {
+      if (error.response && error.response.data && error.response.data.errors) {
         reportError(
           `Encountered an error: ${error.message}`,
           error.response.data.errors
