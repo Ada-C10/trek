@@ -1,0 +1,45 @@
+header {
+  background-image: url(mountain-range.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.trip-list {
+  grid-column: 1 / 2;
+  margin-right: 5px;
+}
+
+.trip-detail {
+  grid-column: 2 / 3;
+  margin-left: 5px;
+}
+
+.list-group-item {
+  font-size: 2rem;
+}
+
+.card-text {
+  padding: 10px;
+}
+
+#status-message {
+  text-align: center;
+  font-size: 2rem;
+  color: red;
+}
+
+#navigation-bar {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.nav-link {
+  padding-right: 10px;
+  font-size: 3rem;
+}

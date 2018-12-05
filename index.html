@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Trek</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="trek.js"></script>
+  <link rel="stylesheet" href="trek.css">
+</head>
+
+
+<body>
+
+  <header class="jumbotron text-center">
+
+    <h1>TREK</h1>
+
+    <button type="button" class="btn btn-primary btn-lg" id="view-trip">View All Trips</button>
+
+  </header>
+
+  <section id="navigation-bar"></section>
+  <section id="status-message"></section>
+  
+  <div class="container">
+
+    <div class="trip-list">
+      <div class="card" style="width: 100%;">
+        <div id="trip-list" class="list-group">
+        </div>
+      </div>
+    </div>
+
+    <div class="trip-detail">
+
+      <div class="card" style="width: 100%;">
+        <div id="trip-detail"></div>
+      </div>
+
+      <div class="reservation-form card" style="width: 100%;">
+          <form id="reservation-form">
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
