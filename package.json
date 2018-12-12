@@ -1,0 +1,19 @@
+{
+  "name": "trek",
+  "version": "1.0.0",
+  "description": "## At a Glance",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BASIC-Belic/trek.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BASIC-Belic/trek/issues"
+  },
+  "homepage": "https://github.com/BASIC-Belic/trek#readme"
+}

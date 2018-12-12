@@ -1,0 +1,313 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body{
+  min-height: 100%;
+}
+
+body.static {
+  background-image: url("https://cdn.dribbble.com/users/251177/screenshots/3178715/dribbble.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.8;
+}
+
+body h1 {
+  padding: 1rem;
+  color: black;
+}
+
+body h1:hover,.sub-heading:hover, .main .main-empty:hover {
+  text-decoration: underline;
+}
+
+.main .main-empty:hover ,.sub-heading:hover {
+  color: yellow;
+}
+
+body h1:hover {
+  color: blue;
+}
+
+body h1#home-header {
+  color: lightblue;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.header#error section#status-message {
+  color: #d92626;
+  background-color: #ffe6e6;
+  border-color: #ffcccc;
+  display: flex;
+  flex-direction: column;
+}
+
+.header h1 {
+  text-align: center;
+  font-family: 'lato',sans-serif;
+  font-weight: 300;
+  font-size: 50px;
+  letter-spacing: 10px;
+  padding-bottom: 2.9rem;
+  padding-top: 2.5rem;
+  margin: 0;
+}
+
+.nav, #status-message, .footer {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+/*Grid */
+.grid-container {
+  min-height: 100%;
+  height:100%;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-rows: 15rem 6rem auto 6rem;
+  grid-template-areas: "header" "nav" "main" "footer";
+}
+
+.main {
+  grid-area: main;
+}
+
+.main .main-empty {
+  position: absolute;
+  top: 55%;
+  font-size:36px;
+  margin-left: 32%;
+  padding: 0.5rem;
+  text-align: center;
+  color: lightblue;
+  border: 1px solid blue;
+}
+
+.main #trip.list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main #trip.list li {
+
+  padding-right: 4rem;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+  padding-left: 0;
+  max-width: 16rem;
+  height: 30rem;
+  justify-content: space-between;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.main ul#trip.detail {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "trip-show" "trip-form-div";
+  justify-content: space-around;
+  justify-content: space-between;
+}
+
+.main ul#trip.detail div.trip-form-div, .main ul#trip.detail div.trip-show {
+  padding: 10rem 8rem 10rem 8rem;
+  align-self: center;
+}
+
+div#form-button {
+  padding-top: 1rem;
+}
+
+div input[name=age] {
+   width: 10rem;
+}
+
+.main #trip.list img {
+  max-width: 13rem;
+  height: 13rem;
+}
+
+.header {
+  grid-area: header;
+}
+
+.header section#status-message {
+  text-align: center;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.nav {
+  display: grid;
+  grid-template-columns: auto 25%;
+  grid-template-rows: 1fr;
+  grid-template-areas: "sub-heading toggle";
+  grid-area: nav;
+  justify-content: center;
+  justify-content: space-between;
+}
+
+.toggle {
+  grid-area: toggle;
+  align-self: center;
+  padding-top: 1rem;
+
+}
+
+.sub-heading {
+  color: #778899;
+  grid-area: sub-heading;
+  text-align: center;
+  padding-left: 2rem;
+}
+
+.footer {
+  grid-area: footer;
+  text-align: center;
+  padding: 1rem;
+  padding-top: 2rem;
+  bottom: 0;
+  color: #FF7F50;
+  background-image: url("https://66.media.tumblr.com/a6bc72247bb49b5ca19c921800d9a383/tumblr_ov04rtNPcN1vbfbhho1_400.gif");
+  height: 100%;
+  background-position: center;
+}
+
+.footer#body-empty {
+  bottom: 0;
+  position: absolute;
+  text-align: center;
+  width:100%;
+  height:60px;
+}
+
+/* Checkbox*/
+.toggle{
+  width:60px;
+  text-align:center;
+}
+.ios-toggle,.ios-toggle:active{
+  position:absolute;
+  top:-5000px;
+  height:0;
+  width:0;
+  opacity:0;
+  border:none;
+  outline:none;
+}
+
+.checkbox-label{
+
+  display:block;
+  position:relative;
+  padding:10px;
+  margin-bottom:20px;
+  font-size:12px;
+  line-height:16px;
+  width:100%;
+  height:36px;
+  /*border-radius*/
+  -webkit-border-radius:18px;
+  -moz-border-radius:18px;
+  border-radius:18px;
+  background:#f8f8f8;
+  cursor:pointer;
+}
+
+.checkbox-label:before{
+  content:'';
+  display:block;
+  position:absolute;
+  z-index:1;
+  line-height:34px;
+  text-indent:40px;
+  height:36px;
+  width:36px;
+  /*border-radius*/
+  -webkit-border-radius:100%;
+  -moz-border-radius:100%;
+  border-radius:100%;
+  top:0px;
+  left:0px;
+  right:auto;
+  background:white;
+  /*box-shadow*/
+  -webkit-box-shadow:0 3px 3px rgba(0,0,0,.2),0 0 0 2px #dddddd;
+  -moz-box-shadow:0 3px 3px rgba(0,0,0,.2),0 0 0 2px #dddddd;
+  box-shadow:0 3px 3px rgba(0,0,0,.2),0 0 0 2px #dddddd;
+}
+
+.checkbox-label:after{
+  content:attr(data-off);
+  display:block;
+  position:absolute;
+  z-index:0;
+  top:0;
+  left:-300px;
+  padding:10px;
+  height:100%;
+  width:300px;
+  text-align:right;
+  color: #1fc1c8;
+  white-space:nowrap;
+}
+
+.ios-toggle:checked + .checkbox-label{
+  /*box-shadow*/
+  -webkit-box-shadow:inset 0 0 0 20px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
+  -moz-box-shadow:inset 0 0 0 20px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
+  box-shadow:inset 0 0 0 20px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
+}
+
+.ios-toggle:checked + .checkbox-label:before{
+  left:calc(100% - 36px);
+  /*box-shadow*/
+  -webkit-box-shadow:0 0 0 2px transparent,0 3px 3px rgba(0,0,0,.3);
+  -moz-box-shadow:0 0 0 2px transparent,0 3px 3px rgba(0,0,0,.3);
+  box-shadow:0 0 0 2px transparent,0 3px 3px rgba(0,0,0,.3);
+}
+
+.ios-toggle:checked + .checkbox-label:after{
+  content:attr(data-on);
+  left:60px;
+  width:36px;
+}
+
+/* BLUE CHECKBOX */
+
+#checkbox3 + .checkbox-label{
+  /*box-shadow*/
+  -webkit-box-shadow:inset 0 0 0 0px #1fc1c8,0 0 0 2px #dddddd;
+  -moz-box-shadow:inset 0 0 0 0px #1fc1c8,0 0 0 2px #dddddd;
+  box-shadow:inset 0 0 0 0px #1fc1c8,0 0 0 2px #dddddd;
+}
+#checkbox3:checked + .checkbox-label{
+  /*box-shadow*/
+  -webkit-box-shadow:inset 0 0 0 20px #1fc1c8,0 0 0 2px #1fc1c8;
+  -moz-box-shadow:inset 0 0 0 20px #1fc1c8,0 0 0 2px #1fc1c8;
+  box-shadow:inset 0 0 0 20px #1fc1c8,0 0 0 2px #1fc1c8;
+}
+#checkbox3:checked + .checkbox-label:after{
+  color:#1fc1c8;
+}
+
+.stars {
+  background:#000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
+  width: 100%
+  z-index:0;
+}
