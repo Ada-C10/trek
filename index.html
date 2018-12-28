@@ -25,18 +25,34 @@
   </header>
 
   <main>
-    <section class="current-trips">
-      <div id='status-message'></div>
-      <h1>Trips</h1>
+    <div class="container">
 
-      <button id="load">Load All Trips</button>
+       <div class="triplist">
 
-      <ul id="trip-list"></ul>
-    </section>
+         <button id="button-load-trips">All Trips</button>
+         <ul id="trip-list"></ul>
+       </div>
 
-      <section id='trip-details'></section>
+       <div class="tripdetail">
+         <ul id="trip-detail"></ul>
 
-      <section id='reserve'></section>
+         <div class="new-reservation">
+           <form id="addForm">
+             <h1>Add reservation</h1>
+             <div>
+               <label for="name">Name</label>
+               <input type="text" name="name" />
+             </div>
+             <div>
+               <label for="email">Email</label>
+               <input type="text" name="email" />
+             </div>
+             <input type="submit" name="add-trip" value="Add Trip" />
+           </form>
+         </div>
+       </div>
+
+     </div>
   </main>
 
   <footer>
